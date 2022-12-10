@@ -1,0 +1,10 @@
+<ion-content [fullscreen]="true" [formGroup]="formGroup">
+
+  <ion-input formControlName="email">email</ion-input>
+  <ion-input formControlName="password">password</ion-input>
+  <ion-input formControlName="confirmPassword">confirm password</ion-input>
+
+  <ion-button [disabled]="formGroup.invalid" (click)="signUp()">sign up</ion-button>
+  <ion-button (click)="goToSignIn()">go to sign in</ion-button>
+
+</ion-content>

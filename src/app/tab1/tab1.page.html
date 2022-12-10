@@ -3,6 +3,7 @@
     <ion-title>
       Tab 1
     </ion-title>
+    <ion-button (click)="signOut()">Sign Out</ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -15,6 +16,8 @@
   <ion-input formControlName="amount">amount</ion-input>
   <ion-input formControlName="category">category</ion-input>
   <ion-button [disabled]="spendingFormGroup.invalid" (click)="addSpending()">add spending</ion-button>
+  <ion-button (click)="getSpending()">get spending</ion-button>
+  <ion-button (click)="test()">test</ion-button>
 
   <app-explore-container name="Tab 1 page"></app-explore-container>
 </ion-content>

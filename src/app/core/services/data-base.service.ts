@@ -1,23 +1,35 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import { SpendingDto } from '../dto/spending.dto';
+import { SpendingEntity } from '../entity/entity';
 
 @Injectable()
 export class DataBaseService {
 
-  private spending: AngularFireList<SpendingDto>;
-
-  constructor(private db: AngularFireDatabase) {
-    this.spending = this.db.list<SpendingDto>('spending');
+  constructor(private firestore: AngularFirestore) {
   }
 
-  getSpending(): Observable<SpendingDto[]> {
-    return this.spending.valueChanges();
+  getAllSpending(userId: string): Observable<SpendingEntity[]> {
+    return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('uid', '==', userId))
+      .valueChanges();
   }
 
-  addSpending(spending: SpendingDto): void {
-    this.spending.push(spending);
+  getSpending(id: string, userId: string): Observable<SpendingEntity | undefined> {
+    return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('uid', '==', userId))
+      .doc(id).valueChanges();
+  }
+
+  createSpending(spending: SpendingEntity, userId: string): void {
+    this.firestore.collection<SpendingEntity>('spending').doc(spending.id).set(spending).then();
+  }
+
+  updateSpending(spending: SpendingEntity): void {
+    this.firestore.collection<SpendingEntity>('spending').doc(spending.id).update(spending).then();
+  }
+
+  deleteSpending(id: string, userId: string): void {
+    this.firestore.collection<SpendingEntity>('spending',ref => ref.where('uid', '==', userId))
+      .doc(id).delete().then();
   }
 }
