@@ -28,7 +28,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then(result => {
         this.setUserData(result.user).then();
-        this.router.navigate(['tabs/tab1']).then();
+        this.router.navigate(['tabs/create-spending-page']).then();
       })
       .catch((error) => {
         window.alert(error.message);
@@ -42,7 +42,7 @@ export class AuthService {
       .then((result) => {
         this.sendVerificationMail().then();
         this.setUserData(result.user).then();
-        this.router.navigate(['tabs/tab1']).then();
+        this.router.navigate(['tabs/create-spending-page']).then();
       })
       .catch((error) => {
         window.alert(error.message);

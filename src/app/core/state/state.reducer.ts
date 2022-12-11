@@ -1,22 +1,22 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { SpendingModel } from '../interface/spendingModel';
+import { SpendingModel } from '../interfaces/models';
 
-export interface reducerState {
+export interface ReducerState {
   userId: string,
   spendingList: SpendingModel[],
 }
 
-export const initialState: reducerState = {
+export const initialState: ReducerState = {
   userId: '',
   spendingList: [],
 };
 
-export function stateReducer(state: reducerState | undefined, action: Action): reducerState {
+export function stateReducer(state: ReducerState | undefined, action: Action): ReducerState {
   return reducer(state, action);
 }
 
 export const stateKey = 'state';
-const reducer = createReducer<reducerState>(
+const reducer = createReducer<ReducerState>(
   initialState,
 );

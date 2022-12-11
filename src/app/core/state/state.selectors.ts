@@ -1,8 +1,8 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-import { stateKey, reducerState } from './state.reducer';
+import { stateKey, ReducerState } from './state.reducer';
 
-const stateSelector = createFeatureSelector<reducerState>(stateKey);
+const stateSelector = createFeatureSelector<ReducerState>(stateKey);
 
 export namespace StateSelectors {
 

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { SpendingModel } from '../interface/spendingModel';
+import { SpendingModel } from '../interfaces/models';
 
 export namespace StateActions {
 

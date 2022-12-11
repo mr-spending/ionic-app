@@ -4,18 +4,24 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthComponent } from './auth.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { AuthRoutesEnum } from '../core/interfaces/enums';
 
 const routes: Routes = [
   {
-    path: 'auth',
+    path: '',
     component: AuthComponent,
     children: [
       {
-        path: 'sign-in',
+        path: '',
+        redirectTo: AuthRoutesEnum.SignIn,
+        pathMatch: 'full'
+      },
+      {
+        path: AuthRoutesEnum.SignIn,
         component: SignInComponent,
       },
       {
-        path: 'sign-up',
+        path: AuthRoutesEnum.SignUp,
         component: SignUpComponent,
       },
     ]

@@ -1,9 +1,9 @@
 import { ActionReducerMap } from '@ngrx/store';
 
-import { stateReducer, stateKey, reducerState } from './state.reducer';
+import { stateReducer, stateKey, ReducerState } from './state.reducer';
 
 interface AppState {
-  [stateKey]: reducerState;
+  [stateKey]: ReducerState;
 }
 
 export const appReducer: ActionReducerMap<AppState, any> = {
