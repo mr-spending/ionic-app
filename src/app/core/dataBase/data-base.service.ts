@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import { SpendingEntity } from '../entity/entity';
+import { SpendingEntity } from '../interface/entities';
 
 @Injectable()
 export class DataBaseService {

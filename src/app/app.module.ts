@@ -10,6 +10,7 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './auth/auth.module';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -20,7 +21,8 @@ import { AuthModule } from './auth/auth.module';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
     CoreModule,
-    AuthModule
+    AuthModule,
+    StoreModule.forRoot({}, {})
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

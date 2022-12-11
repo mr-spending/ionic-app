@@ -1,4 +1,4 @@
-export interface SpendingDto {
+export interface SpendingModel {
   id: string;
   amount: number;
   date: string;

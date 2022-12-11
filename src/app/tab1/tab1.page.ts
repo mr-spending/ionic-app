@@ -3,10 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guid } from "typescript-guid";
 import * as moment from 'moment/moment';
 
-import { SpendingDto } from '../core/dto/spending.dto';
-import { DataBaseService } from '../core/services/data-base.service';
+import { DataBaseService } from '../core/dataBase/data-base.service';
 import { AuthService } from '../auth/services/auth.service';
-import { SpendingEntity } from '../core/entity/entity';
+import { SpendingEntity } from '../core/interface/entities';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
