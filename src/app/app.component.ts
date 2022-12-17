@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
 
   constructor() {
+    this.toggleDarkTheme(false);
+  }
+
+  toggleDarkTheme(shouldAdd: boolean): void {
+    document.body.classList.toggle('dark', shouldAdd);
   }
 }
