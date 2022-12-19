@@ -2,8 +2,9 @@ import { Injectable, NgZone } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import firebase from 'firebase/compat';
 import { map, Observable } from 'rxjs';
+
+import { AuthRoutesEnum, MainRoutesEnum } from '../../core/interfaces/enums';
 
 @Injectable()
 export class AuthService {
@@ -28,7 +29,7 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then(result => {
         this.setUserData(result.user).then();
-        this.router.navigate(['tabs/create-spending-page']).then();
+        this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
       })
       .catch((error) => {
         window.alert(error.message);
@@ -42,7 +43,7 @@ export class AuthService {
       .then((result) => {
         this.sendVerificationMail().then();
         this.setUserData(result.user).then();
-        this.router.navigate(['tabs/create-spending-page']).then();
+        this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
       })
       .catch((error) => {
         window.alert(error.message);
@@ -110,6 +111,6 @@ export class AuthService {
 
   /** Sign out */
   signOut() {
-    return this.afAuth.signOut().then(() => this.router.navigate(['auth/sign-in']));
+    return this.afAuth.signOut().then(() => this.router.navigate([`${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignIn}`]));
   }
 }

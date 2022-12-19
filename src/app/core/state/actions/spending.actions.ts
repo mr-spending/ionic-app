@@ -1,8 +1,8 @@
 import { createAction, props } from '@ngrx/store';
 
-import { SpendingModel } from '../interfaces/models';
+import { SpendingModel } from '../../interfaces/models';
 
-export namespace StateActions {
+export namespace SpendingActions {
 
   export const allSpendingData = createAction('[State] All Spending Data');
   export const allSpendingDataSuccess = createAction('[State] All Spending Data Success', props<{ payload: SpendingModel[] }>());

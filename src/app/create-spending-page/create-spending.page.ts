@@ -5,8 +5,8 @@ import * as moment from 'moment/moment';
 import { Store } from '@ngrx/store';
 
 import { SpendingModel } from '../core/interfaces/models';
-import { ReducerState } from '../core/state/state.reducer';
-import { StateActions } from '../core/state/stateActions';
+import { SpendingActions } from '../core/state/actions/spending.actions';
+import { SpendingState } from '../core/state/app.reduser.model';
 
 @Component({
   selector: 'app-create-spending.page',
@@ -18,7 +18,7 @@ export class CreateSpendingPage {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<ReducerState>
+    private store: Store<SpendingState>
   ) {
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
@@ -36,6 +36,6 @@ export class CreateSpendingPage {
       id: Guid.create().toString(),
       date: moment().toISOString(),
     }
-    this.store.dispatch(StateActions.createSpending({ payload: spendingItem }));
+    this.store.dispatch(SpendingActions.createSpending({ payload: spendingItem }));
   }
 }

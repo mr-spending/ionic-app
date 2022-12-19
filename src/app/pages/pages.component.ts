@@ -1,10 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Subscription } from 'rxjs';
-import { Store } from '@ngrx/store';
 
-import { ReducerState } from '../core/state/state.reducer';
-import { UserModel } from '../core/interfaces/models';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
   selector: 'app-pages',
@@ -15,7 +12,7 @@ export class PagesComponent implements OnDestroy {
 
   subscription: Subscription = new Subscription();
 
-  constructor(private afAuth: AngularFireAuth) {
+  constructor(private authService: AuthService) {
   }
 
   ngOnDestroy(): void {
@@ -23,6 +20,6 @@ export class PagesComponent implements OnDestroy {
   }
 
   logOut() {
-    this.afAuth.signOut().then();
+    this.authService.signOut().then();
   }
 }

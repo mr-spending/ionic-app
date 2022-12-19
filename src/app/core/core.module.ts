@@ -9,14 +9,15 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { DataBaseService } from './data-base/data-base.service';
 import { appReducer } from './state/app.reducer';
-import { StateEffects } from './state/state.effects';
+import { SpendingEffects } from './state/effects/spending.effects';
 import { environment } from '../../environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthService } from '../auth/services/auth.service';
+import { UserEffects } from './state/effects/user.effects';
 
 const ngRxModules = [
   StoreModule.forRoot(appReducer),
-  EffectsModule.forRoot([StateEffects]),
+  EffectsModule.forRoot([SpendingEffects, UserEffects]),
   StoreDevtoolsModule.instrument({ maxAge: 100 }),
 ];
 

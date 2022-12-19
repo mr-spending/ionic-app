@@ -1,8 +1,29 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="ion-text-center">
+      Sign In
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true" [formGroup]="formGroup">
+  <ion-list class="ion-margin-vertical">
+    <ion-item>
+      <ion-label>Email:</ion-label>
+      <ion-input formControlName="email" placeholder="Type your email"></ion-input>
+    </ion-item>
 
-  <ion-input formControlName="email">email</ion-input>
-  <ion-input formControlName="password">password</ion-input>
-  <ion-button [disabled]="formGroup.invalid" (click)="signIn()">sign in</ion-button>
-  <ion-button (click)="goToSignUp()">go to sign up</ion-button>
+    <ion-item>
+      <ion-label>Password:</ion-label>
+      <ion-input formControlName="password" placeholder="********" [type]="showPassword ? 'text' : 'password'"></ion-input>
 
+      <ion-icon *ngIf="!showPassword" name="eye-outline" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
+      <ion-icon *ngIf="showPassword" name="eye-off-outline" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
+    </ion-item>
+  </ion-list>
+
+  <ion-row class="ion-padding">
+    <ion-button shape="round" fill="outline" (click)="goToSignUp()">Go to sign up</ion-button>
+    <ion-button shape="round" fill="solid" class="ion-margin-start" [disabled]="formGroup.invalid" (click)="signIn()">Sign in</ion-button>
+  </ion-row>
 </ion-content>
