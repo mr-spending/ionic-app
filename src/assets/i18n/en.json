@@ -1,5 +1,26 @@
 {
   "auth": {
-    "signIn": "Sign In"
+    "signIn": "Sign In",
+    "email": "Email:",
+    "emailPlaceholder": "Type your email",
+    "password": "Password:",
+    "confirmPassword": "Confirm password:",
+    "goToSignUp": "Go to sign up",
+    "goToSignIn": "Go to sign in",
+    "signUp": "Sign up"
+  },
+  "pages": {
+    "createSpending": "New Spending",
+    "menu": "Menu",
+    "logOut": "Sign out"
+  },
+  "createSpending": {
+    "amount": "Amount:",
+    "category": "Category:",
+    "description": "Description:",
+    "amountPlaceholder": "Type your amount",
+    "categoryPlaceholder": "Select category",
+    "descriptionPlaceholder": "Type your description. Optional.",
+    "addSpending": "Add spending"
   }
 }

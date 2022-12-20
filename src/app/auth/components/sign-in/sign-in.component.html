@@ -10,7 +10,10 @@
   <ion-list class="ion-margin-vertical">
     <ion-item>
       <ion-label>{{ 'auth.email' | translate }}</ion-label>
-      <ion-input formControlName="email" placeholder="Type your email"></ion-input>
+      <ion-input
+        formControlName="email"
+        [placeholder]="'auth.emailPlaceholder' | translate"
+      ></ion-input>
     </ion-item>
 
     <ion-item>

@@ -1,13 +1,13 @@
 <ion-menu contentId="main-content">
   <ion-header>
     <ion-toolbar>
-      <ion-title>{{ 'pages.menu' }}</ion-title>
+      <ion-title>{{ 'pages.menu' | translate}}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
     <ion-button size="small" (click)="logOut()">
       <ion-icon name="log-out-outline"></ion-icon>
-      {{ 'pages.logOut' }}
+      {{ 'pages.logOut' | translate}}
     </ion-button>
   </ion-content>
 </ion-menu>
@@ -18,7 +18,7 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>{{ 'pages.menu' }}</ion-title>
+      <ion-title>{{ 'pages.createSpending' | translate }}</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">

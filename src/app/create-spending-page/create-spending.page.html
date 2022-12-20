@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-title size="large" class="ion-text-center">
         {{ currency }}
-        {{ totalPerMonth }}
+        {{ totalPerMonth | number: '.0-2'}}
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -11,7 +11,7 @@
   <ion-content [formGroup]="formGroup">
     <ion-list class="ion-margin-vertical">
       <ion-item>
-        <ion-label>{{ 'createSpending.amountLabel' | translate }}</ion-label>
+        <ion-label>{{ 'createSpending.amount' | translate }}</ion-label>
         <ion-input
           formControlName="amount"
           [placeholder]="'createSpending.amountPlaceholder' | translate"

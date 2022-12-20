@@ -1,5 +1,26 @@
 {
   "auth": {
-    "signIn": "Вхід"
+    "signIn": "Вхід",
+    "email": "Логін:",
+    "emailPlaceholder": "Вкажіть свій імейл",
+    "password": "Пароль:",
+    "confirmPassword": "Підтвердити пароль:",
+    "goToSignUp": "Реєстрація",
+    "goToSignIn": "Вхід",
+    "signUp": "Реєстрація"
+  },
+  "pages": {
+    "createSpending": "Додати витрати",
+    "menu": "Меню",
+    "logOut": "Вийди розбійник"
+  },
+  "createSpending": {
+    "amount": "Сума:",
+    "category": "Категорія:",
+    "description": "Опис:",
+    "amountPlaceholder": "Введіть сумму",
+    "categoryPlaceholder": "Натисніть щоб обрати",
+    "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
+    "addSpending": "Додати витрату"
   }
 }
