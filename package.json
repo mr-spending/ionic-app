@@ -30,6 +30,8 @@
     "@ngrx/effects": "^15.0.0",
     "@ngrx/store": "^15.0.0",
     "@ngrx/store-devtools": "^15.0.0",
+    "@ngx-translate/core": "^14.0.0",
+    "@ngx-translate/http-loader": "^7.0.0",
     "firebase": "^9.1.0",
     "ionicons": "^6.0.3",
     "moment": "^2.29.4",
