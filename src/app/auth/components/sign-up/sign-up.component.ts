@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CustomValidators } from '../../../core/utils/custom-validators.class';
+import { AuthRoutesEnum, MainRoutesEnum } from '../../../core/interfaces/enums';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,6 +12,7 @@ import { CustomValidators } from '../../../core/utils/custom-validators.class';
 })
 export class SignUpComponent {
   formGroup: FormGroup;
+  showPassword = false;
 
   constructor(
     private fb: FormBuilder,
@@ -35,6 +37,10 @@ export class SignUpComponent {
   }
 
   goToSignIn(): void {
-    this.router.navigate(['auth/sign-in']).then();
+    this.router.navigate([`${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignIn}`]).then();
+  }
+
+  toggleShowPassword(): void {
+    this.showPassword = !this.showPassword;
   }
 }
