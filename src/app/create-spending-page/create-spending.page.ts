@@ -15,11 +15,15 @@ import { SpendingState } from '../core/state/app.reduser.model';
 })
 export class CreateSpendingPage {
   formGroup: FormGroup;
+  currency: string;
+  totalPerMonth: number;
 
   constructor(
     private fb: FormBuilder,
     private store: Store<SpendingState>
   ) {
+    this.currency = '₴';
+    this.totalPerMonth = 15000.00;
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
       category: this.fb.control(null, Validators.required),

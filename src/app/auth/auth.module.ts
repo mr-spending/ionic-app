@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TranslateModule } from '@ngx-translate/core';
 
 import { AuthComponent } from './auth.component';
 import { AuthRoutingModule } from './auth-routing.module';
@@ -20,7 +19,6 @@ import { SignUpComponent } from './components/sign-up/sign-up.component';
     CommonModule,
     AuthRoutingModule,
     SharedModule,
-    TranslateModule,
   ]
 })
 export class AuthModule { }

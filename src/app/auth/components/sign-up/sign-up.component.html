@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title class="ion-text-center">
-      Sign Up
+      {{ 'auth.signUp' | translate }}
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,12 @@
 <ion-content [fullscreen]="true" [formGroup]="formGroup">
   <ion-list class="ion-margin-vertical">
     <ion-item>
-      <ion-label>Email:</ion-label>
+      <ion-label>{{ 'auth.email' | translate }}</ion-label>
       <ion-input formControlName="email" placeholder="Type your email"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label>Password:</ion-label>
+      <ion-label>{{ 'auth.password' | translate }}</ion-label>
       <ion-input formControlName="password" [type]="showPassword ? 'text' : 'password'"></ion-input>
 
       <ion-icon *ngIf="!showPassword" name="eye-outline" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
@@ -22,7 +22,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Password:</ion-label>
+      <ion-label>{{ 'auth.confirmPassword' | translate }}</ion-label>
       <ion-input formControlName="confirmPassword" [type]="showPassword ? 'text' : 'password'"></ion-input>
 
       <ion-icon *ngIf="!showPassword" name="eye-outline" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
@@ -31,8 +31,8 @@
   </ion-list>
 
   <ion-row class="ion-padding">
-    <ion-button shape="round" fill="outline" (click)="goToSignIn()">Go to sign in</ion-button>
-    <ion-button shape="round" fill="solid" class="ion-margin-start" [disabled]="formGroup.invalid" (click)="signUp()">Sign up</ion-button>
+    <ion-button shape="round" fill="outline" (click)="goToSignIn()">{{ 'auth.goToSignIn' | translate }}</ion-button>
+    <ion-button shape="round" fill="solid" class="ion-margin-start" [disabled]="formGroup.invalid" (click)="signUp()">{{ 'auth.signUp' | translate }}</ion-button>
   </ion-row>
 </ion-content>
 
