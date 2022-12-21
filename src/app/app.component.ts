@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { languageList } from './core/constants/languages.constants';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
   }
 
   initializeApp() {
-    this.translate.setDefaultLang('en');
+    this.translate.addLangs(languageList);
+    this.translate.setDefaultLang(languageList[0]);
   }
 }

@@ -9,10 +9,16 @@
     "goToSignIn": "Go to sign in",
     "signUp": "Sign up"
   },
+  "language": {
+    "en": "English",
+    "ua": "Ukraine"
+  },
   "pages": {
     "createSpending": "New Spending",
     "menu": "Menu",
-    "logOut": "Sign out"
+    "logOut": "Sign out",
+    "selectLanguage": "Language",
+    "selectLanguagePlaceholder": "Select"
   },
   "createSpending": {
     "amount": "Amount:",

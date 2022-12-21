@@ -9,10 +9,16 @@
     "goToSignIn": "Вхід",
     "signUp": "Реєстрація"
   },
+  "language": {
+    "en": "Англійська",
+    "ua": "Українська"
+  },
   "pages": {
     "createSpending": "Додати витрати",
     "menu": "Меню",
-    "logOut": "Вийди розбійник"
+    "logOut": "Вийди розбійник",
+    "selectLanguage": "Мова",
+    "selectLanguagePlaceholder": "Обрати"
   },
   "createSpending": {
     "amount": "Сума:",

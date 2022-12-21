@@ -5,6 +5,21 @@
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item>
+        <ion-label>{{ 'pages.selectLanguage' | translate }}</ion-label>
+        <ion-select
+          [placeholder]="'pages.selectLanguagePlaceholder' | translate"
+          [formControl]="languageControl"
+          (ngModelChange)="languageChange($event)"
+        >
+          <ion-select-option *ngFor="let item of languageList" [value]="item">
+            {{ 'language.' + item | translate }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
     <ion-button size="small" (click)="logOut()">
       <ion-icon name="log-out-outline"></ion-icon>
       {{ 'pages.logOut' | translate}}
