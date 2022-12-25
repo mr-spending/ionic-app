@@ -6,18 +6,18 @@ import { EffectsModule } from '@ngrx/effects';
 import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 import { DataBaseService } from './data-base/data-base.service';
 import { appReducer } from './state/app.reducer';
-import { SpendingEffects } from './state/effects/spending.effects';
 import { environment } from '../../environments/environment';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AuthService } from '../auth/services/auth.service';
 import { UserEffects } from './state/effects/user.effects';
+import { SpendingEffects } from './state/effects/spending.effects';
 
 const ngRxModules = [
   StoreModule.forRoot(appReducer),
-  EffectsModule.forRoot([SpendingEffects, UserEffects]),
+  EffectsModule.forRoot([UserEffects, SpendingEffects]),
   StoreDevtoolsModule.instrument({ maxAge: 100 }),
 ];
 

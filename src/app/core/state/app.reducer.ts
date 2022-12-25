@@ -1,13 +1,18 @@
 import { ActionReducerMap } from '@ngrx/store';
 
-import { spendingReducer } from './reducers/spending.reducer';
-import { userReducer } from './reducers/user.reducer';
-import { AppState } from './app.reduser.model';
+import {
+  UserState,
+  userReducer,
+  userStateKey
+} from './reducers/user.reducer';
+import { spendingReducer, SpendingState, spendingStateKey } from './reducers/spending.reducer';
 
-export const spendingKey = 'spending';
-export const userKey = 'user';
+interface AppState {
+  [userStateKey]: UserState;
+  [spendingStateKey]: SpendingState;
+}
 
 export const appReducer: ActionReducerMap<AppState, any> = {
-  [spendingKey]: spendingReducer,
-  [userKey]: userReducer,
+  [userStateKey]: userReducer,
+  [spendingStateKey]: spendingReducer,
 };

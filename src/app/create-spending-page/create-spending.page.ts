@@ -5,8 +5,8 @@ import * as moment from 'moment/moment';
 import { Store } from '@ngrx/store';
 
 import { SpendingModel } from '../core/interfaces/models';
+import { SpendingState } from '../core/state/reducers/spending.reducer';
 import { SpendingActions } from '../core/state/actions/spending.actions';
-import { SpendingState } from '../core/state/app.reduser.model';
 
 @Component({
   selector: 'app-create-spending.page',
@@ -20,7 +20,7 @@ export class CreateSpendingPage {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<SpendingState>
+    private spendingStore: Store<SpendingState>
   ) {
     this.currency = '₴';
     this.totalPerMonth = 15000.00;
@@ -40,6 +40,6 @@ export class CreateSpendingPage {
       id: Guid.create().toString(),
       date: moment().toISOString(),
     }
-    this.store.dispatch(SpendingActions.createSpending({ payload: spendingItem }));
+    this.spendingStore.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
   }
 }

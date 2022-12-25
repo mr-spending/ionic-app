@@ -1,5 +1,9 @@
-import { SpendingModel } from './models';
+import { SpendingModel, UserModel } from './models';
 
 export interface SpendingEntity extends SpendingModel {
-  uid: string;
+  userId: string;
+}
+
+export interface UserEntity extends UserModel {
+
 }

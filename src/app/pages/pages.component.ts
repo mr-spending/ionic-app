@@ -19,7 +19,7 @@ export class PagesComponent implements OnDestroy {
   constructor(
     private authService: AuthService,
     private translateService: TranslateService,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     this.languageList = this.translateService.getLangs();
     this.languageControl = this.fb.control(this.languageList[0]);

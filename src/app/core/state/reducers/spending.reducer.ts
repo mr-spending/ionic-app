@@ -1,8 +1,13 @@
-import { Action, createReducer } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store';
 
-import { SpendingState } from '../app.reduser.model';
+import { SpendingModel } from '../../interfaces/models';
+import { SpendingActions } from '../actions/spending.actions';
 
-const initialSpendingState: SpendingState = {
+export interface SpendingState {
+  spendingList: SpendingModel[];
+}
+
+export const initialState: SpendingState = {
   spendingList: [],
 };
 
@@ -10,6 +15,9 @@ export function spendingReducer(state: SpendingState | undefined, action: Action
   return reducer(state, action);
 }
 
+export const spendingStateKey = 'spending';
 const reducer = createReducer<SpendingState>(
-  initialSpendingState,
+  initialState,
+
+  on(SpendingActions.spendingListSuccess, (state, { payload }) => ({ ...state, spendingList: payload })),
 );

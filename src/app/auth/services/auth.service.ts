@@ -1,10 +1,17 @@
-import { Injectable, NgZone } from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import firebase from 'firebase/compat';
+import UserCredential = firebase.auth.UserCredential;
+import { AlertController } from '@ionic/angular';
 
 import { AuthRoutesEnum, MainRoutesEnum } from '../../core/interfaces/enums';
+import { UserModel } from '../../core/interfaces/models';
+import User = firebase.User;
+import { UserActions } from '../../core/state/actions/user.actions';
+import { UserState } from '../../core/state/reducers/user.reducer';
 
 @Injectable()
 export class AuthService {
@@ -12,10 +19,10 @@ export class AuthService {
   private authState$: Observable<any> = this.afAuth.authState;
 
   constructor(
-    public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
-    public ngZone: NgZone
+    private alertController: AlertController,
+    private store: Store<UserState>,
   ) {
   }
 
@@ -27,12 +34,14 @@ export class AuthService {
   signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then(result => {
-        this.setUserData(result.user).then();
-        this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
-      })
+      .then(() => this.router.navigate([`${MainRoutesEnum.Pages}`]).then())
       .catch((error) => {
-        window.alert(error.message);
+        this.alertController.create({
+          header: 'Alert',
+          subHeader: 'Important message',
+          message: error.message,
+          buttons: ['OK'],
+        }).then((res) => res.present());
       });
   }
 
@@ -40,17 +49,24 @@ export class AuthService {
   signUp(email: string, password: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
+      .then((result: UserCredential) => {
         this.sendVerificationMail().then();
-        this.setUserData(result.user).then();
-        this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        if (result.user) {
+          this.addUser(result.user);
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        }
       })
       .catch((error) => {
-        window.alert(error.message);
+        this.alertController.create({
+          header: 'Alert',
+          subHeader: 'Important message',
+          message: error.message,
+          buttons: ['OK'],
+        }).then((res) => res.present());
       });
   }
 
-  /** Send email verfificaiton when new user sign up */
+  /** Send email verification when new user sign up */
   sendVerificationMail() {
     return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification());
   }
@@ -89,24 +105,16 @@ export class AuthService {
   //     });
   // }
 
-  /** Setting up user data when sign in with username/password,
-  sign up with username/password and sign in with social auth
-  provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
-  setUserData(user: any) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-      `users/${user.uid}`
-    );
-    const userData: any = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
+  /** Adding new user data when sign up with username/password */
+  addUser(user: User) {
+    const payload: UserModel = {
+      id: user.uid,
+      email: user.email ?? '',
+      displayName: user.displayName ?? '',
+      photoURL: user.photoURL ?? '',
       emailVerified: user.emailVerified,
-    };
-    localStorage.setItem('uid', user.uid);
-    return userRef.set(userData, {
-      merge: true,
-    });
+    }
+    this.store.dispatch(UserActions.addUser({ payload }));
   }
 
   /** Sign out */
