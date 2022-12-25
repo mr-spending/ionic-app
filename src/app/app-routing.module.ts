@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './core/guards/auth.guard';
-import { MainRoutesEnum } from './core/interfaces/enums';
+import { MainRoutesEnum } from './core/enums/routing.enums';
 
 const routes: Routes = [
   {
@@ -18,10 +18,6 @@ const routes: Routes = [
   {
     path: MainRoutesEnum.Auth,
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule),
-  },
-  {
-    path: 'expenses-list',
-    loadChildren: () => import('./expenses-list/expenses-list-page.module').then(m => m.ExpensesListPageModule)
   },
 ];
 @NgModule({

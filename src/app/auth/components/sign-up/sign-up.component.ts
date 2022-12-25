@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CustomValidators } from '../../../core/utils/custom-validators.class';
-import { AuthRoutesEnum, MainRoutesEnum } from '../../../core/interfaces/enums';
+import { AuthRoutesEnum, MainRoutesEnum } from '../../../core/enums/routing.enums';
 
 @Component({
   selector: 'app-sign-up',

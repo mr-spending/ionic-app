@@ -1,7 +1,7 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense" class="ion-padding ion-margin-vertical">
     <ion-toolbar>
-      <ion-title size="large" class="ion-text-center">
+      <ion-title size="large" class="ion-text-center" (click)="navigateToExpensesList()">
         {{ currency }}
         {{ totalPerMonth | number: '.0-2'}}
       </ion-title>

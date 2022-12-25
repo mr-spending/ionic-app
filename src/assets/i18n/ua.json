@@ -15,6 +15,7 @@
   },
   "pages": {
     "createSpending": "Додати витрати",
+    "listOfExpenses": "Список витрат",
     "menu": "Меню",
     "logOut": "Вийди розбійник",
     "selectLanguage": "Мова",

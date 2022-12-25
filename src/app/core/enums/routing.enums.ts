@@ -6,6 +6,7 @@ export enum MainRoutesEnum {
 export enum PageRoutesEnum {
   CreateSpending = 'create-spending',
   Setting = 'settings',
+  ExpensesList = 'expenses-list'
 }
 
 export enum AuthRoutesEnum {

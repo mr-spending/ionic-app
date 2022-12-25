@@ -15,6 +15,7 @@
   },
   "pages": {
     "createSpending": "New Spending",
+    "listOfExpenses": "List Of Expenses",
     "menu": "Menu",
     "logOut": "Sign out",
     "selectLanguage": "Language",
