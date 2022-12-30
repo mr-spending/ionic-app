@@ -18,9 +18,17 @@ import { SpendingActions } from '../core/state/actions/spending.actions';
 export class PagesComponent implements OnDestroy {
 
   subscription: Subscription = new Subscription();
-  languageControl: FormControl;
-  languageList: string[];
-  pageTitle: string = '';
+  tabs = [
+    {
+      route: PageRoutesEnum.CreateSpending,
+      icon: 'bag-add-outline',
+    },
+    {
+      route: PageRoutesEnum.Setting,
+      icon: 'cog-outline',
+    },
+
+  ];
 
   constructor(
     private authService: AuthService,
@@ -29,33 +37,12 @@ export class PagesComponent implements OnDestroy {
     private router: Router,
     private spendingStore: Store<SpendingState>,
   ) {
-    this.languageList = this.translateService.getLangs();
-    this.languageControl = this.fb.control(this.languageList[0]);
-    this.subscription.add(this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) this.updatePageTitle(event.url);
-    }));
     this.spendingStore.dispatch(SpendingActions.spendingList());
-
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  logOut() {
-    this.authService.signOut().then();
-  }
-
-  languageChange(language: string): void {
-    this.translateService.use(language);
-  }
-
-  updatePageTitle(url: string): void {
-    if (url.includes(PageRoutesEnum.CreateSpending)) {
-      this.pageTitle = this.translateService.instant('pages.createSpending');
-    } else if (url.includes(PageRoutesEnum.ExpensesList)) {
-      this.pageTitle = this.translateService.instant('pages.listOfExpenses');
-    }
-  }
 
 }

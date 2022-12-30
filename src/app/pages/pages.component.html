@@ -1,42 +1,9 @@
-<ion-menu contentId="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>{{ 'pages.menu' | translate}}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <ion-list>
-      <ion-item>
-        <ion-label>{{ 'pages.selectLanguage' | translate }}</ion-label>
-        <ion-select
-          [placeholder]="'pages.selectLanguagePlaceholder' | translate"
-          [formControl]="languageControl"
-          (ngModelChange)="languageChange($event)"
-        >
-          <ion-select-option *ngFor="let item of languageList" [value]="item">
-            {{ 'language.' + item | translate }}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
-    </ion-list>
+<ion-router-outlet></ion-router-outlet>
 
-    <ion-button size="small" (click)="logOut()">
-      <ion-icon name="log-out-outline"></ion-icon>
-      {{ 'pages.logOut' | translate}}
-    </ion-button>
-  </ion-content>
-</ion-menu>
-
-<div class="ion-page" id="main-content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-menu-button></ion-menu-button>
-      </ion-buttons>
-      <ion-title>{{ pageTitle }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="ion-padding">
-    <ion-router-outlet></ion-router-outlet>
-  </ion-content>
-</div>
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button *ngFor="let tab of tabs" [tab]="tab.route">
+      <ion-icon [name]="tab.icon"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

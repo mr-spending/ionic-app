@@ -9,13 +9,13 @@ const sharedModules = [
   ReactiveFormsModule,
   IonicModule,
   TranslateModule,
+  CommonModule,
 ];
 
 @NgModule({
   declarations: [],
   imports: [
     ...sharedModules,
-    CommonModule,
   ],
   exports: [
     ...sharedModules,

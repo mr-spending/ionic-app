@@ -24,7 +24,7 @@ export class DataBaseService {
   /** Spending Data */
   getAllSpending(userId: string): Observable<SpendingEntity[]> {
     return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
-      .valueChanges().pipe(take(1));
+      .valueChanges();
   }
 
   getSpending(id: string, userId: string): Observable<SpendingEntity | undefined> {

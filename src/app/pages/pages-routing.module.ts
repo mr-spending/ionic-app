@@ -20,11 +20,7 @@ const routes: Routes = [
       },
       {
         path: PageRoutesEnum.Setting,
-        loadChildren: () => import('../settings-page/settings-page.module').then(m => m.SettingsPageModule),
-      },
-      {
-        path: PageRoutesEnum.ExpensesList,
-        loadChildren: () => import('./expenses-list/expenses-list-page.module').then(m => m.ExpensesListPageModule)
+        loadChildren: () => import('./settings-page/settings-page.module').then(m => m.SettingsPageModule),
       },
     ]
   },
