@@ -31,3 +31,13 @@ export interface MonoBankAccount {
   maskedPan: string[];
   type: string;
 }
+
+export interface BankAccountTransaction {
+  amount: number;
+  currencyCode: number;
+  description?: string;
+  comment?: string;
+  id: string;
+  time: number;
+  date?: string;
+}
