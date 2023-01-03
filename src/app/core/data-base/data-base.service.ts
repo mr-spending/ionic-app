@@ -42,8 +42,8 @@ export class DataBaseService {
     this.firestore.collection<SpendingEntity>('spending').doc(spending.id).update(spending).then();
   }
 
-  deleteSpending(id: string, userId: string): void {
-    this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
-      .doc(id).delete().then();
+  deleteSpending(id: string, userId: string): Observable<void> {
+    return from(this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
+      .doc(id).delete());
   }
 }

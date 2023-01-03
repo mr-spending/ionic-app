@@ -1,12 +1,14 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { SpendingModel, SpendingSortModel } from '../../interfaces/models';
+import { SpendingFilterModel, SpendingModel, SpendingSortModel } from '../../interfaces/models';
 import { SpendingActions } from '../actions/spending.actions';
 import { SortFieldEnum, DirectionEnum } from '../../enums/spending.enums';
+import * as moment from 'moment';
 
 export interface SpendingState {
   spendingList: SpendingModel[];
   spendingSort: SpendingSortModel;
+  spendingFilter: SpendingFilterModel;
 }
 
 export const initialState: SpendingState = {
@@ -14,6 +16,10 @@ export const initialState: SpendingState = {
   spendingSort: {
     field: SortFieldEnum.Time,
     direction: DirectionEnum.Descending,
+  },
+  spendingFilter: {
+    from: moment().startOf('month').unix(),
+    to: moment().unix(),
   }
 };
 

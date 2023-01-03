@@ -14,10 +14,11 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/services/auth.service';
 import { UserEffects } from './state/effects/user.effects';
 import { SpendingEffects } from './state/effects/spending.effects';
+import { BankAccountsEffects } from './state/effects/bank-accounts.effects';
 
 const ngRxModules = [
   StoreModule.forRoot(appReducer),
-  EffectsModule.forRoot([UserEffects, SpendingEffects]),
+  EffectsModule.forRoot([UserEffects, SpendingEffects, BankAccountsEffects]),
   StoreDevtoolsModule.instrument({ maxAge: 100 }),
 ];
 
