@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title size="large" class="ion-text-center" (click)="navigateToExpensesList()">
       {{ currency$ | async}}
-      {{ totalAmount$ | async | number: '.2'}}
+      {{ (totalAmount$ | async) | number: '.2'}}
     </ion-title>
   </ion-toolbar>
 
@@ -13,9 +13,14 @@
           <ion-item>
             <ion-label>{{ 'createSpending.amount' | translate }}</ion-label>
             <ion-input
+              class="ion-text-right"
               formControlName="amount"
-              [placeholder]="'createSpending.amountPlaceholder' | translate"
-              type="number"
+              maxlength="15"
+              type="tel"
+              currencyMask
+              decimal="."
+              thousand=","
+              [placeholder]="(currency$ | async) + '0.00'"
             ></ion-input>
           </ion-item>
 
@@ -70,7 +75,7 @@
 
   <ion-list *ngIf="spendingList$ | async as spendingList">
     <ion-item *ngFor="let item of spendingList">
-      <ion-label>{{ currency$ | async }} {{ item.amount | number: '.2'}}</ion-label>
+      <ion-label>{{ currency$ | async }} {{ (item.amount / 100) | number: '.2'}}</ion-label>
       <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
     </ion-item>
   </ion-list>

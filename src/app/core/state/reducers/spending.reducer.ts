@@ -12,7 +12,7 @@ export interface SpendingState {
 export const initialState: SpendingState = {
   spendingList: [],
   spendingSort: {
-    field: SortFieldEnum.Date,
+    field: SortFieldEnum.Time,
     direction: DirectionEnum.Descending,
   }
 };

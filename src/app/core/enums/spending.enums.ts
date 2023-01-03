@@ -4,5 +4,5 @@ export enum DirectionEnum {
 }
 
 export enum SortFieldEnum {
-  Date = 'date'
+  Time = 'time'
 }

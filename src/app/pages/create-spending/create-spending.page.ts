@@ -46,11 +46,11 @@ export class CreateSpendingPage {
   addSpending(): void {
     const groupValue = this.formGroup.value;
     const spendingItem: SpendingModel = {
-      amount: groupValue.amount,
+      amount: Number(groupValue.amount.replace(/[^0-9.-]+/g,"")) * 100,
       category: groupValue.category,
       description: groupValue.description,
       id: Guid.create().toString(),
-      date: moment().format(DateFormatEnum.YYYY_MM_DD__HH_MM_SS),
+      time: Math.floor(new Date().getTime() / 1000)
     }
     this.spendingStore.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
   }

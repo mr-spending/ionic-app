@@ -12,9 +12,10 @@ export interface UserModel {
 export interface SpendingModel {
   id: string;
   amount: number;
-  date: string;
+  time: number;
   category: string;
   description?: string;
+  date?: string;
 }
 
 export interface SpendingSortModel {
