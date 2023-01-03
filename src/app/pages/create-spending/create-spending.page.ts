@@ -156,6 +156,6 @@ export class CreateSpendingPage {
   }
 
   removeSpendingItem(id: string) {
-    // this.store.dispatch(SpendingActions.)
+    this.store.dispatch(SpendingActions.removeSpending({ payload: id }));
   }
 }

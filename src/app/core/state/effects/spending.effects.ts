@@ -31,6 +31,15 @@ export class SpendingEffects {
     )),
   ));
 
+  removeSpending$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.removeSpending),
+    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
+    switchMap(([{ payload }, userId]) => this.dbService.deleteSpending(payload, userId).pipe(
+      map(() => SpendingActions.removeSpendingSuccess()),
+      catchError(err => of(SpendingActions.removeSpendingFailure()))
+    )),
+  ));
+
   spendingList$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.spendingList),
     concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
