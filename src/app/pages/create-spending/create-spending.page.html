@@ -91,6 +91,7 @@
         <p *ngIf="item.description">{{ item.description }}</p>
         <p *ngIf="item.comment">{{ item.comment }}</p>
       </ion-label>
+      <ion-label *ngIf="item.accountType" class="ion-text-center">{{ item.accountType }}</ion-label>
       <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
     </ion-item>
   </ion-list>

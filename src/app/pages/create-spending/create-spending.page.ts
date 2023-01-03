@@ -22,7 +22,7 @@ import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.
 })
 export class CreateSpendingPage {
   formGroup: FormGroup;
-  spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedSpendingList);
+  spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSpendingListWithParams);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
@@ -117,7 +117,6 @@ export class CreateSpendingPage {
       accountId: transaction.accountId,
       accountType: transaction.accountType,
     }
-    console.log(spendingItem);
     this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
   }
 

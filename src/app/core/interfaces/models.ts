@@ -29,6 +29,11 @@ export interface SpendingSortModel {
   direction: DirectionEnum;
 }
 
+export interface SpendingFilterModel {
+  from: number;
+  to: number;
+}
+
 export interface MonoBankAccount {
   currencyCode: number;
   id: string;
