@@ -4,7 +4,7 @@ import { Guid } from "typescript-guid";
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IonAccordionGroup } from '@ionic/angular';
+import { ActionSheetController, IonAccordionGroup } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 
 import { BankTransaction, SpendingModel } from '../../core/interfaces/models';
@@ -23,7 +23,7 @@ import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.
 export class CreateSpendingPage {
   formGroup: FormGroup;
   spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedSpendingList);
-  bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.selectTransactions);
+  bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
@@ -36,6 +36,7 @@ export class CreateSpendingPage {
     private fb: FormBuilder,
     private store: Store<AppState>,
     private router: Router,
+    private actionSheetController: ActionSheetController
   ) {
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
@@ -69,4 +70,92 @@ export class CreateSpendingPage {
       nativeEl.value = 'form-group';
     }
   };
+
+  async transactionClick(transaction: BankTransaction) {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: 'Add',
+          // role: 'destructive',
+          data: {
+            action: 'add',
+          },
+        },
+        {
+          text: 'Edit',
+          data: {
+            action: 'edit',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+    const result = await actionSheet.onDidDismiss();
+
+    switch (result.data.action) {
+      case 'add': this.addTransaction(transaction);
+    }
+  }
+
+  addTransaction(transaction: BankTransaction): void {
+    const spendingItem: SpendingModel = {
+      id: transaction.id,
+      amount: transaction.amount,
+      time: transaction.time,
+      category: '',
+      description: transaction.description ?? '',
+      currencyCode: transaction.currencyCode,
+      comment: transaction.comment ?? '',
+      accountId: transaction.accountId,
+      accountType: transaction.accountType,
+    }
+    console.log(spendingItem);
+    this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
+  }
+
+  async spendingClick(item: SpendingModel) {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          data: {
+            action: 'delete',
+          },
+        },
+        {
+          text: 'Edit',
+          data: {
+            action: 'edit',
+          },
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          data: {
+            action: 'cancel',
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+    const result = await actionSheet.onDidDismiss();
+
+    switch (result.data.action) {
+      case 'delete': this.removeSpendingItem(item.id);
+    }
+  }
+
+  removeSpendingItem(id: string) {
+    // this.store.dispatch(SpendingActions.)
+  }
 }

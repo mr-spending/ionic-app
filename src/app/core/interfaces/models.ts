@@ -18,6 +18,10 @@ export interface SpendingModel {
   category: string;
   description?: string;
   date?: string;
+  currencyCode?: number;
+  comment?: string;
+  accountId?: string;
+  accountType?: string;
 }
 
 export interface SpendingSortModel {

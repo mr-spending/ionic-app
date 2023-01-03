@@ -3,11 +3,22 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { bankAccountsKey, BankAccountsState } from '../reducers/bank-accounts.reducer';
 import { sortArrayByProperty } from '../../utils/helper.functions';
 import { DirectionEnum } from '../../enums/spending.enums';
+import { SpendingSelectors } from './spending.selectors';
+import { BankTransaction, SpendingModel } from '../../interfaces/models';
 
 
 const bankAccountsSelector = createFeatureSelector<BankAccountsState>(bankAccountsKey);
 
 export namespace BankAccountsSelectors {
 
+  import selectSortedSpendingList = SpendingSelectors.selectSortedSpendingList;
   export const selectTransactions = createSelector(bankAccountsSelector, state => sortArrayByProperty(state.transactions, 'time', DirectionEnum.Descending));
+
+  export const filteredTransactions = createSelector(
+    selectTransactions,
+    selectSortedSpendingList,
+    (transactions: BankTransaction[], spendingList: SpendingModel[]) => {
+      return transactions.filter(item => !spendingList.some(spendItem => spendItem.id === item.id));
+    }
+  )
 }
