@@ -14,10 +14,10 @@ export class MonoBankApiService {
   constructor(private http: HttpClient) { }
 
   getPersonalClientInfo(): Observable<any> {
-    return this.http.get(`${this.url}/personal/client-info`);
+    return this.http.get(`${this.url}personal/client-info`);
   }
 
   getPersonalStatement(account: string, from: number, to: number): Observable<any> {
-    return this.http.get(`${this.url}/personal/statement/${account}/${from}/${to}`);
+    return this.http.get(`${this.url}personal/statement/${account}/${from}/${to}`);
   }
 }

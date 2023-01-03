@@ -42,7 +42,7 @@ export class UserEffects {
       if (payload.monoBankAccounts && payload.monoBankAccounts.length) {
         this.bankAccountsStore.dispatch(BankAccountsActions.getTransactions({
           accounts: payload.monoBankAccounts,
-          from: moment().subtract('months', 1).unix(),
+          from: moment().subtract(1, 'months').unix(),
           to: moment().unix(),
         }));
       }
