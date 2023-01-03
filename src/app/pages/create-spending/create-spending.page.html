@@ -45,7 +45,6 @@
   </ion-accordion-group>
 
 
-
   <ion-row
     class="ion-padding-top"
     [ngClass]="isAccordionExpanded ? 'ion-justify-content-between' : 'ion-justify-content-end'"
@@ -64,7 +63,7 @@
       fill="solid"
       [size]="isAccordionExpanded ? 'default' : 'small'"
       [disabled]="isAccordionExpanded ? formGroup.invalid : false"
-      (click)="isAccordionExpanded? addSpending() : toggleAccordion()"
+      (click)="isAccordionExpanded ? addSpending() : toggleAccordion()"
     >
       {{ 'createSpending.addSpending' | translate }}
     </ion-button>

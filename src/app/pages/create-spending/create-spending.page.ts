@@ -53,6 +53,7 @@ export class CreateSpendingPage {
       time: Math.floor(new Date().getTime() / 1000)
     }
     this.spendingStore.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
+    this.formGroup.reset();
   }
 
   navigateToExpensesList(): void {
