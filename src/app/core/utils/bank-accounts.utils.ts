@@ -4,7 +4,7 @@ import { BankTransaction, MonoBankAccount } from '../interfaces/models';
 import { DateFormatEnum } from '../enums/date-format.enums';
 
 export function convertBankTransactionToModel(account: MonoBankAccount, list: any): BankTransaction[] {
-  return list.map((item: any) => ({
+  return list.filter((item: any) => item.amount < 0).map((item: any) => ({
     amount: Math.abs(item.amount),
     currencyCode: item.currencyCode,
     description: item.description,
