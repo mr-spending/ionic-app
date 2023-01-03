@@ -72,6 +72,14 @@
 
 <ion-content [fullscreen]="true">
 
+  <ion-list *ngIf="bankTransactions$ | async as bankTransactions">
+    <ion-item *ngFor="let item of bankTransactions">
+      <ion-label>{{ currency$ | async }} {{ (item.amount / 100) | number: '.2'}}</ion-label>
+      <ion-label class="ion-text-center">{{ item.accountType }}</ion-label>
+      <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
+    </ion-item>
+  </ion-list>
+
   <ion-list *ngIf="spendingList$ | async as spendingList">
     <ion-item *ngFor="let item of spendingList">
       <ion-label>{{ currency$ | async }} {{ (item.amount / 100) | number: '.2'}}</ion-label>

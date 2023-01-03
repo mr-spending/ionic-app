@@ -9,6 +9,7 @@ import { UserModel } from '../../interfaces/models';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { BankAccountsActions } from '../actions/bank-accounts.actions';
 import { BankAccountsState } from '../reducers/bank-accounts.reducer';
+import * as moment from 'moment/moment';
 
 @Injectable()
 export class UserEffects {
@@ -39,8 +40,11 @@ export class UserEffects {
       }
 
       if (payload.monoBankAccounts && payload.monoBankAccounts.length) {
-        const accountIds = payload.monoBankAccounts.map(acc => acc.id);
-        this.bankAccountsStore.dispatch(BankAccountsActions.getTransactions({ accountIds }));
+        this.bankAccountsStore.dispatch(BankAccountsActions.getTransactions({
+          accounts: payload.monoBankAccounts,
+          from: moment().subtract('months', 1).unix(),
+          to: moment().unix(),
+        }));
       }
     })
   ), { dispatch: false });

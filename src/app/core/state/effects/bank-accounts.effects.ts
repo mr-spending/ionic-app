@@ -17,15 +17,10 @@ export class BankAccountsEffects {
 
   getTransactions$ = createEffect(() => this.actions$.pipe(
     ofType(BankAccountsActions.getTransactions),
-    switchMap(({ accountIds }) => this.mbApiService.getPersonalStatement(
-      accountIds[0],
-      moment().subtract('months', 1).unix(),
-      moment().unix()
-    ).pipe(
-      map(payload => BankAccountsActions.getTransactionsSuccess({ payload: convertBankTransactionToModel(payload) })),
+    switchMap(({ accounts, from, to }) => this.mbApiService.getPersonalStatement(accounts[0].id, from, to).pipe(
+      map(payload => BankAccountsActions.getTransactionsSuccess({ payload: convertBankTransactionToModel(accounts[0], payload) })),
       catchError(err => of(BankAccountsActions.getTransactionsFailure()))
     )),
-
   ));
 
 }

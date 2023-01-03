@@ -1,9 +1,9 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { BankAccountsActions } from '../actions/bank-accounts.actions';
-import { BankAccountTransaction } from '../../interfaces/models';
+import { BankTransaction } from '../../interfaces/models';
 
 export interface BankAccountsState {
-  transactions: BankAccountTransaction[];
+  transactions: BankTransaction[];
 }
 
 export const initialState: BankAccountsState = {

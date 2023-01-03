@@ -32,7 +32,7 @@ export interface MonoBankAccount {
   type: string;
 }
 
-export interface BankAccountTransaction {
+export interface BankTransaction {
   amount: number;
   currencyCode: number;
   description?: string;
@@ -40,4 +40,6 @@ export interface BankAccountTransaction {
   id: string;
   time: number;
   date?: string;
+  accountId: string;
+  accountType: string;
 }
