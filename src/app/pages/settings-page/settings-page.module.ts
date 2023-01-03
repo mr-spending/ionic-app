@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { SettingsPageRoutingModule } from './settings-page-routing.module';
 import { SettingsPage } from './settings.page';
-import { SharedModule } from '../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 
 
 

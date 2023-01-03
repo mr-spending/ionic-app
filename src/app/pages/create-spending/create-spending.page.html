@@ -1,0 +1,83 @@
+<ion-header collapse="condense" class="ion-padding">
+  <ion-toolbar>
+    <ion-title size="large" class="ion-text-center" (click)="navigateToExpensesList()">
+      {{ currency$ | async}}
+      {{ (totalAmount$ | async) | number: '.2'}}
+    </ion-title>
+  </ion-toolbar>
+
+  <ion-accordion-group #accordionGroup>
+    <ion-accordion value="form-group">
+      <div class="ion-padding" slot="content">
+        <ion-list [formGroup]="formGroup">
+          <ion-item>
+            <ion-label>{{ 'createSpending.amount' | translate }}</ion-label>
+            <ion-input
+              class="ion-text-right"
+              formControlName="amount"
+              maxlength="15"
+              type="tel"
+              currencyMask
+              decimal="."
+              thousand=","
+              [placeholder]="(currency$ | async) + '0.00'"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>{{ 'createSpending.category' | translate }}</ion-label>
+            <ion-input
+              formControlName="category"
+              [placeholder]="'createSpending.categoryPlaceholder' | translate"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>{{ 'createSpending.description' | translate }}</ion-label>
+            <ion-input
+              formControlName="description"
+              [placeholder]="'createSpending.descriptionPlaceholder' | translate"
+            ></ion-input>
+          </ion-item>
+        </ion-list>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+
+
+  <ion-row
+    class="ion-padding-top"
+    [ngClass]="isAccordionExpanded ? 'ion-justify-content-between' : 'ion-justify-content-end'"
+  >
+    <ion-button
+      *ngIf="isAccordionExpanded"
+      shape="round"
+      fill="outline"
+      (click)="toggleAccordion()"
+    >
+      {{ 'createSpending.cancel' | translate }}
+    </ion-button>
+
+    <ion-button
+      shape="round"
+      fill="solid"
+      [size]="isAccordionExpanded ? 'default' : 'small'"
+      [disabled]="isAccordionExpanded ? formGroup.invalid : false"
+      (click)="isAccordionExpanded? addSpending() : toggleAccordion()"
+    >
+      {{ 'createSpending.addSpending' | translate }}
+    </ion-button>
+  </ion-row>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-list *ngIf="spendingList$ | async as spendingList">
+    <ion-item *ngFor="let item of spendingList">
+      <ion-label>{{ currency$ | async }} {{ (item.amount / 100) | number: '.2'}}</ion-label>
+      <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

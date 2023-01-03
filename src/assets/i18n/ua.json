@@ -15,6 +15,7 @@
   },
   "pages": {
     "createSpending": "Додати витрати",
+    "listOfExpenses": "Список витрат",
     "menu": "Меню",
     "logOut": "Вийди розбійник",
     "selectLanguage": "Мова",
@@ -27,6 +28,7 @@
     "amountPlaceholder": "Введіть сумму",
     "categoryPlaceholder": "Натисніть щоб обрати",
     "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
-    "addSpending": "Додати витрату"
+    "addSpending": "Додати витрату",
+    "cancel": "Відміна"
   }
 }

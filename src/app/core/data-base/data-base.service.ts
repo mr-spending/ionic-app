@@ -23,12 +23,12 @@ export class DataBaseService {
 
   /** Spending Data */
   getAllSpending(userId: string): Observable<SpendingEntity[]> {
-    return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('uid', '==', userId))
-      .valueChanges().pipe(take(1));
+    return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
+      .valueChanges();
   }
 
   getSpending(id: string, userId: string): Observable<SpendingEntity | undefined> {
-    return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('uid', '==', userId))
+    return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
       .doc(id).valueChanges().pipe(take(1));
   }
 
@@ -43,7 +43,7 @@ export class DataBaseService {
   }
 
   deleteSpending(id: string, userId: string): void {
-    this.firestore.collection<SpendingEntity>('spending',ref => ref.where('uid', '==', userId))
+    this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
       .doc(id).delete().then();
   }
 }

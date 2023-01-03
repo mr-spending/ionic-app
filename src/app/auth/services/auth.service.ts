@@ -7,7 +7,7 @@ import firebase from 'firebase/compat';
 import UserCredential = firebase.auth.UserCredential;
 import { AlertController } from '@ionic/angular';
 
-import { AuthRoutesEnum, MainRoutesEnum } from '../../core/interfaces/enums';
+import { AuthRoutesEnum, MainRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
 import User = firebase.User;
 import { UserActions } from '../../core/state/actions/user.actions';

@@ -11,10 +11,11 @@
   },
   "language": {
     "en": "English",
-    "ua": "Ukraine"
+    "ua": "Ukrainian"
   },
   "pages": {
     "createSpending": "New Spending",
+    "listOfExpenses": "List Of Expenses",
     "menu": "Menu",
     "logOut": "Sign out",
     "selectLanguage": "Language",
@@ -27,6 +28,7 @@
     "amountPlaceholder": "Type your amount",
     "categoryPlaceholder": "Select category",
     "descriptionPlaceholder": "Type your description. Optional.",
-    "addSpending": "Add spending"
+    "addSpending": "Add spending",
+    "cancel": "Cancel"
   }
 }

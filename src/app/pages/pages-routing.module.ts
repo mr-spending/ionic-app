@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
-import { PageRoutesEnum } from '../core/interfaces/enums';
+import { PageRoutesEnum } from '../core/enums/routing.enums';
 
 
 const routes: Routes = [
@@ -16,11 +16,11 @@ const routes: Routes = [
       },
       {
         path: PageRoutesEnum.CreateSpending,
-        loadChildren: () => import('../create-spending-page/create-spending-page.module').then(m => m.CreateSpendingPageModule),
+        loadChildren: () => import('./create-spending/create-spending-page.module').then(m => m.CreateSpendingPageModule),
       },
       {
         path: PageRoutesEnum.Setting,
-        loadChildren: () => import('../settings-page/settings-page.module').then(m => m.SettingsPageModule),
+        loadChildren: () => import('./settings-page/settings-page.module').then(m => m.SettingsPageModule),
       },
     ]
   },

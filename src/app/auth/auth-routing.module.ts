@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { AuthComponent } from './auth.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
-import { AuthRoutesEnum } from '../core/interfaces/enums';
+import { AuthRoutesEnum } from '../core/enums/routing.enums';
 
 const routes: Routes = [
   {
