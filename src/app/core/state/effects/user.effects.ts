@@ -5,13 +5,15 @@ import { catchError, map, of, switchMap } from 'rxjs';
 import { UserActions } from '../actions/user.actions';
 import { DataBaseService } from '../../data-base/data-base.service';
 import { UserModel } from '../../interfaces/models';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Injectable()
 export class UserEffects {
 
   constructor(
     private actions$: Actions,
-    private dbService: DataBaseService
+    private dbService: DataBaseService,
+    private lsService: LocalStorageService,
   ) {}
 
   setUserData$ = createEffect(() => this.actions$.pipe(
@@ -24,6 +26,15 @@ export class UserEffects {
       ),
     )),
   ));
+
+  setUserDataSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.setUserDataSuccess),
+    map(({ payload }) => {
+      if (payload.monoBankClientToken) {
+        this.lsService.setMonoBankClientToken(payload.monoBankClientToken);
+      }
+    })
+  ), { dispatch: false });
 
   addUser$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.addUser),

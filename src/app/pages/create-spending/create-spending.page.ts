@@ -10,7 +10,6 @@ import { SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
-import { DateFormatEnum } from '../../core/enums/date-format.enums';
 import { IonAccordionGroup } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';

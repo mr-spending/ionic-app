@@ -7,6 +7,8 @@ export interface UserModel {
   photoURL: string;
   emailVerified: boolean;
   currency?: string;
+  monoBankClientToken?: string;
+  monoBankAccounts?: MonoBankAccount[];
 }
 
 export interface SpendingModel {
@@ -21,4 +23,11 @@ export interface SpendingModel {
 export interface SpendingSortModel {
   field: SortFieldEnum;
   direction: DirectionEnum;
+}
+
+export interface MonoBankAccount {
+  currencyCode: number;
+  id: string;
+  maskedPan: string[];
+  type: string;
 }
