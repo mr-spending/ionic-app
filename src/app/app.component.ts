@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 import { languageList } from './core/constants/languages.constants';
 import { UserActions } from './core/state/actions/user.actions';
 import { UserState } from './core/state/reducers/user.reducer';
+import {CategoriesState} from "./core/state/reducers/categories.reducer";
+import {CategoriesActions} from "./core/state/actions/categories.actions";
 
 @Component({
   selector: 'app-root',
@@ -20,7 +22,9 @@ export class AppComponent implements OnDestroy {
     private translate: TranslateService,
     private angularFireAuth: AngularFireAuth,
     private userStore: Store<UserState>,
+    private categoriesStore: Store<CategoriesState>,
   ) {
+    this.categoriesStore.dispatch(CategoriesActions.categoriesList());
     this.toggleDarkTheme(false);
     this.initializeApp();
   }
