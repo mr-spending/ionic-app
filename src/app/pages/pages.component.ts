@@ -24,6 +24,10 @@ export class PagesComponent implements OnDestroy {
       icon: 'bag-add-outline',
     },
     {
+      route: PageRoutesEnum.Statistics,
+      icon: 'list-outline',
+    },
+    {
       route: PageRoutesEnum.Setting,
       icon: 'cog-outline',
     },
