@@ -50,6 +50,17 @@
     [ngClass]="isAccordionExpanded ? 'ion-justify-content-between' : 'ion-justify-content-end'"
   >
     <ion-button
+      *ngIf="!isAccordionExpanded"
+      shape="round"
+      fill="solid"
+      [size]="'small'"
+      (click)="updateSpendingList()"
+    >
+      <ion-icon slot="start" name="reload-outline"></ion-icon>
+      {{ 'createSpending.update' | translate }}
+    </ion-button>
+
+    <ion-button
       *ngIf="isAccordionExpanded"
       shape="round"
       fill="outline"
@@ -70,7 +81,7 @@
   </ion-row>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="transaction-spending-list">
 
   <ion-list *ngIf="bankTransactions$ | async as bankTransactions">
     <ion-item *ngFor="let item of bankTransactions" (click)="transactionClick(item)" color="light">
