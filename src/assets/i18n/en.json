@@ -29,6 +29,7 @@
     "categoryPlaceholder": "Select category",
     "descriptionPlaceholder": "Type your description. Optional.",
     "addSpending": "Add spending",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "update": "Update list"
   }
 }

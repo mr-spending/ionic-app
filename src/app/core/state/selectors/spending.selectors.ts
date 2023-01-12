@@ -1,8 +1,15 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
-import { SpendingFilterModel, SpendingModel, SpendingSortModel } from '../../interfaces/models';
+import {
+  BankTransaction,
+  Category, SpendingByCategoriesItem,
+  SpendingFilterModel,
+  SpendingModel,
+  SpendingSortModel
+} from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
+import {CategoriesSelectors} from "./categories.selectors";
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 
@@ -28,4 +35,21 @@ export namespace SpendingSelectors {
       return list.reduce((total, item) => total + item.amount, 0) / 100;
     }
   );
+
+  export const selectSpendingByCategories = createSelector(
+    selectSpendingList,
+    (spendingList: SpendingModel[]) => {
+      return spendingList.reduce((acc: SpendingByCategoriesItem[], {category, amount}) => {
+        if (acc.length === 0) return [{ name: category, amount: amount }]
+        const idxInAcc = acc.findIndex(i => i.name === category);
+        if (idxInAcc !== -1) {
+          const newAcc = [...acc]
+          newAcc[idxInAcc].amount = newAcc[idxInAcc].amount + amount
+          return newAcc
+        }
+        return [...acc, { name: category, amount }]
+      }, []) as SpendingByCategoriesItem[];
+    }
+  );
 }
+

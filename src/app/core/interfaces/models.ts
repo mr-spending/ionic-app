@@ -57,3 +57,8 @@ export interface Category {
   id: string;
   name: string;
 }
+
+export interface SpendingByCategoriesItem {
+  name: string,
+  amount: number
+}
