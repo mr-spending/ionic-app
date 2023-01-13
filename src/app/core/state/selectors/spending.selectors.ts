@@ -2,14 +2,12 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
 import {
-  BankTransaction,
-  Category, SpendingByCategoriesItem,
+  SpendingByCategoriesItem,
   SpendingFilterModel,
   SpendingModel,
   SpendingSortModel
 } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
-import {CategoriesSelectors} from "./categories.selectors";
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 

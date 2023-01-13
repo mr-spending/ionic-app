@@ -17,8 +17,8 @@ export class CategoriesEffects {
   categoriesList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CategoriesActions.categoriesList),
-      switchMap(() => this.dbService.getAllCategories()
-        .pipe(map((payload) =>
+      switchMap(() => this.dbService.getAllCategories().pipe(
+          map((payload) =>
           CategoriesActions.categoriesListSuccess({payload})),
           catchError(() => of(CategoriesActions.categoriesListFailure()))
         )

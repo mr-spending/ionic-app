@@ -28,8 +28,8 @@ export function spendingReducer(state: SpendingState | undefined, action: Action
 }
 
 export const spendingStateKey = 'spending';
+
 const reducer = createReducer<SpendingState>(
   initialState,
-
   on(SpendingActions.spendingListSuccess, (state, { payload }) => ({ ...state, spendingList: payload })),
 );

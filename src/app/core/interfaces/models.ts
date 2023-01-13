@@ -54,7 +54,7 @@ export interface BankTransaction {
   accountType: string;
 }
 
-export interface Category {
+export interface CategoryModel {
   id: string;
   name: string;
 }

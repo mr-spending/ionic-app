@@ -11,7 +11,6 @@ import { BankTransaction, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
-
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 
@@ -40,7 +39,7 @@ export class CreateSpendingPage {
   ) {
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
-      category: this.fb.control(null, Validators.required),
+      category: this.fb.control('other', Validators.required),
       description: this.fb.control(null),
     });
   }
@@ -160,6 +159,5 @@ export class CreateSpendingPage {
 
   updateSpendingList() {
     this.store.dispatch(SpendingActions.spendingList());
-    window.location.reload();
   }
 }
