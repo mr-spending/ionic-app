@@ -7,6 +7,7 @@ export interface UserModel {
   photoURL: string;
   emailVerified: boolean;
   currency?: string;
+  currencyId?: string;
   monoBankClientToken?: string;
   monoBankAccounts?: MonoBankAccount[];
 }
