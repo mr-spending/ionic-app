@@ -17,6 +17,7 @@ export interface SpendingModel {
   amount: number;
   time: number;
   category: string;
+  categoryId?: string;
   description?: string;
   date?: string;
   currencyCode?: number;
@@ -59,7 +60,9 @@ export interface CategoryModel {
   name: string;
 }
 
-export interface SpendingByCategoriesItem {
-  name: string,
-  amount: number
+export interface SpendingByCategoriesItem extends CategoryModel {
+  name: string;
+  id: string;
+  totalAmount: number;
+  spending: SpendingModel[];
 }

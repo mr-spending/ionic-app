@@ -4,14 +4,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="categories$ | async as categories">
+<ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories">
   <ion-accordion-group>
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
+
       <ion-item slot="header" color="light">
-        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ ((category.amount / 100) | number: '.2') }} </ion-label>
+        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ ((category.totalAmount / 100) | number: '.2') }} </ion-label>
       </ion-item>
-      <ion-list *ngIf="spendingList$ | async as spendingList" slot="content">
-        <ion-item *ngFor="let item of spendingList" [class.ion-page-hidden]="item.category !== category.name" >
+
+      <ion-list slot="content">
+        <ion-item *ngFor="let item of category.spending" [class.ion-page-hidden]="item.category !== category.name" >
           <ion-label>
             <h2>{{ currency$ | async }} {{ (item.amount / 100) | number: '.2'}}</h2>
             <p *ngIf="item.description">{{ item.description }}</p>
@@ -21,6 +23,7 @@
           <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
         </ion-item>
       </ion-list>
+
     </ion-accordion>
   </ion-accordion-group>
 </ion-content>

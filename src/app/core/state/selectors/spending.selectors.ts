@@ -2,12 +2,14 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
 import {
+  CategoryModel,
   SpendingByCategoriesItem,
   SpendingFilterModel,
   SpendingModel,
   SpendingSortModel
 } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
+import { CategoriesSelectors } from "./categories.selectors";
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 
@@ -36,17 +38,27 @@ export namespace SpendingSelectors {
 
   export const selectSpendingByCategories = createSelector(
     selectSpendingList,
-    (spendingList: SpendingModel[]) => {
-      return spendingList.reduce((acc: SpendingByCategoriesItem[], {category, amount}) => {
-        if (acc.length === 0) return [{ name: category, amount: amount }]
-        const idxInAcc = acc.findIndex(i => i.name === category);
-        if (idxInAcc !== -1) {
-          const newAcc = [...acc]
-          newAcc[idxInAcc].amount = newAcc[idxInAcc].amount + amount
-          return newAcc
-        }
-        return [...acc, { name: category, amount }]
-      }, []) as SpendingByCategoriesItem[];
+    CategoriesSelectors.selectCategories,
+    (spendingList: SpendingModel[], categories: CategoryModel[]) => {
+
+      // If there are transactions without a categoryId, we find this ID
+      const spendingWithoutEmptyId = spendingList.map(item =>
+          item.categoryId ? item : {...item, categoryId: categories.find(c => c.name === item.category)?.id || ''});
+
+      return categories.reduce((acc: SpendingByCategoriesItem[], category: CategoryModel) => {
+        if (spendingWithoutEmptyId.find(item => item.categoryId === category.id))
+          return [...acc, {
+            name: category.name,
+            id: category.id,
+            totalAmount: spendingWithoutEmptyId.reduce(
+              (acc, item) => item.categoryId === category.id ? acc + item.amount : acc, 0
+            ),
+            spending: spendingWithoutEmptyId.reduce(
+              (acc: SpendingModel[], item: SpendingModel) => item.categoryId === category.id ? [...acc, item] : acc, []
+            ),
+          }]
+          return acc;
+        }, []);
     }
   );
 }
