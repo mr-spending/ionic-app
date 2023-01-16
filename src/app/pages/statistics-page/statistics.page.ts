@@ -6,8 +6,6 @@ import { AppState } from "@capacitor/app";
 import { SpendingByCategoriesItem } from "../../core/interfaces/models";
 import { SpendingSelectors} from "../../core/state/selectors/spending.selectors";
 import { UserSelectors } from "../../core/state/selectors/user.selectors";
-import { CategoriesState } from "../../core/state/reducers/categories.reducer";
-import { CategoriesActions}  from "../../core/state/actions/categories.actions";
 
 @Component({
   selector: 'app-statistics-page',
@@ -20,10 +18,7 @@ export class StatisticsPage implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private categoriesStore: Store<CategoriesState>,
-  ) {
-    this.categoriesStore.dispatch(CategoriesActions.categoriesList());
-  }
+  ) { }
 
   ngOnInit() { }
 }

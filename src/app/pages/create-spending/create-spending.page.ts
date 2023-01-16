@@ -7,12 +7,13 @@ import { Observable } from 'rxjs';
 import { ActionSheetController, IonAccordionGroup } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 
-import { BankTransaction, SpendingModel } from '../../core/interfaces/models';
+import { BankTransaction, CategoryModel, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
+import { CategoriesSelectors } from "../../core/state/selectors/categories.selectors";
 
 @Component({
   selector: 'app-create-spending.page',
@@ -25,6 +26,7 @@ export class CreateSpendingPage {
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
+  categories$: Observable<CategoryModel[]> = this.store.select(CategoriesSelectors.selectCategories);
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
 
   get isAccordionExpanded() {
