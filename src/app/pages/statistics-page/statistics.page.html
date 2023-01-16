@@ -9,7 +9,7 @@
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
       <ion-item slot="header" color="light">
-        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ ((category.totalAmount / 100) | number: '.2') }} </ion-label>
+        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ ((category.totalAmount / 100) | number: '.2') }}</ion-label>
       </ion-item>
 
       <ion-list slot="content">

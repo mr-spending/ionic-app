@@ -25,5 +25,5 @@ export class StatisticsPage implements OnInit {
     this.categoriesStore.dispatch(CategoriesActions.categoriesList());
   }
 
-  ngOnInit() {  }
+  ngOnInit() { }
 }
