@@ -7,9 +7,9 @@ import { DataBaseService } from '../../data-base/data-base.service';
 import { SpendingActions } from '../actions/spending.actions';
 import { UserSelectors } from '../selectors/user.selectors';
 import { UserState } from '../reducers/user.reducer';
-import { CategoriesState } from "../reducers/categories.reducer";
+import { CategoriesState } from '../reducers/categories.reducer';
 import { mapSpendingList } from '../../utils/spending.utils';
-import {CategoriesSelectors} from "../selectors/categories.selectors";
+import { CategoriesSelectors } from '../selectors/categories.selectors';
 
 @Injectable()
 export class SpendingEffects {
@@ -52,4 +52,12 @@ export class SpendingEffects {
     )),
   ));
 
+  updateSpending$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.updateSpending),
+    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
+    switchMap(([{ payload } , userId]) => this.dbService.updateSpending({ ...payload, userId }).pipe(
+      map(() => SpendingActions.updateSpendingSuccess()),
+      catchError(err => of(SpendingActions.updateSpendingFailure()))
+    )),
+  ));
 }

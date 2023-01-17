@@ -9,7 +9,7 @@ import {
   SpendingSortModel
 } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
-import { CategoriesSelectors } from "./categories.selectors";
+import { CategoriesSelectors } from './categories.selectors';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 

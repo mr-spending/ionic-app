@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>Edit spending</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">Confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="formGroup" class="ion-padding">
+  <ion-list [formGroup]="formGroup">
+    <ion-item>
+      <ion-label>{{ 'createSpending.amount' | translate }}</ion-label>
+      <ion-input
+        class="ion-text-right"
+        formControlName="amount"
+        maxlength="15"
+        type="tel"
+        currencyMask
+        decimal="."
+        thousand=","
+        [placeholder]="(currency$ | async) + '0.00'"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label class="select-label">{{ 'createSpending.category' | translate }}</ion-label>
+      <ion-select
+        class="select-selector"
+        interface="popover"
+        placeholder="Select fruit"
+        name="category"
+        formControlName="category"
+        [selectedText]="formGroup.value.category"
+      >
+        <ion-select-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>{{ 'createSpending.description' | translate }}</ion-label>
+      <ion-input
+        formControlName="description"
+        [placeholder]="'createSpending.descriptionPlaceholder' | translate"
+      ></ion-input>
+    </ion-item>
+  </ion-list>
+</ion-content>
