@@ -42,23 +42,35 @@ export namespace SpendingSelectors {
     (spendingList: SpendingModel[], categories: CategoryModel[]) => {
 
       // If there are transactions without a categoryId, we find this ID
-      const spendingWithoutEmptyId = spendingList.map(item =>
-          item.categoryId ? item : {...item, categoryId: categories.find(c => c.name === item.category)?.id || ''});
-
-      return categories.reduce((acc: SpendingByCategoriesItem[], category: CategoryModel) => {
-        if (spendingWithoutEmptyId.find(item => item.categoryId === category.id))
-          return [...acc, {
-            name: category.name,
-            id: category.id,
-            totalAmount: spendingWithoutEmptyId.reduce(
-              (acc, item) => item.categoryId === category.id ? acc + item.amount : acc, 0
-            ),
-            spendingList: spendingWithoutEmptyId.reduce(
-              (acc: SpendingModel[], item: SpendingModel) => item.categoryId === category.id ? [...acc, item] : acc, []
-            ),
-          }]
-          return acc;
-        }, []);
+      // const spendingWithoutEmptyId = spendingList.map(item =>
+      //     item.categoryId ? item : {...item, categoryId: categories.find(c => c.name === item.category)?.id || ''});
+      //
+      // return categories.reduce((acc: SpendingByCategoriesItem[], category: CategoryModel) => {
+      //   if (spendingWithoutEmptyId.find(item => item.categoryId === category.id))
+      //     return [...acc, {
+      //       name: category.name,
+      //       id: category.id,
+      //       totalAmount: spendingWithoutEmptyId.reduce(
+      //         (acc, item) => item.categoryId === category.id ? acc + item.amount : acc, 0
+      //       ),
+      //       spendingList: spendingWithoutEmptyId.reduce(
+      //         (acc: SpendingModel[], item: SpendingModel) => item.categoryId === category.id ? [...acc, item] : acc, []
+      //       ),
+      //     }]
+      //     return acc;
+      //   }, []);
+      return categories.map(item => {
+        const list = spendingList.filter(spItem => spItem.categoryId === item.id);
+        let totalAmount = 0;
+        list.forEach(item => {
+          totalAmount += item.amount
+        });
+        return {
+          ...item,
+          totalAmount,
+          spendingList: list,
+        }
+      })
     }
   );
 }
