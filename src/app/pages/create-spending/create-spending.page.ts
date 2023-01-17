@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Guid } from "typescript-guid";
+import { Guid } from 'typescript-guid';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -13,7 +13,7 @@ import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
-import { CategoriesSelectors } from "../../core/state/selectors/categories.selectors";
+import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 
 @Component({
   selector: 'app-create-spending.page',
@@ -46,13 +46,14 @@ export class CreateSpendingPage {
     });
   }
 
-  addSpending(): void {
+  addSpending(categories: CategoryModel[]): void {
     const groupValue = this.formGroup.value;
     const spendingItem: SpendingModel = {
       amount: Number(groupValue.amount.replace(/[^0-9.-]+/g,"")) * 100,
       category: groupValue.category,
       description: groupValue.description,
       id: Guid.create().toString(),
+      categoryId: categories.find(item => item.name === groupValue.category)?.id,
       time: Math.floor(new Date().getTime() / 1000)
     }
     this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));

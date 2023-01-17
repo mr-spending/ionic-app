@@ -32,8 +32,8 @@ export class DataBaseService {
       .doc(id).valueChanges().pipe(take(1));
   }
 
-  createSpending(spendingModel: SpendingModel, userId: string, categoryId: string | undefined): Observable<SpendingEntity | undefined> {
-    const spending: SpendingEntity = { ...spendingModel, userId, categoryId };
+  createSpending(spendingModel: SpendingModel, userId: string): Observable<SpendingEntity | undefined> {
+    const spending: SpendingEntity = { ...spendingModel, userId };
     this.firestore.collection<SpendingEntity>('spending').doc(spending.id).set(spending).then();
     return this.getSpending(spending.id, userId).pipe(take(1));
   }

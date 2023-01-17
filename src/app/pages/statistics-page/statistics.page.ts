@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
-import { Store } from "@ngrx/store";
-import { AppState } from "@capacitor/app";
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '@capacitor/app';
 
-import { SpendingByCategoriesItem } from "../../core/interfaces/models";
-import { SpendingSelectors} from "../../core/state/selectors/spending.selectors";
-import { UserSelectors } from "../../core/state/selectors/user.selectors";
+import { SpendingByCategoriesItem } from '../../core/interfaces/models';
+import { SpendingSelectors} from '../../core/state/selectors/spending.selectors';
+import { UserSelectors } from '../../core/state/selectors/user.selectors';
 
 @Component({
   selector: 'app-statistics-page',

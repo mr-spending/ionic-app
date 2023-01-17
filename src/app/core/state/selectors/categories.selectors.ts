@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { CategoriesState, categoriesStateKey } from '../reducers/categories.reducer';
-import { CategoryModel } from "../../interfaces/models";
+import { CategoryModel } from '../../interfaces/models';
 
 const categoriesSelector = createFeatureSelector<CategoriesState>(categoriesStateKey);
 

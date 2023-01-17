@@ -53,6 +53,7 @@
 
   <ion-row
     class="ion-padding-top"
+    *ngIf="categories$ | async as categories"
     [ngClass]="isAccordionExpanded ? 'ion-justify-content-between' : 'ion-justify-content-end'"
   >
     <ion-button
@@ -69,7 +70,7 @@
       fill="solid"
       [size]="isAccordionExpanded ? 'default' : 'small'"
       [disabled]="isAccordionExpanded ? formGroup.invalid : false"
-      (click)="isAccordionExpanded ? addSpending() : toggleAccordion()"
+      (click)="isAccordionExpanded ? addSpending(categories) : toggleAccordion()"
     >
       {{ 'createSpending.addSpending' | translate }}
     </ion-button>

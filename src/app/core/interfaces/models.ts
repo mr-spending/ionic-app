@@ -61,8 +61,6 @@ export interface CategoryModel {
 }
 
 export interface SpendingByCategoriesItem extends CategoryModel {
-  name: string;
-  id: string;
   totalAmount: number;
-  spending: SpendingModel[];
+  spendingList: SpendingModel[];
 }

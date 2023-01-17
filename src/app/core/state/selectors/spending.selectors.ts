@@ -9,7 +9,7 @@ import {
   SpendingSortModel
 } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
-import { CategoriesSelectors } from "./categories.selectors";
+import { CategoriesSelectors } from './categories.selectors';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 
@@ -53,7 +53,7 @@ export namespace SpendingSelectors {
             totalAmount: spendingWithoutEmptyId.reduce(
               (acc, item) => item.categoryId === category.id ? acc + item.amount : acc, 0
             ),
-            spending: spendingWithoutEmptyId.reduce(
+            spendingList: spendingWithoutEmptyId.reduce(
               (acc: SpendingModel[], item: SpendingModel) => item.categoryId === category.id ? [...acc, item] : acc, []
             ),
           }]
