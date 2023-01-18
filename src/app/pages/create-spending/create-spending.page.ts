@@ -41,7 +41,7 @@ export class CreateSpendingPage {
   ) {
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
-      category: this.fb.control({ id: "4e9b14f4-465c-4bbc-9338-42ddbe5fadf7", name: "other" }, Validators.required),
+      category: this.fb.control(null, Validators.required),
       description: this.fb.control(null),
     });
   }
