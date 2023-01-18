@@ -41,7 +41,7 @@ export class EditSpendingModalComponent implements OnInit {
     const { amount, category, description } = this.formGroup?.value;
     return this.modalCtrl.dismiss({
       ...this.transaction,
-      amount,
+      amount: Number(amount.replace(/[^0-9.-]+/g,"")) * 100,
       category,
       categoryId: this.categories?.find(c => c.name === category)?.id,
       description,
