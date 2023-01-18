@@ -18,14 +18,12 @@ export class SpendingEffects {
     private actions$: Actions,
     private dbService: DataBaseService,
     private userStore: Store<UserState>,
-    private categoriesStore: Store<CategoriesState>
   ) {}
 
   addSpending$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.addSpending),
-    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId), this.categoriesStore.select(CategoriesSelectors.selectCategories)]),
-    switchMap(([{ payload }, userId, categories]) => this.dbService.createSpending(payload, userId,
-      categories.find(item => item.name === payload.category)?.id).pipe(
+    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
+    switchMap(([{ payload }, userId]) => this.dbService.createSpending(payload, userId).pipe(
       map((payload) => {
         return payload
           ? SpendingActions.addSpendingSuccess()

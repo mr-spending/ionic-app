@@ -2,8 +2,6 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
 import {
-  CategoryModel,
-  SpendingByCategoriesItem,
   SpendingFilterModel,
   SpendingModel,
   SpendingSortModel
@@ -36,30 +34,4 @@ export namespace SpendingSelectors {
     }
   );
 
-  export const selectSpendingByCategories = createSelector(
-    selectSpendingList,
-    CategoriesSelectors.selectCategories,
-    (spendingList: SpendingModel[], categories: CategoryModel[]) => {
-
-      // If there are transactions without a categoryId, we find this ID
-      const spendingWithoutEmptyId = spendingList.map(item =>
-          item.categoryId ? item : {...item, categoryId: categories.find(c => c.name === item.category)?.id || ''});
-
-      return categories.reduce((acc: SpendingByCategoriesItem[], category: CategoryModel) => {
-        if (spendingWithoutEmptyId.find(item => item.categoryId === category.id))
-          return [...acc, {
-            name: category.name,
-            id: category.id,
-            totalAmount: spendingWithoutEmptyId.reduce(
-              (acc, item) => item.categoryId === category.id ? acc + item.amount : acc, 0
-            ),
-            spending: spendingWithoutEmptyId.reduce(
-              (acc: SpendingModel[], item: SpendingModel) => item.categoryId === category.id ? [...acc, item] : acc, []
-            ),
-          }]
-          return acc;
-        }, []);
-    }
-  );
 }
-

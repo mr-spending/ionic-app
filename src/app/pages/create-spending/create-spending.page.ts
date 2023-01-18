@@ -45,7 +45,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   ) {
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
-      category: this.fb.control('other', Validators.required),
+      category: this.fb.control(null, Validators.required),
       description: this.fb.control(null),
     });
   }
@@ -54,9 +54,10 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     const groupValue = this.formGroup.value;
     const spendingItem: SpendingModel = {
       amount: Number(groupValue.amount.replace(/[^0-9.-]+/g,"")) * 100,
-      category: groupValue.category,
+      category: groupValue.category.name,
       description: groupValue.description,
       id: Guid.create().toString(),
+      categoryId: groupValue.category.id,
       time: Math.floor(new Date().getTime() / 1000)
     }
     this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));

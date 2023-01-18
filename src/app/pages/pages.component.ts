@@ -9,6 +9,8 @@ import { AuthService } from '../auth/services/auth.service';
 import { PageRoutesEnum } from '../core/enums/routing.enums';
 import { SpendingState } from '../core/state/reducers/spending.reducer';
 import { SpendingActions } from '../core/state/actions/spending.actions';
+import { CategoriesActions } from '../core/state/actions/categories.actions';
+import { CategoriesState } from '../core/state/reducers/categories.reducer';
 
 @Component({
   selector: 'app-pages',
@@ -40,13 +42,13 @@ export class PagesComponent implements OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private spendingStore: Store<SpendingState>,
+    private categoriesStore: Store<CategoriesState>,
   ) {
     this.spendingStore.dispatch(SpendingActions.spendingList());
+    this.categoriesStore.dispatch(CategoriesActions.categoriesList());
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
-
-
 }
