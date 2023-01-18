@@ -41,19 +41,20 @@ export class CreateSpendingPage {
   ) {
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
-      category: this.fb.control('other', Validators.required),
+      category: this.fb.control({ id: "4e9b14f4-465c-4bbc-9338-42ddbe5fadf7", name: "other" }, Validators.required),
       description: this.fb.control(null),
     });
   }
 
-  addSpending(categories: CategoryModel[]): void {
+  addSpending(): void {
     const groupValue = this.formGroup.value;
+    console.log(groupValue.ca)
     const spendingItem: SpendingModel = {
       amount: Number(groupValue.amount.replace(/[^0-9.-]+/g,"")) * 100,
-      category: groupValue.category,
+      category: groupValue.category.name,
       description: groupValue.description,
       id: Guid.create().toString(),
-      categoryId: categories.find(item => item.name === groupValue.category)?.id,
+      categoryId: groupValue.category.id,
       time: Math.floor(new Date().getTime() / 1000)
     }
     this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));

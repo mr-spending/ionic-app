@@ -27,15 +27,16 @@
           <ion-item>
             <ion-label class="select-label">{{ 'createSpending.category' | translate }}</ion-label>
             <ion-select
+              #ionSelect
               class="select-selector"
               *ngIf="categories$ | async as categories"
               interface="popover"
               placeholder="Select fruit"
               name="category"
               formControlName="category"
-              [selectedText]="formGroup.value.category"
+              [selectedText]="ionSelect.value?.name"
             >
-              <ion-select-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</ion-select-option>
+              <ion-select-option *ngFor="let category of categories" [value]="category">{{ category.name }}</ion-select-option>
             </ion-select>
           </ion-item>
 
@@ -70,7 +71,7 @@
       fill="solid"
       [size]="isAccordionExpanded ? 'default' : 'small'"
       [disabled]="isAccordionExpanded ? formGroup.invalid : false"
-      (click)="isAccordionExpanded ? addSpending(categories) : toggleAccordion()"
+      (click)="isAccordionExpanded ? addSpending() : toggleAccordion()"
     >
       {{ 'createSpending.addSpending' | translate }}
     </ion-button>

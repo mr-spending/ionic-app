@@ -7,9 +7,7 @@ import { DataBaseService } from '../../data-base/data-base.service';
 import { SpendingActions } from '../actions/spending.actions';
 import { UserSelectors } from '../selectors/user.selectors';
 import { UserState } from '../reducers/user.reducer';
-import { CategoriesState } from '../reducers/categories.reducer';
 import { mapSpendingList } from '../../utils/spending.utils';
-import { CategoriesSelectors } from '../selectors/categories.selectors';
 
 @Injectable()
 export class SpendingEffects {
@@ -18,7 +16,6 @@ export class SpendingEffects {
     private actions$: Actions,
     private dbService: DataBaseService,
     private userStore: Store<UserState>,
-    private categoriesStore: Store<CategoriesState>
   ) {}
 
   addSpending$ = createEffect(() => this.actions$.pipe(
