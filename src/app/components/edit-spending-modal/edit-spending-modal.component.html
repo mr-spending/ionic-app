@@ -19,9 +19,7 @@
         formControlName="amount"
         maxlength="15"
         type="tel"
-        currencyMask
-        decimal="."
-        thousand=","
+        appCustomCurrencyMask
         [placeholder]="(currency$ | async) + '0.00'"
       ></ion-input>
     </ion-item>
