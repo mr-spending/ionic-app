@@ -4,13 +4,10 @@ import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/cor
   selector: '[appCustomCurrencyMask]'
 })
 export class CustomCurrencyDirective implements OnInit {
-
   @Input() decimal = '.';
   @Input() thousand = ',';
   constructor(private inputRef: ElementRef<HTMLIonInputElement>) {
   }
-
-
 
   @HostListener('input', ['$event.target.value'])
   onInput(): void {
@@ -34,6 +31,4 @@ export class CustomCurrencyDirective implements OnInit {
     value = parts.join(this.decimal);
     this.inputRef.nativeElement.value = value;
   }
-
 }
-
