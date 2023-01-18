@@ -48,7 +48,6 @@ export class CreateSpendingPage {
 
   addSpending(): void {
     const groupValue = this.formGroup.value;
-    console.log(groupValue.ca)
     const spendingItem: SpendingModel = {
       amount: Number(groupValue.amount.replace(/[^0-9.-]+/g,"")) * 100,
       category: groupValue.category.name,
