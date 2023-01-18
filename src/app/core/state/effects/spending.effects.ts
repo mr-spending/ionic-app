@@ -9,7 +9,6 @@ import { UserSelectors } from '../selectors/user.selectors';
 import { UserState } from '../reducers/user.reducer';
 import { mapSpendingList } from '../../utils/spending.utils';
 
-
 @Injectable()
 export class SpendingEffects {
 

@@ -25,11 +25,19 @@
           </ion-item>
 
           <ion-item>
-            <ion-label>{{ 'createSpending.category' | translate }}</ion-label>
-            <ion-input
+            <ion-label class="select-label">{{ 'createSpending.category' | translate }}</ion-label>
+            <ion-select
+              #ionSelect
+              class="select-selector"
+              *ngIf="categories$ | async as categories"
+              interface="popover"
+              placeholder="Select fruit"
+              name="category"
               formControlName="category"
-              [placeholder]="'createSpending.categoryPlaceholder' | translate"
-            ></ion-input>
+              [selectedText]="ionSelect.value?.name"
+            >
+              <ion-select-option *ngFor="let category of categories" [value]="category">{{ category.name }}</ion-select-option>
+            </ion-select>
           </ion-item>
 
           <ion-item>
@@ -44,9 +52,9 @@
     </ion-accordion>
   </ion-accordion-group>
 
-
   <ion-row
     class="ion-padding-top"
+    *ngIf="categories$ | async as categories"
     [ngClass]="isAccordionExpanded ? 'ion-justify-content-between' : 'ion-justify-content-end'"
   >
     <ion-button
@@ -70,7 +78,12 @@
   </ion-row>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="transaction-spending-list">
+  <ion-row class="ion-justify-content-center">
+    <ion-button fill="clear" (click)="updateSpendingList()">
+      <ion-icon color="primary" size="large" name="refresh-circle-outline"></ion-icon>
+    </ion-button>
+  </ion-row>
 
   <ion-list *ngIf="bankTransactions$ | async as bankTransactions">
     <ion-item *ngFor="let item of bankTransactions" (click)="transactionClick(item)" color="light">

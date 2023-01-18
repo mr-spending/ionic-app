@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { from, Observable, take } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
-import { SpendingEntity, UserEntity } from '../interfaces/entities';
+import { CategoryEntity, SpendingEntity, UserEntity } from '../interfaces/entities';
 import { SpendingModel } from '../interfaces/models';
 
 @Injectable()
@@ -45,5 +45,11 @@ export class DataBaseService {
   deleteSpending(id: string, userId: string): Observable<void> {
     return from(this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
       .doc(id).delete());
+  }
+
+  /** Categories Data */
+
+  getAllCategories(): Observable<CategoryEntity[]> {
+    return this.firestore.collection<CategoryEntity>('categories').valueChanges();
   }
 }

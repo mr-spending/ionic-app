@@ -29,6 +29,7 @@
     "categoryPlaceholder": "Натисніть щоб обрати",
     "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
     "addSpending": "Додати витрату",
-    "cancel": "Відміна"
+    "cancel": "Відміна",
+    "update": "Оновити список"
   }
 }

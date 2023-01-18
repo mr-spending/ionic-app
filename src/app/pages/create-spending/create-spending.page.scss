@@ -1,4 +1,14 @@
 ion-header {
   padding-top: 44pt;
+  padding-bottom: 0;
   background: var(--ion-color-primary-contrast);
+}
+
+.select-label {
+  min-width: 105px;
+}
+
+.select-selector {
+  min-width: calc(100% - 113px);
+  text-align: end;
 }

@@ -7,6 +7,7 @@ export interface UserModel {
   photoURL: string;
   emailVerified: boolean;
   currency?: string;
+  currencyId?: string;
   monoBankClientToken?: string;
   monoBankAccounts?: MonoBankAccount[];
 }
@@ -16,6 +17,7 @@ export interface SpendingModel {
   amount: number;
   time: number;
   category: string;
+  categoryId?: string;
   description?: string;
   date?: string;
   currencyCode?: number;
@@ -51,4 +53,14 @@ export interface BankTransaction {
   date?: string;
   accountId: string;
   accountType: string;
+}
+
+export interface CategoryModel {
+  id: string;
+  name: string;
+}
+
+export interface SpendingByCategoriesItem extends CategoryModel {
+  totalAmount: number;
+  spendingList: SpendingModel[];
 }

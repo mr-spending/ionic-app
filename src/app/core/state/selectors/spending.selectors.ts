@@ -1,7 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
-import { SpendingFilterModel, SpendingModel, SpendingSortModel } from '../../interfaces/models';
+import {
+  SpendingFilterModel,
+  SpendingModel,
+  SpendingSortModel
+} from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
@@ -28,4 +32,6 @@ export namespace SpendingSelectors {
       return list.reduce((total, item) => total + item.amount, 0) / 100;
     }
   );
+
 }
+
