@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-title size="large" class="ion-text-center" (click)="navigateToExpensesList()">
       {{ currency$ | async}}
-      {{ (totalAmount$ | async) | number: '.2'}}
+      {{ (totalAmount$ | async) | number: '.2' }}
     </ion-title>
   </ion-toolbar>
 
@@ -88,7 +88,7 @@
   <ion-list *ngIf="bankTransactions$ | async as bankTransactions">
     <ion-item *ngFor="let item of bankTransactions" (click)="transactionClick(item)" color="light">
       <ion-label>
-        <h2>{{ currency$ | async }} {{ (item.amount / 100) | number: '.2'}}</h2>
+        <h2>{{ currency$ | async }} {{ item.amount | moneyFormat }}</h2>
         <p *ngIf="item.description">{{ item.description }}</p>
         <p *ngIf="item.comment">{{ item.comment }}</p>
       </ion-label>
@@ -99,7 +99,7 @@
   <ion-list *ngIf="spendingList$ | async as spendingList">
     <ion-item *ngFor="let item of spendingList" (click)="spendingClick(item)">
       <ion-label>
-        <h2>{{ currency$ | async }} {{ (item.amount / 100) | number: '.2'}}</h2>
+        <h2>{{ currency$ | async }} {{ item.amount | moneyFormat }}</h2>
         <p *ngIf="item.category">{{ item.category }}</p>
         <p *ngIf="item.description">{{ item.description }}</p>
         <p *ngIf="item.comment">{{ item.comment }}</p>
