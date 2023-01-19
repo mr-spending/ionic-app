@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="danger" (click)="cancel()">Cancel</ion-button>
+      <ion-button color="danger" (click)="cancel()">{{ 'createSpending.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title>Edit spending</ion-title>
+    <ion-title>{{ 'createSpending.editSpendingModalTitle' | translate }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">Confirm</ion-button>
+      <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">{{ 'createSpending.confirm' | translate }}</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>

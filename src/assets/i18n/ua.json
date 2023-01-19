@@ -28,8 +28,10 @@
     "amountPlaceholder": "Введіть сумму",
     "categoryPlaceholder": "Натисніть щоб обрати",
     "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
+    "editSpendingModalTitle": "Змінити витрату",
     "addSpending": "Додати витрату",
     "cancel": "Відміна",
+    "confirm": "Так",
     "update": "Оновити список"
   }
 }
