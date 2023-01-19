@@ -51,7 +51,6 @@
 
   <ion-row
     class="ion-padding-top"
-    *ngIf="categories$ | async as categories"
     [ngClass]="isAccordionExpanded ? 'ion-justify-content-between' : 'ion-justify-content-end'"
   >
     <ion-button
@@ -105,5 +104,4 @@
       <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
     </ion-item>
   </ion-list>
-
 </ion-content>
