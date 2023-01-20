@@ -30,6 +30,10 @@ export class AuthService {
     return this.authState$.pipe(map(res => !!res));
   }
 
+  get token(): Observable<string | null> {
+    return this.afAuth.idToken;
+  }
+
   /** Sign in with email/password */
   signIn(email: string, password: string) {
     return this.afAuth

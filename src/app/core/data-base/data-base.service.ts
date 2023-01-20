@@ -4,11 +4,15 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 import { CategoryEntity, SpendingEntity, UserEntity } from '../interfaces/entities';
 import { SpendingModel } from '../interfaces/models';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class DataBaseService {
 
-  constructor(private firestore: AngularFirestore) {
+  path = environment.baseUrl;
+
+  constructor(private firestore: AngularFirestore, private http: HttpClient) {
   }
 
   /** User Data */
@@ -22,30 +26,25 @@ export class DataBaseService {
   }
 
   /** Spending Data */
-  getAllSpending(userId: string): Observable<SpendingEntity[]> {
-    return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
-      .valueChanges();
+  getAllSpending(): Observable<SpendingEntity[]> {
+    return this.http.get<SpendingEntity[]>(this.path + 'spending');
   }
 
-  getSpending(id: string, userId: string): Observable<SpendingEntity | undefined> {
-    return this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
-      .doc(id).valueChanges().pipe(take(1));
+  getSpending(id: string): Observable<SpendingEntity | undefined> {
+    return this.http.get<SpendingEntity>(this.path + `spending/${id}`);
   }
 
   createSpending(spendingModel: SpendingModel, userId: string): Observable<SpendingEntity | undefined> {
     const spending: SpendingEntity = { ...spendingModel, userId };
-    this.firestore.collection<SpendingEntity>('spending').doc(spending.id).set(spending).then();
-    return this.getSpending(spending.id, userId).pipe(take(1));
+    return this.http.post<SpendingEntity | undefined>(this.path + 'spending', spending);
   }
 
-  updateSpendingItem(spending: SpendingEntity): Observable<SpendingEntity | undefined> {
-    this.firestore.collection<SpendingEntity>('spending').doc(spending.id).update(spending).then();
-    return this.getSpending(spending.id, spending.userId).pipe(take(1));
+  updateSpendingItem(spending: SpendingEntity): Observable<SpendingEntity[]> {
+    return this.http.patch<SpendingEntity[]>(this.path + `spending/${spending.id}`, spending);
   }
 
-  deleteSpending(id: string, userId: string): Observable<void> {
-    return from(this.firestore.collection<SpendingEntity>('spending',ref => ref.where('userId', '==', userId))
-      .doc(id).delete());
+  deleteSpending(id: string): Observable<void> {
+    return this.http.delete<void>(this.path + `spending/${id}`);
   }
 
   /** Categories Data */
