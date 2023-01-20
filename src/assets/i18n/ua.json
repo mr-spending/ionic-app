@@ -21,6 +21,15 @@
     "selectLanguage": "Мова",
     "selectLanguagePlaceholder": "Обрати"
   },
+  "general": {
+    "actions" : {
+      "add": "Додати",
+      "edit": "Змінити",
+      "delete": "Видалити",
+      "cancel": "Скасувати",
+      "confirm": "Так"
+    }
+  },
   "createSpending": {
     "amount": "Сума:",
     "category": "Категорія:",

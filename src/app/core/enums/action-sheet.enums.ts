@@ -2,7 +2,7 @@ export enum ActionEnum {
   Add = 'Add',
   Edit = 'Edit',
   Delete = 'Delete',
-  Cancel = 'general.actions.cancel',
+  Cancel = 'Cancel',
   Confirm = 'Confirm',
 }
 

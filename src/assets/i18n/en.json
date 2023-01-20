@@ -21,6 +21,15 @@
     "selectLanguage": "Language",
     "selectLanguagePlaceholder": "Select"
   },
+  "general": {
+    "actions" : {
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  },
   "createSpending": {
     "amount": "Amount:",
     "category": "Category:",

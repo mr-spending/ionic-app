@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, PipeTransform, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'typescript-guid';
 import { Store } from '@ngrx/store';
@@ -143,20 +143,20 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: ActionEnum.Delete,
+          text: this.translateService.instant('general.actions.delete'),
           role: ActionRoleEnum.Destructive,
           data: {
             action: ActionEnum.Delete,
           },
         },
         {
-          text: ActionEnum.Edit,
+          text: this.translateService.instant('general.actions.edit'),
           data: {
             action: ActionEnum.Edit,
           },
         },
         {
-          text: ActionEnum.Cancel,
+          text: this.translateService.instant('general.actions.cancel'),
           role: ActionRoleEnum.Cancel,
           data: {
             action: ActionEnum.Cancel,
