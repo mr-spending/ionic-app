@@ -7,26 +7,29 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CustomCurrencyDirective } from './directives/custom-currency.directive';
 import { MoneyFormatPipe } from './pipes/money-format.pipe';
 
+const declarations = [
+  CustomCurrencyDirective,
+  MoneyFormatPipe
+];
+
 const sharedModules = [
   FormsModule,
   ReactiveFormsModule,
   IonicModule,
   TranslateModule,
-  CommonModule,
+  CommonModule
 ];
 
 @NgModule({
   declarations: [
-    CustomCurrencyDirective,
-    MoneyFormatPipe,
+    ...declarations
   ],
   imports: [
     ...sharedModules,
   ],
   exports: [
     ...sharedModules,
-    CustomCurrencyDirective,
-    MoneyFormatPipe,
+    ...declarations
   ]
 })
 export class SharedModule { }

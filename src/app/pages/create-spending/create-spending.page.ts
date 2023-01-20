@@ -7,6 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { ActionSheetController, IonAccordionGroup } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { BankTransaction, CategoryModel, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
@@ -17,7 +18,7 @@ import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import { EditSpendingModalComponent } from '../../components/edit-spending-modal/edit-spending-modal.component';
 import { currencyDirectiveDataToNumber } from '../../core/utils/helper.functions';
-import { ActionEnum, ActionRoleEnum, ActionTextEnum } from '../../core/enums/action-sheet.enums';
+import { ActionEnum, ActionRoleEnum } from '../../core/enums/action-sheet.enums';
 
 @Component({
   selector: 'app-create-spending.page',
@@ -44,6 +45,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     private router: Router,
     private actionSheetController: ActionSheetController,
     private modalCtrl: ModalController,
+    private translateService: TranslateService,
   ) {
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
@@ -93,19 +95,19 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: ActionTextEnum.Add,
+          text: ActionEnum.Add,
           data: {
             action: ActionEnum.Add,
           },
         },
         {
-          text: ActionTextEnum.Edit,
+          text: ActionEnum.Edit,
           data: {
             action: ActionEnum.Edit,
           },
         },
         {
-          text: ActionTextEnum.Cancel,
+          text: ActionEnum.Cancel,
           role: ActionRoleEnum.Cancel,
           data: {
             action: ActionEnum.Cancel,
@@ -141,20 +143,20 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: ActionTextEnum.Delete,
+          text: ActionEnum.Delete,
           role: ActionRoleEnum.Destructive,
           data: {
             action: ActionEnum.Delete,
           },
         },
         {
-          text: ActionTextEnum.Edit,
+          text: ActionEnum.Edit,
           data: {
             action: ActionEnum.Edit,
           },
         },
         {
-          text: ActionTextEnum.Cancel,
+          text: ActionEnum.Cancel,
           role: ActionRoleEnum.Cancel,
           data: {
             action: ActionEnum.Cancel,
@@ -186,7 +188,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   async openModal(item: SpendingModel) {
     const modal = await this.modalCtrl.create({
       component: EditSpendingModalComponent,
-      componentProps: { transaction: item, categories: this.categories }
+      componentProps: { spendingItem: item, categories: this.categories }
     });
     modal.present();
     const { data, role } = await modal.onWillDismiss();

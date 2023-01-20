@@ -28,10 +28,13 @@
     "amountPlaceholder": "Type your amount",
     "categoryPlaceholder": "Select category",
     "descriptionPlaceholder": "Type your description. Optional.",
-    "editSpendingModalTitle": "Edit spending",
     "addSpending": "Add spending",
     "cancel": "Cancel",
-    "confirm": "Confirm",
     "update": "Update list"
+  },
+  "editSpendingModal": {
+    "editSpendingModalTitle": "Edit spending",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   }
 }
