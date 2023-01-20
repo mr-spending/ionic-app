@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { from, Observable, take } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { HttpClient } from '@angular/common/http';
 
 import { CategoryEntity, SpendingEntity, UserEntity } from '../interfaces/entities';
 import { SpendingModel } from '../interfaces/models';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
