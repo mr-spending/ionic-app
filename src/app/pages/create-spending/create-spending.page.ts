@@ -16,6 +16,8 @@ import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import { EditSpendingModalComponent } from '../../components/edit-spending-modal/edit-spending-modal.component';
+import { currencyDirectiveDataToNumber } from '../../core/utils/helper.functions';
+import { ActionEnum, ActionRoleEnum, ActionTextEnum } from '../../core/enums/action-sheet.enums';
 
 @Component({
   selector: 'app-create-spending.page',
@@ -63,7 +65,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   addSpending(): void {
     const groupValue = this.formGroup.value;
     const spendingItem: SpendingModel = {
-      amount: Number(groupValue.amount.replace(/[^0-9.-]+/g,"")) * 100,
+      amount: currencyDirectiveDataToNumber(groupValue.amount),
       category: groupValue.category.name,
       description: groupValue.description,
       id: Guid.create().toString(),
@@ -91,23 +93,22 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: 'Add',
-          // role: 'destructive',
+          text: ActionTextEnum.Add,
           data: {
-            action: 'add',
+            action: ActionEnum.Add,
           },
         },
         {
-          text: 'Edit',
+          text: ActionTextEnum.Edit,
           data: {
-            action: 'edit',
+            action: ActionEnum.Edit,
           },
         },
         {
-          text: 'Cancel',
-          role: 'cancel',
+          text: ActionTextEnum.Cancel,
+          role: ActionRoleEnum.Cancel,
           data: {
-            action: 'cancel',
+            action: ActionEnum.Cancel,
           },
         },
       ],
@@ -117,7 +118,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     const result = await actionSheet.onDidDismiss();
 
     switch (result.data.action) {
-      case 'add': this.addTransaction(transaction);
+      case ActionEnum.Add: this.addTransaction(transaction);
     }
   }
 
@@ -140,23 +141,23 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: 'Delete',
-          role: 'destructive',
+          text: ActionTextEnum.Delete,
+          role: ActionRoleEnum.Destructive,
           data: {
-            action: 'delete',
+            action: ActionEnum.Delete,
           },
         },
         {
-          text: 'Edit',
+          text: ActionTextEnum.Edit,
           data: {
-            action: 'edit',
+            action: ActionEnum.Edit,
           },
         },
         {
-          text: 'Cancel',
-          role: 'cancel',
+          text: ActionTextEnum.Cancel,
+          role: ActionRoleEnum.Cancel,
           data: {
-            action: 'cancel',
+            action: ActionEnum.Cancel,
           },
         },
       ],
@@ -166,10 +167,10 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     const result = await actionSheet.onDidDismiss();
 
     switch (result.data.action) {
-      case 'delete':
+      case ActionEnum.Delete:
         this.removeSpendingItem(item.id);
         break;
-      case 'edit':
+      case ActionEnum.Edit:
         this.openModal(item);
     }
   }
@@ -189,7 +190,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     });
     modal.present();
     const { data, role } = await modal.onWillDismiss();
-    if (role === 'confirm') {
+    if (role === ActionEnum.Confirm) {
       this.store.dispatch(SpendingActions.updateSpendingItem({ payload: data }));
     }
   }

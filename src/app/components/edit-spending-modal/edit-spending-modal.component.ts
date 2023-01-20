@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 
 import { CategoryModel, SpendingModel } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
+import { currencyDirectiveDataToNumber } from '../../core/utils/helper.functions';
+import { ActionEnum } from "../../core/enums/action-sheet.enums";
 
 @Component({
   selector: 'app-edit-spending-modal',
@@ -35,17 +37,17 @@ export class EditSpendingModalComponent implements OnInit {
   }
 
   cancel() {
-    return this.modalCtrl.dismiss(null, 'cancel');
+    return this.modalCtrl.dismiss(null, ActionEnum.Cancel);
   }
 
   confirm() {
     const { amount, category, description } = this.formGroup?.value;
     return this.modalCtrl.dismiss({
       ...this.transaction,
-      amount: (typeof amount !== "number") ? Number((amount.replace(/[^0-9.-]+/g,"") * 100).toFixed(0)) : amount,
+      amount: (typeof amount !== "number") ? currencyDirectiveDataToNumber(amount) : amount,
       category,
       categoryId: this.categories?.find(c => c.name === category)?.id,
       description,
-    }, 'confirm');
+    }, ActionEnum.Confirm);
   }
 }
