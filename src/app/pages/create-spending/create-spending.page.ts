@@ -29,7 +29,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
-  categories: CategoryModel[] | undefined = undefined;
+  categories!: CategoryModel[];
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
 
   get isAccordionExpanded() {
@@ -48,6 +48,16 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
       category: this.fb.control(null, Validators.required),
       description: this.fb.control(null),
     });
+  }
+
+  ngOnInit() {
+    this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
+      .subscribe((categories: CategoryModel[]) => this.categories = categories)
+    )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   addSpending(): void {
@@ -180,17 +190,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
     modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (role === 'confirm') {
-      this.store.dispatch(SpendingActions.updateSpending({ payload: data }));
+      this.store.dispatch(SpendingActions.updateSpendingItem({ payload: data }));
     }
-  }
-
-  ngOnInit() {
-    this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
-      .subscribe((categories: CategoryModel[]) => this.categories = categories)
-    )
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }

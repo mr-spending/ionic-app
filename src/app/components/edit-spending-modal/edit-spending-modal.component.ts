@@ -14,10 +14,11 @@ import { UserSelectors } from '../../core/state/selectors/user.selectors';
   styleUrls: ['./edit-spending-modal.component.scss'],
 })
 export class EditSpendingModalComponent implements OnInit {
-  @Input() transaction: SpendingModel | undefined = undefined;
-  @Input() categories: CategoryModel[] | undefined = undefined;
+  @Input() transaction!: SpendingModel;
+  @Input() categories!: CategoryModel[];
+
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
-  formGroup: FormGroup | undefined = undefined;
+  formGroup?: FormGroup;
 
   constructor(
     private store: Store<AppState>,
@@ -41,7 +42,7 @@ export class EditSpendingModalComponent implements OnInit {
     const { amount, category, description } = this.formGroup?.value;
     return this.modalCtrl.dismiss({
       ...this.transaction,
-      amount: Number(amount.replace(/[^0-9.-]+/g,"")) * 100,
+      amount: (typeof amount !== "number") ? Number((amount.replace(/[^0-9.-]+/g,"") * 100).toFixed(0)) : amount,
       category,
       categoryId: this.categories?.find(c => c.name === category)?.id,
       description,

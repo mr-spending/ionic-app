@@ -1,4 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import * as moment from "moment";
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
 import {
@@ -7,7 +8,6 @@ import {
   SpendingSortModel
 } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
-import { CategoriesSelectors } from './categories.selectors';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 
@@ -22,7 +22,7 @@ export namespace SpendingSelectors {
     selectSpendingSort,
     selectSpendingFilter,
     (list: SpendingModel[], sort: SpendingSortModel, filter: SpendingFilterModel) => {
-      const filteredList = list.filter(item => item.time > filter.from && item.time < filter.to);
+      const filteredList = list.filter(item => item.time > filter.from && item.time <= moment().unix());
       return sortArrayByProperty(filteredList, sort.field, sort.direction);
     }
   );

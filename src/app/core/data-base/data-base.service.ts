@@ -38,9 +38,9 @@ export class DataBaseService {
     return this.getSpending(spending.id, userId).pipe(take(1));
   }
 
-  updateSpending(spending: SpendingEntity): Observable<SpendingEntity[]> {
+  updateSpendingItem(spending: SpendingEntity): Observable<SpendingEntity | undefined> {
     this.firestore.collection<SpendingEntity>('spending').doc(spending.id).update(spending).then();
-    return this.getAllSpending(spending.id).pipe(take(1));
+    return this.getSpending(spending.id, spending.userId).pipe(take(1));
   }
 
   deleteSpending(id: string, userId: string): Observable<void> {
