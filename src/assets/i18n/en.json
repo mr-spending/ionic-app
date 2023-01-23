@@ -21,6 +21,15 @@
     "selectLanguage": "Language",
     "selectLanguagePlaceholder": "Select"
   },
+  "general": {
+    "actions" : {
+      "add": "Add",
+      "edit": "Edit",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    }
+  },
   "createSpending": {
     "amount": "Amount:",
     "category": "Category:",
@@ -29,7 +38,14 @@
     "categoryPlaceholder": "Select category",
     "descriptionPlaceholder": "Type your description. Optional.",
     "addSpending": "Add spending",
-    "cancel": "Cancel",
     "update": "Update list"
+  },
+  "editSpendingModal": {
+    "title": "Edit spending",
+    "amount": "Amount:",
+    "description": "Description:",
+    "amountPlaceholder": "Type your amount",
+    "descriptionPlaceholder": "Type your description. Optional.",
+    "category": "Category:"
   }
 }

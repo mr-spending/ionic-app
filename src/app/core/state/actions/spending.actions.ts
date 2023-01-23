@@ -18,4 +18,7 @@ export namespace SpendingActions {
   export const spendingListSuccess = createAction(`[${stateType}] Spending List Success`, props<{ payload: SpendingModel[] }>());
   export const spendingListFailure = createAction(`[${stateType}] Spending List Failure`);
 
+  export const updateSpendingItem = createAction(`[${stateType}] Update Spending Item`, props<{ payload: SpendingModel }>());
+  export const updateSpendingItemSuccess = createAction(`[${stateType}] Update Spending Item Success`);
+  export const updateSpendingItemFailure = createAction(`[${stateType}] Update Spending Item Failure`);
 }

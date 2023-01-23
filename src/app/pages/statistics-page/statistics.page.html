@@ -9,13 +9,13 @@
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
       <ion-item slot="header" color="light">
-        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ ((category.totalAmount / 100) | number: '.2') }}</ion-label>
+        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
       </ion-item>
 
       <ion-list slot="content">
         <ion-item *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.category !== category.name" >
           <ion-label>
-            <h2>{{ currency$ | async }} {{ (item.amount / 100) | number: '.2'}}</h2>
+            <h2>{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</h2>
             <p *ngIf="item.description">{{ item.description }}</p>
             <p *ngIf="item.comment">{{ item.comment }}</p>
           </ion-label>

@@ -21,6 +21,15 @@
     "selectLanguage": "Мова",
     "selectLanguagePlaceholder": "Обрати"
   },
+  "general": {
+    "actions" : {
+      "add": "Додати",
+      "edit": "Змінити",
+      "delete": "Видалити",
+      "cancel": "Скасувати",
+      "confirm": "Так"
+    }
+  },
   "createSpending": {
     "amount": "Сума:",
     "category": "Категорія:",
@@ -29,7 +38,14 @@
     "categoryPlaceholder": "Натисніть щоб обрати",
     "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
     "addSpending": "Додати витрату",
-    "cancel": "Відміна",
     "update": "Оновити список"
+  },
+  "editSpendingModal": {
+    "title": "Редагувати",
+    "amount": "Сума:",
+    "description": "Опис:",
+    "amountPlaceholder": "Введіть сумму",
+    "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
+    "category": "Категорія:"
   }
 }

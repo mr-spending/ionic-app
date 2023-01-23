@@ -12,3 +12,7 @@ export function sortArrayByProperty(arr: any[], property: string, direction: Dir
     return 0;
   });
 }
+
+export function amountStringToNumber(amount: string): number {
+  return Number((+amount.replace(/[^0-9.-]+/g,"") * 100).toFixed(0));
+}

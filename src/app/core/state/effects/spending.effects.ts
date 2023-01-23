@@ -48,4 +48,12 @@ export class SpendingEffects {
     )),
   ));
 
+  updateSpendingItem$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.updateSpendingItem),
+    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
+    switchMap(([{ payload } , userId]) => this.dbService.updateSpendingItem({ ...payload, userId }).pipe(
+      map(() => SpendingActions.updateSpendingItemSuccess()),
+      catchError(err => of(SpendingActions.updateSpendingItemFailure()))
+    )),
+  ));
 }

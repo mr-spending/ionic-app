@@ -1,11 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, OnDestroy, OnInit, PipeTransform, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'typescript-guid';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ActionSheetController, IonAccordionGroup } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
+import { ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { BankTransaction, CategoryModel, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
@@ -14,19 +16,23 @@ import { SpendingSelectors } from '../../core/state/selectors/spending.selectors
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
+import { EditSpendingModalComponent } from '../edit-spending-modal/edit-spending-modal.component';
+import { amountStringToNumber } from '../../core/utils/helper.functions';
+import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 
 @Component({
   selector: 'app-create-spending.page',
   templateUrl: 'create-spending.page.html',
   styleUrls: ['create-spending.page.scss']
 })
-export class CreateSpendingPage {
+export class CreateSpendingPage implements OnInit, OnDestroy {
+  subscription: Subscription = new Subscription();
   formGroup: FormGroup;
   spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSpendingListWithParams);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
-  categories$: Observable<CategoryModel[]> = this.store.select(CategoriesSelectors.selectCategories);
+  categories!: CategoryModel[];
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
 
   get isAccordionExpanded() {
@@ -37,7 +43,9 @@ export class CreateSpendingPage {
     private fb: FormBuilder,
     private store: Store<AppState>,
     private router: Router,
-    private actionSheetController: ActionSheetController
+    private actionSheetController: ActionSheetController,
+    private modalCtrl: ModalController,
+    private translateService: TranslateService,
   ) {
     this.formGroup = this.fb.group({
       amount: this.fb.control(null, Validators.required),
@@ -46,10 +54,20 @@ export class CreateSpendingPage {
     });
   }
 
+  ngOnInit() {
+    this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
+      .subscribe((categories: CategoryModel[]) => this.categories = categories)
+    )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   addSpending(): void {
     const groupValue = this.formGroup.value;
     const spendingItem: SpendingModel = {
-      amount: Number(groupValue.amount.replace(/[^0-9.-]+/g,"")) * 100,
+      amount: amountStringToNumber(groupValue.amount),
       category: groupValue.category.name,
       description: groupValue.description,
       id: Guid.create().toString(),
@@ -77,23 +95,22 @@ export class CreateSpendingPage {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: 'Add',
-          // role: 'destructive',
+          text: ActionsEnum.Add,
           data: {
-            action: 'add',
+            action: ActionsEnum.Add,
           },
         },
         {
-          text: 'Edit',
+          text: ActionsEnum.Edit,
           data: {
-            action: 'edit',
+            action: ActionsEnum.Edit,
           },
         },
         {
-          text: 'Cancel',
-          role: 'cancel',
+          text: ActionsEnum.Cancel,
+          role: ActionsRoleEnum.Cancel,
           data: {
-            action: 'cancel',
+            action: ActionsEnum.Cancel,
           },
         },
       ],
@@ -103,7 +120,7 @@ export class CreateSpendingPage {
     const result = await actionSheet.onDidDismiss();
 
     switch (result.data.action) {
-      case 'add': this.addTransaction(transaction);
+      case ActionsEnum.Add: this.addTransaction(transaction);
     }
   }
 
@@ -126,23 +143,23 @@ export class CreateSpendingPage {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: 'Delete',
-          role: 'destructive',
+          text: this.translateService.instant('general.actions.delete'),
+          role: ActionsRoleEnum.Destructive,
           data: {
-            action: 'delete',
+            action: ActionsEnum.Delete,
           },
         },
         {
-          text: 'Edit',
+          text: this.translateService.instant('general.actions.edit'),
           data: {
-            action: 'edit',
+            action: ActionsEnum.Edit,
           },
         },
         {
-          text: 'Cancel',
-          role: 'cancel',
+          text: this.translateService.instant('general.actions.cancel'),
+          role: ActionsRoleEnum.Cancel,
           data: {
-            action: 'cancel',
+            action: ActionsEnum.Cancel,
           },
         },
       ],
@@ -152,7 +169,11 @@ export class CreateSpendingPage {
     const result = await actionSheet.onDidDismiss();
 
     switch (result.data.action) {
-      case 'delete': this.removeSpendingItem(item.id);
+      case ActionsEnum.Delete:
+        this.removeSpendingItem(item.id);
+        break;
+      case ActionsEnum.Edit:
+        this.openModal(item);
     }
   }
 
@@ -162,5 +183,17 @@ export class CreateSpendingPage {
 
   updateSpendingList() {
     this.store.dispatch(SpendingActions.spendingList());
+  }
+
+  async openModal(item: SpendingModel) {
+    const modal = await this.modalCtrl.create({
+      component: EditSpendingModalComponent,
+      componentProps: { spendingItem: item, categories: this.categories }
+    });
+    modal.present();
+    const { data, role } = await modal.onWillDismiss();
+    if (role === ActionsEnum.Confirm) {
+      this.store.dispatch(SpendingActions.updateSpendingItem({ payload: data }));
+    }
   }
 }
