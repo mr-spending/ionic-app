@@ -4,29 +4,32 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 
-import { CustomCurrencyDirective } from './directives/custom-currency.directive';
-import { MoneyFormatPipe } from './pipes/money-format.pipe';
+import { MrCurrencyMaskDirective } from './directives/mr-currency-mask.directive';
+import { MrMoneyFormatPipe } from './pipes/money-format.pipe';
+
+const declarations = [
+  MrCurrencyMaskDirective,
+  MrMoneyFormatPipe
+];
 
 const sharedModules = [
   FormsModule,
   ReactiveFormsModule,
   IonicModule,
   TranslateModule,
-  CommonModule,
+  CommonModule
 ];
 
 @NgModule({
   declarations: [
-    CustomCurrencyDirective,
-    MoneyFormatPipe,
+    ...declarations
   ],
   imports: [
     ...sharedModules,
   ],
   exports: [
     ...sharedModules,
-    CustomCurrencyDirective,
-    MoneyFormatPipe,
+    ...declarations
   ]
 })
 export class SharedModule { }

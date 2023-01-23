@@ -1,20 +1,12 @@
-export enum ActionEnum {
-  Add = 'add',
-  Edit = 'edit',
-  Delete = 'delete',
-  Cancel = 'cancel',
-  Confirm = 'confirm',
-}
-
-export enum ActionTextEnum {
+export enum ActionsEnum {
   Add = 'Add',
   Edit = 'Edit',
   Delete = 'Delete',
   Cancel = 'Cancel',
-
+  Confirm = 'Confirm',
 }
 
-export enum ActionRoleEnum {
+export enum ActionsRoleEnum {
   Cancel = 'cancel',
   Destructive = 'destructive',
 }

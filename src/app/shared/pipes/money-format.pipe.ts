@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'moneyFormat'
+  name: 'mrMoneyFormat'
 })
-export class MoneyFormatPipe implements PipeTransform {
+export class MrMoneyFormatPipe implements PipeTransform {
 
   transform(value: number | null | undefined): string {
     if (!value) return '';
