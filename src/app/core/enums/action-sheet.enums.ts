@@ -1,4 +1,4 @@
-export enum ActionEnum {
+export enum ActionsEnum {
   Add = 'Add',
   Edit = 'Edit',
   Delete = 'Delete',
@@ -6,7 +6,7 @@ export enum ActionEnum {
   Confirm = 'Confirm',
 }
 
-export enum ActionRoleEnum {
+export enum ActionsRoleEnum {
   Cancel = 'cancel',
   Destructive = 'destructive',
 }

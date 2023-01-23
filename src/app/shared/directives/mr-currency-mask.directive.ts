@@ -1,9 +1,9 @@
 import { Directive, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appCustomCurrencyMask]'
+  selector: '[mrCurrencyMask]'
 })
-export class CustomCurrencyDirective implements OnInit {
+export class MrCurrencyMaskDirective implements OnInit {
   @Input() decimal = '.';
   @Input() thousand = ',';
   constructor(private inputRef: ElementRef<HTMLIonInputElement>) {
