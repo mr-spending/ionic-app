@@ -38,12 +38,14 @@
     "categoryPlaceholder": "Select category",
     "descriptionPlaceholder": "Type your description. Optional.",
     "addSpending": "Add spending",
-    "cancel": "Cancel",
     "update": "Update list"
   },
   "editSpendingModal": {
-    "editSpendingModalTitle": "Edit spending",
-    "cancel": "Cancel",
-    "confirm": "Confirm"
+    "title": "Edit spending",
+    "amount": "Amount:",
+    "description": "Description:",
+    "amountPlaceholder": "Type your amount",
+    "descriptionPlaceholder": "Type your description. Optional.",
+    "category": "Category:"
   }
 }

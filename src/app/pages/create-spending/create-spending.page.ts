@@ -16,7 +16,7 @@ import { SpendingSelectors } from '../../core/state/selectors/spending.selectors
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { EditSpendingModalComponent } from '../../components/edit-spending-modal/edit-spending-modal.component';
+import { EditSpendingModalComponent } from '../edit-spending-modal/edit-spending-modal.component';
 import { amountStringToNumber } from '../../core/utils/helper.functions';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 

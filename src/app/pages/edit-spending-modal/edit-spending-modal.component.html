@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="danger" (click)="cancel()">{{ 'editSpendingModal.cancel' | translate }}</ion-button>
+      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title>{{ 'editSpendingModal.editSpendingModalTitle' | translate }}</ion-title>
+    <ion-title>{{ 'editSpendingModal.title' | translate }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">{{ 'editSpendingModal.confirm' | translate }}</ion-button>
+      <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">{{ 'general.actions.confirm' | translate }}</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +13,7 @@
 <ion-content *ngIf="formGroup" class="ion-padding">
   <ion-list [formGroup]="formGroup">
     <ion-item>
-      <ion-label>{{ 'createSpending.amount' | translate }}</ion-label>
+      <ion-label>{{ 'editSpendingModal.amount' | translate }}</ion-label>
       <ion-input
         class="ion-text-right"
         formControlName="amount"
@@ -25,7 +25,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label class="select-label">{{ 'createSpending.category' | translate }}</ion-label>
+      <ion-label class="select-label">{{ 'editSpendingModal.category' | translate }}</ion-label>
       <ion-select
         class="select-selector"
         interface="popover"
@@ -39,10 +39,10 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>{{ 'createSpending.description' | translate }}</ion-label>
+      <ion-label>{{ 'editSpendingModal.description' | translate }}</ion-label>
       <ion-input
         formControlName="description"
-        [placeholder]="'createSpending.descriptionPlaceholder' | translate"
+        [placeholder]="'editSpendingModal.descriptionPlaceholder' | translate"
       ></ion-input>
     </ion-item>
   </ion-list>
