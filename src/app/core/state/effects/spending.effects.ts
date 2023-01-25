@@ -20,8 +20,7 @@ export class SpendingEffects {
 
   addSpending$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.addSpending),
-    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
-    switchMap(([{ payload }, userId]) => this.dbService.createSpending(payload, userId).pipe(
+    switchMap(({ payload }) => this.dbService.createSpending(payload).pipe(
       map((payload) => {
         return payload
           ? SpendingActions.addSpendingSuccess()

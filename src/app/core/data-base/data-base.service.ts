@@ -16,13 +16,12 @@ export class DataBaseService {
   }
 
   /** User Data */
-  addUser(user: UserEntity): Observable<void> {
-    return from(this.firestore.collection<UserEntity>('users').doc(user.id).set(user).then()).pipe(take(1));
+  addUser(user: UserEntity): Observable<UserEntity> {
+    return this.http.post<UserEntity>(this.path + 'user', user);
   }
 
-  getUserData(userId: string): Observable<UserEntity | undefined> {
-    return this.firestore.collection<UserEntity>('users',ref => ref.where('id', '==', userId))
-      .doc(userId).valueChanges().pipe(take(1));
+  getUserData(userId: string): Observable<UserEntity> {
+    return this.http.get<UserEntity>(this.path + `user/${userId}`);
   }
 
   /** Spending Data */
@@ -34,9 +33,8 @@ export class DataBaseService {
     return this.http.get<SpendingEntity>(this.path + `spending/${id}`);
   }
 
-  createSpending(spendingModel: SpendingModel, userId: string): Observable<SpendingEntity | undefined> {
-    const spending: SpendingEntity = { ...spendingModel, userId };
-    return this.http.post<SpendingEntity | undefined>(this.path + 'spending', spending);
+  createSpending(spendingModel: SpendingModel): Observable<SpendingEntity | undefined> {
+    return this.http.post<SpendingEntity | undefined>(this.path + 'spending', spendingModel);
   }
 
   updateSpendingItem(spending: SpendingEntity): Observable<SpendingEntity[]> {
@@ -50,6 +48,6 @@ export class DataBaseService {
   /** Categories Data */
 
   getAllCategories(): Observable<CategoryEntity[]> {
-    return this.firestore.collection<CategoryEntity>('categories').valueChanges();
+    return this.http.get<CategoryEntity[]>(this.path + 'categories');
   }
 }

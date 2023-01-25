@@ -23,13 +23,9 @@ export class UserEffects {
 
   setUserData$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.setUserData),
-    switchMap(({ userId }) => this.dbService.getUserData(userId).pipe(
-      map((payload: UserModel | undefined) =>
-        payload
-          ? UserActions.setUserDataSuccess({ payload })
-          : UserActions.setUserDataFailure()
-      ),
-    )),
+    switchMap(({ userId, user }) => !user ? this.dbService.getUserData(userId) : of(user)),
+    map((payload: UserModel) => UserActions.setUserDataSuccess({ payload })),
+    catchError(() => of(UserActions.setUserDataFailure()))
   ));
 
   setUserDataSuccess$ = createEffect(() => this.actions$.pipe(
@@ -52,9 +48,13 @@ export class UserEffects {
   addUser$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.addUser),
     switchMap(({ payload }) => this.dbService.addUser(payload).pipe(
-      map(() => UserActions.addUserSuccess()),
+      map((user) => UserActions.addUserSuccess({ user })),
       catchError(() => of(UserActions.addUserFailure()))
     )),
   ));
 
+  addUserSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.addUserSuccess),
+    map(({ user }) => UserActions.setUserData({ userId: user.id, user }))
+  ));
 }
