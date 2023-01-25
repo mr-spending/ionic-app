@@ -5,10 +5,16 @@ import { SpendingActions } from '../actions/spending.actions';
 import { SortFieldEnum, DirectionEnum } from '../../enums/spending.enums';
 import * as moment from 'moment';
 
+const defaultFilter = {
+  from: moment().startOf('month').unix(),
+  to: moment().unix(),
+};
+
 export interface SpendingState {
   spendingList: SpendingModel[];
   spendingSort: SpendingSortModel;
   spendingFilter: SpendingFilterModel;
+  spendingStatisticsFilter: SpendingFilterModel;
 }
 
 export const initialState: SpendingState = {
@@ -17,10 +23,8 @@ export const initialState: SpendingState = {
     field: SortFieldEnum.Time,
     direction: DirectionEnum.Descending,
   },
-  spendingFilter: {
-    from: moment().startOf('month').unix(),
-    to: moment().unix(),
-  }
+  spendingFilter: defaultFilter,
+  spendingStatisticsFilter: defaultFilter,
 };
 
 export function spendingReducer(state: SpendingState | undefined, action: Action): SpendingState {
@@ -32,4 +36,6 @@ export const spendingStateKey = 'spending';
 const reducer = createReducer<SpendingState>(
   initialState,
   on(SpendingActions.spendingListSuccess, (state, { payload }) => ({ ...state, spendingList: payload })),
+  on(SpendingActions.setSpendingFilter, (state, { payload }) => ({ ...state, spendingFilter: payload })),
+  on(SpendingActions.setSpendingStatisticsFilter, (state, { payload }) => ({ ...state, spendingStatisticsFilter: payload })),
 );

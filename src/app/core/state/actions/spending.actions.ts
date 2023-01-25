@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { SpendingModel } from '../../interfaces/models';
+import { SpendingFilterModel, SpendingModel } from '../../interfaces/models';
 
 const stateType = 'Spending';
 
@@ -21,4 +21,8 @@ export namespace SpendingActions {
   export const updateSpendingItem = createAction(`[${stateType}] Update Spending Item`, props<{ payload: SpendingModel }>());
   export const updateSpendingItemSuccess = createAction(`[${stateType}] Update Spending Item Success`);
   export const updateSpendingItemFailure = createAction(`[${stateType}] Update Spending Item Failure`);
+
+  export const setSpendingFilter = createAction(`[${stateType}] Set Spending Filter`, props<{ payload: SpendingFilterModel }>());
+
+  export const setSpendingStatisticsFilter = createAction(`[${stateType}] Set Spending Statistics Filter`, props<{ payload: SpendingFilterModel }>());
 }

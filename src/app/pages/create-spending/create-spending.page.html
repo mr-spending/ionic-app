@@ -1,7 +1,7 @@
 <ion-header collapse="condense" class="ion-padding">
   <ion-toolbar>
     <ion-title size="large" class="ion-text-center" (click)="navigateToExpensesList()">
-      {{ currency$ | async}}
+      {{ currency$ | async }}
       {{ (totalAmount$ | async) | number: '.2' }}
     </ion-title>
   </ion-toolbar>

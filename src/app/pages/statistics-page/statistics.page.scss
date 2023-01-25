@@ -1,0 +1,61 @@
+ion-radio-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+
+ion-radio-group div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+}
+
+ion-radio-group div ion-radio{
+  margin-bottom: 4px;
+}
+
+ion-radio {
+  --border-radius: 10px;
+  --inner-border-radius: 10px;
+
+  --color: #ddd;
+  --color-checked: #3f3f3f;
+}
+
+ion-radio.ios {
+  width: 20px;
+  height: 20px;
+
+  border: 2px solid #ddd;
+  border-radius: 10px;
+}
+
+.radio-checked.ios {
+  border-color: #3f3f3f;
+}
+
+.date-select-prefix {
+  width: 185px;
+}
+
+.date-select-suffix {
+  width: calc(100% - 125px);
+  text-align: center;
+}
+
+.ttt {
+  .modal-wrapper {
+    position: absolute;
+    bottom: 0;
+    min-height: initial;
+    top: initial;
+    height: 50%;
+  }
+  --height: 50%;
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}

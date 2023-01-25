@@ -5,6 +5,30 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories">
+  <ion-row>
+    <ion-radio-group [value]="statisticsPeriod">
+      <div id="currentMonth" (click)="changeStatisticsPeriod($event)">
+        <ion-radio slot="end" value="currentMonth"></ion-radio>
+        <ion-label>Current month</ion-label>
+      </div>
+      <div id="selectPeriod" (click)="changeStatisticsPeriod($event)">
+        <ion-radio slot="end" value="selectPeriod"></ion-radio>
+        <ion-label>Select period</ion-label>
+      </div>
+    </ion-radio-group>
+  </ion-row>
+
+  <ion-list *ngIf="statisticsPeriod === 'selectPeriod'">
+    <ion-item>
+      <p class="date-select-prefix">From (year-month):</p>
+      <p class="date-select-suffix" (click)="selectDate('startDane')">{{ startDane || 'click here to choose...' }}</p>
+    </ion-item>
+    <ion-item>
+      <p class="date-select-prefix">To (year-month):</p>
+      <p class="date-select-suffix" (click)="selectDate('endDate')">{{ endDate || 'click here to choose...'}}</p>
+    </ion-item>
+  </ion-list>
+
   <ion-accordion-group>
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
