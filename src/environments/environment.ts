@@ -14,7 +14,8 @@ export const environment = {
     appId: "1:642008186725:web:6a09a0e246432a05a0ab8c",
     measurementId: "G-ZLMGMXP4KF"
   },
-  monoBankApiUrl: 'https://api.monobank.ua/'
+  monoBankApiUrl: 'https://api.monobank.ua/',
+  baseUrl: 'https://nest-api-git-develop-mr-spending.vercel.app/'
 };
 
 /*

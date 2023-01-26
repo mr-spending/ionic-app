@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { Store } from '@ngrx/store';
 import firebase from 'firebase/compat';
 import UserCredential = firebase.auth.UserCredential;
@@ -30,11 +30,20 @@ export class AuthService {
     return this.authState$.pipe(map(res => !!res));
   }
 
+  get token(): Observable<string | null> {
+    return this.afAuth.idToken;
+  }
+
   /** Sign in with email/password */
   signIn(email: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
-      .then(() => this.router.navigate([`${MainRoutesEnum.Pages}`]).then())
+      .then((result) => {
+        if (result.user) {
+          this.store.dispatch(UserActions.setUserData({ userId: result.user.uid }));
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then()
+        }
+      })
       .catch((error) => {
         this.alertController.create({
           header: 'Alert',

@@ -3,7 +3,7 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { DataBaseService } from '../../data-base/data-base.service';
+import { ApiService } from '../../api/api.service';
 import { SpendingActions } from '../actions/spending.actions';
 import { UserSelectors } from '../selectors/user.selectors';
 import { UserState } from '../reducers/user.reducer';
@@ -14,14 +14,13 @@ export class SpendingEffects {
 
   constructor(
     private actions$: Actions,
-    private dbService: DataBaseService,
+    private apiService: ApiService,
     private userStore: Store<UserState>,
   ) {}
 
   addSpending$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.addSpending),
-    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
-    switchMap(([{ payload }, userId]) => this.dbService.createSpending(payload, userId).pipe(
+    switchMap(({ payload }) => this.apiService.createSpending(payload).pipe(
       map((payload) => {
         return payload
           ? SpendingActions.addSpendingSuccess()
@@ -32,8 +31,7 @@ export class SpendingEffects {
 
   removeSpending$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.removeSpending),
-    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
-    switchMap(([{ payload }, userId]) => this.dbService.deleteSpending(payload, userId).pipe(
+    switchMap(({ payload }) => this.apiService.deleteSpending(payload).pipe(
       map(() => SpendingActions.removeSpendingSuccess()),
       catchError(err => of(SpendingActions.removeSpendingFailure()))
     )),
@@ -41,8 +39,7 @@ export class SpendingEffects {
 
   spendingList$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.spendingList),
-    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
-    switchMap(([_, userId]) => this.dbService.getAllSpending(userId).pipe(
+    switchMap(() => this.apiService.getAllSpending().pipe(
       map((payload) => SpendingActions.spendingListSuccess({ payload: mapSpendingList(payload) })),
       catchError(err => of(SpendingActions.addSpendingFailure()))
     )),
@@ -51,7 +48,7 @@ export class SpendingEffects {
   updateSpendingItem$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.updateSpendingItem),
     concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),
-    switchMap(([{ payload } , userId]) => this.dbService.updateSpendingItem({ ...payload, userId }).pipe(
+    switchMap(([{ payload } , userId]) => this.apiService.updateSpendingItem({ ...payload, userId }).pipe(
       map(() => SpendingActions.updateSpendingItemSuccess()),
       catchError(err => of(SpendingActions.updateSpendingItemFailure()))
     )),
