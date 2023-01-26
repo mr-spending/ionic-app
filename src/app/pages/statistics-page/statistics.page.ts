@@ -32,6 +32,13 @@ export class StatisticsPage implements OnInit {
 
   changeStatisticsPeriod(event: any) {
     this.statisticsPeriod = event.currentTarget.id;
+    this.startDane = '';
+    this.endDate = '';
+    if (event.currentTarget.id === 'currentMonth') {
+      const startDaneUNIX = moment().startOf('month').unix();
+      const endDateUNIX = moment().endOf('month').unix();
+      console.log('Call#1 // ','start: ', startDaneUNIX, '//', 'end: ', endDateUNIX);
+    }
   }
 
   async selectDate(target: 'startDane' | 'endDate') {
@@ -45,6 +52,6 @@ export class StatisticsPage implements OnInit {
     const startDaneUNIX = moment(this.startDane).startOf('month').unix();
     const endDateUNIX = moment(this.endDate).endOf('month').unix();
     if (startDaneUNIX >= endDateUNIX) this.startDane = '';
-    if (this.startDane && this.endDate) console.log('start: ', startDaneUNIX, '//', 'end: ', endDateUNIX);
+    if (this.startDane && this.endDate) console.log('Call#2 // ','start: ', startDaneUNIX, '//', 'end: ', endDateUNIX);
   }
 }
