@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { from, Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { HttpClient } from '@angular/common/http';
 
@@ -21,7 +21,7 @@ export class DataBaseService {
   }
 
   getUserData(userId: string): Observable<UserEntity> {
-    return this.http.get<UserEntity>(this.path + `user/${userId}`);
+    return this.http.get<UserEntity>(this.path + `user/${ userId }`);
   }
 
   /** Spending Data */
@@ -30,7 +30,7 @@ export class DataBaseService {
   }
 
   getSpending(id: string): Observable<SpendingEntity | undefined> {
-    return this.http.get<SpendingEntity>(this.path + `spending/${id}`);
+    return this.http.get<SpendingEntity>(this.path + `spending/${ id }`);
   }
 
   createSpending(spendingModel: SpendingModel): Observable<SpendingEntity | undefined> {
@@ -38,11 +38,11 @@ export class DataBaseService {
   }
 
   updateSpendingItem(spending: SpendingEntity): Observable<SpendingEntity[]> {
-    return this.http.patch<SpendingEntity[]>(this.path + `spending/${spending.id}`, spending);
+    return this.http.patch<SpendingEntity[]>(this.path + `spending/${ spending.id }`, spending);
   }
 
   deleteSpending(id: string): Observable<void> {
-    return this.http.delete<void>(this.path + `spending/${id}`);
+    return this.http.delete<void>(this.path + `spending/${ id }`);
   }
 
   /** Categories Data */
