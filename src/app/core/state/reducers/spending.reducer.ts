@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { SpendingFilterModel, SpendingModel, SpendingSortModel } from '../../interfaces/models';
+import { SpendingModel, SpendingSortModel } from '../../interfaces/models';
 import { SpendingActions } from '../actions/spending.actions';
 import { SortFieldEnum, DirectionEnum } from '../../enums/spending.enums';
 import * as moment from 'moment';

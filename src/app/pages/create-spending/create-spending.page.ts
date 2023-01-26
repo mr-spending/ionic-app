@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, PipeTransform, ViewChild} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'typescript-guid';
 import { Store } from '@ngrx/store';

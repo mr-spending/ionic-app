@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { SpendingFilterModel, SpendingModel, TimePeriodModel } from '../../interfaces/models';
+import { SpendingModel, TimePeriodModel } from '../../interfaces/models';
 
 const stateType = 'Spending';
 
