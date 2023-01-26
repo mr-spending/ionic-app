@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { languageList } from './core/constants/languages.constants';
@@ -32,7 +32,7 @@ export class AppComponent implements OnDestroy {
   initializeApp() {
     this.translate.addLangs(languageList);
     this.translate.setDefaultLang(languageList[0]);
-    this.subscription.add(this.angularFireAuth.user.subscribe(user => {
+    this.subscription.add(this.angularFireAuth.user.pipe(take(1)).subscribe(user => {
       if (user?.uid) {
         this.userStore.dispatch(UserActions.setUserData({ userId: user.uid }));
       }
