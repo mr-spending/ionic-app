@@ -184,7 +184,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   }
 
   updateSpendingList() {
-    this.store.dispatch(SpendingActions.spendingList({ payload: getCurrentMonthPeriodUNIX() }));
+    this.store.dispatch(SpendingActions.spendingMainPageList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   async openModal(item: SpendingModel) {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
@@ -9,13 +9,14 @@ import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import { SelectMonthYearModalComponent } from '../select-month-year-modal/select-month-year-modal.component';
 import { getCurrentMonthPeriodUNIX, getCustomPeriodUNIX } from '../../core/utils/time.utils';
+import { SpendingActions } from '../../core/state/actions/spending.actions';
 
 @Component({
   selector: 'app-statistics-page',
   templateUrl: './statistics.page.html',
   styleUrls: ['./statistics.page.scss'],
 })
-export class StatisticsPage {
+export class StatisticsPage implements OnInit {
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
 
@@ -26,8 +27,10 @@ export class StatisticsPage {
   constructor(
     private store: Store<AppState>,
     private modalCtrl: ModalController,
-  ) {
-    this.getSpendingByCurrentMonth();
+  ) { }
+
+  ngOnInit() {
+    this.getSpendingByCurrentMonth()
   }
 
   changeStatisticsPeriod(event: any) {
@@ -39,7 +42,7 @@ export class StatisticsPage {
 
   getSpendingByCurrentMonth() {
     const period = getCurrentMonthPeriodUNIX();
-    console.log('Call#1 // ','start: ', period.startDate, '//', 'end: ', period.endDate);
+    this.store.dispatch(SpendingActions.spendingStatisticsPageList({ payload: period }));
   }
 
   async selectDate(target: 'startDate' | 'endDate') {
@@ -52,6 +55,6 @@ export class StatisticsPage {
     if (role === 'confirm') this[target] = data;
     const period = getCustomPeriodUNIX(this.startDate, this.endDate);
     if (period.startDate >= period.endDate) this.startDate = '';
-    if (this.startDate && this.endDate) console.log('Call#2 // ','start: ', period.startDate, '//', 'end: ', period.endDate);
+    if (this.startDate && this.endDate) this.store.dispatch(SpendingActions.spendingStatisticsPageList({ payload: period }));
   }
 }

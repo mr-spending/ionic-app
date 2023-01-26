@@ -11,20 +11,18 @@ const defaultFilter = {
 };
 
 export interface SpendingState {
-  spendingList: SpendingModel[];
+  spendingMainPageList: SpendingModel[];
+  spendingStatisticsPageList: SpendingModel[];
   spendingSort: SpendingSortModel;
-  spendingFilter: SpendingFilterModel;
-  spendingStatisticsFilter: SpendingFilterModel;
 }
 
 export const initialState: SpendingState = {
-  spendingList: [],
+  spendingMainPageList: [],
+  spendingStatisticsPageList: [],
   spendingSort: {
     field: SortFieldEnum.Time,
     direction: DirectionEnum.Descending,
   },
-  spendingFilter: defaultFilter,
-  spendingStatisticsFilter: defaultFilter,
 };
 
 export function spendingReducer(state: SpendingState | undefined, action: Action): SpendingState {
@@ -35,7 +33,6 @@ export const spendingStateKey = 'spending';
 
 const reducer = createReducer<SpendingState>(
   initialState,
-  on(SpendingActions.spendingListSuccess, (state, { payload }) => ({ ...state, spendingList: payload })),
-  on(SpendingActions.setSpendingFilter, (state, { payload }) => ({ ...state, spendingFilter: payload })),
-  on(SpendingActions.setSpendingStatisticsFilter, (state, { payload }) => ({ ...state, spendingStatisticsFilter: payload })),
+  on(SpendingActions.spendingMainPageListSuccess, (state, { payload }) => ({ ...state, spendingMainPageList: payload })),
+  on(SpendingActions.spendingStatisticsPageListSuccess, (state, { payload }) => ({ ...state, spendingStatisticsPageList: payload })),
 );
