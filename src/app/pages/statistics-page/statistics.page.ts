@@ -1,21 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
-import * as moment from 'moment';
 
 import { SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import { SelectMonthYearModalComponent } from '../select-month-year-modal/select-month-year-modal.component';
+import { getCurrentMonthPeriodUNIX, getCustomPeriodUNIX } from '../../core/utils/time.utils';
 
 @Component({
   selector: 'app-statistics-page',
   templateUrl: './statistics.page.html',
   styleUrls: ['./statistics.page.scss'],
 })
-export class StatisticsPage implements OnInit {
+export class StatisticsPage {
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
 
@@ -26,19 +26,20 @@ export class StatisticsPage implements OnInit {
   constructor(
     private store: Store<AppState>,
     private modalCtrl: ModalController,
-  ) { }
-
-  ngOnInit() { }
+  ) {
+    this.getSpendingByCurrentMonth();
+  }
 
   changeStatisticsPeriod(event: any) {
     this.statisticsPeriod = event.currentTarget.id;
     this.startDate = '';
     this.endDate = '';
-    if (event.currentTarget.id === 'currentMonth') {
-      const startDaneUNIX = moment().startOf('month').unix();
-      const endDateUNIX = moment().endOf('month').unix();
-      console.log('Call#1 // ','start: ', startDaneUNIX, '//', 'end: ', endDateUNIX);
-    }
+    if (this.statisticsPeriod === 'currentMonth') this.getSpendingByCurrentMonth();
+  }
+
+  getSpendingByCurrentMonth() {
+    const period = getCurrentMonthPeriodUNIX();
+    console.log('Call#1 // ','start: ', period.startDate, '//', 'end: ', period.endDate);
   }
 
   async selectDate(target: 'startDate' | 'endDate') {
@@ -49,9 +50,8 @@ export class StatisticsPage implements OnInit {
     modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (role === 'confirm') this[target] = data;
-    const startDaneUNIX = moment(this.startDate).startOf('month').unix();
-    const endDateUNIX = moment(this.endDate).endOf('month').unix();
-    if (startDaneUNIX >= endDateUNIX) this.startDate = '';
-    if (this.startDate && this.endDate) console.log('Call#2 // ','start: ', startDaneUNIX, '//', 'end: ', endDateUNIX);
+    const period = getCustomPeriodUNIX(this.startDate, this.endDate);
+    if (period.startDate >= period.endDate) this.startDate = '';
+    if (this.startDate && this.endDate) console.log('Call#2 // ','start: ', period.startDate, '//', 'end: ', period.endDate);
   }
 }

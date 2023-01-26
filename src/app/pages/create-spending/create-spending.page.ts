@@ -19,6 +19,7 @@ import { CategoriesSelectors } from '../../core/state/selectors/categories.selec
 import { EditSpendingModalComponent } from '../edit-spending-modal/edit-spending-modal.component';
 import { amountStringToNumber } from '../../core/utils/helper.functions';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
+import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 
 @Component({
   selector: 'app-create-spending.page',
@@ -57,7 +58,8 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
       .subscribe((categories: CategoryModel[]) => this.categories = categories)
-    )
+    );
+    this.updateSpendingList();
   }
 
   ngOnDestroy(): void {
@@ -182,7 +184,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   }
 
   updateSpendingList() {
-    this.store.dispatch(SpendingActions.spendingList());
+    this.store.dispatch(SpendingActions.spendingList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   async openModal(item: SpendingModel) {

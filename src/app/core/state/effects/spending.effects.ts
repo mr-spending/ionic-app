@@ -39,9 +39,9 @@ export class SpendingEffects {
 
   spendingList$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.spendingList),
-    switchMap(() => this.apiService.getAllSpending().pipe(
+    switchMap(({ payload }) => this.apiService.getAllSpendingByPeriod(payload).pipe(
       map((payload) => SpendingActions.spendingListSuccess({ payload: mapSpendingList(payload) })),
-      catchError(err => of(SpendingActions.addSpendingFailure()))
+      catchError(err => of(SpendingActions.spendingListFailure()))
     )),
   ));
 

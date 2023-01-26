@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { SpendingFilterModel, SpendingModel } from '../../interfaces/models';
+import { SpendingFilterModel, SpendingModel, TimePeriodModel } from '../../interfaces/models';
 
 const stateType = 'Spending';
 
@@ -14,7 +14,7 @@ export namespace SpendingActions {
   export const removeSpendingSuccess = createAction(`[${stateType}] Remove Spending Success`);
   export const removeSpendingFailure = createAction(`[${stateType}] Remove Spending Failure`);
 
-  export const spendingList = createAction(`[${stateType}] Spending List`);
+  export const spendingList = createAction(`[${stateType}] Spending List`, props<{ payload: TimePeriodModel }>());
   export const spendingListSuccess = createAction(`[${stateType}] Spending List Success`, props<{ payload: SpendingModel[] }>());
   export const spendingListFailure = createAction(`[${stateType}] Spending List Failure`);
 
