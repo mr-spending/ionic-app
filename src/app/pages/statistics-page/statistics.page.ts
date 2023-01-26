@@ -37,7 +37,7 @@ export class StatisticsPage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: SelectMonthYearModalComponent,
       backdropDismiss: false,
-      cssClass: 'ttt',
+      cssClass: 'select-month-year-modal',
     });
 
     modal.present();

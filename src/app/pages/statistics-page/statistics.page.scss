@@ -46,16 +46,3 @@ ion-radio.ios {
   width: calc(100% - 125px);
   text-align: center;
 }
-
-.ttt {
-  .modal-wrapper {
-    position: absolute;
-    bottom: 0;
-    min-height: initial;
-    top: initial;
-    height: 50%;
-  }
-  --height: 50%;
-  --border-radius: 16px;
-  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-}
