@@ -8,7 +8,7 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
-import { DataBaseService } from './data-base/data-base.service';
+import { ApiService } from './api/api.service';
 import { appReducer } from './state/app.reducer';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../auth/services/auth.service';
@@ -37,6 +37,6 @@ const angularFirebaseModules = [
     CommonModule,
     BrowserModule,
   ],
-  providers: [DataBaseService, AuthService],
+  providers: [ApiService, AuthService],
 })
 export class CoreModule { }

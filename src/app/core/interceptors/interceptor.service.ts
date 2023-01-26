@@ -20,11 +20,13 @@ export class Interceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.auth.token.pipe(
       switchMap(token => {
-        request = request.clone({
-          setHeaders: {
-            Authorization: `Bearer ${token}`
-          }
-        });
+        if (request.url.includes(environment.baseUrl)) {
+          request = request.clone({
+            setHeaders: {
+              Authorization: `Bearer ${ token }`
+            }
+          });
+        }
 
         const monoBankToken = this.lsService.getMonoBankClientToken();
 
