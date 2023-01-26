@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { CategoryEntity, SpendingEntity, UserEntity } from '../interfaces/entities';
 import { SpendingModel } from '../interfaces/models';
@@ -27,6 +27,13 @@ export class DataBaseService {
   /** Spending Data */
   getAllSpending(): Observable<SpendingEntity[]> {
     return this.http.get<SpendingEntity[]>(this.path + 'spending');
+  }
+
+  getAllSpendingByPeriod(startDate: number, endDate: number): Observable<SpendingEntity[]> {
+    let params = new HttpParams();
+    params.append('startDate', startDate.toString());
+    params.append('endDate', endDate.toString());
+    return this.http.get<SpendingEntity[]>(this.path + 'spending', { params });
   }
 
   getSpending(id: string): Observable<SpendingEntity | undefined> {
