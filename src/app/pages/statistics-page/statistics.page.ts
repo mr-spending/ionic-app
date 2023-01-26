@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
-import { ModalController } from "@ionic/angular";
+import { ModalController } from '@ionic/angular';
+import * as moment from 'moment';
 
 import { SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
@@ -36,14 +37,14 @@ export class StatisticsPage implements OnInit {
   async selectDate(target: 'startDane' | 'endDate') {
     const modal = await this.modalCtrl.create({
       component: SelectMonthYearModalComponent,
-      backdropDismiss: false,
       cssClass: 'select-month-year-modal',
     });
-
     modal.present();
     const { data, role } = await modal.onWillDismiss();
-    if (role === 'confirm') {
-      this[target] = data;
-    }
+    if (role === 'confirm') this[target] = data;
+    const startDaneUNIX = moment(this.startDane).startOf('month').unix();
+    const endDateUNIX = moment(this.endDate).endOf('month').unix();
+    if (startDaneUNIX >= endDateUNIX) this.startDane = '';
+    if (this.startDane && this.endDate) console.log('start: ', startDaneUNIX, '//', 'end: ', endDateUNIX);
   }
 }

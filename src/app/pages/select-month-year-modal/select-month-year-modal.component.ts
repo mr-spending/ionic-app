@@ -1,5 +1,5 @@
-import {Component, ViewEncapsulation} from '@angular/core';
-import {ModalController} from '@ionic/angular';
+import { Component, ViewEncapsulation } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-select-month-year-modal',
