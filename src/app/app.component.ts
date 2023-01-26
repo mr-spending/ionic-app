@@ -32,11 +32,11 @@ export class AppComponent implements OnDestroy {
   initializeApp() {
     this.translate.addLangs(languageList);
     this.translate.setDefaultLang(languageList[0]);
-    this.subscription.add(this.angularFireAuth.user.pipe(take(1)).subscribe(user => {
+    this.angularFireAuth.user.pipe(take(1)).subscribe(user => {
       if (user?.uid) {
         this.userStore.dispatch(UserActions.setUserData({ userId: user.uid }));
       }
-    }));
+    });
   }
 
   ngOnDestroy(): void {
