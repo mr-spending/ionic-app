@@ -20,7 +20,7 @@ export class StatisticsPage implements OnInit {
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
 
   statisticsPeriod: 'currentMonth' | 'selectPeriod' = 'currentMonth';
-  startDane = '';
+  startDate = '';
   endDate = '';
 
   constructor(
@@ -32,7 +32,7 @@ export class StatisticsPage implements OnInit {
 
   changeStatisticsPeriod(event: any) {
     this.statisticsPeriod = event.currentTarget.id;
-    this.startDane = '';
+    this.startDate = '';
     this.endDate = '';
     if (event.currentTarget.id === 'currentMonth') {
       const startDaneUNIX = moment().startOf('month').unix();
@@ -41,7 +41,7 @@ export class StatisticsPage implements OnInit {
     }
   }
 
-  async selectDate(target: 'startDane' | 'endDate') {
+  async selectDate(target: 'startDate' | 'endDate') {
     const modal = await this.modalCtrl.create({
       component: SelectMonthYearModalComponent,
       cssClass: 'select-month-year-modal',
@@ -49,9 +49,9 @@ export class StatisticsPage implements OnInit {
     modal.present();
     const { data, role } = await modal.onWillDismiss();
     if (role === 'confirm') this[target] = data;
-    const startDaneUNIX = moment(this.startDane).startOf('month').unix();
+    const startDaneUNIX = moment(this.startDate).startOf('month').unix();
     const endDateUNIX = moment(this.endDate).endOf('month').unix();
-    if (startDaneUNIX >= endDateUNIX) this.startDane = '';
-    if (this.startDane && this.endDate) console.log('Call#2 // ','start: ', startDaneUNIX, '//', 'end: ', endDateUNIX);
+    if (startDaneUNIX >= endDateUNIX) this.startDate = '';
+    if (this.startDate && this.endDate) console.log('Call#2 // ','start: ', startDaneUNIX, '//', 'end: ', endDateUNIX);
   }
 }
