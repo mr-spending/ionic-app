@@ -8,7 +8,7 @@ import { SpendingModel } from '../interfaces/models';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class DataBaseService {
+export class ApiService {
 
   path = environment.baseUrl;
 
