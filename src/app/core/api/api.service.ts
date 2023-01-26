@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { HttpClient } from '@angular/common/http';
 
-import { CategoryEntity, SpendingEntity, UserEntity } from '../interfaces/entities';
+import { CategoryDto, SpendingDto, UserDto } from '../interfaces/dto';
 import { SpendingModel } from '../interfaces/models';
 import { environment } from '../../../environments/environment';
 
@@ -16,29 +16,29 @@ export class ApiService {
   }
 
   /** User Data */
-  addUser(user: UserEntity): Observable<UserEntity> {
-    return this.http.post<UserEntity>(this.path + 'user', user);
+  addUser(user: UserDto): Observable<UserDto> {
+    return this.http.post<UserDto>(this.path + 'user', user);
   }
 
-  getUserData(userId: string): Observable<UserEntity> {
-    return this.http.get<UserEntity>(this.path + `user/${ userId }`);
+  getUserData(userId: string): Observable<UserDto> {
+    return this.http.get<UserDto>(this.path + `user/${ userId }`);
   }
 
   /** Spending Data */
-  getAllSpending(): Observable<SpendingEntity[]> {
-    return this.http.get<SpendingEntity[]>(this.path + 'spending');
+  getAllSpending(): Observable<SpendingDto[]> {
+    return this.http.get<SpendingDto[]>(this.path + 'spending');
   }
 
-  getSpending(id: string): Observable<SpendingEntity | undefined> {
-    return this.http.get<SpendingEntity>(this.path + `spending/${ id }`);
+  getSpending(id: string): Observable<SpendingDto | undefined> {
+    return this.http.get<SpendingDto>(this.path + `spending/${ id }`);
   }
 
-  createSpending(spendingModel: SpendingModel): Observable<SpendingEntity | undefined> {
-    return this.http.post<SpendingEntity | undefined>(this.path + 'spending', spendingModel);
+  createSpending(spendingModel: SpendingModel): Observable<SpendingDto | undefined> {
+    return this.http.post<SpendingDto | undefined>(this.path + 'spending', spendingModel);
   }
 
-  updateSpendingItem(spending: SpendingEntity): Observable<SpendingEntity[]> {
-    return this.http.patch<SpendingEntity[]>(this.path + `spending/${ spending.id }`, spending);
+  updateSpendingItem(spending: SpendingDto): Observable<SpendingDto[]> {
+    return this.http.patch<SpendingDto[]>(this.path + `spending/${ spending.id }`, spending);
   }
 
   deleteSpending(id: string): Observable<void> {
@@ -47,7 +47,7 @@ export class ApiService {
 
   /** Categories Data */
 
-  getAllCategories(): Observable<CategoryEntity[]> {
-    return this.http.get<CategoryEntity[]>(this.path + 'categories');
+  getAllCategories(): Observable<CategoryDto[]> {
+    return this.http.get<CategoryDto[]>(this.path + 'categories');
   }
 }
