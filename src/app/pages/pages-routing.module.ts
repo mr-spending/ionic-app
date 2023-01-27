@@ -17,7 +17,7 @@ const routes: Routes = [
       },
       {
         path: PageRoutesEnum.CreateSpending,
-        loadChildren: () => import('./create-spending/create-spending-page.module').then(m => m.CreateSpendingPageModule),
+        loadChildren: () => import('./home-page/home-page.module').then(m => m.HomePageModule),
       },
       {
         path: PageRoutesEnum.Statistics,

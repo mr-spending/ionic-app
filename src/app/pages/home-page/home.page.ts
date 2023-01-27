@@ -22,11 +22,11 @@ import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enum
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 
 @Component({
-  selector: 'app-create-spending.page',
-  templateUrl: 'create-spending.page.html',
-  styleUrls: ['create-spending.page.scss']
+  selector: 'app-home-page',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss']
 })
-export class CreateSpendingPage implements OnInit, OnDestroy {
+export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   formGroup: FormGroup;
   spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSpendingListWithParams);
