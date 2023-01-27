@@ -15,7 +15,7 @@ export namespace BankAccountsSelectors {
 
   export const filteredTransactions = createSelector(
     selectTransactions,
-    SpendingSelectors.selectSpendingMainPageList,
+    SpendingSelectors.selectSpendingHomePageList,
 
     (transactions: BankTransaction[], spendingList: SpendingModel[]) => {
       return transactions.filter(item => !spendingList.some(spendItem => spendItem.id === item.id));

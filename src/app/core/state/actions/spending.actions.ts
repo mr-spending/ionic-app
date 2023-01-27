@@ -14,9 +14,9 @@ export namespace SpendingActions {
   export const removeSpendingSuccess = createAction(`[${stateType}] Remove Spending Success`);
   export const removeSpendingFailure = createAction(`[${stateType}] Remove Spending Failure`);
 
-  export const spendingMainPageList = createAction(`[${stateType}] Spending Main Page List`, props<{ payload: TimePeriodModel }>());
-  export const spendingMainPageListSuccess = createAction(`[${stateType}] Spending Main Page List Success`, props<{ payload: SpendingModel[] }>());
-  export const spendingMainPageListFailure = createAction(`[${stateType}] Spending Main Page List Failure`);
+  export const spendingHomePageList = createAction(`[${stateType}] Spending Home Page List`, props<{ payload: TimePeriodModel }>());
+  export const spendingHomePageListSuccess = createAction(`[${stateType}] Spending Home Page List Success`, props<{ payload: SpendingModel[] }>());
+  export const spendingHomePageListFailure = createAction(`[${stateType}] Spending Home Page List Failure`);
 
   export const spendingStatisticsPageList = createAction(`[${stateType}] Spending Statistics Page List`, props<{ payload: TimePeriodModel }>());
   export const spendingStatisticsPageListSuccess = createAction(`[${stateType}] Spending Statistics Page List Success`, props<{ payload: SpendingModel[] }>());

@@ -38,10 +38,10 @@ export class SpendingEffects {
   ));
 
   spendingMainPageList$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.spendingMainPageList),
+    ofType(SpendingActions.spendingHomePageList),
     switchMap(({ payload }) => this.apiService.getAllSpendingByPeriod(payload).pipe(
-      map((payload) => SpendingActions.spendingMainPageListSuccess({ payload: mapSpendingList(payload) })),
-      catchError(err => of(SpendingActions.spendingMainPageListFailure()))
+      map((payload) => SpendingActions.spendingHomePageListSuccess({ payload: mapSpendingList(payload) })),
+      catchError(err => of(SpendingActions.spendingHomePageListFailure()))
     )),
   ));
 

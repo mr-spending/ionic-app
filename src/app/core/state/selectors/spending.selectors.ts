@@ -11,12 +11,12 @@ const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 
 export namespace SpendingSelectors {
 
-  export const selectSpendingMainPageList = createSelector(spendingSelector, state => state.spendingMainPageList);
+  export const selectSpendingHomePageList = createSelector(spendingSelector, state => state.spendingHomePageList);
   export const selectSpendingStatisticsPageList = createSelector(spendingSelector, state => state.spendingStatisticsPageList);
   export const selectSpendingSort = createSelector(spendingSelector, state => state.spendingSort);
 
   export const selectSpendingListWithParams = createSelector(
-    selectSpendingMainPageList,
+    selectSpendingHomePageList,
     selectSpendingSort,
     (list: SpendingModel[], sort: SpendingSortModel) => {
       return sortArrayByProperty(list, sort.field, sort.direction);

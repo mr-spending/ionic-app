@@ -184,7 +184,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   updateSpendingList() {
-    this.store.dispatch(SpendingActions.spendingMainPageList({ payload: getCurrentMonthPeriodUNIX() }));
+    this.store.dispatch(SpendingActions.spendingHomePageList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   async openModal(item: SpendingModel) {
