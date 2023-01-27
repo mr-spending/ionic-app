@@ -14,13 +14,13 @@ export namespace SpendingActions {
   export const removeSpendingSuccess = createAction(`[${stateType}] Remove Spending Success`);
   export const removeSpendingFailure = createAction(`[${stateType}] Remove Spending Failure`);
 
-  export const spendingHomePageList = createAction(`[${stateType}] Spending Home Page List`, props<{ payload: TimePeriodModel }>());
-  export const spendingHomePageListSuccess = createAction(`[${stateType}] Spending Home Page List Success`, props<{ payload: SpendingModel[] }>());
-  export const spendingHomePageListFailure = createAction(`[${stateType}] Spending Home Page List Failure`);
+  export const spendingHomePageList = createAction(`[${stateType}] Home Page List`, props<{ payload: TimePeriodModel }>());
+  export const spendingHomePageListSuccess = createAction(`[${stateType}] Home Page List Success`, props<{ payload: SpendingModel[] }>());
+  export const spendingHomePageListFailure = createAction(`[${stateType}] Home Page List Failure`);
 
-  export const spendingStatisticsPageList = createAction(`[${stateType}] Spending Statistics Page List`, props<{ payload: TimePeriodModel }>());
-  export const spendingStatisticsPageListSuccess = createAction(`[${stateType}] Spending Statistics Page List Success`, props<{ payload: SpendingModel[] }>());
-  export const spendingStatisticsPageListFailure = createAction(`[${stateType}] Spending Statistics Page List Failure`);
+  export const spendingStatisticsPageList = createAction(`[${stateType}] Statistics Page List`, props<{ payload: TimePeriodModel }>());
+  export const spendingStatisticsPageListSuccess = createAction(`[${stateType}] Statistics Page List Success`, props<{ payload: SpendingModel[] }>());
+  export const spendingStatisticsPageListFailure = createAction(`[${stateType}] Statistics Page List Failure`);
 
   export const updateSpendingItem = createAction(`[${stateType}] Update Spending Item`, props<{ payload: SpendingModel }>());
   export const updateSpendingItemSuccess = createAction(`[${stateType}] Update Spending Item Success`);
