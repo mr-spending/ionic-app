@@ -11,8 +11,8 @@ const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 
 export namespace SpendingSelectors {
 
-  export const selectSpendingHomePageList = createSelector(spendingSelector, state => state.HomePageList);
-  export const selectSpendingStatisticsPageList = createSelector(spendingSelector, state => state.StatisticsPageList);
+  export const selectSpendingHomePageList = createSelector(spendingSelector, state => state.homePageList);
+  export const selectSpendingStatisticsPageList = createSelector(spendingSelector, state => state.statisticsPageList);
   export const selectSpendingSort = createSelector(spendingSelector, state => state.spendingSort);
 
   export const selectSpendingListWithParams = createSelector(
