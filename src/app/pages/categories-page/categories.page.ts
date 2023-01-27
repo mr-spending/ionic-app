@@ -12,11 +12,11 @@ import { getCurrentMonthPeriodUNIX, getCustomPeriodUNIX } from '../../core/utils
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 
 @Component({
-  selector: 'app-statistics-page',
-  templateUrl: './statistics.page.html',
-  styleUrls: ['./statistics.page.scss'],
+  selector: 'app-categories-page',
+  templateUrl: './categories.page.html',
+  styleUrls: ['./categories.page.scss'],
 })
-export class StatisticsPage implements OnInit {
+export class CategoriesPage implements OnInit {
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
 
