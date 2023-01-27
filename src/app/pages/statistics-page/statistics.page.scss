@@ -22,20 +22,20 @@ ion-radio {
   --border-radius: 10px;
   --inner-border-radius: 10px;
 
-  --color: #ddd;
-  --color-checked: #3f3f3f;
+  --color: var(--ion-color-light-shade);
+  --color-checked: var(--ion-color-dark-tint);
 }
 
 ion-radio.ios {
   width: 20px;
   height: 20px;
 
-  border: 2px solid #ddd;
+  border: 2px solid var(--ion-color-light-shade);
   border-radius: 10px;
 }
 
 .radio-checked.ios {
-  border-color: #3f3f3f;
+  border-color: var(--ion-color-dark-tint);
 }
 
 .date-select-prefix {
