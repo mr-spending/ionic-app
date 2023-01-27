@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-select-month-year-modal',
@@ -8,7 +9,7 @@ import { ModalController } from '@ionic/angular';
   encapsulation: ViewEncapsulation.None,
 })
 export class SelectMonthYearModalComponent {
-  startValue = new Date().toISOString().slice(0, 7);
+  startValue = moment().endOf('month').format('YYYY-MM');
   value = this.startValue;
 
   constructor(private modalCtrl: ModalController) { }

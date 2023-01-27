@@ -40,8 +40,8 @@
     "addSpending": "Додати витрату",
     "update": "Оновити список"
   },
-  "statistics": {
-    "title": "Статистика",
+  "categories": {
+    "title": "Категорії",
     "currentMonth": "Поточний місяць",
     "selectPeriod": "Обрати період",
     "fromDate": "Від (рік-місяць):",

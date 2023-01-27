@@ -40,8 +40,8 @@
     "addSpending": "Add spending",
     "update": "Update list"
   },
-  "statistics": {
-    "title": "Statistics",
+  "categories": {
+    "title": "Categories",
     "currentMonth": "Current month",
     "selectPeriod": "Select period",
     "fromDate": "From (year-month):",
