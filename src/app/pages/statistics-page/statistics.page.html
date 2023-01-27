@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Statistics</ion-title>
+    <ion-title>{{ 'statistics.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,23 +9,23 @@
     <ion-radio-group [value]="statisticsPeriod">
       <div id="currentMonth" (click)="changeStatisticsPeriod($event)">
         <ion-radio slot="end" value="currentMonth"></ion-radio>
-        <ion-label>Current month</ion-label>
+        <ion-label>{{ 'statistics.currentMonth' | translate }}</ion-label>
       </div>
       <div id="selectPeriod" (click)="changeStatisticsPeriod($event)">
         <ion-radio slot="end" value="selectPeriod"></ion-radio>
-        <ion-label>Select period</ion-label>
+        <ion-label>{{ 'statistics.selectPeriod' | translate }}</ion-label>
       </div>
     </ion-radio-group>
   </ion-row>
 
   <ion-list *ngIf="statisticsPeriod === 'selectPeriod'">
     <ion-item>
-      <p class="date-select-prefix">From (year-month):</p>
-      <p class="date-select-suffix" (click)="selectDate('startDate')">{{ startDate || 'click here to choose...' }}</p>
+      <p class="date-select-prefix">{{ 'statistics.fromDate' | translate }}</p>
+      <p class="date-select-suffix" (click)="selectDate('startDate')">{{ startDate || 'statistics.choosePlaceholder' | translate }}</p>
     </ion-item>
     <ion-item>
-      <p class="date-select-prefix">To (year-month):</p>
-      <p class="date-select-suffix" (click)="selectDate('endDate')">{{ endDate || 'click here to choose...'}}</p>
+      <p class="date-select-prefix">{{ 'statistics.toDate' | translate }}</p>
+      <p class="date-select-suffix" (click)="selectDate('endDate')">{{ endDate || 'statistics.choosePlaceholder' | translate }}</p>
     </ion-item>
   </ion-list>
 
@@ -37,7 +37,7 @@
       </ion-item>
 
       <ion-list slot="content">
-        <ion-item *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.category !== category.name" >
+        <ion-item *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.category !== category.name">
           <ion-label>
             <h2>{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</h2>
             <p *ngIf="item.description">{{ item.description }}</p>

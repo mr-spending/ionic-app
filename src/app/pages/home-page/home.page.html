@@ -11,7 +11,7 @@
       <div class="ion-padding" slot="content">
         <ion-list [formGroup]="formGroup">
           <ion-item>
-            <ion-label>{{ 'createSpending.amount' | translate }}</ion-label>
+            <ion-label>{{ 'home.amount' | translate }}</ion-label>
             <ion-input
               class="ion-text-right"
               formControlName="amount"
@@ -23,7 +23,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-label class="select-label">{{ 'createSpending.category' | translate }}</ion-label>
+            <ion-label class="select-label">{{ 'home.category' | translate }}</ion-label>
             <ion-select
               #ionSelect
               class="select-selector"
@@ -38,10 +38,10 @@
           </ion-item>
 
           <ion-item>
-            <ion-label>{{ 'createSpending.description' | translate }}</ion-label>
+            <ion-label>{{ 'home.description' | translate }}</ion-label>
             <ion-input
               formControlName="description"
-              [placeholder]="'createSpending.descriptionPlaceholder' | translate"
+              [placeholder]="'home.descriptionPlaceholder' | translate"
             ></ion-input>
           </ion-item>
         </ion-list>
@@ -69,7 +69,7 @@
       [disabled]="isAccordionExpanded ? formGroup.invalid : false"
       (click)="isAccordionExpanded ? addSpending() : toggleAccordion()"
     >
-      {{ 'createSpending.addSpending' | translate }}
+      {{ 'home.addSpending' | translate }}
     </ion-button>
   </ion-row>
 </ion-header>

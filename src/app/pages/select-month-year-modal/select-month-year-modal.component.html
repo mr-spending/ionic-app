@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button color="danger" (click)="cancel()">Cancel</ion-button>
+      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title>Select date</ion-title>
+    <ion-title>{{ 'selectMonthYearModal.selectDate' | translate }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [disabled]="">Confirm</ion-button>
+      <ion-button (click)="confirm()" [disabled]="">{{ 'general.actions.confirm' | translate }}</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
