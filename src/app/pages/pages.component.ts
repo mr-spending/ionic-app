@@ -41,10 +41,8 @@ export class PagesComponent implements OnDestroy {
     private translateService: TranslateService,
     private fb: FormBuilder,
     private router: Router,
-    private spendingStore: Store<SpendingState>,
     private categoriesStore: Store<CategoriesState>,
   ) {
-    this.spendingStore.dispatch(SpendingActions.spendingList());
     this.categoriesStore.dispatch(CategoriesActions.categoriesList());
   }
 

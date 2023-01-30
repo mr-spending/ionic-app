@@ -26,11 +26,11 @@
       "add": "Додати",
       "edit": "Змінити",
       "delete": "Видалити",
-      "cancel": "Скасувати",
+      "cancel": "Відміна",
       "confirm": "Так"
     }
   },
-  "createSpending": {
+  "home": {
     "amount": "Сума:",
     "category": "Категорія:",
     "description": "Опис:",
@@ -40,6 +40,14 @@
     "addSpending": "Додати витрату",
     "update": "Оновити список"
   },
+  "categories": {
+    "title": "Категорії",
+    "currentMonth": "Поточний місяць",
+    "selectPeriod": "Обрати період",
+    "fromDate": "Від (рік-місяць):",
+    "toDate": "До (рік-місяць):",
+    "choosePlaceholder": "Натисніть для вибору..."
+  },
   "editSpendingModal": {
     "title": "Редагувати",
     "amount": "Сума:",
@@ -47,5 +55,8 @@
     "amountPlaceholder": "Введіть сумму",
     "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
     "category": "Категорія:"
+  },
+  "selectMonthYearModal": {
+    "selectDate": "Вибір дати"
   }
 }

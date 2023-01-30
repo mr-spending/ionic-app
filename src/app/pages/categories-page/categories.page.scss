@@ -1,0 +1,48 @@
+ion-radio-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+}
+
+ion-radio-group div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+}
+
+ion-radio-group div ion-radio{
+  margin-bottom: 4px;
+}
+
+ion-radio {
+  --border-radius: 10px;
+  --inner-border-radius: 10px;
+
+  --color: var(--ion-color-light-shade);
+  --color-checked: var(--ion-color-dark-tint);
+}
+
+ion-radio.ios {
+  width: 20px;
+  height: 20px;
+
+  border: 2px solid var(--ion-color-light-shade);
+  border-radius: 10px;
+}
+
+.radio-checked.ios {
+  border-color: var(--ion-color-dark-tint);
+}
+
+.date-select-prefix {
+  width: 185px;
+}
+
+.date-select-suffix {
+  width: calc(100% - 125px);
+  text-align: center;
+}

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { CategoryDto, SpendingDto, UserDto } from '../interfaces/dto';
-import { SpendingModel } from '../interfaces/models';
+import { SpendingModel, TimePeriodModel } from '../interfaces/models';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
@@ -27,6 +27,13 @@ export class ApiService {
   /** Spending Data */
   getAllSpending(): Observable<SpendingDto[]> {
     return this.http.get<SpendingDto[]>(this.path + 'spending');
+  }
+
+  getSpendingList(timePeriod: TimePeriodModel): Observable<SpendingDto[]> {
+    let params = new HttpParams();
+    params = params.append('startDate', timePeriod.startDate.toString());
+    params = params.append('endDate', timePeriod.endDate.toString());
+    return this.http.get<SpendingDto[]>(this.path + 'spending', { params });
   }
 
   getSpending(id: string): Observable<SpendingDto | undefined> {

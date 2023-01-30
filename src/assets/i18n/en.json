@@ -30,7 +30,7 @@
       "confirm": "Confirm"
     }
   },
-  "createSpending": {
+  "home": {
     "amount": "Amount:",
     "category": "Category:",
     "description": "Description:",
@@ -40,6 +40,14 @@
     "addSpending": "Add spending",
     "update": "Update list"
   },
+  "categories": {
+    "title": "Categories",
+    "currentMonth": "Current month",
+    "selectPeriod": "Select period",
+    "fromDate": "From (year-month):",
+    "toDate": "To (year-month):",
+    "choosePlaceholder": "click here to choose..."
+  },
   "editSpendingModal": {
     "title": "Edit spending",
     "amount": "Amount:",
@@ -47,5 +55,8 @@
     "amountPlaceholder": "Type your amount",
     "descriptionPlaceholder": "Type your description. Optional.",
     "category": "Category:"
+  },
+  "selectMonthYearModal": {
+    "selectDate": "Select date"
   }
 }

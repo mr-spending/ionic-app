@@ -1,0 +1,16 @@
+ion-modal.select-month-year-modal {
+  --width: 300px;
+  --height: 244px;
+  --border-radius: 16px;
+  --box-shadow: var(--modal-shadow);
+
+  &::part(backdrop) {
+    background: var(--ion-color-medium-tint);
+    opacity: 1;
+  }
+
+  & ion-toolbar {
+    --background: var(--ion-color-light-tint);
+    --color: var(--ion-color-light-contrast);
+  }
+}

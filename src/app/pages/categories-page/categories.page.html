@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ 'categories.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories">
+  <ion-row>
+    <ion-radio-group [value]="statisticsPeriod">
+      <div id="currentMonth" (click)="changeStatisticsPeriod($event)">
+        <ion-radio slot="end" value="currentMonth"></ion-radio>
+        <ion-label>{{ 'categories.currentMonth' | translate }}</ion-label>
+      </div>
+      <div id="selectPeriod" (click)="changeStatisticsPeriod($event)">
+        <ion-radio slot="end" value="selectPeriod"></ion-radio>
+        <ion-label>{{ 'categories.selectPeriod' | translate }}</ion-label>
+      </div>
+    </ion-radio-group>
+  </ion-row>
+
+  <ion-list *ngIf="statisticsPeriod === 'selectPeriod'">
+    <ion-item>
+      <p class="date-select-prefix">{{ 'categories.fromDate' | translate }}</p>
+      <p class="date-select-suffix" (click)="selectDate('startDate')">{{ startDate || 'categories.choosePlaceholder' | translate }}</p>
+    </ion-item>
+    <ion-item>
+      <p class="date-select-prefix">{{ 'categories.toDate' | translate }}</p>
+      <p class="date-select-suffix" (click)="selectDate('endDate')">{{ endDate || 'categories.choosePlaceholder' | translate }}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-accordion-group>
+    <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
+
+      <ion-item slot="header" color="light">
+        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
+      </ion-item>
+
+      <ion-list slot="content">
+        <ion-item *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.category !== category.name">
+          <ion-label>
+            <h2>{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</h2>
+            <p *ngIf="item.description">{{ item.description }}</p>
+            <p *ngIf="item.comment">{{ item.comment }}</p>
+          </ion-label>
+          <ion-label *ngIf="item.accountType" class="ion-text-center">{{ item.accountType }}</ion-label>
+          <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
+        </ion-item>
+      </ion-list>
+
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-content>

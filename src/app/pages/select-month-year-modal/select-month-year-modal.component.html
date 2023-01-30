@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'selectMonthYearModal.selectDate' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [disabled]="">{{ 'general.actions.confirm' | translate }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="false">
+  <ion-datetime
+    locale="en-GB"
+    presentation="month-year"
+    (ionChange)="selectChange($event)"
+    [max]="startValue"
+  ></ion-datetime>
+</ion-content>

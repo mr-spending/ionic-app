@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, PipeTransform, ViewChild} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Guid } from 'typescript-guid';
 import { Store } from '@ngrx/store';
@@ -19,13 +19,14 @@ import { CategoriesSelectors } from '../../core/state/selectors/categories.selec
 import { EditSpendingModalComponent } from '../edit-spending-modal/edit-spending-modal.component';
 import { amountStringToNumber } from '../../core/utils/helper.functions';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
+import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 
 @Component({
-  selector: 'app-create-spending.page',
-  templateUrl: 'create-spending.page.html',
-  styleUrls: ['create-spending.page.scss']
+  selector: 'app-home-page',
+  templateUrl: 'home.page.html',
+  styleUrls: ['home.page.scss']
 })
-export class CreateSpendingPage implements OnInit, OnDestroy {
+export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   formGroup: FormGroup;
   spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSpendingListWithParams);
@@ -57,7 +58,8 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
       .subscribe((categories: CategoryModel[]) => this.categories = categories)
-    )
+    );
+    this.updateSpendingList();
   }
 
   ngOnDestroy(): void {
@@ -74,7 +76,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
       categoryId: groupValue.category.id,
       time: Math.floor(new Date().getTime() / 1000)
     }
-    this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
+    this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
     this.formGroup.reset();
   }
 
@@ -136,7 +138,7 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
       accountId: transaction.accountId,
       accountType: transaction.accountType,
     }
-    this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
+    this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
   }
 
   async spendingClick(item: SpendingModel) {
@@ -178,11 +180,11 @@ export class CreateSpendingPage implements OnInit, OnDestroy {
   }
 
   removeSpendingItem(id: string) {
-    this.store.dispatch(SpendingActions.removeSpending({ payload: id }));
+    this.store.dispatch(SpendingActions.deleteSpendingItem({ payload: id }));
   }
 
   updateSpendingList() {
-    this.store.dispatch(SpendingActions.spendingList());
+    this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   async openModal(item: SpendingModel) {

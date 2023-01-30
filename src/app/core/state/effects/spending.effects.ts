@@ -18,30 +18,38 @@ export class SpendingEffects {
     private userStore: Store<UserState>,
   ) {}
 
-  addSpending$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.addSpending),
+  createSpendingItem$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.createSpendingItem),
     switchMap(({ payload }) => this.apiService.createSpending(payload).pipe(
       map((payload) => {
         return payload
-          ? SpendingActions.addSpendingSuccess()
-          : SpendingActions.addSpendingFailure();
+          ? SpendingActions.createSpendingItemSuccess()
+          : SpendingActions.createSpendingItemFailure();
       }),
     )),
   ));
 
-  removeSpending$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.removeSpending),
+  deleteSpendingItem$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.deleteSpendingItem),
     switchMap(({ payload }) => this.apiService.deleteSpending(payload).pipe(
-      map(() => SpendingActions.removeSpendingSuccess()),
-      catchError(err => of(SpendingActions.removeSpendingFailure()))
+      map(() => SpendingActions.deleteSpendingItemSuccess()),
+      catchError(err => of(SpendingActions.deleteSpendingItemFailure()))
     )),
   ));
 
-  spendingList$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.spendingList),
-    switchMap(() => this.apiService.getAllSpending().pipe(
-      map((payload) => SpendingActions.spendingListSuccess({ payload: mapSpendingList(payload) })),
-      catchError(err => of(SpendingActions.addSpendingFailure()))
+  homeSpendingList$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.homeSpendingList),
+    switchMap(({ payload }) => this.apiService.getSpendingList(payload).pipe(
+      map((payload) => SpendingActions.homeSpendingListSuccess({ payload: mapSpendingList(payload) })),
+      catchError(err => of(SpendingActions.homeSpendingListFailure()))
+    )),
+  ));
+
+  statSpendingList$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.statSpendingList),
+    switchMap(({ payload }) => this.apiService.getSpendingList(payload).pipe(
+      map((payload) => SpendingActions.statSpendingListSuccess({ payload: mapSpendingList(payload) })),
+      catchError(err => of(SpendingActions.statSpendingListFailure()))
     )),
   ));
 

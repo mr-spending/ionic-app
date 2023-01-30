@@ -64,3 +64,8 @@ export interface SpendingByCategoriesItem extends CategoryModel {
   totalAmount: number;
   spendingList: SpendingModel[];
 }
+
+export interface TimePeriodModel {
+  startDate: number;
+  endDate: number;
+}

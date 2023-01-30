@@ -9,7 +9,7 @@ import { UserModel } from '../../interfaces/models';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { BankAccountsActions } from '../actions/bank-accounts.actions';
 import { BankAccountsState } from '../reducers/bank-accounts.reducer';
-import * as moment from 'moment/moment';
+import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';
 
 @Injectable()
 export class UserEffects {
@@ -36,10 +36,8 @@ export class UserEffects {
       }
 
       if (payload.monoBankAccounts && payload.monoBankAccounts.length) {
-        this.bankAccountsStore.dispatch(BankAccountsActions.getTransactions({
-          accounts: payload.monoBankAccounts,
-          from: moment().subtract(1, 'months').unix(),
-          to: moment().unix(),
+        this.bankAccountsStore.dispatch(BankAccountsActions.transactionList({
+          accounts: payload.monoBankAccounts, period: getCurrentMonthPeriodUNIX()
         }));
       }
     })

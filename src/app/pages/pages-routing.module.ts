@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { PagesComponent } from './pages.component';
 import { PageRoutesEnum } from '../core/enums/routing.enums';
-import { StatisticsPageModule } from './statistics-page/statistics-page.module';
 
 const routes: Routes = [
   {
@@ -17,11 +16,11 @@ const routes: Routes = [
       },
       {
         path: PageRoutesEnum.CreateSpending,
-        loadChildren: () => import('./create-spending/create-spending-page.module').then(m => m.CreateSpendingPageModule),
+        loadChildren: () => import('./home-page/home-page.module').then(m => m.HomePageModule),
       },
       {
         path: PageRoutesEnum.Statistics,
-        loadChildren: () => import('./statistics-page/statistics-page.module').then(m => m.StatisticsPageModule),
+        loadChildren: () => import('./categories-page/categories-page.module').then(m => m.CategoriesPageModule),
       },
       {
         path: PageRoutesEnum.Setting,
@@ -30,8 +29,6 @@ const routes: Routes = [
     ]
   },
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
