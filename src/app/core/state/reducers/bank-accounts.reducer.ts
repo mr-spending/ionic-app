@@ -18,5 +18,5 @@ export const bankAccountsKey = 'bankAccounts';
 const reducer = createReducer<BankAccountsState>(
   initialState,
 
-  on(BankAccountsActions.getTransactionsSuccess, (state, { payload }) => ({ ...state, transactions: payload })),
+  on(BankAccountsActions.transactionListSuccess, (state, { payload }) => ({ ...state, transactions: payload })),
 );

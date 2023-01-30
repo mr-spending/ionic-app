@@ -18,38 +18,38 @@ export class SpendingEffects {
     private userStore: Store<UserState>,
   ) {}
 
-  addSpending$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.addSpending),
+  createSpendingItem$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.createSpendingItem),
     switchMap(({ payload }) => this.apiService.createSpending(payload).pipe(
       map((payload) => {
         return payload
-          ? SpendingActions.addSpendingSuccess()
-          : SpendingActions.addSpendingFailure();
+          ? SpendingActions.createSpendingItemSuccess()
+          : SpendingActions.createSpendingItemFailure();
       }),
     )),
   ));
 
-  removeSpending$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.removeSpending),
+  deleteSpendingItem$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.deleteSpendingItem),
     switchMap(({ payload }) => this.apiService.deleteSpending(payload).pipe(
-      map(() => SpendingActions.removeSpendingSuccess()),
-      catchError(err => of(SpendingActions.removeSpendingFailure()))
+      map(() => SpendingActions.deleteSpendingItemSuccess()),
+      catchError(err => of(SpendingActions.deleteSpendingItemFailure()))
     )),
   ));
 
-  spendingMainPageList$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.spendingHomePageList),
-    switchMap(({ payload }) => this.apiService.getAllSpendingByPeriod(payload).pipe(
-      map((payload) => SpendingActions.spendingHomePageListSuccess({ payload: mapSpendingList(payload) })),
-      catchError(err => of(SpendingActions.spendingHomePageListFailure()))
+  homeSpendingList$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.homeSpendingList),
+    switchMap(({ payload }) => this.apiService.getSpendingList(payload).pipe(
+      map((payload) => SpendingActions.homeSpendingListSuccess({ payload: mapSpendingList(payload) })),
+      catchError(err => of(SpendingActions.homeSpendingListFailure()))
     )),
   ));
 
-  spendingStatisticsPageList$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.spendingStatisticsPageList),
-    switchMap(({ payload }) => this.apiService.getAllSpendingByPeriod(payload).pipe(
-      map((payload) => SpendingActions.spendingStatisticsPageListSuccess({ payload: mapSpendingList(payload) })),
-      catchError(err => of(SpendingActions.spendingStatisticsPageListFailure()))
+  statSpendingList$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.statSpendingList),
+    switchMap(({ payload }) => this.apiService.getSpendingList(payload).pipe(
+      map((payload) => SpendingActions.statSpendingListSuccess({ payload: mapSpendingList(payload) })),
+      catchError(err => of(SpendingActions.statSpendingListFailure()))
     )),
   ));
 

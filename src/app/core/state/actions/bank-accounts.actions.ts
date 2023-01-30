@@ -5,8 +5,8 @@ const stateType = 'Bank Accounts';
 
 export namespace BankAccountsActions {
 
-  export const getTransactions = createAction(`[${stateType}] Get Transactions`, props<{ accounts: MonoBankAccount[], period: TimePeriodModel }>());
-  export const getTransactionsSuccess = createAction(`[${stateType}] Get Transactions Success`, props<{ payload: any[] }>());
-  export const getTransactionsFailure = createAction(`[${stateType}] Get Transactions Failure`);
+  export const transactionList = createAction(`[${stateType}] Transaction List`, props<{ accounts: MonoBankAccount[], period: TimePeriodModel }>());
+  export const transactionListSuccess = createAction(`[${stateType}] Transaction List Success`, props<{ payload: any[] }>());
+  export const transactionListFailure = createAction(`[${stateType}] Transaction List Failure`);
 
 }

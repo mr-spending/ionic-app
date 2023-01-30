@@ -42,7 +42,7 @@ export class CategoriesPage implements OnInit {
 
   getSpendingByCurrentMonth() {
     const period = getCurrentMonthPeriodUNIX();
-    this.store.dispatch(SpendingActions.spendingStatisticsPageList({ payload: period }));
+    this.store.dispatch(SpendingActions.statSpendingList({ payload: period }));
   }
 
   async selectDate(target: 'startDate' | 'endDate') {
@@ -55,6 +55,6 @@ export class CategoriesPage implements OnInit {
     if (role === 'confirm') this[target] = data;
     const period = getCustomPeriodUNIX(this.startDate, this.endDate);
     if (period.startDate >= period.endDate) this.startDate = '';
-    if (this.startDate && this.endDate) this.store.dispatch(SpendingActions.spendingStatisticsPageList({ payload: period }));
+    if (this.startDate && this.endDate) this.store.dispatch(SpendingActions.statSpendingList({ payload: period }));
   }
 }

@@ -76,7 +76,7 @@ export class HomePage implements OnInit, OnDestroy {
       categoryId: groupValue.category.id,
       time: Math.floor(new Date().getTime() / 1000)
     }
-    this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
+    this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
     this.formGroup.reset();
   }
 
@@ -138,7 +138,7 @@ export class HomePage implements OnInit, OnDestroy {
       accountId: transaction.accountId,
       accountType: transaction.accountType,
     }
-    this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
+    this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
   }
 
   async spendingClick(item: SpendingModel) {
@@ -180,11 +180,11 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   removeSpendingItem(id: string) {
-    this.store.dispatch(SpendingActions.removeSpending({ payload: id }));
+    this.store.dispatch(SpendingActions.deleteSpendingItem({ payload: id }));
   }
 
   updateSpendingList() {
-    this.store.dispatch(SpendingActions.spendingHomePageList({ payload: getCurrentMonthPeriodUNIX() }));
+    this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   async openModal(item: SpendingModel) {

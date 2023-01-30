@@ -36,7 +36,7 @@ export class UserEffects {
       }
 
       if (payload.monoBankAccounts && payload.monoBankAccounts.length) {
-        this.bankAccountsStore.dispatch(BankAccountsActions.getTransactions({
+        this.bankAccountsStore.dispatch(BankAccountsActions.transactionList({
           accounts: payload.monoBankAccounts, period: getCurrentMonthPeriodUNIX()
         }));
       }
