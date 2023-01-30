@@ -5,7 +5,7 @@
       {{ (totalAmount$ | async) | number: '.2' }}
     </ion-title>
   </ion-toolbar>
-  <app-spending-list-item></app-spending-list-item>
+  <app-spending-list-item [currency]="currency$ | async"></app-spending-list-item>
   <ion-row class="add-spending" [formGroup]="formGroup">
     <ion-input
       formControlName="amount"

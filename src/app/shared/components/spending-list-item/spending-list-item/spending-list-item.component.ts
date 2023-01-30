@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-spending-list-item',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./spending-list-item.component.scss'],
 })
 export class SpendingListItemComponent implements OnInit {
+  @Input() currency!: string | null;
 
   constructor() { }
 
