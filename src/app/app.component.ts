@@ -21,7 +21,7 @@ export class AppComponent implements OnDestroy {
     private angularFireAuth: AngularFireAuth,
     private userStore: Store<UserState>,
   ) {
-    this.toggleDarkTheme(false);
+    this.toggleDarkTheme(true);
     this.initializeApp();
   }
 

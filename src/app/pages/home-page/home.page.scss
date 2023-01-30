@@ -1,7 +1,28 @@
-ion-header {
-  padding-top: 44pt;
-  padding-bottom: 0;
-  background: var(--ion-color-primary-contrast);
+.add-spending {
+  & ion-input {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    --background: var(--background-color-1);
+    --padding-start: 15px;
+    --padding-end: 15px;
+  }
+
+  & ion-button {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    --border-radius: 20px;
+    --background: var(--background-color-1);
+    --padding-start: 5px;
+    --padding-end: 5px;
+
+    & ion-icon {
+      width: 30px;
+      height: 30px;
+      color: #efff72;
+    }
+  }
 }
 
 .select-label {

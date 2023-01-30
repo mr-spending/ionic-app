@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SelectMonthYearModalComponent } from './select-month-year-modal.component';
+import { AddSpendingModalComponent } from './add-spending-modal.component';
 
-describe('EditSpendingModalComponent', () => {
-  let component: SelectMonthYearModalComponent;
-  let fixture: ComponentFixture<SelectMonthYearModalComponent>;
+describe('AddSpendingModalComponent', () => {
+  let component: AddSpendingModalComponent;
+  let fixture: ComponentFixture<AddSpendingModalComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SelectMonthYearModalComponent],
+      declarations: [ AddSpendingModalComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SelectMonthYearModalComponent);
+    fixture = TestBed.createComponent(AddSpendingModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

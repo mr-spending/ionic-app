@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">{{ 'general.actions.confirm' | translate }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="formGroup" class="ion-padding" [formGroup]="formGroup">
+  <ion-item>
+    <ion-label>{{ 'editSpendingModal.description' | translate }}</ion-label>
+    <ion-input
+      formControlName="description"
+      [placeholder]="'editSpendingModal.descriptionPlaceholder' | translate"
+    ></ion-input>
+  </ion-item>
+
+  <ion-list>
+    <ion-item>
+      <ion-label class="select-label">{{ 'editSpendingModal.category' | translate }}</ion-label>
+      <ion-select
+        class="select-selector"
+        interface="popover"
+        placeholder="Select fruit"
+        name="category"
+        formControlName="category"
+      >
+        <ion-select-option *ngFor="let category of categories" [value]="category">{{ category.name }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-content>

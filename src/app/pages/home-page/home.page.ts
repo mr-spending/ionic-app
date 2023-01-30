@@ -16,10 +16,11 @@ import { SpendingSelectors } from '../../core/state/selectors/spending.selectors
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { EditSpendingModalComponent } from '../edit-spending-modal/edit-spending-modal.component';
+import { EditSpendingModalComponent } from '../components/edit-spending-modal/edit-spending-modal.component';
 import { amountStringToNumber } from '../../core/utils/helper.functions';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
+import { AddSpendingModalComponent } from '../components/add-spending-modal/add-spending-modal.component';
 
 @Component({
   selector: 'app-home-page',
@@ -48,11 +49,7 @@ export class HomePage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private translateService: TranslateService,
   ) {
-    this.formGroup = this.fb.group({
-      amount: this.fb.control(null, Validators.required),
-      category: this.fb.control(null, Validators.required),
-      description: this.fb.control(null),
-    });
+    this.formGroup = this.fb.group({ amount: this.fb.control(null) });
   }
 
   ngOnInit() {
@@ -66,32 +63,9 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  addSpending(): void {
-    const groupValue = this.formGroup.value;
-    const spendingItem: SpendingModel = {
-      amount: amountStringToNumber(groupValue.amount),
-      category: groupValue.category.name,
-      description: groupValue.description,
-      id: Guid.create().toString(),
-      categoryId: groupValue.category.id,
-      time: Math.floor(new Date().getTime() / 1000)
-    }
-    this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
-    this.formGroup.reset();
-  }
-
   navigateToExpensesList(): void {
     this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.ExpensesList}`]).then();
   }
-
-  toggleAccordion = () => {
-    const nativeEl = this.accordionGroup;
-    if (nativeEl.value === 'form-group') {
-      nativeEl.value = undefined;
-    } else {
-      nativeEl.value = 'form-group';
-    }
-  };
 
   async transactionClick(transaction: BankTransaction) {
     const actionSheet = await this.actionSheetController.create({
@@ -175,7 +149,7 @@ export class HomePage implements OnInit, OnDestroy {
         this.removeSpendingItem(item.id);
         break;
       case ActionsEnum.Edit:
-        this.openModal(item);
+        this.openEditSpendingModal(item);
     }
   }
 
@@ -187,7 +161,17 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.spendingHomePageList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
-  async openModal(item: SpendingModel) {
+  async openAddSpendingModal() {
+    const modal = await this.modalCtrl.create({
+      component: AddSpendingModalComponent,
+      componentProps: { amount: this.formGroup.value.amount, categories: this.categories }
+    });
+    modal.present();
+    await modal.onWillDismiss();
+    this.formGroup?.reset();
+  }
+
+  async openEditSpendingModal(item: SpendingModel) {
     const modal = await this.modalCtrl.create({
       component: EditSpendingModalComponent,
       componentProps: { spendingItem: item, categories: this.categories }
