@@ -6,12 +6,14 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { MrCurrencyMaskDirective } from './directives/mr-currency-mask.directive';
 import { MrMoneyFormatPipe } from './pipes/money-format.pipe';
-import { SpendingListItemComponent } from './components/spending-list-item/spending-list-item/spending-list-item.component';
+import { SpendingListItemComponent } from './components/spending-list-item/spending-list-item.component';
+import { BankTransactionListItemComponent } from './components/bank-transactions-list-item/bank-transactions-list-item.component';
 
 const declarations = [
   MrCurrencyMaskDirective,
   MrMoneyFormatPipe,
-  SpendingListItemComponent
+  SpendingListItemComponent,
+  BankTransactionListItemComponent
 ];
 
 const sharedModules = [

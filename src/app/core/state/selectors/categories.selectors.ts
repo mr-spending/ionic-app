@@ -15,11 +15,11 @@ export namespace CategoriesSelectors {
 
   export const selectSpendingByCategories = createSelector(
     SpendingSelectors.selectSpendingStatisticsPageList,
-    CategoriesSelectors.selectCategories,
+    selectCategories,
     (spendingList: SpendingModel[], categories: CategoryModel[]) => {
 
       // If there are transactions without a categoryId, we find this ID
-      const spendingWithoutEmptyId = spendingList.map(item =>
+      const spendingWithoutEmptyId = spendingList?.map(item =>
         item.categoryId ? item : {...item, categoryId: categories.find(c => c.name === item.category)?.id || ''});
 
       return categories.map(item => {

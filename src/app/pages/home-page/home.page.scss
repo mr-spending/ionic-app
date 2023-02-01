@@ -1,4 +1,11 @@
+.main-wrapper {
+  padding: 0 15px;
+}
+
 .add-spending {
+  display: flex;
+  gap: 15px;
+
   & ion-input {
     width: 40px;
     height: 40px;
@@ -32,4 +39,17 @@
 .select-selector {
   min-width: calc(100% - 113px);
   text-align: end;
+}
+
+.bank-transactions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.spending-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

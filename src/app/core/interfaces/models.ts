@@ -58,6 +58,7 @@ export interface BankTransaction {
 export interface CategoryModel {
   id: string;
   name: string;
+  icon: IconModel;
 }
 
 export interface SpendingByCategoriesItem extends CategoryModel {
@@ -68,4 +69,13 @@ export interface SpendingByCategoriesItem extends CategoryModel {
 export interface TimePeriodModel {
   startDate: number;
   endDate: number;
+}
+
+export interface IconModel {
+  iconType: string;
+  background: string;
+}
+
+export interface SpendingListItemModel extends SpendingModel {
+  icon: IconModel;
 }

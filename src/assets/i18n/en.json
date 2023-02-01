@@ -54,7 +54,8 @@
     "description": "Description:",
     "amountPlaceholder": "Type your amount",
     "descriptionPlaceholder": "Type your description. Optional.",
-    "category": "Category:"
+    "category": "Category:",
+    "selectCategoryPlaceholder": "Select category"
   },
   "selectMonthYearModal": {
     "selectDate": "Select date"

@@ -52,8 +52,7 @@ export class AddSpendingModalComponent implements OnInit {
       categoryId: groupValue.category.id,
       time: Math.floor(new Date().getTime() / 1000)
     }
-    console.log('payload: ', spendingItem)
-    // this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
+    this.store.dispatch(SpendingActions.addSpending({ payload: spendingItem }));
     this.formGroup?.reset();
     return this.modalCtrl.dismiss('', ActionsEnum.Confirm);
   }

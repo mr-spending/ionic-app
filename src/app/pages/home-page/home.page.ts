@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Guid } from 'typescript-guid';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -9,7 +8,7 @@ import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { BankTransaction, CategoryModel, SpendingModel } from '../../core/interfaces/models';
+import { BankTransaction, CategoryModel, SpendingListItemModel, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
@@ -17,7 +16,6 @@ import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import { EditSpendingModalComponent } from '../components/edit-spending-modal/edit-spending-modal.component';
-import { amountStringToNumber } from '../../core/utils/helper.functions';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 import { AddSpendingModalComponent } from '../components/add-spending-modal/add-spending-modal.component';
@@ -30,7 +28,7 @@ import { AddSpendingModalComponent } from '../components/add-spending-modal/add-
 export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   formGroup: FormGroup;
-  spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSpendingListWithParams);
+  spendingList$: Observable<SpendingListItemModel[]> = this.store.select(SpendingSelectors.selectSortedSpendingItemList);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);

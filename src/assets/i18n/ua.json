@@ -54,7 +54,8 @@
     "description": "Опис:",
     "amountPlaceholder": "Введіть сумму",
     "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
-    "category": "Категорія:"
+    "category": "Категорія:",
+    "selectCategoryPlaceholder": "Обрати категорію"
   },
   "selectMonthYearModal": {
     "selectDate": "Вибір дати"
