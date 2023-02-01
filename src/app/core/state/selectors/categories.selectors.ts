@@ -14,7 +14,7 @@ export namespace CategoriesSelectors {
     categories.find(category => category?.id === id));
 
   export const selectSpendingByCategories = createSelector(
-    SpendingSelectors.selectSpendingStatisticsPageList,
+    SpendingSelectors.selectStatSpendingList,
     selectCategories,
     (spendingList: SpendingModel[], categories: CategoryModel[]) => {
 

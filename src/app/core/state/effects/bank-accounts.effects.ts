@@ -14,11 +14,11 @@ export class BankAccountsEffects {
     private mbApiService: MonoBankApiService,
   ) { }
 
-  getTransactions$ = createEffect(() => this.actions$.pipe(
-    ofType(BankAccountsActions.getTransactions),
+  transactionList$ = createEffect(() => this.actions$.pipe(
+    ofType(BankAccountsActions.transactionList),
     switchMap(({ accounts, period }) => this.mbApiService.getPersonalStatement(accounts[0].id, period.startDate, period.endDate).pipe(
-      map(payload => BankAccountsActions.getTransactionsSuccess({ payload: convertBankTransactionToModel(accounts[0], payload) })),
-      catchError(err => of(BankAccountsActions.getTransactionsFailure()))
+      map(payload => BankAccountsActions.transactionListSuccess({ payload: convertBankTransactionToModel(accounts[0], payload) })),
+      catchError(err => of(BankAccountsActions.transactionListFailure()))
     )),
   ));
 

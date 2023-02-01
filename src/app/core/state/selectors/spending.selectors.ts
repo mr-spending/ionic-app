@@ -15,14 +15,14 @@ const categoriesSelector = createFeatureSelector<CategoriesState>(categoriesStat
 
 export namespace SpendingSelectors {
 
-  export const selectSpendingHomePageList = createSelector(spendingSelector, state => state.homePageList);
-  export const selectSpendingStatisticsPageList = createSelector(spendingSelector, state => state.statisticsPageList);
+  export const selectHomeSpendingList = createSelector(spendingSelector, state => state.homeSpendingList);
+  export const selectStatSpendingList = createSelector(spendingSelector, state => state.statSpendingList);
   export const selectSpendingSort = createSelector(spendingSelector, state => state.spendingSort);
 
   const selectCategories = createSelector(categoriesSelector, state => state.categories);
 
   export const selectSortedSpendingItemList = createSelector(
-    selectSpendingHomePageList,
+    selectHomeSpendingList,
     selectCategories,
     selectSpendingSort,
     (list: SpendingModel[], categories: CategoryModel[], sort: SpendingSortModel) => {
@@ -36,7 +36,7 @@ export namespace SpendingSelectors {
   );
 
   export const selectTotalAmount = createSelector(
-    selectSpendingHomePageList,
+    selectHomeSpendingList,
     (list: SpendingModel[]) => {
       return list.reduce((total, item) => total + item.amount, 0) / 100;
     }
