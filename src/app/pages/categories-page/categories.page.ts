@@ -41,7 +41,7 @@ export class CategoriesPage implements OnInit {
   }
 
   getSpendingByCurrentMonth() {
-    this.store.dispatch(SpendingActions.spendingStatisticsPageList({ payload: getCurrentMonthPeriodUNIX() }));
+    this.store.dispatch(SpendingActions.statSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   async selectDate(target: 'startDate' | 'endDate') {
