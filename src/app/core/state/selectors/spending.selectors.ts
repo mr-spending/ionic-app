@@ -19,11 +19,11 @@ export namespace SpendingSelectors {
   export const selectSpendingStatisticsPageList = createSelector(spendingSelector, state => state.statisticsPageList);
   export const selectSpendingSort = createSelector(spendingSelector, state => state.spendingSort);
 
-  const ttt = createSelector(categoriesSelector, state => state.categories);
+  const selectCategories = createSelector(categoriesSelector, state => state.categories);
 
   export const selectSortedSpendingItemList = createSelector(
     selectSpendingHomePageList,
-    ttt,
+    selectCategories,
     selectSpendingSort,
     (list: SpendingModel[], categories: CategoryModel[], sort: SpendingSortModel) => {
       const listWithIcons = list.map(spending => ({
