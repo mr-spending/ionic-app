@@ -7,7 +7,6 @@ import {
   SpendingSortModel
 } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
-import { CategoriesSelectors } from './categories.selectors';
 import { CategoriesState, categoriesStateKey } from '../reducers/categories.reducer';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
