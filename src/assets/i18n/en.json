@@ -28,6 +28,10 @@
       "delete": "Delete",
       "cancel": "Cancel",
       "confirm": "Confirm"
+    },
+    "dates" : {
+      "today": "Today",
+      "yesterday": "Yesterday"
     }
   },
   "home": {

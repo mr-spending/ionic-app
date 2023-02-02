@@ -35,13 +35,16 @@
       </app-bank-transactions-list-item>
     </ion-list>
 
-    <ion-list *ngIf="spendingList$ | async as spendingList" class="spending-list">
-      <app-spending-list-item
-        *ngFor="let item of spendingList"
-        [currency]="currency$ | async"
-        [spending]="item"
-        (click)="spendingClick(item)">
-      </app-spending-list-item>
+    <ion-list *ngIf="groupedSpendingList$ | async as groupedSpendingList" class="spending-list">
+      <div *ngFor="let spendingList of groupedSpendingList" class="spending-list">
+        <p class="date-delimiter">{{ getSpendingDate(spendingList[0].date || '') }}</p>
+        <app-spending-list-item
+          *ngFor="let item of spendingList"
+          [currency]="currency$ | async"
+          [spending]="item"
+          (click)="spendingClick(item)">
+        </app-spending-list-item>
+      </div>
     </ion-list>
   </div>
 </ion-content>

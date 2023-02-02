@@ -1,55 +1,65 @@
-.main-wrapper {
-  padding: 0 15px;
-}
+ion-content {
+  --background: radial-gradient(at right top, #6e7940 1%, #4a5233 20%, #232828 50%);
 
-.add-spending {
-  display: flex;
-  gap: 15px;
+  .main-wrapper {
+    padding: 0 15px;
 
-  & ion-input {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    --background: var(--background-color-1);
-    --padding-start: 15px;
-    --padding-end: 15px;
-  }
+    h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin: 30px 0 25px;
+    }
 
-  & ion-button {
-    width: 40px;
-    height: 40px;
-    margin: 0;
-    --border-radius: 20px;
-    --background: var(--background-color-1);
-    --padding-start: 5px;
-    --padding-end: 5px;
+    .add-spending {
+      display: flex;
+      gap: 15px;
 
-    & ion-icon {
-      width: 30px;
-      height: 30px;
-      color: #efff72;
+      ion-input {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        --background: var(--background-color-1);
+        --padding-start: 15px;
+        --padding-end: 15px;
+      }
+
+      ion-button {
+        width: 40px;
+        height: 40px;
+        margin: 0;
+        --border-radius: 20px;
+        --background: var(--background-color-1);
+        --padding-start: 5px;
+        --padding-end: 5px;
+
+        ion-icon {
+          width: 30px;
+          height: 30px;
+          color: var(--button-content-color-1);
+        }
+      }
+    }
+
+    .bank-transactions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 10px;
+      background-color: transparent;
+    }
+
+    .spending-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background-color: transparent;
+
+      .date-delimiter {
+        font-size: 14px;
+        margin: 0 5px;
+        color: var(--ion-color-medium-shade);
+        align-self: center;
+      }
     }
   }
-}
-
-.select-label {
-  min-width: 105px;
-}
-
-.select-selector {
-  min-width: calc(100% - 113px);
-  text-align: end;
-}
-
-.bank-transactions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.spending-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
 }

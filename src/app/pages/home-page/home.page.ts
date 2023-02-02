@@ -7,6 +7,7 @@ import { ActionSheetController, IonAccordionGroup } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import * as moment from 'moment';
 
 import { BankTransaction, CategoryModel, SpendingListItemModel, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
@@ -28,12 +29,15 @@ import { AddSpendingModalComponent } from '../components/add-spending-modal/add-
 export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   formGroup: FormGroup;
-  spendingList$: Observable<SpendingListItemModel[]> = this.store.select(SpendingSelectors.selectSortedSpendingItemList);
+  groupedSpendingList$: Observable<SpendingListItemModel[][]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   categories!: CategoryModel[];
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
+
+  private dateYesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
+  private dateToday = moment().format('YYYY-MM-DD');
 
   get isAccordionExpanded() {
     return this.accordionGroup.value === 'form-group';
@@ -69,19 +73,19 @@ export class HomePage implements OnInit, OnDestroy {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
-          text: ActionsEnum.Add,
+          text: this.translateService.instant('general.actions.add'),
           data: {
             action: ActionsEnum.Add,
           },
         },
         {
-          text: ActionsEnum.Edit,
+          text: this.translateService.instant('general.actions.edit'),
           data: {
             action: ActionsEnum.Edit,
           },
         },
         {
-          text: ActionsEnum.Cancel,
+          text: this.translateService.instant('general.actions.cancel'),
           role: ActionsRoleEnum.Cancel,
           data: {
             action: ActionsEnum.Cancel,
@@ -93,7 +97,7 @@ export class HomePage implements OnInit, OnDestroy {
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss();
 
-    switch (result.data.action) {
+    switch (result.data?.action) {
       case ActionsEnum.Add: this.addTransaction(transaction);
     }
   }
@@ -142,7 +146,7 @@ export class HomePage implements OnInit, OnDestroy {
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss();
 
-    switch (result.data.action) {
+    switch (result.data?.action) {
       case ActionsEnum.Delete:
         this.removeSpendingItem(item.id);
         break;
@@ -157,6 +161,18 @@ export class HomePage implements OnInit, OnDestroy {
 
   updateSpendingList() {
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
+  }
+
+  getSpendingDate(date: string): string {
+    let currentValue = moment(date).format('DD MMMM YYYY');
+    switch (date) {
+      case this.dateToday:
+        currentValue = `${this.translateService.instant('general.dates.today')}, ${moment(date).format('DD MMMM')}`;
+        break;
+      case this.dateYesterday:
+        currentValue = `${this.translateService.instant('general.dates.yesterday')}, ${moment(date).format('DD MMMM')}`;
+    }
+    return currentValue;
   }
 
   async openAddSpendingModal() {

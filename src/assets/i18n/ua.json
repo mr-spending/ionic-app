@@ -28,6 +28,10 @@
       "delete": "Видалити",
       "cancel": "Відміна",
       "confirm": "Так"
+    },
+    "dates" : {
+      "today": "Сьогодні",
+      "yesterday": "Вчора"
     }
   },
   "home": {

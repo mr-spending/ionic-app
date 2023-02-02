@@ -1,14 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
-import {
-  CategoryModel,
-  SpendingModel,
-  SpendingSortModel
-} from '../../interfaces/models';
+import { CategoryModel, SpendingListItemModel, SpendingModel } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
-import { CategoriesSelectors } from './categories.selectors';
 import { CategoriesState, categoriesStateKey } from '../reducers/categories.reducer';
+import { DirectionEnum } from '../../enums/spending.enums';
+import { groupingSpendingByDate } from '../../utils/spending.utils';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 const categoriesSelector = createFeatureSelector<CategoriesState>(categoriesStateKey);
@@ -21,17 +18,20 @@ export namespace SpendingSelectors {
 
   const selectCategories = createSelector(categoriesSelector, state => state.categories);
 
-  export const selectSortedSpendingItemList = createSelector(
+  export const selectGroupedSpendingItemList = createSelector(
     selectHomeSpendingList,
     selectCategories,
-    selectSpendingSort,
-    (list: SpendingModel[], categories: CategoryModel[], sort: SpendingSortModel) => {
-      const listWithIcons = list.map(spending => ({
-        ...spending,
-        icon: categories.find(item => item.name === spending.category)?.icon ||
+    (list: SpendingModel[], categories: CategoryModel[]) => {
+      const sortedList = sortArrayByProperty(list, 'time', DirectionEnum.Descending) as SpendingModel[];
+      const groupedList = groupingSpendingByDate(sortedList);
+      const groupedListWithIcons: SpendingListItemModel[][] = groupedList.map(spendingByDate =>
+        spendingByDate.map(spending => ({
+            ...spending,
+            icon: categories.find(item => item.name === spending.category)?.icon ||
               { iconType: 'add-circle-outline', background: '#FFF' }
-      }));
-      return sortArrayByProperty(listWithIcons, sort.field, sort.direction);
+        }))
+      );
+      return groupedListWithIcons;
     }
   );
 
