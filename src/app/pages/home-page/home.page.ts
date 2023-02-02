@@ -15,10 +15,10 @@ import { SpendingSelectors } from '../../core/state/selectors/spending.selectors
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { EditSpendingModalComponent } from '../components/edit-spending-modal/edit-spending-modal.component';
+import { EditSpendingModalComponent } from '../../shared/components/edit-spending-modal/edit-spending-modal.component';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
-import { AddSpendingModalComponent } from '../components/add-spending-modal/add-spending-modal.component';
+import { AddSpendingModalComponent } from './add-spending-modal/add-spending-modal.component';
 
 @Component({
   selector: 'app-home-page',
