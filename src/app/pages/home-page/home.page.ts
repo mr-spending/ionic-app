@@ -9,17 +9,18 @@ import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
-import { BankTransaction, CategoryModel, SpendingListItemModel, SpendingModel } from '../../core/interfaces/models';
+import { BankTransaction, CategoryModel, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { EditSpendingModalComponent } from '../components/edit-spending-modal/edit-spending-modal.component';
+import { EditSpendingModalComponent } from '../../shared/components/edit-spending-modal/edit-spending-modal.component';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
-import { AddSpendingModalComponent } from '../components/add-spending-modal/add-spending-modal.component';
+import { AddSpendingModalComponent } from './add-spending-modal/add-spending-modal.component';
+import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 
 @Component({
   selector: 'app-home-page',
@@ -29,11 +30,12 @@ import { AddSpendingModalComponent } from '../components/add-spending-modal/add-
 export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   formGroup: FormGroup;
-  groupedSpendingList$: Observable<SpendingListItemModel[][]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
+  groupedSpendingList$: Observable<SpendingModel[][]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   categories!: CategoryModel[];
+  listItemTypeEnum = ListItemTypeEnum;
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
 
   private dateYesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
@@ -107,7 +109,6 @@ export class HomePage implements OnInit, OnDestroy {
       id: transaction.id,
       amount: transaction.amount,
       time: transaction.time,
-      category: '',
       description: transaction.description ?? '',
       currencyCode: transaction.currencyCode,
       comment: transaction.comment ?? '',

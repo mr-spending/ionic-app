@@ -7,7 +7,7 @@ import { ModalController } from '@ionic/angular';
 import { SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { SelectMonthYearModalComponent } from '../components/select-month-year-modal/select-month-year-modal.component';
+import { SelectMonthYearModalComponent } from '../../shared/components/select-month-year-modal/select-month-year-modal.component';
 import { getCurrentMonthPeriodUNIX, getCustomPeriodUNIX } from '../../core/utils/time.utils';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 

@@ -18,12 +18,8 @@ export namespace CategoriesSelectors {
     selectCategories,
     (spendingList: SpendingModel[], categories: CategoryModel[]) => {
 
-      // If there are transactions without a categoryId, we find this ID
-      const spendingWithoutEmptyId = spendingList?.map(item =>
-        item.categoryId ? item : {...item, categoryId: categories.find(c => c.name === item.category)?.id || ''});
-
       return categories.map(item => {
-        const list = spendingWithoutEmptyId.filter(spItem => spItem.categoryId === item.id);
+        const list = spendingList.filter(spItem => spItem.categoryId === item.id);
         let totalAmount = 0;
         list.forEach(item => { totalAmount += item.amount });
         return {

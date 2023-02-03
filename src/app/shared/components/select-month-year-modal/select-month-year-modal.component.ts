@@ -1,6 +1,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import * as moment from 'moment/moment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-select-month-year-modal',

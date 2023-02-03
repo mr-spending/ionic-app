@@ -16,7 +16,7 @@ export interface SpendingModel {
   id: string;
   amount: number;
   time: number;
-  category: string;
+  category?: CategoryModel;
   categoryId?: string;
   description?: string;
   date?: string;
@@ -29,11 +29,6 @@ export interface SpendingModel {
 export interface SpendingSortModel {
   field: SortFieldEnum;
   direction: DirectionEnum;
-}
-
-export interface SpendingFilterModel {
-  from: number;
-  to: number;
 }
 
 export interface MonoBankAccount {
@@ -53,12 +48,13 @@ export interface BankTransaction {
   date?: string;
   accountId: string;
   accountType: string;
+  category?: CategoryModel;
 }
 
 export interface CategoryModel {
   id: string;
   name: string;
-  icon: IconModel;
+  icon: CategoryIconModel;
 }
 
 export interface SpendingByCategoriesItem extends CategoryModel {
@@ -71,11 +67,7 @@ export interface TimePeriodModel {
   endDate: number;
 }
 
-export interface IconModel {
+export interface CategoryIconModel {
   iconType: string;
   background: string;
-}
-
-export interface SpendingListItemModel extends SpendingModel {
-  icon: IconModel;
 }

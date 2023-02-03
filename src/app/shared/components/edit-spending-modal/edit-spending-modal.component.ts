@@ -9,16 +9,14 @@ import { CategoryModel, SpendingModel } from '../../../core/interfaces/models';
 import { UserSelectors } from '../../../core/state/selectors/user.selectors';
 import { amountStringToNumber } from '../../../core/utils/helper.functions';
 import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
-import { Guid } from 'typescript-guid';
-import { SpendingActions } from '../../../core/state/actions/spending.actions';
 
 @Component({
   selector: 'app-edit-spending-modal',
-  templateUrl: './add-spending-modal.component.html',
-  styleUrls: ['./add-spending-modal.component.scss'],
+  templateUrl: './edit-spending-modal.component.html',
+  styleUrls: ['./edit-spending-modal.component.scss'],
 })
-export class AddSpendingModalComponent implements OnInit {
-  @Input() amount!: number;
+export class EditSpendingModalComponent implements OnInit {
+  @Input() spendingItem!: SpendingModel;
   @Input() categories!: CategoryModel[];
 
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
@@ -32,9 +30,9 @@ export class AddSpendingModalComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup = this.fb.group({
-      amount: this.fb.control(this.amount, Validators.required),
-      category: this.fb.control(null, Validators.required),
-      description: this.fb.control(null),
+      amount: this.fb.control(this.spendingItem?.amount, Validators.required),
+      category: this.fb.control(this.spendingItem?.category, Validators.required),
+      description: this.fb.control(this.spendingItem?.description),
     });
   }
 
@@ -43,17 +41,14 @@ export class AddSpendingModalComponent implements OnInit {
   }
 
   confirm() {
-    const groupValue = this.formGroup?.value;
-    const spendingItem: SpendingModel = {
-      amount: amountStringToNumber(groupValue.amount),
-      category: groupValue.category.name,
-      description: groupValue.description,
-      id: Guid.create().toString(),
-      categoryId: groupValue.category.id,
-      time: Math.floor(new Date().getTime() / 1000)
-    }
-    this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
-    this.formGroup?.reset();
-    return this.modalCtrl.dismiss('', ActionsEnum.Confirm);
+    const { amount, category, description } = this.formGroup?.value;
+    const newItem = {
+      ...this.spendingItem,
+      amount: (typeof amount !== "number") ? amountStringToNumber(amount) : amount,
+      categoryId: category.id,
+      description,
+    };
+    delete newItem.category;
+    return this.modalCtrl.dismiss(newItem, ActionsEnum.Confirm);
   }
 }
