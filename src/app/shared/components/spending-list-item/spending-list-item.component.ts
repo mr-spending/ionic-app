@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { SpendingListItemModel } from '../../../core/interfaces/models';
+import { SpendingModel } from '../../../core/interfaces/models';
 
 @Component({
   selector: 'app-spending-list-item',
@@ -9,7 +9,7 @@ import { SpendingListItemModel } from '../../../core/interfaces/models';
 })
 export class SpendingListItemComponent implements OnInit {
   @Input() currency!: string | null;
-  @Input() spending!: SpendingListItemModel;
+  @Input() spending!: SpendingModel;
 
   constructor() { }
 

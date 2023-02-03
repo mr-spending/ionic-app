@@ -42,12 +42,13 @@ export class EditSpendingModalComponent implements OnInit {
 
   confirm() {
     const { amount, category, description } = this.formGroup?.value;
-    return this.modalCtrl.dismiss({
+    const newItem = {
       ...this.spendingItem,
       amount: (typeof amount !== "number") ? amountStringToNumber(amount) : amount,
-      category,
-      categoryId: this.categories?.find(c => c.name === category)?.id,
+      categoryId: category.id,
       description,
-    }, ActionsEnum.Confirm);
+    };
+    delete newItem.category;
+    return this.modalCtrl.dismiss(newItem, ActionsEnum.Confirm);
   }
 }

@@ -25,12 +25,11 @@ export namespace SpendingSelectors {
     selectCategories,
     selectSpendingSort,
     (list: SpendingModel[], categories: CategoryModel[], sort: SpendingSortModel) => {
-      const listWithIcons = list.map(spending => ({
+      const listWithCategories = list.map(spending => ({
         ...spending,
-        icon: categories.find(item => item.name === spending.category)?.icon ||
-              { iconType: 'add-circle-outline', background: '#FFF' }
+        category: categories.find(item => item.id === spending.categoryId),
       }));
-      return sortArrayByProperty(listWithIcons, sort.field, sort.direction);
+      return sortArrayByProperty(listWithCategories, sort.field, sort.direction);
     }
   );
 

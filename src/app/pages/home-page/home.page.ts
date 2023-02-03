@@ -8,7 +8,7 @@ import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
-import { BankTransaction, CategoryModel, SpendingListItemModel, SpendingModel } from '../../core/interfaces/models';
+import { BankTransaction, CategoryModel, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
@@ -28,7 +28,7 @@ import { AddSpendingModalComponent } from './add-spending-modal/add-spending-mod
 export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   formGroup: FormGroup;
-  spendingList$: Observable<SpendingListItemModel[]> = this.store.select(SpendingSelectors.selectSortedSpendingItemList);
+  spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedSpendingItemList);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
@@ -103,7 +103,6 @@ export class HomePage implements OnInit, OnDestroy {
       id: transaction.id,
       amount: transaction.amount,
       time: transaction.time,
-      category: '',
       description: transaction.description ?? '',
       currencyCode: transaction.currencyCode,
       comment: transaction.comment ?? '',

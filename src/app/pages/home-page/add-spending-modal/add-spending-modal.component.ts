@@ -46,7 +46,6 @@ export class AddSpendingModalComponent implements OnInit {
     const groupValue = this.formGroup?.value;
     const spendingItem: SpendingModel = {
       amount: amountStringToNumber(groupValue.amount),
-      category: groupValue.category.name,
       description: groupValue.description,
       id: Guid.create().toString(),
       categoryId: groupValue.category.id,
