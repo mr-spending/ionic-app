@@ -4,12 +4,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import { Observable } from 'rxjs';
+import { Guid } from 'typescript-guid';
 
 import { CategoryModel, SpendingModel } from '../../../core/interfaces/models';
 import { UserSelectors } from '../../../core/state/selectors/user.selectors';
 import { amountStringToNumber } from '../../../core/utils/helper.functions';
 import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
-import { Guid } from 'typescript-guid';
 import { SpendingActions } from '../../../core/state/actions/spending.actions';
 
 @Component({
