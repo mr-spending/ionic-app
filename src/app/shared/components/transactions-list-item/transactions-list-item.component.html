@@ -1,16 +1,17 @@
 <div class="main-wrapper">
   <ion-row>
     <div>
-      <div class="icon-wrapper" [style.background-color]="'#fc6183'">
-        <ion-icon slot="icon-only" name="card-outline"></ion-icon>
+      <div class="icon-wrapper" [style.background-color]="background">
+        <ion-icon slot="icon-only" [name]="icon"></ion-icon>
       </div>
       <ion-label>
+        <p *ngIf="type === listItemTypeEnum.spending">{{ spending.category?.name }}</p>
         <p>{{ spending.description }}</p>
         <p>{{ spending.date | date: 'MMM d, HH:mm' }}</p>
       </ion-label>
     </div>
     <ion-label class="text-new">
-      <p>New</p>
+      <p *ngIf="type === listItemTypeEnum.bankTransaction">New</p>
     </ion-label>
     <ion-label>{{ currency }} {{ spending.amount | mrMoneyFormat }}</ion-label>
   </ion-row>

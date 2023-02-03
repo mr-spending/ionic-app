@@ -19,6 +19,7 @@ import { EditSpendingModalComponent } from '../../shared/components/edit-spendin
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 import { AddSpendingModalComponent } from './add-spending-modal/add-spending-modal.component';
+import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 
 @Component({
   selector: 'app-home-page',
@@ -33,6 +34,7 @@ export class HomePage implements OnInit, OnDestroy {
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   categories!: CategoryModel[];
+  listItemTypeEnum = ListItemTypeEnum;
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
 
   get isAccordionExpanded() {

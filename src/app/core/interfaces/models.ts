@@ -48,6 +48,7 @@ export interface BankTransaction {
   date?: string;
   accountId: string;
   accountType: string;
+  category?: CategoryModel;
 }
 
 export interface CategoryModel {
