@@ -38,9 +38,6 @@ export class HomePage implements OnInit, OnDestroy {
   listItemTypeEnum = ListItemTypeEnum;
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
 
-  private dateYesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
-  private dateToday = moment().format('YYYY-MM-DD');
-
   get isAccordionExpanded() {
     return this.accordionGroup.value === 'form-group';
   }
@@ -165,12 +162,14 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   getSpendingDate(date: string): string {
+    const dateToday = moment().format('YYYY-MM-DD');
+    const dateYesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
     let currentValue = moment(date).format('DD MMMM YYYY');
     switch (date) {
-      case this.dateToday:
+      case dateToday:
         currentValue = `${this.translateService.instant('general.dates.today')}, ${moment(date).format('DD MMMM')}`;
         break;
-      case this.dateYesterday:
+      case dateYesterday:
         currentValue = `${this.translateService.instant('general.dates.yesterday')}, ${moment(date).format('DD MMMM')}`;
     }
     return currentValue;
