@@ -1,4 +1,4 @@
-import * as moment from 'moment/moment';
+import * as moment from 'moment';
 
 import { BankTransaction, MonoBankAccount } from '../interfaces/models';
 import { DateFormatEnum } from '../enums/date-format.enums';
