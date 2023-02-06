@@ -3,7 +3,6 @@ import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-page-routing.module';
 import { SharedModule } from '../../shared/shared.module';
-import { AddSpendingModalComponent } from './add-spending-modal/add-spending-modal.component';
 
 @NgModule({
   imports: [
@@ -12,7 +11,6 @@ import { AddSpendingModalComponent } from './add-spending-modal/add-spending-mod
   ],
   declarations: [
     HomePage,
-    AddSpendingModalComponent,
   ]
 })
 export class HomePageModule {}

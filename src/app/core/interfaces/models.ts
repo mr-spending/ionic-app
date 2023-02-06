@@ -48,13 +48,12 @@ export interface BankTransaction {
   date?: string;
   accountId: string;
   accountType: string;
-  category?: CategoryModel;
 }
 
 export interface CategoryModel {
   id: string;
   name: string;
-  icon: CategoryIconModel;
+  icon: IconModel;
 }
 
 export interface SpendingByCategoriesItem extends CategoryModel {
@@ -67,7 +66,7 @@ export interface TimePeriodModel {
   endDate: number;
 }
 
-export interface CategoryIconModel {
+export interface IconModel {
   iconType: string;
   background: string;
 }

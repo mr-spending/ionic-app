@@ -5,9 +5,9 @@
         <ion-icon slot="icon-only" [name]="icon"></ion-icon>
       </div>
       <ion-label>
-        <p *ngIf="type === listItemTypeEnum.spending">{{ spending.category?.name }}</p>
+        <p *ngIf="isSpendingModel(spending)">{{ spending.category?.name }}</p>
         <p>{{ spending.description }}</p>
-        <p *ngIf="type === listItemTypeEnum.bankTransaction">{{ spending.date | date: 'MMM d, HH:mm' }}</p>
+        <p>{{ spending.date | date: 'MMM d, HH:mm' }}</p>
       </ion-label>
     </div>
     <ion-label class="text-new">

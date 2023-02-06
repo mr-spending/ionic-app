@@ -16,10 +16,9 @@ import { SpendingSelectors } from '../../core/state/selectors/spending.selectors
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { EditSpendingModalComponent } from '../../shared/components/edit-spending-modal/edit-spending-modal.component';
+import { ConfigureSpendingModalComponent } from '../../shared/components/configure-spending-modal/configure-spending-modal.component';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
-import { AddSpendingModalComponent } from './add-spending-modal/add-spending-modal.component';
 import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 
 @Component({
@@ -36,6 +35,7 @@ export class HomePage implements OnInit, OnDestroy {
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   categories!: CategoryModel[];
   listItemTypeEnum = ListItemTypeEnum;
+  actionsEnum = ActionsEnum;
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
 
   get isAccordionExpanded() {
@@ -111,6 +111,7 @@ export class HomePage implements OnInit, OnDestroy {
       comment: transaction.comment ?? '',
       accountId: transaction.accountId,
       accountType: transaction.accountType,
+      categoryId: '4e9b14f4-465c-4bbc-9338-42ddbe5fadf7'
     }
     this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
   }
@@ -149,7 +150,7 @@ export class HomePage implements OnInit, OnDestroy {
         this.removeSpendingItem(item.id);
         break;
       case ActionsEnum.Edit:
-        this.openEditSpendingModal(item);
+        this.openConfigureSpendingModal(ActionsEnum.Edit, item);
     }
   }
 
@@ -175,25 +176,18 @@ export class HomePage implements OnInit, OnDestroy {
     return currentValue;
   }
 
-  async openAddSpendingModal() {
+  async openConfigureSpendingModal(type: ActionsEnum.Add | ActionsEnum.Edit, item?: SpendingModel) {
     const modal = await this.modalCtrl.create({
-      component: AddSpendingModalComponent,
-      componentProps: { amount: this.formGroup.value.amount, categories: this.categories }
+      component: ConfigureSpendingModalComponent,
+      componentProps: {
+        amount: this.formGroup.value.amount,
+        categories: this.categories,
+        spendingItem: item,
+        type
+      }
     });
     modal.present();
     await modal.onWillDismiss();
     this.formGroup?.reset();
-  }
-
-  async openEditSpendingModal(item: SpendingModel) {
-    const modal = await this.modalCtrl.create({
-      component: EditSpendingModalComponent,
-      componentProps: { spendingItem: item, categories: this.categories }
-    });
-    modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    if (role === ActionsEnum.Confirm) {
-      this.store.dispatch(SpendingActions.updateSpendingItem({ payload: data }));
-    }
   }
 }

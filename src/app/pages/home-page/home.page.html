@@ -14,7 +14,7 @@
       ></ion-input>
       <ion-button
         [disabled]="!this.formGroup.value.amount"
-        (click)="openAddSpendingModal()"
+        (click)="openConfigureSpendingModal(actionsEnum.Add)"
       >
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
@@ -27,25 +27,25 @@
     </ion-row>
 
     <ion-list *ngIf="bankTransactions$ | async as bankTransactions" class="bank-transactions-list">
-      <app-transactions-list-item
+      <app-spending-list-item
         *ngFor="let item of bankTransactions"
         [currency]="currency$ | async"
         [spending]="item"
         [type]="listItemTypeEnum.bankTransaction"
         (click)="transactionClick(item)">
-      </app-transactions-list-item>
+      </app-spending-list-item>
     </ion-list>
 
     <ion-list *ngIf="groupedSpendingList$ | async as groupedSpendingList" class="spending-list">
       <div *ngFor="let spendingList of groupedSpendingList" class="spending-list">
         <p class="date-delimiter">{{ getSpendingDate(spendingList[0].date || '') }}</p>
-        <app-transactions-list-item
+        <app-spending-list-item
           *ngFor="let item of spendingList"
           [currency]="currency$ | async"
           [spending]="item"
           [type]="listItemTypeEnum.spending"
           (click)="spendingClick(item)">
-        </app-transactions-list-item>
+        </app-spending-list-item>
       </div>
     </ion-list>
   </div>
