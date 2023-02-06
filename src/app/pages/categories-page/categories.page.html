@@ -37,7 +37,7 @@
       </ion-item>
 
       <ion-list slot="content">
-        <ion-item *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.category !== category.name">
+        <ion-item *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.categoryId !== category.id">
           <ion-label>
             <h2>{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</h2>
             <p *ngIf="item.description">{{ item.description }}</p>

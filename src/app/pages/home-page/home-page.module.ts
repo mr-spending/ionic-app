@@ -9,6 +9,8 @@ import { SharedModule } from '../../shared/shared.module';
     HomePageRoutingModule,
     SharedModule,
   ],
-  declarations: [HomePage]
+  declarations: [
+    HomePage,
+  ]
 })
 export class HomePageModule {}

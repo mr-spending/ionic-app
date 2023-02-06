@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Guid } from 'typescript-guid';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
@@ -16,10 +15,10 @@ import { SpendingSelectors } from '../../core/state/selectors/spending.selectors
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { EditSpendingModalComponent } from '../edit-spending-modal/edit-spending-modal.component';
-import { amountStringToNumber } from '../../core/utils/helper.functions';
+import { ConfigureSpendingModalComponent } from '../../shared/components/configure-spending-modal/configure-spending-modal.component';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
+import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 
 @Component({
   selector: 'app-home-page',
@@ -29,11 +28,13 @@ import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   formGroup: FormGroup;
-  spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSpendingListWithParams);
+  spendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedSpendingItemList);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   categories!: CategoryModel[];
+  listItemTypeEnum = ListItemTypeEnum;
+  actionsEnum = ActionsEnum;
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
 
   get isAccordionExpanded() {
@@ -48,11 +49,7 @@ export class HomePage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private translateService: TranslateService,
   ) {
-    this.formGroup = this.fb.group({
-      amount: this.fb.control(null, Validators.required),
-      category: this.fb.control(null, Validators.required),
-      description: this.fb.control(null),
-    });
+    this.formGroup = this.fb.group({ amount: this.fb.control(null) });
   }
 
   ngOnInit() {
@@ -66,32 +63,9 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  addSpending(): void {
-    const groupValue = this.formGroup.value;
-    const spendingItem: SpendingModel = {
-      amount: amountStringToNumber(groupValue.amount),
-      category: groupValue.category.name,
-      description: groupValue.description,
-      id: Guid.create().toString(),
-      categoryId: groupValue.category.id,
-      time: Math.floor(new Date().getTime() / 1000)
-    }
-    this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
-    this.formGroup.reset();
-  }
-
   navigateToExpensesList(): void {
     this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.ExpensesList}`]).then();
   }
-
-  toggleAccordion = () => {
-    const nativeEl = this.accordionGroup;
-    if (nativeEl.value === 'form-group') {
-      nativeEl.value = undefined;
-    } else {
-      nativeEl.value = 'form-group';
-    }
-  };
 
   async transactionClick(transaction: BankTransaction) {
     const actionSheet = await this.actionSheetController.create({
@@ -131,12 +105,12 @@ export class HomePage implements OnInit, OnDestroy {
       id: transaction.id,
       amount: transaction.amount,
       time: transaction.time,
-      category: '',
       description: transaction.description ?? '',
       currencyCode: transaction.currencyCode,
       comment: transaction.comment ?? '',
       accountId: transaction.accountId,
       accountType: transaction.accountType,
+      categoryId: '4e9b14f4-465c-4bbc-9338-42ddbe5fadf7'
     }
     this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
   }
@@ -175,7 +149,7 @@ export class HomePage implements OnInit, OnDestroy {
         this.removeSpendingItem(item.id);
         break;
       case ActionsEnum.Edit:
-        this.openModal(item);
+        this.openConfigureSpendingModal(ActionsEnum.Edit, item);
     }
   }
 
@@ -187,15 +161,18 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
-  async openModal(item: SpendingModel) {
+  async openConfigureSpendingModal(type: ActionsEnum.Add | ActionsEnum.Edit, item?: SpendingModel) {
     const modal = await this.modalCtrl.create({
-      component: EditSpendingModalComponent,
-      componentProps: { spendingItem: item, categories: this.categories }
+      component: ConfigureSpendingModalComponent,
+      componentProps: {
+        amount: this.formGroup.value.amount,
+        categories: this.categories,
+        spendingItem: item,
+        type
+      }
     });
     modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    if (role === ActionsEnum.Confirm) {
-      this.store.dispatch(SpendingActions.updateSpendingItem({ payload: data }));
-    }
+    await modal.onWillDismiss();
+    this.formGroup?.reset();
   }
 }

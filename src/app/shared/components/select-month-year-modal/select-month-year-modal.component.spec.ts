@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { SelectMonthYearModalComponent } from './select-month-year-modal.component';
 
-describe('EditSpendingModalComponent', () => {
+describe('SelectMonthYearModalComponent', () => {
   let component: SelectMonthYearModalComponent;
   let fixture: ComponentFixture<SelectMonthYearModalComponent>;
 

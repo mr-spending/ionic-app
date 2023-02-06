@@ -1,107 +1,49 @@
-<ion-header collapse="condense" class="ion-padding">
-  <ion-toolbar>
-    <ion-title size="large" class="ion-text-center" (click)="navigateToExpensesList()">
+<ion-content [fullscreen]="true" class="transaction-spending-list">
+  <div class="main-wrapper">
+    <h1 size="large" class="ion-text-center" (click)="navigateToExpensesList()">
       {{ currency$ | async }}
       {{ (totalAmount$ | async) | number: '.2' }}
-    </ion-title>
-  </ion-toolbar>
+    </h1>
+    <ion-row class="add-spending" [formGroup]="formGroup">
+      <ion-input
+        formControlName="amount"
+        maxlength="15"
+        type="tel"
+        mrCurrencyMask
+        [placeholder]="(currency$ | async) + '  0.00'"
+      ></ion-input>
+      <ion-button
+        [disabled]="!this.formGroup.value.amount"
+        (click)="openConfigureSpendingModal(actionsEnum.Add)"
+      >
+        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-row>
 
-  <ion-accordion-group #accordionGroup>
-    <ion-accordion value="form-group">
-      <div class="ion-padding" slot="content">
-        <ion-list [formGroup]="formGroup">
-          <ion-item>
-            <ion-label>{{ 'home.amount' | translate }}</ion-label>
-            <ion-input
-              class="ion-text-right"
-              formControlName="amount"
-              maxlength="15"
-              type="tel"
-              mrCurrencyMask
-              [placeholder]="(currency$ | async) + '0.00'"
-            ></ion-input>
-          </ion-item>
+    <ion-row class="ion-justify-content-center">
+      <ion-button fill="clear" (click)="updateSpendingList()">
+        <ion-icon color="primary" size="large" name="refresh-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-row>
 
-          <ion-item>
-            <ion-label class="select-label">{{ 'home.category' | translate }}</ion-label>
-            <ion-select
-              #ionSelect
-              class="select-selector"
-              interface="popover"
-              placeholder="Select fruit"
-              name="category"
-              formControlName="category"
-              [selectedText]="ionSelect.value?.name"
-            >
-              <ion-select-option *ngFor="let category of categories" [value]="category">{{ category.name }}</ion-select-option>
-            </ion-select>
-          </ion-item>
+    <ion-list *ngIf="bankTransactions$ | async as bankTransactions" class="bank-transactions-list">
+      <app-spending-list-item
+        *ngFor="let item of bankTransactions"
+        [currency]="currency$ | async"
+        [spending]="item"
+        [type]="listItemTypeEnum.bankTransaction"
+        (click)="transactionClick(item)">
+      </app-spending-list-item>
+    </ion-list>
 
-          <ion-item>
-            <ion-label>{{ 'home.description' | translate }}</ion-label>
-            <ion-input
-              formControlName="description"
-              [placeholder]="'home.descriptionPlaceholder' | translate"
-            ></ion-input>
-          </ion-item>
-        </ion-list>
-      </div>
-    </ion-accordion>
-  </ion-accordion-group>
-
-  <ion-row
-    class="ion-padding-top"
-    [ngClass]="isAccordionExpanded ? 'ion-justify-content-between' : 'ion-justify-content-end'"
-  >
-    <ion-button
-      *ngIf="isAccordionExpanded"
-      shape="round"
-      fill="outline"
-      (click)="toggleAccordion()"
-    >
-      {{ 'general.actions.cancel' | translate }}
-    </ion-button>
-
-    <ion-button
-      shape="round"
-      fill="solid"
-      [size]="isAccordionExpanded ? 'default' : 'small'"
-      [disabled]="isAccordionExpanded ? formGroup.invalid : false"
-      (click)="isAccordionExpanded ? addSpending() : toggleAccordion()"
-    >
-      {{ 'home.addSpending' | translate }}
-    </ion-button>
-  </ion-row>
-</ion-header>
-
-<ion-content [fullscreen]="true" class="transaction-spending-list">
-  <ion-row class="ion-justify-content-center">
-    <ion-button fill="clear" (click)="updateSpendingList()">
-      <ion-icon color="primary" size="large" name="refresh-circle-outline"></ion-icon>
-    </ion-button>
-  </ion-row>
-
-  <ion-list *ngIf="bankTransactions$ | async as bankTransactions">
-    <ion-item *ngFor="let item of bankTransactions" (click)="transactionClick(item)" color="light">
-      <ion-label>
-        <h2>{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</h2>
-        <p *ngIf="item.description">{{ item.description }}</p>
-        <p *ngIf="item.comment">{{ item.comment }}</p>
-      </ion-label>
-      <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
-    </ion-item>
-  </ion-list>
-
-  <ion-list *ngIf="spendingList$ | async as spendingList">
-    <ion-item *ngFor="let item of spendingList" (click)="spendingClick(item)">
-      <ion-label>
-        <h2>{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</h2>
-        <p *ngIf="item.category">{{ item.category }}</p>
-        <p *ngIf="item.description">{{ item.description }}</p>
-        <p *ngIf="item.comment">{{ item.comment }}</p>
-      </ion-label>
-      <ion-label *ngIf="item.accountType" class="ion-text-center">{{ item.accountType }}</ion-label>
-      <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
-    </ion-item>
-  </ion-list>
+    <ion-list *ngIf="spendingList$ | async as spendingList" class="spending-list">
+      <app-spending-list-item
+        *ngFor="let item of spendingList"
+        [currency]="currency$ | async"
+        [spending]="item"
+        [type]="listItemTypeEnum.spending"
+        (click)="spendingClick(item)">
+      </app-spending-list-item>
+    </ion-list>
+  </div>
 </ion-content>

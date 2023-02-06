@@ -75,8 +75,14 @@
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
 
-  /** shadows **/
-  --modal-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  /** CUSTOM **/
+
+    /** custom palette **/
+    --background-color-1: #36383c;
+    --spending-icon-color: #000;
+
+    /** shadows **/
+    --modal-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 @media (prefers-color-scheme: dark) {
