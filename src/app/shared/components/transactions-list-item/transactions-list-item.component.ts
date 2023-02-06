@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { BankTransaction, SpendingModel } from '../../../core/interfaces/models';
+import { BankTransaction, CategoryModel, SpendingModel } from '../../../core/interfaces/models';
 import { ListItemTypeEnum } from '../../../core/enums/list-item.enum';
 
 @Component({
@@ -11,7 +11,13 @@ import { ListItemTypeEnum } from '../../../core/enums/list-item.enum';
 export class TransactionListItemComponent implements OnInit {
   @Input() currency!: string | null;
   @Input() spending!: SpendingModel | BankTransaction;
-  @Input() type!: ListItemTypeEnum.bankTransaction | ListItemTypeEnum.spending;
+  @Input() type!: ListItemTypeEnum;
+  @Input() amount!: number;
+  @Input() name!: string;
+  @Input() description!: string;
+  @Input() category!: CategoryModel;
+  @Input() date?: string;
+
 
   listItemTypeEnum = ListItemTypeEnum;
   background = '#fc6183';

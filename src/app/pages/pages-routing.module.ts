@@ -20,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: PageRoutesEnum.Statistics,
-        loadChildren: () => import('./categories-page/categories-page.module').then(m => m.CategoriesPageModule),
+        loadChildren: () => import('./statistics-page/categories-page.module').then(m => m.CategoriesPageModule),
       },
       {
         path: PageRoutesEnum.Setting,

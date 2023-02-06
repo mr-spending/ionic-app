@@ -12,7 +12,7 @@ import { getCurrentMonthPeriodUNIX, getCustomPeriodUNIX } from '../../core/utils
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 
 @Component({
-  selector: 'app-categories-page',
+  selector: 'app-statistics-page',
   templateUrl: './categories.page.html',
   styleUrls: ['./categories.page.scss'],
 })
