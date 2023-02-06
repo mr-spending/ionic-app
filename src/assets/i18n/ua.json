@@ -42,7 +42,9 @@
     "categoryPlaceholder": "Натисніть щоб обрати",
     "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
     "addSpending": "Додати витрату",
-    "update": "Оновити список"
+    "update": "Оновити список",
+    "newTransactions": "Нові Транзакції",
+    "mySpending": "Мої витрати"
   },
   "categories": {
     "title": "Категорії",

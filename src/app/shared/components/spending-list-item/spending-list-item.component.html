@@ -5,14 +5,11 @@
         <ion-icon slot="icon-only" [name]="icon"></ion-icon>
       </div>
       <ion-label>
-        <p *ngIf="isSpendingModel(spending)">{{ spending.category?.name }}</p>
-        <p>{{ spending.description }}</p>
-        <p>{{ spending.date | date: 'MMM d, HH:mm' }}</p>
+        <p *ngIf="isSpendingModel(spending)" class="category-name">{{ spending.category?.name }}</p>
+        <p class="category-description">{{ spending.description }}</p>
+        <p *ngIf="type === listItemTypeEnum.bankTransaction">{{ spending.date | date: 'MMM d, HH:mm' }}</p>
       </ion-label>
     </div>
-    <ion-label class="text-new">
-      <p *ngIf="type === listItemTypeEnum.bankTransaction">New</p>
-    </ion-label>
     <ion-label>{{ currency }} {{ spending.amount | mrMoneyFormat }}</ion-label>
   </ion-row>
 </div>

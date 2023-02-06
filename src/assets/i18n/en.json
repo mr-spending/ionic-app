@@ -42,7 +42,9 @@
     "categoryPlaceholder": "Select category",
     "descriptionPlaceholder": "Type your description. Optional.",
     "addSpending": "Add spending",
-    "update": "Update list"
+    "update": "Update list",
+    "newTransactions": "New Transactions",
+    "mySpending": "My spending"
   },
   "categories": {
     "title": "Categories",

@@ -2,7 +2,7 @@ ion-content {
   --background: var(--page-background);
 
   .main-wrapper {
-    padding: 0 15px;
+    padding: 0 25px;
 
     h1 {
       font-size: 36px;
@@ -40,12 +40,25 @@ ion-content {
       }
     }
 
+    .spending-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 10px 0 15px;
+    }
+
     .bank-transactions-list {
       display: flex;
       flex-direction: column;
       gap: 10px;
       margin-bottom: 10px;
       background-color: transparent;
+
+      .bank-transactions-title {
+        font-size: 14px;
+        margin: 0 5px;
+        color: var(--ion-color-danger-tint);
+        align-self: center;
+      }
     }
 
     .spending-list {

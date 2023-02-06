@@ -26,7 +26,10 @@
       </ion-button>
     </ion-row>
 
+    <p class="spending-title">{{ 'home.mySpending' | translate }}</p>
+
     <ion-list *ngIf="bankTransactions$ | async as bankTransactions" class="bank-transactions-list">
+      <p *ngIf="bankTransactions.length" class="bank-transactions-title">{{ 'home.newTransactions' | translate }}</p>
       <app-spending-list-item
         *ngFor="let item of bankTransactions"
         [currency]="currency$ | async"
