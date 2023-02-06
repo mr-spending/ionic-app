@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import { Observable } from 'rxjs';
+import { Guid } from 'typescript-guid';
 
 import { CategoryModel, SpendingModel } from '../../../core/interfaces/models';
 import { UserSelectors } from '../../../core/state/selectors/user.selectors';
 import { amountStringToNumber } from '../../../core/utils/helper.functions';
 import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
 import { SpendingActions } from '../../../core/state/actions/spending.actions';
-import { Guid } from 'typescript-guid';
 
 @Component({
   selector: 'app-configure-spending-modal',
@@ -57,7 +57,6 @@ export class ConfigureSpendingModalComponent implements OnInit {
           categoryId: category.id,
           time: Math.floor(new Date().getTime() / 1000)
         };
-        console.log(newItem);
         this.store.dispatch(SpendingActions.createSpendingItem({ payload: newItem as SpendingModel }));
         break;
       }
@@ -69,11 +68,10 @@ export class ConfigureSpendingModalComponent implements OnInit {
           description
         };
         delete newItem.category;
-        console.log(newItem);
         this.store.dispatch(SpendingActions.updateSpendingItem({ payload: newItem as SpendingModel }));
       }
     }
     this.formGroup?.reset();
-    return this.modalCtrl.dismiss('', ActionsEnum.Confirm);
+    return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
   }
 }
