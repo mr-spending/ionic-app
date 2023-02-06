@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { AddSpendingModalComponent } from './add-spending-modal.component';
+import { SpendingListItemComponent } from './spending-list-item.component';
 
-describe('AddSpendingModalComponent', () => {
-  let component: AddSpendingModalComponent;
-  let fixture: ComponentFixture<AddSpendingModalComponent>;
+describe('SpendingListItemComponent', () => {
+  let component: SpendingListItemComponent;
+  let fixture: ComponentFixture<SpendingListItemComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddSpendingModalComponent ],
+      declarations: [SpendingListItemComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AddSpendingModalComponent);
+    fixture = TestBed.createComponent(SpendingListItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));
