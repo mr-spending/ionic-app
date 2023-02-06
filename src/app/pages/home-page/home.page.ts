@@ -110,6 +110,7 @@ export class HomePage implements OnInit, OnDestroy {
       comment: transaction.comment ?? '',
       accountId: transaction.accountId,
       accountType: transaction.accountType,
+      categoryId: '4e9b14f4-465c-4bbc-9338-42ddbe5fadf7'
     }
     this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
   }

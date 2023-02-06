@@ -49,7 +49,8 @@ export class AddSpendingModalComponent implements OnInit {
       description: groupValue.description,
       id: Guid.create().toString(),
       categoryId: groupValue.category.id,
-      time: Math.floor(new Date().getTime() / 1000)
+      time: Math.floor(new Date().getTime() / 1000),
+      category: groupValue.category
     }
     this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
     this.formGroup?.reset();
