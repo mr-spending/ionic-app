@@ -61,7 +61,7 @@ export class HomePage implements OnInit, OnDestroy {
     );
     this.updateSpendingList();
     this.intervalId = setInterval(() => {
-      this.currentTime = moment().format('DD MMMM  hh:mm');
+      this.currentTime = moment().format('DD MMMM  HH:mm');
     }, 1000);
   }
 
