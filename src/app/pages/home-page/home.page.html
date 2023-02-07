@@ -1,55 +1,65 @@
 <ion-content [fullscreen]="true" class="transaction-spending-list">
   <div class="main-wrapper">
-    <h1 size="large" class="ion-text-center" (click)="navigateToExpensesList()">
-      {{ currency$ | async }}
-      {{ (totalAmount$ | async) | number: '.2' }}
-    </h1>
-    <ion-row class="add-spending" [formGroup]="formGroup">
-      <ion-input
-        formControlName="amount"
-        maxlength="15"
-        type="tel"
-        mrCurrencyMask
-        [placeholder]="(currency$ | async) + '  0.00'"
-      ></ion-input>
-      <ion-button
-        [disabled]="!this.formGroup.value.amount"
-        (click)="openConfigureSpendingModal(actionsEnum.Add)"
-      >
-        <ion-icon slot="icon-only" name="add-outline"></ion-icon>
-      </ion-button>
-    </ion-row>
+    <div class="head">
+      <ion-row class="head-top">
+        <span class="date-time">{{ currentTime }}</span>
+        <ion-button (click)="navigateToStatisticsPage()">
+          <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
+      <h1 size="large" class="ion-text-center">
+        {{ currency$ | async }}
+        {{ (totalAmount$ | async) | number: '.2' }}
+      </h1>
+      <ion-row class="add-spending" [formGroup]="formGroup">
+        <ion-input
+          formControlName="amount"
+          maxlength="15"
+          type="tel"
+          mrCurrencyMask
+          [placeholder]="(currency$ | async) + '  0.00'"
+        ></ion-input>
+        <ion-button
+          [disabled]="!this.formGroup.value.amount"
+          (click)="openConfigureSpendingModal(actionsEnum.Add)"
+        >
+          <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
 
-    <ion-row class="ion-justify-content-center">
-      <ion-button fill="clear" (click)="updateSpendingList()">
-        <ion-icon color="primary" size="large" name="refresh-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-row>
+      <ion-row class="ion-justify-content-center">
+        <ion-button fill="clear" (click)="updateSpendingList()">
+          <ion-icon color="primary" size="large" name="refresh-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
 
-    <p class="spending-title">{{ 'home.mySpending' | translate }}</p>
+      <p class="spending-title">Mr.Spending</p>
+    </div>
 
-    <ion-list *ngIf="bankTransactions$ | async as bankTransactions" class="bank-transactions-list">
-      <p *ngIf="bankTransactions.length" class="bank-transactions-title">{{ 'home.newTransactions' | translate }}</p>
-      <app-spending-list-item
-        *ngFor="let item of bankTransactions"
-        [currency]="currency$ | async"
-        [spending]="item"
-        [type]="listItemTypeEnum.bankTransaction"
-        (click)="transactionClick(item)">
-      </app-spending-list-item>
-    </ion-list>
-
-    <ion-list *ngIf="groupedSpendingList$ | async as groupedSpendingList" class="spending-list">
-      <div *ngFor="let spendingList of groupedSpendingList" class="spending-list">
-        <p class="date-delimiter">{{ getSpendingDate(spendingList[0].date || '') }}</p>
+    <div class="scroll">
+      <ion-list *ngIf="bankTransactions$ | async as bankTransactions" class="bank-transactions-list">
+        <p *ngIf="bankTransactions.length" class="bank-transactions-title">{{ 'home.newTransactions' | translate }}</p>
         <app-spending-list-item
-          *ngFor="let item of spendingList"
+          *ngFor="let item of bankTransactions"
           [currency]="currency$ | async"
           [spending]="item"
-          [type]="listItemTypeEnum.spending"
-          (click)="spendingClick(item)">
+          [type]="listItemTypeEnum.bankTransaction"
+          (click)="transactionClick(item)">
         </app-spending-list-item>
-      </div>
-    </ion-list>
+      </ion-list>
+
+      <ion-list *ngIf="groupedSpendingList$ | async as groupedSpendingList" class="spending-list">
+        <div *ngFor="let spendingList of groupedSpendingList" class="spending-list">
+          <p class="date-delimiter">{{ getSpendingDate(spendingList[0].date || '') }}</p>
+          <app-spending-list-item
+            *ngFor="let item of spendingList"
+            [currency]="currency$ | async"
+            [spending]="item"
+            [type]="listItemTypeEnum.spending"
+            (click)="spendingClick(item)">
+          </app-spending-list-item>
+        </div>
+      </ion-list>
+    </div>
   </div>
 </ion-content>

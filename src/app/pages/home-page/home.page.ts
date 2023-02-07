@@ -34,6 +34,8 @@ export class HomePage implements OnInit, OnDestroy {
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   categories!: CategoryModel[];
+  currentTime: any;
+  intervalId: any;
   listItemTypeEnum = ListItemTypeEnum;
   actionsEnum = ActionsEnum;
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
@@ -58,14 +60,18 @@ export class HomePage implements OnInit, OnDestroy {
       .subscribe((categories: CategoryModel[]) => this.categories = categories)
     );
     this.updateSpendingList();
+    this.intervalId = setInterval(() => {
+      this.currentTime = moment().format('DD MMMM  hh:mm');
+    }, 1000);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+    clearInterval(this.intervalId);
   }
 
-  navigateToExpensesList(): void {
-    this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.ExpensesList}`]).then();
+  navigateToStatisticsPage(): void {
+    this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.Statistics}`]).then();
   }
 
   async transactionClick(transaction: BankTransaction) {
@@ -78,9 +84,10 @@ export class HomePage implements OnInit, OnDestroy {
           },
         },
         {
-          text: this.translateService.instant('general.actions.edit'),
+          text: this.translateService.instant('general.actions.delete'),
+          role: ActionsRoleEnum.Destructive,
           data: {
-            action: ActionsEnum.Edit,
+            action: ActionsEnum.Delete,
           },
         },
         {
@@ -120,16 +127,16 @@ export class HomePage implements OnInit, OnDestroy {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
+          text: this.translateService.instant('general.actions.edit'),
+          data: {
+            action: ActionsEnum.Edit,
+          },
+        },
+        {
           text: this.translateService.instant('general.actions.delete'),
           role: ActionsRoleEnum.Destructive,
           data: {
             action: ActionsEnum.Delete,
-          },
-        },
-        {
-          text: this.translateService.instant('general.actions.edit'),
-          data: {
-            action: ActionsEnum.Edit,
           },
         },
         {

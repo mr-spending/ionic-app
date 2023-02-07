@@ -46,8 +46,8 @@
     "newTransactions": "New Transactions",
     "mySpending": "My spending"
   },
-  "categories": {
-    "title": "Categories",
+  "statistics": {
+    "title": "Statistics",
     "currentMonth": "Current month",
     "selectPeriod": "Select period",
     "fromDate": "From (year-month):",

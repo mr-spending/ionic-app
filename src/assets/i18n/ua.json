@@ -46,8 +46,8 @@
     "newTransactions": "Нові Транзакції",
     "mySpending": "Мої витрати"
   },
-  "categories": {
-    "title": "Категорії",
+  "statistics": {
+    "title": "Статистика",
     "currentMonth": "Поточний місяць",
     "selectPeriod": "Обрати період",
     "fromDate": "Від (рік-місяць):",

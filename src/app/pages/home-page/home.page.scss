@@ -1,77 +1,133 @@
 ion-content {
-  --background: var(--page-background);
 
   .main-wrapper {
-    padding: 0 25px;
+    padding: 278px 25px 0;
+    background-color: var(--background-color-2);
+    width: 100%;
+    min-height: 100%;
 
-    h1 {
-      font-size: 36px;
-      font-weight: 600;
-      margin: 30px 0 25px;
-    }
+    .head {
+      background: var(--page-background);
+      position: fixed;
+      width: 100%;
+      padding: 15px 25px 0;
+      z-index: 2;
+      top: 0;
+      left: 0;
 
-    .add-spending {
-      display: flex;
-      gap: 15px;
+      .head-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 7px;
 
-      ion-input {
-        width: 40px;
-        height: 40px;
-        border-radius: 20px;
-        --background: var(--background-color-1);
-        --padding-start: 15px;
-        --padding-end: 15px;
-      }
+        .date-time {
+          color: var(--ion-color-medium-shade);
+        }
 
-      ion-button {
-        width: 40px;
-        height: 40px;
-        margin: 0;
-        --border-radius: 20px;
-        --background: var(--background-color-1);
-        --padding-start: 5px;
-        --padding-end: 5px;
+        ion-button {
+          width: 25px;
+          height: 25px;
+          margin: 0;
+          --border-radius: 0;
+          --background: transparent;
+          --padding-start: 0;
+          --padding-end: 0;
 
-        ion-icon {
-          width: 30px;
-          height: 30px;
-          color: var(--button-content-color-1);
+          ion-icon {
+            width: 25px;
+            height: 25px;
+            color: var(--button-content-color-1);
+          }
         }
       }
-    }
 
-    .spending-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 10px 0 15px;
-    }
+      h1 {
+        font-size: 36px;
+        font-weight: 600;
+        margin: 20px 0 25px;
+      }
 
-    .bank-transactions-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 10px;
-      background-color: transparent;
+      .add-spending {
+        display: flex;
+        gap: 15px;
 
-      .bank-transactions-title {
-        font-size: 14px;
-        margin: 0 5px;
-        color: var(--ion-color-danger-tint);
-        align-self: center;
+        ion-input {
+          width: 40px;
+          height: 40px;
+          border-radius: 20px;
+          --background: var(--background-color-1);
+          --padding-start: 15px;
+          --padding-end: 15px;
+        }
+
+        ion-button {
+          width: 40px;
+          height: 40px;
+          margin: 0;
+          --border-radius: 20px;
+          --background: var(--background-color-1);
+          --padding-start: 5px;
+          --padding-end: 5px;
+
+          ion-icon {
+            width: 30px;
+            height: 30px;
+            color: var(--button-content-color-1);
+          }
+        }
+      }
+
+      .spending-title {
+        font-size: 24px;
+        margin: 0 0 15px;
       }
     }
 
-    .spending-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      background-color: transparent;
+    .head:after {
+      content: '';
+      display: block;
+      top: -4px;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background-color: #60693e;
+    }
 
-      .date-delimiter {
-        font-size: 14px;
-        margin: 0 5px;
-        color: var(--ion-color-medium-shade);
-        align-self: center;
+    .scroll {
+
+      .bank-transactions-list {
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+
+        .bank-transactions-title {
+          font-size: 14px;;
+          color: var(--ion-color-danger-tint);
+          align-self: center;
+          margin: 0 0 10px;
+        }
+
+        app-spending-list-item {
+          margin-bottom: 10px;
+        }
+      }
+
+      .spending-list {
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+
+        .date-delimiter {
+          font-size: 14px;
+          color: var(--ion-color-medium-shade);
+          align-self: center;
+          margin: 0 0 10px;
+        }
+
+        app-spending-list-item {
+          margin-bottom: 10px;
+        }
       }
     }
   }
