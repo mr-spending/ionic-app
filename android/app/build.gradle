@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    namespace 'mr.spending'
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "mr.spending"

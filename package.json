@@ -5,7 +5,8 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "start:web": "ionic serve",
-    "start:ios": "ionic cap sync ios; ionic cap run ios -l --external",
+    "start:ios": "ionic capacitor copy ios; ionic capacitor open ios",
+    "start:android": "ionic capacitor sync android; ionic capacitor open android",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
