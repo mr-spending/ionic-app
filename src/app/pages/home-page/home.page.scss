@@ -4,31 +4,36 @@
 
 ion-header {
 
-  ion-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 25px;
-    height: 55px;
-    background: transparent;
+  ion-toolbar {
+    --background: transparent;
+    --border-width: 0;
 
-    .date-time {
-      color: var(--ion-color-medium-shade);
-    }
+    ion-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      height: 55px;
+      background: transparent;
 
-    ion-button {
-      width: 25px;
-      height: 25px;
-      margin: 0;
-      --border-radius: 0;
-      --background: transparent;
-      --padding-start: 0;
-      --padding-end: 0;
+      .date-time {
+        color: var(--ion-color-medium-shade);
+      }
 
-      ion-icon {
+      ion-button {
         width: 25px;
         height: 25px;
-        color: var(--button-content-color-1);
+        margin: 0;
+        --border-radius: 0;
+        --background: transparent;
+        --padding-start: 0;
+        --padding-end: 0;
+
+        ion-icon {
+          width: 25px;
+          height: 25px;
+          color: var(--button-content-color-1);
+        }
       }
     }
   }

@@ -1,10 +1,12 @@
 <ion-header>
-  <ion-row>
-    <span class="date-time">{{ currentTime }}</span>
-    <ion-button (click)="navigateToStatisticsPage()">
-      <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
-    </ion-button>
-  </ion-row>
+  <ion-toolbar>
+    <ion-row>
+      <span class="date-time">{{ currentTime }}</span>
+      <ion-button (click)="navigateToStatisticsPage()">
+        <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+      </ion-button>
+    </ion-row>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" scroll-y="false" class="transaction-spending-list">
