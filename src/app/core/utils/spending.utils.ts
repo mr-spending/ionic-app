@@ -1,6 +1,6 @@
 import * as moment from 'moment';
 
-import { SpendingModel } from '../interfaces/models';
+import { GroupedSpendingModel, SpendingModel } from '../interfaces/models';
 import { DateFormatEnum } from '../enums/date-format.enums';
 
 export function mapSpendingList(list: SpendingModel[]): SpendingModel[] {
@@ -11,16 +11,24 @@ export function mapSpendingList(list: SpendingModel[]): SpendingModel[] {
 }
 
 export function groupingSpendingByDate(list: SpendingModel[]) {
-  const groupedList: SpendingModel[][] = [];
+  const groupedList: GroupedSpendingModel[] = [];
 
   list.forEach(spending => {
-    const spendingDate = spending.date?.split(' ')[0];
-    const dateIDX = groupedList.findIndex(item => item[0].date?.split(' ')[0] === spendingDate);
+    const spendingDate = spending.date?.split(' ')[0] || '';
+    const dateIDX = groupedList.findIndex(item => item.title === spendingDate);
 
     dateIDX >= 0
-      ? groupedList[dateIDX].push({ ...spending, date: spendingDate })
-      : groupedList.push([{ ...spending, date: spendingDate }])
+      ? groupedList[dateIDX].children.push({ ...spending, date: spendingDate })
+      : groupedList.push({ title: spendingDate, children: [{ ...spending, date: spendingDate }] })
   })
+
+  //   [{
+  //   title: date,
+  //   children: SpendingModel[],
+  // },{
+  //   title: date,
+  //   children: SpendingModel[],
+  // }]
 
   return groupedList;
 }

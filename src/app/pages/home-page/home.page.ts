@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, map, timer } from 'rxjs';
 import { ActionSheetController, IonAccordionGroup } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import * as moment from 'moment';
 
-import { BankTransaction, CategoryModel, SpendingModel } from '../../core/interfaces/models';
+import { BankTransaction, CategoryModel, GroupedSpendingModel, SpendingModel } from '../../core/interfaces/models';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
@@ -29,13 +29,12 @@ import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   formGroup: FormGroup;
-  groupedSpendingList$: Observable<SpendingModel[][]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
+  groupedSpendingList$: Observable<GroupedSpendingModel[]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   categories!: CategoryModel[];
   currentTime: any;
-  intervalId: any;
   listItemTypeEnum = ListItemTypeEnum;
   actionsEnum = ActionsEnum;
   @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
@@ -57,17 +56,17 @@ export class HomePage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
-      .subscribe((categories: CategoryModel[]) => this.categories = categories)
+      .subscribe((categories: CategoryModel[]) => this.categories = categories),
+    );
+    this.subscription.add(timer(0, 60000)
+      .pipe(map(() => moment().format('DD MMMM')))
+      .subscribe(time => this.currentTime = time)
     );
     this.updateSpendingList();
-    this.intervalId = setInterval(() => {
-      this.currentTime = moment().format('DD MMMM  HH:mm');
-    }, 1000);
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    clearInterval(this.intervalId);
   }
 
   navigateToStatisticsPage(): void {
@@ -175,10 +174,10 @@ export class HomePage implements OnInit, OnDestroy {
     let currentValue = moment(date).format('DD MMMM YYYY');
     switch (date) {
       case dateToday:
-        currentValue = `${this.translateService.instant('general.dates.today')}, ${moment(date).format('DD MMMM')}`;
+        currentValue = `${this.translateService.instant('general.dates.today')}`;
         break;
       case dateYesterday:
-        currentValue = `${this.translateService.instant('general.dates.yesterday')}, ${moment(date).format('DD MMMM')}`;
+        currentValue = `${this.translateService.instant('general.dates.yesterday')}`;
     }
     return currentValue;
   }

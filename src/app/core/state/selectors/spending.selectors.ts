@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
-import { CategoryModel, SpendingModel } from '../../interfaces/models';
+import { CategoryModel, GroupedSpendingModel, SpendingModel } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
 import { CategoriesState, categoriesStateKey } from '../reducers/categories.reducer';
 import { DirectionEnum } from '../../enums/spending.enums';
@@ -23,14 +23,11 @@ export namespace SpendingSelectors {
     selectCategories,
     (list: SpendingModel[], categories: CategoryModel[]) => {
       const sortedList = sortArrayByProperty(list, 'time', DirectionEnum.Descending) as SpendingModel[];
-      const groupedList = groupingSpendingByDate(sortedList);
-      const groupedListWithIcons: SpendingModel[][] = groupedList.map(spendingByDate =>
-        spendingByDate.map(spending => ({
-            ...spending,
-            category: categories.find(item => item.id === spending.categoryId),
-        }))
-      );
-      return groupedListWithIcons;
+      const sortedListWithCategories = sortedList.map(spending => ({
+        ...spending,
+        category: categories.find(item => item.id === spending.categoryId),
+      }))
+      return groupingSpendingByDate(sortedListWithCategories);
     }
   );
 
