@@ -58,7 +58,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
       .subscribe((categories: CategoryModel[]) => this.categories = categories),
     );
-    this.subscription.add(timer(0, 60000)
+    this.subscription.add(timer(0, 1000)
       .pipe(map(() => moment().format('DD MMMM')))
       .subscribe(time => this.currentTime = time)
     );
@@ -166,20 +166,6 @@ export class HomePage implements OnInit, OnDestroy {
 
   updateSpendingList() {
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
-  }
-
-  getSpendingDate(date: string): string {
-    const dateToday = moment().format('YYYY-MM-DD');
-    const dateYesterday = moment().subtract(1, 'days').format('YYYY-MM-DD');
-    let currentValue = moment(date).format('DD MMMM YYYY');
-    switch (date) {
-      case dateToday:
-        currentValue = `${this.translateService.instant('general.dates.today')}`;
-        break;
-      case dateYesterday:
-        currentValue = `${this.translateService.instant('general.dates.yesterday')}`;
-    }
-    return currentValue;
   }
 
   async openConfigureSpendingModal(type: ActionsEnum.Add | ActionsEnum.Edit, item?: SpendingModel) {

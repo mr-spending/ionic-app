@@ -55,7 +55,7 @@
 
     <ion-list *ngIf="groupedSpendingList$ | async as groupedSpendingList" class="spending-list">
       <div *ngFor="let spendingList of groupedSpendingList" class="spending-list">
-        <p class="date-delimiter">{{ getSpendingDate(spendingList.title) }}</p>
+        <p class="date-delimiter">{{ spendingList.title | MrSpendingListDateFormatPipe }}</p>
         <app-spending-list-item
           *ngFor="let item of spendingList.children"
           [currency]="currency$ | async"
