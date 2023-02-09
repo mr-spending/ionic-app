@@ -13,10 +13,10 @@ import { SpendingActions } from '../../core/state/actions/spending.actions';
 
 @Component({
   selector: 'app-statistics-page',
-  templateUrl: './categories.page.html',
-  styleUrls: ['./categories.page.scss'],
+  templateUrl: './statistics.page.html',
+  styleUrls: ['./statistics.page.scss'],
 })
-export class CategoriesPage implements OnInit {
+export class StatisticsPage implements OnInit {
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
 
