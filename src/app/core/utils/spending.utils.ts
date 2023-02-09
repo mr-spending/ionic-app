@@ -22,5 +22,6 @@ export function groupingSpendingByDate(list: SpendingModel[]) {
       : groupedList.push({ title: spendingDate, children: [{ ...spending, date: spendingDate }] })
   })
 
+
   return groupedList;
 }
