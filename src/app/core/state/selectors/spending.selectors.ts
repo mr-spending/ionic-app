@@ -1,13 +1,11 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
-import {
-  CategoryModel,
-  SpendingModel,
-  SpendingSortModel
-} from '../../interfaces/models';
+import { CategoryModel, GroupedSpendingModel, SpendingModel } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
 import { CategoriesState, categoriesStateKey } from '../reducers/categories.reducer';
+import { DirectionEnum } from '../../enums/spending.enums';
+import { groupingSpendingByDate } from '../../utils/spending.utils';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 const categoriesSelector = createFeatureSelector<CategoriesState>(categoriesStateKey);
@@ -20,16 +18,16 @@ export namespace SpendingSelectors {
 
   const selectCategories = createSelector(categoriesSelector, state => state.categories);
 
-  export const selectSortedSpendingItemList = createSelector(
+  export const selectGroupedSpendingItemList = createSelector(
     selectHomeSpendingList,
     selectCategories,
-    selectSpendingSort,
-    (list: SpendingModel[], categories: CategoryModel[], sort: SpendingSortModel) => {
-      const listWithCategories = list.map(spending => ({
+    (list: SpendingModel[], categories: CategoryModel[]) => {
+      const sortedList = sortArrayByProperty(list, 'time', DirectionEnum.Descending) as SpendingModel[];
+      const sortedListWithCategories = sortedList.map(spending => ({
         ...spending,
         category: categories.find(item => item.id === spending.categoryId),
-      }));
-      return sortArrayByProperty(listWithCategories, sort.field, sort.direction);
+      }))
+      return groupingSpendingByDate(sortedListWithCategories);
     }
   );
 

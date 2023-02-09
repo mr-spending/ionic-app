@@ -79,17 +79,24 @@
 
     /** custom palette **/
     --background-color-1: #36383c;
-    --spending-icon-color: #000;
+    --background-color-2: #232828;
+    --background-color-3: #60693e;
+    --spending-icon-color: #000000;
+    --button-content-color-1: #efff72;
+    --text-color-white: #ffffff;
 
     /** shadows **/
     --modal-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+
+    /** backgrounds **/
+    --page-background: radial-gradient(circle at right top, #60693e 5%, #4a5233 10%, #232828 30%);
 }
 
-@media (prefers-color-scheme: dark) {
-  /*
-   * Dark Colors
-   * -------------------------------------------
-   */
+//@media (prefers-color-scheme: dark) {
+//  /*
+//   * Dark Colors
+//   * -------------------------------------------
+//   */
 
   body.dark {
     --ion-color-primary: #428cff;
@@ -242,4 +249,4 @@
 
     --ion-card-background: #1e1e1e;
   }
-}
+//}

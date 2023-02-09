@@ -1,55 +1,146 @@
-.main-wrapper {
-  padding: 0 15px;
+:host {
+  background: var(--page-background);
 }
 
-.add-spending {
-  display: flex;
-  gap: 15px;
+ion-header {
 
-  & ion-input {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    --background: var(--background-color-1);
-    --padding-start: 15px;
-    --padding-end: 15px;
-  }
+  ion-toolbar {
+    --background: transparent;
+    --border-width: 0;
 
-  & ion-button {
-    width: 40px;
-    height: 40px;
-    margin: 0;
-    --border-radius: 20px;
-    --background: var(--background-color-1);
-    --padding-start: 5px;
-    --padding-end: 5px;
+    ion-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      height: 55px;
+      background: transparent;
 
-    & ion-icon {
-      width: 30px;
-      height: 30px;
-      color: #efff72;
+      .date-time {
+        color: var(--ion-color-medium-shade);
+      }
+
+      ion-button {
+        width: 25px;
+        height: 25px;
+        margin: 0;
+        --border-radius: 0;
+        --background: transparent;
+        --padding-start: 0;
+        --padding-end: 0;
+
+        ion-icon {
+          width: 25px;
+          height: 25px;
+          color: var(--button-content-color-1);
+        }
+      }
     }
   }
 }
 
-.select-label {
-  min-width: 105px;
-}
+ion-content {
+  overflow: hidden;
+  --padding-start: 25px;
+  --padding-end: 25px;
+  --background: transparent;
 
-.select-selector {
-  min-width: calc(100% - 113px);
-  text-align: end;
-}
+  .fixed {
 
-.bank-transactions-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+    h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin: 0 0 25px;
+    }
 
-.spending-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    .add-spending {
+      display: flex;
+      gap: 15px;
+
+      ion-input {
+        width: 40px;
+        height: 40px;
+        border-radius: 20px;
+        --background: var(--background-color-1);
+        --padding-start: 15px;
+        --padding-end: 15px;
+      }
+
+      ion-button {
+        width: 40px;
+        height: 40px;
+        margin: 0;
+        --border-radius: 20px;
+        --background: var(--background-color-1);
+        --padding-start: 5px;
+        --padding-end: 5px;
+
+        ion-icon {
+          width: 30px;
+          height: 30px;
+          color: var(--button-content-color-1);
+        }
+      }
+    }
+
+    .spending-title {
+      font-size: 24px;
+      margin: 0 0 15px;
+    }
+  }
+
+  .fixed:after {
+    content: '';
+    display: block;
+    top: -4px;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background-color: var(--background-color-3);
+  }
+
+  .scroll {
+    height: calc( 100% - 210px );
+    padding-top: 20px;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .bank-transactions-list {
+      display: flex;
+      flex-direction: column;
+      background-color: transparent;
+
+      .bank-transactions-title {
+        font-size: 14px;;
+        color: var(--ion-color-danger-tint);
+        align-self: center;
+        margin: 0 0 10px;
+      }
+
+      app-spending-list-item {
+        margin-bottom: 10px;
+      }
+    }
+
+    .spending-list {
+      display: flex;
+      flex-direction: column;
+      background-color: transparent;
+
+      .date-delimiter {
+        font-size: 14px;
+        color: var(--ion-color-medium-shade);
+        align-self: center;
+        margin: 0 0 10px;
+        position: sticky;
+      }
+
+      app-spending-list-item {
+        margin-bottom: 10px;
+      }
+    }
+  }
 }

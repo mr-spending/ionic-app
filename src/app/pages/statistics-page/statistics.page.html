@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ 'categories.title' | translate }}</ion-title>
+    <ion-title>{{ 'statistics.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,23 +9,23 @@
     <ion-radio-group [value]="statisticsPeriod">
       <div id="currentMonth" (click)="changeStatisticsPeriod($event)">
         <ion-radio slot="end" value="currentMonth"></ion-radio>
-        <ion-label>{{ 'categories.currentMonth' | translate }}</ion-label>
+        <ion-label>{{ 'statistics.currentMonth' | translate }}</ion-label>
       </div>
       <div id="selectPeriod" (click)="changeStatisticsPeriod($event)">
         <ion-radio slot="end" value="selectPeriod"></ion-radio>
-        <ion-label>{{ 'categories.selectPeriod' | translate }}</ion-label>
+        <ion-label>{{ 'statistics.selectPeriod' | translate }}</ion-label>
       </div>
     </ion-radio-group>
   </ion-row>
 
   <ion-list *ngIf="statisticsPeriod === 'selectPeriod'">
     <ion-item>
-      <p class="date-select-prefix">{{ 'categories.fromDate' | translate }}</p>
-      <p class="date-select-suffix" (click)="selectDate('startDate')">{{ startDate || 'categories.choosePlaceholder' | translate }}</p>
+      <p class="date-select-prefix">{{ 'statistics.fromDate' | translate }}</p>
+      <p class="date-select-suffix" (click)="selectDate('startDate')">{{ startDate || 'statistics.choosePlaceholder' | translate }}</p>
     </ion-item>
     <ion-item>
-      <p class="date-select-prefix">{{ 'categories.toDate' | translate }}</p>
-      <p class="date-select-suffix" (click)="selectDate('endDate')">{{ endDate || 'categories.choosePlaceholder' | translate }}</p>
+      <p class="date-select-prefix">{{ 'statistics.toDate' | translate }}</p>
+      <p class="date-select-suffix" (click)="selectDate('endDate')">{{ endDate || 'statistics.choosePlaceholder' | translate }}</p>
     </ion-item>
   </ion-list>
 

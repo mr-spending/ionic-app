@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { AuthService } from '../../auth/services/auth.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import * as moment from 'moment';
+
+import { AuthService } from '../../auth/services/auth.service';
 import { SpendingState } from '../../core/state/reducers/spending.reducer';
 
 @Component({
@@ -34,6 +36,7 @@ export class SettingsPage implements OnInit {
 
   languageChange(language: string): void {
     this.translateService.use(language);
+    moment.locale(language === 'ua' ? 'uk' : language);
   }
 
 }

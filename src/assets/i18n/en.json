@@ -28,6 +28,10 @@
       "delete": "Delete",
       "cancel": "Cancel",
       "confirm": "Confirm"
+    },
+    "dates" : {
+      "today": "Today",
+      "yesterday": "Yesterday"
     }
   },
   "home": {
@@ -38,10 +42,12 @@
     "categoryPlaceholder": "Select category",
     "descriptionPlaceholder": "Type your description. Optional.",
     "addSpending": "Add spending",
-    "update": "Update list"
+    "update": "Update list",
+    "newTransactions": "New Transactions",
+    "mySpending": "My spending"
   },
-  "categories": {
-    "title": "Categories",
+  "statistics": {
+    "title": "Statistics",
     "currentMonth": "Current month",
     "selectPeriod": "Select period",
     "fromDate": "From (year-month):",

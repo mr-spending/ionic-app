@@ -1,9 +1,21 @@
-<ion-content [fullscreen]="true" class="transaction-spending-list">
-  <div class="main-wrapper">
-    <h1 size="large" class="ion-text-center" (click)="navigateToExpensesList()">
+<ion-header>
+  <ion-toolbar>
+    <ion-row>
+      <span class="date-time">{{ currentTime }}</span>
+      <ion-button (click)="navigateToStatisticsPage()">
+        <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+      </ion-button>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" scroll-y="false" class="transaction-spending-list">
+  <div class="fixed">
+    <h1 size="large" class="ion-text-center">
       {{ currency$ | async }}
       {{ (totalAmount$ | async) | number: '.2' }}
     </h1>
+
     <ion-row class="add-spending" [formGroup]="formGroup">
       <ion-input
         formControlName="amount"
@@ -26,7 +38,12 @@
       </ion-button>
     </ion-row>
 
+    <p class="spending-title">{{ 'home.mySpending' | translate }}</p>
+  </div>
+
+  <div class="scroll">
     <ion-list *ngIf="bankTransactions$ | async as bankTransactions" class="bank-transactions-list">
+      <p *ngIf="bankTransactions.length" class="bank-transactions-title">{{ 'home.newTransactions' | translate }}</p>
       <app-spending-list-item
         *ngFor="let item of bankTransactions"
         [currency]="currency$ | async"
@@ -36,14 +53,17 @@
       </app-spending-list-item>
     </ion-list>
 
-    <ion-list *ngIf="spendingList$ | async as spendingList" class="spending-list">
-      <app-spending-list-item
-        *ngFor="let item of spendingList"
-        [currency]="currency$ | async"
-        [spending]="item"
-        [type]="listItemTypeEnum.spending"
-        (click)="spendingClick(item)">
-      </app-spending-list-item>
+    <ion-list *ngIf="groupedSpendingList$ | async as groupedSpendingList" class="spending-list">
+      <div *ngFor="let spendingList of groupedSpendingList" class="spending-list">
+        <p class="date-delimiter">{{ spendingList.title | MrSpendingListDateFormatPipe }}</p>
+        <app-spending-list-item
+          *ngFor="let item of spendingList.children"
+          [currency]="currency$ | async"
+          [spending]="item"
+          [type]="listItemTypeEnum.spending"
+          (click)="spendingClick(item)">
+        </app-spending-list-item>
+      </div>
     </ion-list>
   </div>
 </ion-content>

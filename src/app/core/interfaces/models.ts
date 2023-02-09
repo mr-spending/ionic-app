@@ -70,3 +70,8 @@ export interface IconModel {
   iconType: string;
   background: string;
 }
+
+export interface GroupedSpendingModel {
+  title: string;
+  children: SpendingModel[];
+}
