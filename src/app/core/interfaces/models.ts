@@ -14,6 +14,7 @@ export interface UserModel {
 
 export interface SpendingModel {
   id: string;
+  bankId: string;
   amount: number;
   time: number;
   category?: CategoryModel;
