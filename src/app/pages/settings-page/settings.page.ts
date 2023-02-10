@@ -84,6 +84,23 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.isMonoCardsSettingOpened = true
   }
 
+  isCardSelected(card: MonoBankAccount): boolean {
+    return !!this.connectedMonoCards.find(item => item.id === card.id);
+  }
+
+  cardCheckboxClick(card: MonoBankAccount): void{
+    const idx = this.connectedMonoCards.findIndex(item => item.id === card.id);
+
+    idx < 0
+      ? this.connectedMonoCards = [...this.connectedMonoCards, card]
+      : this.connectedMonoCards = this.connectedMonoCards.filter(item => item.id != card.id);
+  }
+
+  setTrackingCards():void {
+    this.store.dispatch(UserActions.setSelectedCards({ payload: this.connectedMonoCards }));
+    this.isMonoCardsSettingOpened = false;
+  }
+
   languageChange(language: string): void {
     this.translateService.use(language);
     moment.locale(language === 'ua' ? 'uk' : language);

@@ -3,7 +3,9 @@ import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
-import { UserActions } from '../actions/user.actions';
+import {
+  UserActions
+} from '../actions/user.actions';
 import { ApiService } from '../../api/api.service';
 import { UserModel } from '../../interfaces/models';
 import { LocalStorageService } from '../../services/local-storage.service';
@@ -61,20 +63,32 @@ export class UserEffects {
     concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
     switchMap(([{ payload } , user]) => {
       if (user) return this.apiService.updateUser({ ...user, monoBankClientToken: payload, monoBankAccounts: [] }).pipe(
-        map(() => UserActions.setMonoTokenSuccess({ payload: { userId: user.id, token: payload }  })),
+        map(() => UserActions.setMonoTokenSuccess({ userId: user.id })),
         catchError(err => of(UserActions.setMonoTokenFailure()))
       );
       return of(UserActions.setMonoTokenFailure());
     }),
   ));
 
-  setMonoTokenSuccess$ = createEffect(() => {
+  updateUserAndTransactionList$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(UserActions.setMonoTokenSuccess),
-      switchMap(({ payload }) => [
-        UserActions.setUserData({ userId: payload.userId }),
+      ofType(UserActions.setMonoTokenSuccess, UserActions.setSelectedCardsSuccess),
+      switchMap(({ userId }) => [
+        UserActions.setUserData({ userId }),
         BankAccountsActions.transactionListSuccess({ payload: [] })
       ]),
     );
   });
+
+  setSelectedCards$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.setSelectedCards),
+    concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
+    switchMap(([{ payload } , user]) => {
+      if (user) return this.apiService.updateUser({ ...user, monoBankAccounts: payload }).pipe(
+        map(() => UserActions.setSelectedCardsSuccess({ userId: user.id })),
+        catchError(err => of(UserActions.setSelectedCardsFailure()))
+      );
+      return of(UserActions.setSelectedCardsFailure());
+    }),
+  ));
 }
