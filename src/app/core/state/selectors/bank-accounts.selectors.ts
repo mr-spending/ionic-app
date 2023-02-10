@@ -13,6 +13,8 @@ export namespace BankAccountsSelectors {
 
   export const selectTransactions = createSelector(bankAccountsSelector, state => sortArrayByProperty(state.transactions, 'time', DirectionEnum.Descending));
 
+  export const selectAvailableCards = createSelector(bankAccountsSelector, state => state.availableCards);
+
   export const filteredTransactions = createSelector(
     selectTransactions,
     SpendingSelectors.selectHomeSpendingList,

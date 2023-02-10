@@ -24,6 +24,10 @@ export class ApiService {
     return this.http.get<UserDto>(this.path + `user/${ userId }`);
   }
 
+  updateUser(user: UserDto): Observable<UserDto> {
+    return this.http.patch<UserDto>(this.path + `user`, user);
+  }
+
   /** Spending Data */
   getAllSpending(): Observable<SpendingDto[]> {
     return this.http.get<SpendingDto[]>(this.path + 'spending');

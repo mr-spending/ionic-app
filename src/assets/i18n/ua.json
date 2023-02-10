@@ -27,7 +27,8 @@
       "edit": "Змінити",
       "delete": "Видалити",
       "cancel": "Відміна",
-      "confirm": "Так"
+      "confirm": "Так",
+      "set": "Встановити"
     },
     "dates" : {
       "today": "Сьогодні",
@@ -53,6 +54,14 @@
     "fromDate": "Від (рік-місяць):",
     "toDate": "До (рік-місяць):",
     "choosePlaceholder": "Натисніть для вибору..."
+  },
+  "settings": {
+    "monoAccSettings": "Налаштування Monobank акаунту",
+    "inputToken": "Введення токену...",
+    "setAcc": "Встановити (змінити) акаунт",
+    "changeAcc": "Змінити акаунт",
+    "forgetAcc": "Видалити акаунт",
+    "selectCards": "Обрати картки для відстеження"
   },
   "editSpendingModal": {
     "title": "Редагувати",

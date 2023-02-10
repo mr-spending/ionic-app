@@ -14,4 +14,8 @@ export namespace UserActions {
   export const addUserSuccess = createAction(`[${stateType}] Add User Success`, props<{ user: UserModel }>());
   export const addUserFailure = createAction(`[${stateType}] Add User Failure`);
 
+  export const setMonoToken = createAction(`[${stateType}] Set Mono Token`, props<{ payload: string }>());
+  export const setMonoTokenSuccess = createAction(`[${stateType}] Set Mono Token Success`, props<{ payload: { userId: string, token: string } }>());
+  export const setMonoTokenFailure = createAction(`[${stateType}] Set Mono Token Failure`);
+
 }
