@@ -18,7 +18,7 @@ export namespace BankAccountsSelectors {
     SpendingSelectors.selectHomeSpendingList,
 
     (transactions: BankTransaction[], spendingList: SpendingModel[]) => {
-      return transactions.filter(item => !spendingList.some(spendItem => spendItem.id === item.id));
+      return transactions.filter(item => !spendingList.some(spendItem => spendItem.bankId === item.id));
     }
   )
 }

@@ -109,7 +109,8 @@ export class HomePage implements OnInit, OnDestroy {
 
   addTransaction(transaction: BankTransaction): void {
     const spendingItem: SpendingModel = {
-      id: transaction.id,
+      id: '',
+      bankId: transaction.id,
       amount: transaction.amount,
       time: transaction.time,
       description: transaction.description ?? '',
