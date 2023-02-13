@@ -27,7 +27,9 @@
       "edit": "Edit",
       "delete": "Delete",
       "cancel": "Cancel",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "set": "Set",
+      "save": "Save"
     },
     "dates" : {
       "today": "Today",
@@ -53,6 +55,14 @@
     "fromDate": "From (year-month):",
     "toDate": "To (year-month):",
     "choosePlaceholder": "click here to choose..."
+  },
+  "settings": {
+    "monoAccSettings": "Monobank account settings",
+    "inputToken": "Input token...",
+    "setAcc": "Set account",
+    "changeAcc": "Change account",
+    "forgetAcc": "Forget account",
+    "selectCards": "Select cards for tracking"
   },
   "editSpendingModal": {
     "title": "Edit spending",

@@ -10,11 +10,22 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from '../services/local-storage.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '@capacitor/app';
+import { UserSelectors } from '../state/selectors/user.selectors';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
+  private monoBankToken!: string;
 
-  constructor(private lsService: LocalStorageService, private auth: AuthService) { }
+  constructor(
+    private lsService: LocalStorageService,
+    private auth: AuthService,
+    private store: Store<AppState>,
+  ) {
+    this.store.select(UserSelectors.selectMonoToken)
+      .subscribe(token => this.monoBankToken = token || '');
+  }
 
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -28,12 +39,10 @@ export class Interceptor implements HttpInterceptor {
           });
         }
 
-        const monoBankToken = this.lsService.getMonoBankClientToken();
-
-        if (monoBankToken && request.url.includes(environment.monoBankApiUrl)) {
+        if (this.monoBankToken && request.url.includes(environment.monoBankApiUrl)) {
           request = request.clone({
             setHeaders: {
-              'X-Token': monoBankToken
+              'X-Token': this.monoBankToken
             }
           });
         }

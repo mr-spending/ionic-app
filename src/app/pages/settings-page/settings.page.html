@@ -19,6 +19,73 @@
       </ion-item>
     </ion-list>
 
+    <ion-list>
+      <ion-item>{{ 'settings.monoAccSettings' | translate }}</ion-item>
+
+      <ion-item>
+        <ion-list>
+          <ion-item *ngIf="!isMonoAccSettingOpened">
+            <ion-button *ngIf="!isMonoTokenEstablished" size="small" (click)="openMonoTokenPage()">
+              <ion-icon name="add-outline"></ion-icon>
+              <ion-label>{{ 'settings.setAcc' | translate }}</ion-label>
+            </ion-button>
+
+            <ion-button *ngIf="isMonoTokenEstablished" size="small" (click)="openMonoTokenPage()">
+              <ion-icon name="sync-outline"></ion-icon>
+              <ion-label>{{ 'settings.changeAcc' | translate }}</ion-label>
+            </ion-button>
+
+            <ion-button *ngIf="isMonoTokenEstablished" size="small" color="danger" (click)="forgetMonoToken()">
+              <ion-icon name="trash-outline"></ion-icon>
+              <ion-label>{{ 'settings.forgetAcc' | translate }}</ion-label>
+            </ion-button>
+          </ion-item>
+
+          <ion-item *ngIf="isMonoAccSettingOpened">
+            <ion-input
+              [formControl]="tokenInput"
+              [placeholder]="'settings.inputToken' | translate"
+            ></ion-input>
+
+            <ion-button
+              size="small"
+              [disabled]="!this.tokenInput.value"
+              (click)="setMonoToken()"
+            >
+              <ion-icon name="add-outline"></ion-icon>
+              {{ 'general.actions.add' | translate }}
+            </ion-button>
+
+            <ion-button color="danger" (click)="resetSettingToken()">
+              <ion-icon name="close-outline"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <ion-item *ngIf="isMonoTokenEstablished">
+            <ion-button *ngIf="!isMonoCardsSettingOpened" (click)="startCardsSelecting()">
+              <ion-icon name="card-outline"></ion-icon>
+              {{ 'settings.selectCards' | translate }}
+            </ion-button>
+
+            <div *ngIf="isMonoCardsSettingOpened">
+              <ion-list *ngIf="availableCards$ | async as availableCards">
+                <ion-item
+                  *ngFor="let card of availableCards"
+                  [style.--background]="isCardSelected(card) ? 'green' : 'black'"
+                  (click)="cardCheckboxClick(card)"
+                >
+                  {{ card.type }} {{ card.maskedPan[0] }}
+                </ion-item>
+                <ion-button (click)="setTrackingCards()">
+                  {{ 'general.actions.save' | translate }}
+                </ion-button>
+              </ion-list>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-item>
+    </ion-list>
+
     <ion-button size="small" (click)="logOut()">
       <ion-icon name="log-out-outline"></ion-icon>
       {{ 'pages.logOut' | translate}}

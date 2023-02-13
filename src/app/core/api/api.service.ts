@@ -16,6 +16,7 @@ export class ApiService {
   }
 
   /** User Data */
+
   addUser(user: UserDto): Observable<UserDto> {
     return this.http.post<UserDto>(this.path + 'user', user);
   }
@@ -24,7 +25,12 @@ export class ApiService {
     return this.http.get<UserDto>(this.path + `user/${ userId }`);
   }
 
+  updateUser(user: UserDto): Observable<UserDto> {
+    return this.http.patch<UserDto>(this.path + `user`, user);
+  }
+
   /** Spending Data */
+
   getAllSpending(): Observable<SpendingDto[]> {
     return this.http.get<SpendingDto[]>(this.path + 'spending');
   }
@@ -56,5 +62,14 @@ export class ApiService {
 
   getAllCategories(): Observable<CategoryDto[]> {
     return this.http.get<CategoryDto[]>(this.path + 'categories');
+  }
+
+  /** Bank Transactions Data */
+
+  getBankTransactionsList(timePeriod: TimePeriodModel): Observable<any> {
+    let params = new HttpParams();
+    params = params.append('startDate', timePeriod.startDate.toString());
+    params = params.append('endDate', timePeriod.endDate.toString());
+    return this.http.get(this.path + 'monobank/transactions', { params });
   }
 }
