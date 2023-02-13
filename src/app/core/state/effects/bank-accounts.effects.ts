@@ -35,11 +35,10 @@ export class BankAccountsEffects {
   availableCardsList$  = createEffect(() => this.actions$.pipe(
     ofType(BankAccountsActions.availableCardsList),
     switchMap(() => this.mbApiService.getPersonalClientInfo().pipe(
-      map(payload => {
-        return BankAccountsActions.availableCardsListSuccess({
+      map(payload => BankAccountsActions.availableCardsListSuccess({
           payload: filterBankTransactionsByCurrencyCode(configureMonoCardsList(payload), CurrencyCodesEnum.UAH)
         })
-      }),
+      ),
       catchError(err => of(BankAccountsActions.availableCardsListFailure()))
     )),
   ));
