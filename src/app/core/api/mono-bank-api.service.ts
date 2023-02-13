@@ -9,15 +9,20 @@ import { environment } from '../../../environments/environment';
 })
 export class MonoBankApiService {
 
-  url = environment.monoBankApiUrl;
+  baseUrl = environment.baseUrl;
+  monoUrl = environment.monoBankApiUrl;
 
   constructor(private http: HttpClient) { }
 
   getPersonalClientInfo(): Observable<any> {
-    return this.http.get(`${this.url}personal/client-info`);
+    return this.http.get(`${this.monoUrl}personal/client-info`);
   }
 
   getPersonalStatement(account: string, from: number, to: number): Observable<any> {
-    return this.http.get(`${this.url}personal/statement/${account}/${from}/${to}`);
+    return this.http.get(`${this.monoUrl}personal/statement/${account}/${from}/${to}`);
+  }
+
+  setWebHook(): Observable<any> {
+    return this.http.post(`${this.monoUrl}personal/webhook`, { webHookUrl: `${this.baseUrl}monobank` });
   }
 }
