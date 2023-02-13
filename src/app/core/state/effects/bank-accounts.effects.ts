@@ -43,4 +43,26 @@ export class BankAccountsEffects {
     )),
   ));
 
+  checkWebHook$  = createEffect(() => this.actions$.pipe(
+    ofType(BankAccountsActions.checkWebHook),
+    switchMap(() => this.mbApiService.getPersonalClientInfo().pipe(
+      map(payload => payload.webHookUrl
+                              ? BankAccountsActions.checkWebHookSuccess()
+                              : BankAccountsActions.setWebHook()
+      ),
+      catchError(err => of(BankAccountsActions.checkWebHookFailure()))
+    )),
+  ));
+
+  setWebHook$  = createEffect(() => this.actions$.pipe(
+    ofType(BankAccountsActions.setWebHook),
+    switchMap(() => this.mbApiService.setWebHook().pipe(
+      switchMap(payload => [
+          BankAccountsActions.setWebHookSuccess(),
+          BankAccountsActions.checkWebHookSuccess()
+        ]
+      ),
+      catchError(err => of(BankAccountsActions.setWebHookFailure()))
+    )),
+  ));
 }
