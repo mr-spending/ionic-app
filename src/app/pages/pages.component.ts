@@ -22,14 +22,17 @@ export class PagesComponent implements OnDestroy {
     {
       route: PageRoutesEnum.CreateSpending,
       icon: 'bag-add-outline',
+      nameKey: 'home.title',
     },
     {
       route: PageRoutesEnum.Statistics,
       icon: 'list-outline',
+      nameKey: 'statistics.title',
     },
     {
       route: PageRoutesEnum.Setting,
       icon: 'cog-outline',
+      nameKey: 'settings.title',
     },
   ];
 
@@ -43,7 +46,7 @@ export class PagesComponent implements OnDestroy {
     this.categoriesStore.dispatch(CategoriesActions.categoriesList());
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 }

@@ -37,6 +37,7 @@
     }
   },
   "home": {
+    "title": "Домашня",
     "amount": "Сума:",
     "category": "Категорія:",
     "description": "Опис:",
@@ -57,6 +58,7 @@
     "choosePlaceholder": "Натисніть для вибору..."
   },
   "settings": {
+    "title": "Налаштування",
     "monoAccSettings": "Налаштування Monobank акаунту",
     "inputToken": "Введення токену...",
     "setAcc": "Встановити (змінити) акаунт",
