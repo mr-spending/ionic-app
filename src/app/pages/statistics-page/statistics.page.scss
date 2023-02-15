@@ -1,41 +1,92 @@
-ion-radio-group {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  width: 100%;
-}
+ion-content {
+  overflow: hidden;
+  --padding-start: 25px;
+  --padding-end: 25px;
 
-ion-radio-group div {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 52px;
-}
+  ion-radio-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: 100%;
 
-ion-radio-group div ion-radio{
-  margin-bottom: 4px;
-}
+    div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 52px;
 
-ion-radio {
-  --border-radius: 10px;
-  --inner-border-radius: 10px;
+      ion-radio {
+        margin-bottom: 4px;
+        --border-radius: 10px;
+        --inner-border-radius: 10px;
+        --color: var(--ion-color-light-shade);
+        --color-checked: var(--ion-color-dark-tint);
 
-  --color: var(--ion-color-light-shade);
-  --color-checked: var(--ion-color-dark-tint);
-}
+        &.ios {
+          width: 20px;
+          height: 20px;
+          border: 2px solid var(--ion-color-light-shade);
+          border-radius: 10px;
+        }
 
-ion-radio.ios {
-  width: 20px;
-  height: 20px;
+        &.radio-checked.ios {
+          border-color: var(--ion-color-dark-tint);
+        }
+      }
+    }
+  }
 
-  border: 2px solid var(--ion-color-light-shade);
-  border-radius: 10px;
-}
+  ion-accordion-group {
 
-.radio-checked.ios {
-  border-color: var(--ion-color-dark-tint);
+    ion-accordion {
+      background: transparent;
+
+      ion-item {
+        border-radius: 28px;
+
+        ion-row {
+          height: 56px;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-right: 12px;
+
+          div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+
+            .icon-wrapper {
+              height: 38px;
+              width: 38px;
+              border-radius: 22px;
+              padding-left: 6px;
+
+              ion-icon {
+                height: 26px;
+                width: 26px;
+                color: var(--spending-icon-color);
+              }
+            }
+
+            ion-label {
+              max-width: 140px;
+              max-height: 52px;
+              color: var(--text-color-white);
+            }
+          }
+        }
+      }
+
+      ion-list {
+
+      }
+    }
+  }
 }
 
 .date-select-prefix {

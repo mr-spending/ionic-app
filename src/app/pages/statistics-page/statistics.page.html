@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories">
+<ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
   <ion-row>
     <ion-radio-group [value]="statisticsPeriod">
       <div id="currentMonth" (click)="changeStatisticsPeriod($event)">
@@ -33,7 +33,15 @@
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
       <ion-item slot="header" color="light">
-        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
+        <ion-row>
+          <div>
+            <div class="icon-wrapper" [style.background-color]="category.icon.background">
+              <ion-icon slot="icon-only" [name]="category.icon.iconType"></ion-icon>
+            </div>
+            <ion-label>{{ category.name }}</ion-label>
+          </div>
+          <ion-label>{{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
+        </ion-row>
       </ion-item>
 
       <ion-list slot="content">
