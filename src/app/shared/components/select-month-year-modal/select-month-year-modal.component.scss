@@ -5,12 +5,16 @@ ion-modal.select-month-year-modal {
   --box-shadow: var(--modal-shadow);
 
   &::part(backdrop) {
-    background: var(--ion-color-medium-tint);
+    background: var(--background-color-4);
     opacity: 1;
   }
 
-  & ion-toolbar {
+  ion-toolbar {
     --background: var(--ion-color-light-tint);
     --color: var(--ion-color-light-contrast);
   }
+}
+
+ion-datetime {
+  background: var(--background-color-2);
 }

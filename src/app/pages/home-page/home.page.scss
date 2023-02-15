@@ -1,12 +1,7 @@
-:host {
-  background: var(--page-background);
-}
-
 ion-header {
 
   ion-toolbar {
     --background: transparent;
-    --border-width: 0;
 
     ion-row {
       display: flex;
@@ -14,7 +9,6 @@ ion-header {
       align-items: center;
       padding: 15px 25px;
       height: 55px;
-      background: transparent;
 
       .date-time {
         color: var(--ion-color-medium-shade);
@@ -25,7 +19,6 @@ ion-header {
         height: 25px;
         margin: 0;
         --border-radius: 0;
-        --background: transparent;
         --padding-start: 0;
         --padding-end: 0;
 
@@ -43,7 +36,6 @@ ion-content {
   overflow: hidden;
   --padding-start: 25px;
   --padding-end: 25px;
-  --background: transparent;
 
   .fixed {
 

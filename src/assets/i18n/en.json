@@ -37,6 +37,7 @@
     }
   },
   "home": {
+    "title": "Home",
     "amount": "Amount:",
     "category": "Category:",
     "description": "Description:",
@@ -57,6 +58,7 @@
     "choosePlaceholder": "click here to choose..."
   },
   "settings": {
+    "title": "Settings",
     "monoAccSettings": "Monobank account settings",
     "inputToken": "Input token...",
     "setAcc": "Set account",

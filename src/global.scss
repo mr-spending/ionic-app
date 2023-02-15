@@ -25,7 +25,20 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+* {
+  --background: transparent;
+}
+
+.list-ios {
+  background: transparent;
+}
+
+ion-toolbar {
+  --border-width: 0 !important;
+}
 
 input::placeholder {
   font-size: 14px;
 }
+
+
