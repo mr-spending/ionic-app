@@ -114,7 +114,7 @@ export class HomePage implements OnInit, OnDestroy {
       amount: transaction.amount,
       time: transaction.time,
       description: transaction.description ?? '',
-      currencyCode: transaction.currencyCode,
+      currencyCode: +transaction.currencyCode,
       comment: transaction.comment ?? '',
       accountId: transaction.accountId,
       accountType: transaction.accountType,
