@@ -62,7 +62,7 @@ export class HomePage implements OnInit, OnDestroy {
       .pipe(map(() => moment().format('DD MMMM')))
       .subscribe(time => this.currentTime = time)
     );
-    this.updateSpendingList();
+    this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   ngOnDestroy(): void {
@@ -166,7 +166,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   updateSpendingList() {
-    this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
+    this.store.dispatch(SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   async openConfigureSpendingModal(type: ActionsEnum.Add | ActionsEnum.Edit, item?: SpendingModel) {
