@@ -3,6 +3,8 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { CategoriesState, categoriesStateKey } from '../reducers/categories.reducer';
 import { CategoryModel, SpendingModel } from '../../interfaces/models';
 import { SpendingSelectors } from './spending.selectors';
+import { sortArrayByProperty } from '../../utils/helper.functions';
+import { DirectionEnum } from '../../enums/spending.enums';
 
 const categoriesSelector = createFeatureSelector<CategoriesState>(categoriesStateKey);
 
@@ -18,7 +20,7 @@ export namespace CategoriesSelectors {
     selectCategories,
     (spendingList: SpendingModel[], categories: CategoryModel[]) => {
 
-      return categories.map(item => {
+      const spendingByCategoriesList = categories.map(item => {
         const list = spendingList.filter(spItem => spItem.categoryId === item.id);
         let totalAmount = 0;
         list.forEach(item => { totalAmount += item.amount });
@@ -28,6 +30,8 @@ export namespace CategoriesSelectors {
           spendingList: list,
         }
       }).filter(item => item.spendingList.length > 0);
+
+      return sortArrayByProperty(spendingByCategoriesList, 'totalAmount', DirectionEnum.Descending);
     }
   );
 };
