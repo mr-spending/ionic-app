@@ -39,12 +39,19 @@ ion-content {
   }
 
   ion-accordion-group {
+    max-height: calc( 100% - 52px );
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     ion-accordion {
       background: transparent;
 
       ion-item {
         border-radius: 28px;
+        --ion-color-base: var(--background-color-1) !important;
 
         ion-row {
           height: 56px;
@@ -83,7 +90,20 @@ ion-content {
       }
 
       ion-list {
+        width: calc( 100% - 56px );
+        margin: auto;
 
+        div {
+          background: var(--background-color-5);
+
+          div {
+
+          }
+
+          ion-label {
+
+          }
+        }
       }
     }
   }

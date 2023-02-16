@@ -6,7 +6,8 @@
   "scripts": {
     "start:web": "ionic serve",
     "start:ios": "ionic capacitor copy ios; ionic capacitor open ios",
-    "start:android": "ionic capacitor sync android; ionic capacitor open android",
+    "android:sync": "ionic capacitor sync android",
+    "android:start": "ionic capacitor open android",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

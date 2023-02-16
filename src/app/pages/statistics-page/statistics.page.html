@@ -45,15 +45,13 @@
       </ion-item>
 
       <ion-list slot="content">
-        <ion-item *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.categoryId !== category.id">
-          <ion-label>
-            <h2>{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</h2>
+        <div *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.categoryId !== category.id">
+          <div>
             <p *ngIf="item.description">{{ item.description }}</p>
-            <p *ngIf="item.comment">{{ item.comment }}</p>
-          </ion-label>
-          <ion-label *ngIf="item.accountType" class="ion-text-center">{{ item.accountType }}</ion-label>
-          <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
-        </ion-item>
+            <p>{{ item.date | date: 'MMM d, HH:mm' }}</p>
+          </div>
+          <ion-label class="ion-text-end">{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</ion-label>
+        </div>
       </ion-list>
 
     </ion-accordion>
