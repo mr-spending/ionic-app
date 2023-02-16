@@ -4,7 +4,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories">
+<ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
   <ion-row>
     <ion-radio-group [value]="statisticsPeriod">
       <div id="currentMonth" (click)="changeStatisticsPeriod($event)">
@@ -33,19 +33,25 @@
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
       <ion-item slot="header" color="light">
-        <ion-label>{{ category.name }} - {{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
+        <ion-row>
+          <div>
+            <div class="icon-wrapper" [style.background-color]="category.icon.background">
+              <ion-icon slot="icon-only" [name]="category.icon.iconType"></ion-icon>
+            </div>
+            <ion-label>{{ category.name }}</ion-label>
+          </div>
+          <ion-label>{{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
+        </ion-row>
       </ion-item>
 
       <ion-list slot="content">
-        <ion-item *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.categoryId !== category.id">
+        <div *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.categoryId !== category.id">
           <ion-label>
-            <h2>{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</h2>
-            <p *ngIf="item.description">{{ item.description }}</p>
-            <p *ngIf="item.comment">{{ item.comment }}</p>
+            <p *ngIf="item.description" class="spending-description">{{ item.description }}</p>
+            <p class="spending-date">{{ item.date | date: 'MMM d, HH:mm' }}</p>
           </ion-label>
-          <ion-label *ngIf="item.accountType" class="ion-text-center">{{ item.accountType }}</ion-label>
-          <ion-label class="ion-text-end">{{ item.date | date: 'MMM d, HH:mm' }}</ion-label>
-        </ion-item>
+          <ion-label class="spending-amount">{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</ion-label>
+        </div>
       </ion-list>
 
     </ion-accordion>
