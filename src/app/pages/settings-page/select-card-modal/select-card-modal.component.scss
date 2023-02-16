@@ -1,0 +1,37 @@
+:host {
+  background: var(--background-color-2);
+}
+
+ion-content {
+  height: 100%;
+}
+
+.card {
+  position: relative;
+  width: 250px;
+  height: 160px;
+  border: 5px solid #c7c7c7;
+  border-radius: 20px;
+  background: white;
+  margin: auto;
+
+  &-number {
+    width: 240px;
+    height: 40px;
+    background: black;
+    color: white;
+    margin: 20px 0 22px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  &-currency {
+    color: black;
+    margin: 12px 20px;
+  }
+
+  &-type {
+    color: black;
+    margin: 12px 20px;
+  }
+}

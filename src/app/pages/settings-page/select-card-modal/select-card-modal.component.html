@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'editSpendingModal.title' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()">{{ 'general.actions.confirm' | translate }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" scroll-y="false">
+  <div>
+    <ion-list *ngIf="availableCards$ | async as availableCards">
+      <div
+        class="card"
+        *ngFor="let card of availableCards"
+        [style.--background]="isCardSelected(card) ? 'green' : 'black'"
+        (click)="cardClick(card)"
+      >
+        <p class="card-number">{{ card.maskedPan[0] | bankCardFormat }}</p>
+        <p class="card-currency">Currency: {{ card.currencyCode }}</p>
+        <p class="card-type">Type: {{ card.type }}</p>
+      </div>
+    </ion-list>
+  </div>
+</ion-content>

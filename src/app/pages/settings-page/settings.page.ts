@@ -1,8 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { Router } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import * as moment from 'moment';
 
@@ -11,9 +10,9 @@ import { environment } from '../../../environments/environment';
 import { AppState } from '@capacitor/app';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { UserActions } from '../../core/state/actions/user.actions';
+import { ModalController } from '@ionic/angular';
+import { SelectCardModalComponent } from './select-card-modal/select-card-modal.component';
 import { BankAccountsActions } from '../../core/state/actions/bank-accounts.actions';
-import { MonoBankAccount } from '../../core/interfaces/models';
-import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 
 @Component({
   selector: 'app-settings-page',
@@ -21,15 +20,12 @@ import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnInit, OnDestroy {
-  availableCards$: Observable<MonoBankAccount[]> = this.store.select(BankAccountsSelectors.selectAvailableCards);
-  connectedMonoCards!: MonoBankAccount[];
   subscription: Subscription = new Subscription();
   languageControl: FormControl;
   languageList: string[];
   monoBankApiUrl = environment.monoBankApiUrl;
   isMonoTokenEstablished!: boolean;
   isMonoAccSettingOpened: boolean = false;
-  isMonoCardsSettingOpened: boolean = false;
   tokenInput: FormControl;
 
   constructor(
@@ -37,7 +33,7 @@ export class SettingsPage implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private fb: FormBuilder,
     private store: Store<AppState>,
-    private router: Router,
+    private modalCtrl: ModalController,
   ) {
     this.languageList = this.translateService.getLangs();
     this.languageControl = this.fb.control(this.languageList[0]);
@@ -47,8 +43,6 @@ export class SettingsPage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription.add(this.store.select(UserSelectors.selectIsMonoTokenEstablished)
       .subscribe(value => this.isMonoTokenEstablished = value));
-    this.subscription.add(this.store.select(UserSelectors.selectConnectedMonoCards)
-      .subscribe(value => this.connectedMonoCards = value || []));
   }
 
   ngOnDestroy() {
@@ -79,26 +73,14 @@ export class SettingsPage implements OnInit, OnDestroy {
     this.tokenInput.reset();
   }
 
-  startCardsSelecting(): void {
+  async startCardsSelecting() {
     this.store.dispatch(BankAccountsActions.availableCardsList());
-    this.isMonoCardsSettingOpened = true
-  }
 
-  isCardSelected(card: MonoBankAccount): boolean {
-    return !!this.connectedMonoCards.find(item => item.id === card.id);
-  }
-
-  cardCheckboxClick(card: MonoBankAccount): void{
-    const idx = this.connectedMonoCards.findIndex(item => item.id === card.id);
-
-    idx < 0
-      ? this.connectedMonoCards = [...this.connectedMonoCards, card]
-      : this.connectedMonoCards = this.connectedMonoCards.filter(item => item.id != card.id);
-  }
-
-  setTrackingCards():void {
-    this.store.dispatch(UserActions.setSelectedCards({ payload: this.connectedMonoCards }));
-    this.isMonoCardsSettingOpened = false;
+    const modal = await this.modalCtrl.create({
+      component: SelectCardModalComponent
+    });
+    modal.present();
+    await modal.onWillDismiss();
   }
 
   languageChange(language: string): void {

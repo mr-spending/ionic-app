@@ -10,11 +10,13 @@ import { ConfigureSpendingModalComponent } from './components/configure-spending
 import { SpendingListItemComponent } from './components/spending-list-item/spending-list-item.component';
 import { SelectMonthYearModalComponent } from './components/select-month-year-modal/select-month-year-modal.component';
 import { MrSpendingListDateFormatPipe } from './pipes/spending-list-date-format.pipe';
+import { BankCardFormatPipe } from './pipes/bank-card-format.pipe';
 
 const declarations = [
   MrCurrencyMaskDirective,
   MrSpendingListDateFormatPipe,
   MrMoneyFormatPipe,
+  BankCardFormatPipe,
   SpendingListItemComponent,
   ConfigureSpendingModalComponent,
   SelectMonthYearModalComponent,
