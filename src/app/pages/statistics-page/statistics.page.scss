@@ -49,9 +49,17 @@ ion-content {
     ion-accordion {
       background: transparent;
 
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+
       ion-item {
         border-radius: 28px;
         --ion-color-base: var(--background-color-1) !important;
+
+        &::part(native) {
+          border: 0;
+        }
 
         ion-row {
           height: 56px;
@@ -90,18 +98,44 @@ ion-content {
       }
 
       ion-list {
-        width: calc( 100% - 56px );
-        margin: auto;
+        padding: 0 10px;
 
         div {
+          height: 42px;
+          padding: 5px 20px;
+          border-radius: 21px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
           background: var(--background-color-5);
 
-          div {
+          &:not(:last-child) {
+            margin-bottom: 5px;
+          }
 
+          &:first-child {
+            margin-top: 5px;
           }
 
           ion-label {
+            max-width: calc( 100% - 130px);
 
+            p {
+              margin: 0;
+              font-size: 14px;
+            }
+
+            .spending-description {
+              max-height: 16px;
+              overflow: hidden;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+            }
+          }
+
+          .spending-amount {
+            max-width: 125px;
+            font-size: 16px;
           }
         }
       }
