@@ -11,9 +11,11 @@ const bankAccountsSelector = createFeatureSelector<BankAccountsState>(bankAccoun
 
 export namespace BankAccountsSelectors {
 
-  export const selectTransactions = createSelector(bankAccountsSelector, state => sortArrayByProperty(state.transactions, 'time', DirectionEnum.Descending));
+  export const selectTransactions = createSelector(bankAccountsSelector, state =>
+    sortArrayByProperty(state.transactions, 'time', DirectionEnum.Descending));
 
-  export const selectAvailableCards = createSelector(bankAccountsSelector, state => state.availableCards);
+  export const selectAvailableCards = createSelector(bankAccountsSelector, state =>
+    sortArrayByProperty(state.availableCards, 'type', DirectionEnum.Descending));
 
   export const filteredTransactions = createSelector(
     selectTransactions,

@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" (click)="cancel()">
+      <ion-label color="primary">{{ 'general.actions.back' | translate }}</ion-label>
+    </ion-buttons>
+    <ion-title slot="end">{{ 'settings.monoAccSettings' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" scroll-y="false">
+  <ion-list class="account-management">
+    <div *ngIf="!isMonoAccSettingOpened" class="account">
+      <ion-button *ngIf="!monoToken" (click)="openMonoTokenPage()" slot="start">
+        <ion-icon name="add-outline"></ion-icon>
+        <ion-label>{{ 'settings.setAcc' | translate }}</ion-label>
+      </ion-button>
+
+      <ion-button *ngIf="monoToken" (click)="openMonoTokenPage()" slot="start">
+        <ion-icon name="sync-outline"></ion-icon>
+        <ion-label>{{ 'settings.changeAcc' | translate }}</ion-label>
+      </ion-button>
+
+      <ion-button *ngIf="monoToken" (click)="forgetMonoToken()" slot="end">
+        <ion-icon name="trash-outline" color="danger"></ion-icon>
+        <ion-label color="danger">{{ 'settings.forgetAcc' | translate }}</ion-label>
+      </ion-button>
+    </div>
+
+    <ion-item *ngIf="isMonoAccSettingOpened" class="token">
+      <ion-input [formControl]="tokenInput" [placeholder]="'settings.inputToken' | translate"></ion-input>
+
+      <ion-button [disabled]="!this.tokenInput.value" (click)="setMonoToken()">
+        <ion-icon name="add-outline"></ion-icon>
+        {{ 'general.actions.add' | translate }}
+      </ion-button>
+
+      <ion-button (click)="resetSettingToken()">
+        <ion-icon name="close-outline" color="danger"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="monoToken" class="card-management">
+    <div *ngIf="availableCards$ | async as availableCards">
+      <div
+        class="card"
+        *ngFor="let card of availableCards"
+        [style.border-color]="isCardSelected(card) ? 'var(--ion-color-success-shade)' : 'var(--color-gray-2)'"
+        (click)="cardClick(card)"
+      >
+        <span class="card-checked-marker" [style.display]="isCardSelected(card) ? 'block' : 'none'">
+          <ion-icon name="star-outline"></ion-icon>
+        </span>
+
+        <img class="card-image" src="../../../../assets/image/mono-cards/{{ card.type }}.png" alt="card-picture">
+
+        <div [class]="'card-text-content' + ' ' + card.type">
+          <p class="card-number">{{ card.maskedPan[0] | bankCardFormat }}</p>
+          <p class="card-currency">{{ 'settings.currency' | translate }}: {{ currencyCodesEnum[card.currencyCode] }}</p>
+        </div>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>

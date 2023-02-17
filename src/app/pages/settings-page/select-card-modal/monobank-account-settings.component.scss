@@ -1,0 +1,91 @@
+:host {
+  background: var(--background-color-2);
+}
+
+ion-header {
+
+  ion-title {
+    width: min-content;
+  }
+}
+
+ion-content {
+  height: 100%;
+
+  .account-management {
+
+    .account {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--color-gray-1);
+    }
+
+    .token {
+      border-bottom: 2px solid var(--color-gray-1);
+    }
+  }
+
+  .card-management {
+    padding: 15px 0;
+
+    .card {
+      position: relative;
+      width: 280px;
+      height: 175px;
+      border: 5px solid;
+      border-radius: 20px;
+      margin: auto;
+
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
+      &-checked-marker {
+        position: absolute;
+        top: -3px;
+        left: 0;
+        width: 24px;
+        height: 24px;
+        padding: 2px 4px 4px 2px;
+        background-color: var(--ion-color-success-shade);
+        border-radius: 10px 0 10px 0;
+
+        ion-icon {
+          width: 18px;
+          height: 18px;
+        }
+      }
+
+      &-image {
+        border-radius: 14px;
+      }
+
+      &-text-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 270px;
+        height: 165px;
+        color: var(--text-color-black);
+
+        &.black {
+          color: var(--text-color-white);
+        }
+
+        .card-number {
+          width: 270px;
+          height: 40px;
+          font-weight: bold;
+          margin: 50px 0 10px;
+          padding: 12px;
+          text-align: center;
+        }
+
+        .card-currency {
+          font-size: 14px;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

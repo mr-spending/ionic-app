@@ -29,7 +29,8 @@
       "cancel": "Cancel",
       "confirm": "Confirm",
       "set": "Set",
-      "save": "Save"
+      "save": "Save",
+      "back": "Back"
     },
     "dates" : {
       "today": "Today",
@@ -64,7 +65,12 @@
     "setAcc": "Set account",
     "changeAcc": "Change account",
     "forgetAcc": "Forget account",
-    "selectCards": "Select cards for tracking"
+    "selectCards": "Select cards",
+    "white": "White",
+    "black": "Black",
+    "eAid": "E-Aid",
+    "currency": "Currency",
+    "type": "Type"
   },
   "editSpendingModal": {
     "title": "Edit spending",
