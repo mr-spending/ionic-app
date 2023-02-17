@@ -10,6 +10,8 @@ import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
 import { BankAccountsSelectors } from '../../../core/state/selectors/bank-accounts.selectors';
 import { UserActions } from '../../../core/state/actions/user.actions';
 import { CurrencyCodesEnum } from '../../../core/enums/сurrency.enums';
+import { environment } from '../../../../environments/environment';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'select-card-modal',
@@ -20,18 +22,28 @@ export class SelectCardModalComponent implements OnInit {
   availableCards$: Observable<MonoBankAccount[]> = this.store.select(BankAccountsSelectors.selectAvailableCards);
   connectedMonoCards!: MonoBankAccount[];
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
+  monoBankApiUrl = environment.monoBankApiUrl;
   actionsEnum = ActionsEnum;
   subscription: Subscription = new Subscription();
   currencyCodesEnum = CurrencyCodesEnum;
+  isMonoTokenEstablished!: boolean;
+  isMonoAccSettingOpened: boolean = false;
+  tokenInput: FormControl;
 
   constructor(
     private store: Store<AppState>,
     private modalCtrl: ModalController,
-  ) { }
+    private fb: FormBuilder,
+
+  ) {
+    this.tokenInput = this.fb.control('');
+  }
 
   ngOnInit() {
     this.subscription.add(this.store.select(UserSelectors.selectConnectedMonoCards)
       .subscribe(value => this.connectedMonoCards = value || []));
+    this.subscription.add(this.store.select(UserSelectors.selectIsMonoTokenEstablished)
+      .subscribe(value => this.isMonoTokenEstablished = value));
   }
 
   cancel() {
@@ -41,6 +53,30 @@ export class SelectCardModalComponent implements OnInit {
     this.store.dispatch(UserActions.setSelectedCards({ payload: this.connectedMonoCards }));
     return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
   }
+
+
+
+  openMonoTokenPage(): void {
+    window.open(this.monoBankApiUrl, '_blank');
+    this.isMonoAccSettingOpened = true;
+  }
+
+  setMonoToken(): void {
+    this.store.dispatch(UserActions.setMonoToken({ payload: this.tokenInput.value }));
+    this.resetSettingToken();
+  }
+
+  forgetMonoToken(): void {
+    this.store.dispatch(UserActions.setMonoToken({ payload: '' }));
+    this.resetSettingToken();
+  }
+
+  resetSettingToken(): void {
+    this.isMonoAccSettingOpened = false;
+    this.tokenInput.reset();
+  }
+
+
 
   isCardSelected(card: MonoBankAccount): boolean {
     return !!this.connectedMonoCards.find(item => item.id === card.id);

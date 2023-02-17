@@ -79,12 +79,11 @@ export class SpendingEffects {
   reloadSpendingAndTransactionLists$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.reloadSpendingAndTransactionLists),
     concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUser)]),
-    map(([{ payload } , user]) => {
-      this.spendingStore.dispatch(SpendingActions.homeSpendingList({ payload }));
-      this.spendingStore.dispatch(SpendingActions.statSpendingList({ payload }));
+    switchMap(([{ payload } , user]) => {
       if (user?.monoBankAccounts) this.bankAccountsStored.dispatch(BankAccountsActions.transactionList(
         { accounts: user.monoBankAccounts, period: payload }
-      ))
+      ));
+      return [SpendingActions.homeSpendingList({ payload }), SpendingActions.statSpendingList({ payload })]
     }),
-  ), { dispatch: false });
+  ));
 }

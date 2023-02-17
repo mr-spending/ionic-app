@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>{{ 'pages.menu' | translate}}</ion-title>
+    <ion-title>{{ 'settings.title' | translate}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,55 +18,15 @@
         </ion-select-option>
       </ion-select>
     </ion-item>
-  </ion-list>
 
-  <ion-list>
-    <ion-item>{{ 'settings.monoAccSettings' | translate }}</ion-item>
+    <ion-item (click)="monoAccSettingsOpen()">
+      <ion-label>{{ 'settings.monoAccSettings' | translate }}</ion-label>
+      <ion-icon name="card-outline"></ion-icon>
+    </ion-item>
 
-    <ion-item>
-      <ion-list>
-        <ion-item *ngIf="!isMonoAccSettingOpened">
-          <ion-button *ngIf="!isMonoTokenEstablished" size="small" (click)="openMonoTokenPage()">
-            <ion-icon name="add-outline"></ion-icon>
-            <ion-label>{{ 'settings.setAcc' | translate }}</ion-label>
-          </ion-button>
-
-          <ion-button *ngIf="isMonoTokenEstablished" size="small" (click)="openMonoTokenPage()">
-            <ion-icon name="sync-outline"></ion-icon>
-            <ion-label>{{ 'settings.changeAcc' | translate }}</ion-label>
-          </ion-button>
-
-          <ion-button *ngIf="isMonoTokenEstablished" size="small" (click)="forgetMonoToken()">
-            <ion-icon name="trash-outline" color="danger"></ion-icon>
-            <ion-label color="danger">{{ 'settings.forgetAcc' | translate }}</ion-label>
-          </ion-button>
-        </ion-item>
-
-        <ion-item *ngIf="isMonoAccSettingOpened">
-          <ion-input [formControl]="tokenInput" [placeholder]="'settings.inputToken' | translate"></ion-input>
-
-          <ion-button size="small" [disabled]="!this.tokenInput.value" (click)="setMonoToken()">
-            <ion-icon name="add-outline"></ion-icon>
-            {{ 'general.actions.add' | translate }}
-          </ion-button>
-
-          <ion-button (click)="resetSettingToken()">
-            <ion-icon name="close-outline" color="danger"></ion-icon>
-          </ion-button>
-        </ion-item>
-
-        <ion-item *ngIf="isMonoTokenEstablished">
-          <ion-button (click)="startCardsSelecting()">
-            <ion-icon name="card-outline"></ion-icon>
-            {{ 'settings.selectCards' | translate }}
-          </ion-button>
-        </ion-item>
-      </ion-list>
+    <ion-item (click)="logOut()">
+      <ion-label>{{ 'pages.logOut' | translate}}</ion-label>
+      <ion-icon name="log-out-outline"></ion-icon>
     </ion-item>
   </ion-list>
-
-  <ion-button size="small" (click)="logOut()">
-    <ion-icon name="log-out-outline"></ion-icon>
-    {{ 'pages.logOut' | translate}}
-  </ion-button>
 </ion-content>
