@@ -10,10 +10,30 @@ ion-content {
   position: relative;
   width: 250px;
   height: 160px;
-  border: 5px solid #c7c7c7;
+  border: 5px solid;
   border-radius: 20px;
   background: white;
   margin: auto;
+
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+
+  &-checked-marker {
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    padding: 1px 2px 3px;
+    background-color: green;
+    border-radius: 10px 0 10px 0;
+
+    ion-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
 
   &-number {
     width: 240px;

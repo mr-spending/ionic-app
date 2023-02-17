@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title>{{ 'editSpendingModal.title' | translate }}</ion-title>
+    <ion-title>{{ 'settings.selectCards' | translate }}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="confirm()">{{ 'general.actions.confirm' | translate }}</ion-button>
     </ion-buttons>
@@ -16,12 +16,15 @@
       <div
         class="card"
         *ngFor="let card of availableCards"
-        [style.--background]="isCardSelected(card) ? 'green' : 'black'"
+        [style.border-color]="isCardSelected(card) ? 'green' : '#c7c7c7'"
         (click)="cardClick(card)"
       >
+        <span class="card-checked-marker" [style.display]="isCardSelected(card) ? 'block' : 'none'">
+          <ion-icon name="star-outline"></ion-icon>
+        </span>
         <p class="card-number">{{ card.maskedPan[0] | bankCardFormat }}</p>
-        <p class="card-currency">Currency: {{ card.currencyCode }}</p>
-        <p class="card-type">Type: {{ card.type }}</p>
+        <p class="card-currency">{{ 'settings.currency' | translate }}: {{ currencyCodesEnum[card.currencyCode] }}</p>
+        <p class="card-type">{{ 'settings.type' | translate }}: {{ 'settings.' + card.type | translate }}</p>
       </div>
     </ion-list>
   </div>

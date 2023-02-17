@@ -9,6 +9,7 @@ import { UserSelectors } from '../../../core/state/selectors/user.selectors';
 import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
 import { BankAccountsSelectors } from '../../../core/state/selectors/bank-accounts.selectors';
 import { UserActions } from '../../../core/state/actions/user.actions';
+import { CurrencyCodesEnum } from '../../../core/enums/сurrency.enums';
 
 @Component({
   selector: 'select-card-modal',
@@ -21,6 +22,7 @@ export class SelectCardModalComponent implements OnInit {
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   actionsEnum = ActionsEnum;
   subscription: Subscription = new Subscription();
+  currencyCodesEnum = CurrencyCodesEnum;
 
   constructor(
     private store: Store<AppState>,
@@ -35,7 +37,6 @@ export class SelectCardModalComponent implements OnInit {
   cancel() {
     return this.modalCtrl.dismiss(null, ActionsEnum.Cancel);
   }
-
   confirm() {
     this.store.dispatch(UserActions.setSelectedCards({ payload: this.connectedMonoCards }));
     return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
