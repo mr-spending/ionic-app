@@ -1,38 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
+    <ion-buttons slot="start" (click)="cancel()">
+      <ion-label color="primary">{{ 'general.actions.back' | translate }}</ion-label>
     </ion-buttons>
-    <ion-title>{{ 'settings.monoAccSettings' | translate }}</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="confirm()">{{ 'general.actions.confirm' | translate }}</ion-button>
-    </ion-buttons>
+    <ion-title slot="end">{{ 'settings.monoAccSettings' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding" scroll-y="false">
-  <ion-list>
-    <ion-item *ngIf="!isMonoAccSettingOpened">
-      <ion-button *ngIf="!isMonoTokenEstablished" size="small" (click)="openMonoTokenPage()">
+  <ion-list class="account-management">
+    <div *ngIf="!isMonoAccSettingOpened" class="account">
+      <ion-button *ngIf="!isMonoTokenEstablished" (click)="openMonoTokenPage()" slot="start">
         <ion-icon name="add-outline"></ion-icon>
         <ion-label>{{ 'settings.setAcc' | translate }}</ion-label>
       </ion-button>
 
-      <ion-button *ngIf="isMonoTokenEstablished" size="small" (click)="openMonoTokenPage()">
+      <ion-button *ngIf="isMonoTokenEstablished" (click)="openMonoTokenPage()" slot="start">
         <ion-icon name="sync-outline"></ion-icon>
         <ion-label>{{ 'settings.changeAcc' | translate }}</ion-label>
       </ion-button>
 
-      <ion-button *ngIf="isMonoTokenEstablished" size="small" (click)="forgetMonoToken()">
+      <ion-button *ngIf="isMonoTokenEstablished" (click)="forgetMonoToken()" slot="end">
         <ion-icon name="trash-outline" color="danger"></ion-icon>
         <ion-label color="danger">{{ 'settings.forgetAcc' | translate }}</ion-label>
       </ion-button>
-    </ion-item>
+    </div>
 
-    <ion-item *ngIf="isMonoAccSettingOpened">
+    <ion-item *ngIf="isMonoAccSettingOpened" class="token">
       <ion-input [formControl]="tokenInput" [placeholder]="'settings.inputToken' | translate"></ion-input>
 
-      <ion-button size="small" [disabled]="!this.tokenInput.value" (click)="setMonoToken()">
+      <ion-button [disabled]="!this.tokenInput.value" (click)="setMonoToken()">
         <ion-icon name="add-outline"></ion-icon>
         {{ 'general.actions.add' | translate }}
       </ion-button>
@@ -43,21 +40,25 @@
     </ion-item>
   </ion-list>
 
-  <div>
-    <ion-list *ngIf="availableCards$ | async as availableCards">
+  <ion-list *ngIf="isMonoTokenEstablished" class="card-management">
+    <div *ngIf="availableCards$ | async as availableCards">
       <div
         class="card"
         *ngFor="let card of availableCards"
-        [style.border-color]="isCardSelected(card) ? 'green' : '#c7c7c7'"
+        [style.border-color]="isCardSelected(card) ? 'var(--ion-color-success-shade)' : 'var(--color-gray-2)'"
         (click)="cardClick(card)"
       >
         <span class="card-checked-marker" [style.display]="isCardSelected(card) ? 'block' : 'none'">
           <ion-icon name="star-outline"></ion-icon>
         </span>
-        <p class="card-number">{{ card.maskedPan[0] | bankCardFormat }}</p>
-        <p class="card-currency">{{ 'settings.currency' | translate }}: {{ currencyCodesEnum[card.currencyCode] }}</p>
-        <p class="card-type">{{ 'settings.type' | translate }}: {{ 'settings.' + card.type | translate }}</p>
+
+        <img class="card-image" src="../../../../assets/image/mono-cards/{{ card.type }}.png" alt="card-picture">
+
+        <div [class]="'card-text-content' + ' ' + card.type">
+          <p class="card-number">{{ card.maskedPan[0] | bankCardFormat }}</p>
+          <p class="card-currency">{{ 'settings.currency' | translate }}: {{ currencyCodesEnum[card.currencyCode] }}</p>
+        </div>
       </div>
-    </ion-list>
-  </div>
+    </div>
+  </ion-list>
 </ion-content>

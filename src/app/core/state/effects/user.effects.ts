@@ -34,12 +34,9 @@ export class UserEffects {
   setUserDataSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.setUserDataSuccess),
     map(({ payload }) => {
-      if (payload.monoBankAccounts?.length) {
-        this.bankAccountsStore.dispatch(BankAccountsActions.checkWebHook())
-        this.bankAccountsStore.dispatch(BankAccountsActions.transactionList({
+      if (payload.monoBankAccounts?.length) this.bankAccountsStore.dispatch(BankAccountsActions.transactionList({
           accounts: payload.monoBankAccounts, period: getCurrentMonthPeriodUNIX()
-        }));
-      }
+      }));
     })
   ), { dispatch: false });
 

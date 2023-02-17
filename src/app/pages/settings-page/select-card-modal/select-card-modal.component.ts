@@ -49,12 +49,10 @@ export class SelectCardModalComponent implements OnInit {
   cancel() {
     return this.modalCtrl.dismiss(null, ActionsEnum.Cancel);
   }
-  confirm() {
-    this.store.dispatch(UserActions.setSelectedCards({ payload: this.connectedMonoCards }));
-    return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
-  }
 
-
+  // confirm() {
+  //   return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
+  // }
 
   openMonoTokenPage(): void {
     window.open(this.monoBankApiUrl, '_blank');
@@ -84,9 +82,9 @@ export class SelectCardModalComponent implements OnInit {
 
   cardClick(card: MonoBankAccount): void{
     const idx = this.connectedMonoCards.findIndex(item => item.id === card.id);
-
     idx < 0
       ? this.connectedMonoCards = [...this.connectedMonoCards, card]
       : this.connectedMonoCards = this.connectedMonoCards.filter(item => item.id != card.id);
+    this.store.dispatch(UserActions.setSelectedCards({ payload: this.connectedMonoCards }));
   }
 }

@@ -29,7 +29,8 @@
       "cancel": "Cancel",
       "confirm": "Confirm",
       "set": "Set",
-      "save": "Save"
+      "save": "Save",
+      "back": "Back"
     },
     "dates" : {
       "today": "Today",
