@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { SelectCardModalComponent } from './select-card-modal.component';
+import { MonobankAccountSettingsComponent } from './monobank-account-settings.component';
 
-describe('SelectCardModalComponent', () => {
-  let component: SelectCardModalComponent;
-  let fixture: ComponentFixture<SelectCardModalComponent>;
+describe('MonobankAccountSettingsComponent', () => {
+  let component: MonobankAccountSettingsComponent;
+  let fixture: ComponentFixture<MonobankAccountSettingsComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectCardModalComponent ],
+      declarations: [ MonobankAccountSettingsComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SelectCardModalComponent);
+    fixture = TestBed.createComponent(MonobankAccountSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

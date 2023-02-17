@@ -12,13 +12,14 @@ import { UserActions } from '../../../core/state/actions/user.actions';
 import { CurrencyCodesEnum } from '../../../core/enums/сurrency.enums';
 import { environment } from '../../../../environments/environment';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { BankAccountsActions } from '../../../core/state/actions/bank-accounts.actions';
 
 @Component({
   selector: 'select-card-modal',
-  templateUrl: './select-card-modal.component.html',
-  styleUrls: ['./select-card-modal.component.scss'],
+  templateUrl: './monobank-account-settings.component.html',
+  styleUrls: ['./monobank-account-settings.component.scss'],
 })
-export class SelectCardModalComponent implements OnInit {
+export class MonobankAccountSettingsComponent implements OnInit {
   availableCards$: Observable<MonoBankAccount[]> = this.store.select(BankAccountsSelectors.selectAvailableCards);
   connectedMonoCards!: MonoBankAccount[];
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
@@ -26,7 +27,7 @@ export class SelectCardModalComponent implements OnInit {
   actionsEnum = ActionsEnum;
   subscription: Subscription = new Subscription();
   currencyCodesEnum = CurrencyCodesEnum;
-  isMonoTokenEstablished!: boolean;
+  monoToken!: string;
   isMonoAccSettingOpened: boolean = false;
   tokenInput: FormControl;
 
@@ -42,17 +43,16 @@ export class SelectCardModalComponent implements OnInit {
   ngOnInit() {
     this.subscription.add(this.store.select(UserSelectors.selectConnectedMonoCards)
       .subscribe(value => this.connectedMonoCards = value || []));
-    this.subscription.add(this.store.select(UserSelectors.selectIsMonoTokenEstablished)
-      .subscribe(value => this.isMonoTokenEstablished = value));
+    this.subscription.add(this.store.select(UserSelectors.selectMonoToken)
+      .subscribe(value => {
+        if (value) this.store.dispatch(BankAccountsActions.availableCardsList());
+        this.monoToken = value || '';
+      }));
   }
 
   cancel() {
     return this.modalCtrl.dismiss(null, ActionsEnum.Cancel);
   }
-
-  // confirm() {
-  //   return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
-  // }
 
   openMonoTokenPage(): void {
     window.open(this.monoBankApiUrl, '_blank');
@@ -73,8 +73,6 @@ export class SelectCardModalComponent implements OnInit {
     this.isMonoAccSettingOpened = false;
     this.tokenInput.reset();
   }
-
-
 
   isCardSelected(card: MonoBankAccount): boolean {
     return !!this.connectedMonoCards.find(item => item.id === card.id);

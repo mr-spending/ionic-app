@@ -23,4 +23,7 @@ const reducer = createReducer<BankAccountsState>(
   on(BankAccountsActions.transactionListSuccess, (state, { payload }) => ({ ...state, transactions: payload })),
 
   on(BankAccountsActions.availableCardsListSuccess, (state, { payload }) => ({ ...state, availableCards: payload })),
+
+  on(BankAccountsActions.availableCardsListFailure, (state) => ({ ...state, availableCards: [] })),
+
 );

@@ -7,7 +7,7 @@ import * as moment from 'moment';
 import { AuthService } from '../../auth/services/auth.service';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
-import { SelectCardModalComponent } from './select-card-modal/select-card-modal.component';
+import { MonobankAccountSettingsComponent } from './select-card-modal/monobank-account-settings.component';
 import { BankAccountsActions } from '../../core/state/actions/bank-accounts.actions';
 
 @Component({
@@ -38,7 +38,7 @@ export class SettingsPage {
   async monoAccSettingsOpen() {
     this.store.dispatch(BankAccountsActions.availableCardsList());
 
-    const modal = await this.modalCtrl.create({ component: SelectCardModalComponent });
+    const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent });
     modal.present();
     await modal.onWillDismiss();
   }

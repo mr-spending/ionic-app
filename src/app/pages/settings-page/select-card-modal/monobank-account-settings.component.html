@@ -10,17 +10,17 @@
 <ion-content class="ion-padding" scroll-y="false">
   <ion-list class="account-management">
     <div *ngIf="!isMonoAccSettingOpened" class="account">
-      <ion-button *ngIf="!isMonoTokenEstablished" (click)="openMonoTokenPage()" slot="start">
+      <ion-button *ngIf="!monoToken" (click)="openMonoTokenPage()" slot="start">
         <ion-icon name="add-outline"></ion-icon>
         <ion-label>{{ 'settings.setAcc' | translate }}</ion-label>
       </ion-button>
 
-      <ion-button *ngIf="isMonoTokenEstablished" (click)="openMonoTokenPage()" slot="start">
+      <ion-button *ngIf="monoToken" (click)="openMonoTokenPage()" slot="start">
         <ion-icon name="sync-outline"></ion-icon>
         <ion-label>{{ 'settings.changeAcc' | translate }}</ion-label>
       </ion-button>
 
-      <ion-button *ngIf="isMonoTokenEstablished" (click)="forgetMonoToken()" slot="end">
+      <ion-button *ngIf="monoToken" (click)="forgetMonoToken()" slot="end">
         <ion-icon name="trash-outline" color="danger"></ion-icon>
         <ion-label color="danger">{{ 'settings.forgetAcc' | translate }}</ion-label>
       </ion-button>
@@ -40,7 +40,7 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="isMonoTokenEstablished" class="card-management">
+  <ion-list *ngIf="monoToken" class="card-management">
     <div *ngIf="availableCards$ | async as availableCards">
       <div
         class="card"
