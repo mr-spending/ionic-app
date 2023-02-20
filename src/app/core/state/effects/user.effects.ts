@@ -6,7 +6,7 @@ import { Store } from '@ngrx/store';
 import { UserActions } from '../actions/user.actions';
 import { ApiService } from '../../api/api.service';
 import { UserModel } from '../../interfaces/models';
-import { LocalStorageService } from '../../services/local-storage.service';
+import { LocalStorageService } from '../../services/local-storage/local-storage.service';
 import { BankAccountsActions } from '../actions/bank-accounts.actions';
 import { BankAccountsState } from '../reducers/bank-accounts.reducer';
 import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';

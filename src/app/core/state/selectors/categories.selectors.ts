@@ -27,11 +27,11 @@ export namespace CategoriesSelectors {
         return {
           ...item,
           totalAmount,
-          spendingList: list,
+          spendingList: sortArrayByProperty(list,'time', DirectionEnum.Descending)
         }
       }).filter(item => item.spendingList.length > 0);
 
       return sortArrayByProperty(spendingByCategoriesList, 'totalAmount', DirectionEnum.Descending);
     }
   );
-};
+}

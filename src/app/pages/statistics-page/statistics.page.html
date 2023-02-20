@@ -45,7 +45,11 @@
       </ion-item>
 
       <ion-list slot="content">
-        <div *ngFor="let item of category.spendingList" [class.ion-page-hidden]="item.categoryId !== category.id">
+        <div
+          *ngFor="let item of category.spendingList"
+          [class.ion-page-hidden]="item.categoryId !== category.id"
+          (click)="spendingService.spendingClickActionsModal(item, categoryList)"
+        >
           <ion-label>
             <p *ngIf="item.description" class="spending-description">{{ item.description }}</p>
             <p class="spending-date">{{ item.date | date: 'MMM d, HH:mm' }}</p>

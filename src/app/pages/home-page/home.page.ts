@@ -16,10 +16,10 @@ import { SpendingSelectors } from '../../core/state/selectors/spending.selectors
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { ConfigureSpendingModalComponent } from '../../shared/components/configure-spending-modal/configure-spending-modal.component';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
+import { SpendingService } from '../../core/services/spending/spending.service';
 
 @Component({
   selector: 'app-home-page',
@@ -50,6 +50,7 @@ export class HomePage implements OnInit, OnDestroy {
     private actionSheetController: ActionSheetController,
     private modalCtrl: ModalController,
     private translateService: TranslateService,
+    public spendingService : SpendingService,
   ) {
     this.formGroup = this.fb.group({ amount: this.fb.control(null) });
   }
@@ -123,64 +124,12 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
   }
 
-  async spendingClick(item: SpendingModel) {
-    const actionSheet = await this.actionSheetController.create({
-      buttons: [
-        {
-          text: this.translateService.instant('general.actions.edit'),
-          data: {
-            action: ActionsEnum.Edit,
-          },
-        },
-        {
-          text: this.translateService.instant('general.actions.delete'),
-          role: ActionsRoleEnum.Destructive,
-          data: {
-            action: ActionsEnum.Delete,
-          },
-        },
-        {
-          text: this.translateService.instant('general.actions.cancel'),
-          role: ActionsRoleEnum.Cancel,
-          data: {
-            action: ActionsEnum.Cancel,
-          },
-        },
-      ],
-    });
-
-    await actionSheet.present();
-    const result = await actionSheet.onDidDismiss();
-
-    switch (result.data?.action) {
-      case ActionsEnum.Delete:
-        this.removeSpendingItem(item.id);
-        break;
-      case ActionsEnum.Edit:
-        this.openConfigureSpendingModal(ActionsEnum.Edit, item);
-    }
-  }
-
-  removeSpendingItem(id: string) {
-    this.store.dispatch(SpendingActions.deleteSpendingItem({ payload: id }));
-  }
-
-  updateSpendingList() {
-    this.store.dispatch(SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() }));
-  }
-
-  async openConfigureSpendingModal(type: ActionsEnum.Add | ActionsEnum.Edit, item?: SpendingModel) {
-    const modal = await this.modalCtrl.create({
-      component: ConfigureSpendingModalComponent,
-      componentProps: {
-        amount: this.formGroup.value.amount,
-        categories: this.categories,
-        spendingItem: item,
-        type
-      }
-    });
-    modal.present();
-    await modal.onWillDismiss();
+  async addSpending(type: ActionsEnum.Add | ActionsEnum.Edit) {
+    await this.spendingService.openConfigureSpendingModal({
+      type,
+      categories: this.categories,
+      amount: this.formGroup.value.amount
+    })
     this.formGroup?.reset();
   }
 }

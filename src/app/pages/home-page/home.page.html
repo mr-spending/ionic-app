@@ -26,14 +26,14 @@
       ></ion-input>
       <ion-button
         [disabled]="!this.formGroup.value.amount"
-        (click)="openConfigureSpendingModal(actionsEnum.Add)"
+        (click)="addSpending(actionsEnum.Add)"
       >
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-row>
 
     <ion-row class="ion-justify-content-center">
-      <ion-button fill="clear" (click)="updateSpendingList()">
+      <ion-button fill="clear" (click)="spendingService.updateSpendingList()">
         <ion-icon color="primary" size="large" name="refresh-circle-outline"></ion-icon>
       </ion-button>
     </ion-row>
@@ -61,7 +61,7 @@
           [currency]="currency$ | async"
           [spending]="item"
           [type]="listItemTypeEnum.spending"
-          (click)="spendingClick(item)">
+          (click)="spendingService.spendingClickActionsModal(item, categories)">
         </app-spending-list-item>
       </div>
     </ion-list>
