@@ -7,7 +7,7 @@ import {
 import { Observable, switchMap } from 'rxjs';
 import { Injectable } from '@angular/core';
 
-import { LocalStorageService } from '../services/local-storage.service';
+import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
 import { Store } from '@ngrx/store';

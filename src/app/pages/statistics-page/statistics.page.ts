@@ -1,24 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 
-import { SpendingByCategoriesItem } from '../../core/interfaces/models';
+import { CategoryModel, SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import { SelectMonthYearModalComponent } from '../../shared/components/select-month-year-modal/select-month-year-modal.component';
 import { getCurrentMonthPeriodUNIX, getCustomPeriodUNIX } from '../../core/utils/time.utils';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
+import { SpendingService } from '../../core/services/spending/spending.service';
 
 @Component({
   selector: 'app-statistics-page',
   templateUrl: './statistics.page.html',
   styleUrls: ['./statistics.page.scss'],
 })
-export class StatisticsPage implements OnInit {
+export class StatisticsPage implements OnInit, OnDestroy {
+  subscription: Subscription = new Subscription();
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
+  categoryList!: CategoryModel[];
 
   statisticsPeriod: 'currentMonth' | 'selectPeriod' = 'currentMonth';
   startDate = '';
@@ -27,10 +30,18 @@ export class StatisticsPage implements OnInit {
   constructor(
     private store: Store<AppState>,
     private modalCtrl: ModalController,
+    public spendingService : SpendingService,
   ) { }
 
   ngOnInit() {
-    this.getSpendingByCurrentMonth()
+    this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
+      .subscribe((categories: CategoryModel[]) => this.categoryList = categories),
+    );
+    this.getSpendingByCurrentMonth();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   changeStatisticsPeriod(event: any) {
