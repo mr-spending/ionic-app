@@ -29,6 +29,12 @@
     </ion-item>
   </ion-list>
 
+  <div class="period-select">
+    <div class="week" (click)="onPeriodSelect('week')">Week</div>
+    <div class="month checked" (click)="onPeriodSelect('month')">Month</div>
+    <div class="year" (click)="onPeriodSelect('year')">Year</div>
+  </div>
+
   <div class="doughnut-chart">
     <canvas baseChart
             class="chart"

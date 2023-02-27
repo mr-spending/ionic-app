@@ -11,7 +11,7 @@ export function getCurrentMonthPeriodUNIX(): TimePeriodModel {
 
 export function getCustomPeriodUNIX(startTime: string, endTime: string): TimePeriodModel {
   return {
-    startDate: moment(startTime).startOf('month').unix(),
-    endDate: moment(endTime).endOf('month').unix()
+    startDate: moment(startTime).unix(),
+    endDate: moment(endTime).unix()
   };
 }

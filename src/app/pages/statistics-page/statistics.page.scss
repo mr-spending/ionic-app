@@ -163,3 +163,29 @@ ion-content {
   width: calc(100% - 125px);
   text-align: center;
 }
+
+.period-select {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  padding: 5px 15px;
+  background-color: var(--background-color-1);
+  border-radius: 25px;
+
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: var(--text-color-gray);
+
+    &.checked {
+      color: var(--text-color-special-dark);
+      background-color: var(--accent-color-1);
+      border-radius: 20px;
+    }
+  }
+}

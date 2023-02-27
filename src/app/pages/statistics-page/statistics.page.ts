@@ -12,6 +12,7 @@ import { SelectMonthYearModalComponent } from '../../shared/components/select-mo
 import { getCurrentMonthPeriodUNIX, getCustomPeriodUNIX } from '../../core/utils/time.utils';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { SpendingService } from '../../core/services/spending/spending.service';
+import * as moment from 'moment/moment';
 
 @Component({
   selector: 'app-statistics-page',
@@ -55,6 +56,13 @@ export class StatisticsPage implements OnInit, OnDestroy {
 
   getSpendingByCurrentMonth() {
     this.store.dispatch(SpendingActions.statSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
+  }
+
+  onPeriodSelect(period: 'week'| 'month'| 'year'): void {
+    const periodStart = moment().startOf(period).format('YYYY-MM-DD');
+    const periodEnd = moment().endOf(period).format('YYYY-MM-DD');
+    console.log(periodStart, periodEnd)
+    this.store.dispatch(SpendingActions.statSpendingList({ payload: getCustomPeriodUNIX(periodStart, periodEnd) }));
   }
 
   async selectDate(target: 'startDate' | 'endDate') {
