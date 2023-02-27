@@ -38,6 +38,17 @@ ion-content {
     }
   }
 
+  .doughnut-chart {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+
+    canvas {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  }
+
   ion-accordion-group {
     max-height: calc( 100% - 52px );
     overflow: scroll;

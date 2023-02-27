@@ -3,6 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
+import { ChartData } from 'chart.js';
 
 import { CategoryModel, SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
@@ -18,14 +19,15 @@ import { SpendingService } from '../../core/services/spending/spending.service';
   styleUrls: ['./statistics.page.scss'],
 })
 export class StatisticsPage implements OnInit, OnDestroy {
-  subscription: Subscription = new Subscription();
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
+  subscription: Subscription = new Subscription();
   categoryList!: CategoryModel[];
 
   statisticsPeriod: 'currentMonth' | 'selectPeriod' = 'currentMonth';
   startDate = '';
   endDate = '';
+  isDoughnutChartRepaintNeed: boolean = true;
 
   constructor(
     private store: Store<AppState>,
@@ -66,5 +68,17 @@ export class StatisticsPage implements OnInit, OnDestroy {
     const period = getCustomPeriodUNIX(this.startDate, this.endDate);
     if (period.startDate >= period.endDate) this.startDate = '';
     if (this.startDate && this.endDate) this.store.dispatch(SpendingActions.statSpendingList({ payload: period }));
+  }
+
+  generateDoughnutChartData(spendingList: SpendingByCategoriesItem[]): ChartData<'doughnut'> {
+    return {
+      datasets: [
+        {
+          data: spendingList.map(item => item.totalAmount / 100),
+          backgroundColor: spendingList.map(item => item.icon.background),
+          borderWidth: 0
+        }
+      ]
+    }
   }
 }

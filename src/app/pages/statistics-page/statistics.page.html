@@ -29,6 +29,16 @@
     </ion-item>
   </ion-list>
 
+  <div class="doughnut-chart">
+    <canvas baseChart
+            class="chart"
+            [data]="generateDoughnutChartData(categories)"
+            [type]="'doughnut'"
+            [options]="{ cutout: '80%' }"
+    >
+    </canvas>
+  </div>
+
   <ion-accordion-group>
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
