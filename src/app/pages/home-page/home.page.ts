@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription, map, timer } from 'rxjs';
-import { ActionSheetController, IonAccordionGroup } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -27,21 +27,18 @@ import { SpendingService } from '../../core/services/spending/spending.service';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit, OnDestroy {
-  subscription: Subscription = new Subscription();
   formGroup: FormGroup;
+  categories!: CategoryModel[];
+  currentTime!: string;
+
+  listItemTypeEnum = ListItemTypeEnum;
+  actionsEnum = ActionsEnum;
+  subscription: Subscription = new Subscription();
+
   groupedSpendingList$: Observable<GroupedSpendingModel[]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   bankTransactions$: Observable<BankTransaction[]> = this.store.select(BankAccountsSelectors.filteredTransactions);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
-  categories!: CategoryModel[];
-  currentTime: any;
-  listItemTypeEnum = ListItemTypeEnum;
-  actionsEnum = ActionsEnum;
-  @ViewChild('accordionGroup', { static: true }) accordionGroup!: IonAccordionGroup;
-
-  get isAccordionExpanded() {
-    return this.accordionGroup.value === 'form-group';
-  }
 
   constructor(
     private fb: FormBuilder,
@@ -66,7 +63,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
@@ -74,7 +71,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.Statistics}`]).then();
   }
 
-  async transactionClick(transaction: BankTransaction) {
+  async transactionClick(transaction: BankTransaction): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
@@ -124,7 +121,7 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
   }
 
-  async addSpending(type: ActionsEnum.Add | ActionsEnum.Edit) {
+  async addSpending(type: ActionsEnum.Add | ActionsEnum.Edit): Promise<void> {
     await this.spendingService.openConfigureSpendingModal({
       type,
       categories: this.categories,

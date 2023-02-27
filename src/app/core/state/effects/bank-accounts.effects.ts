@@ -32,7 +32,7 @@ export class BankAccountsEffects {
     )),
   ));
 
-  availableCardsList$  = createEffect(() => this.actions$.pipe(
+  availableCardsList$ = createEffect(() => this.actions$.pipe(
     ofType(BankAccountsActions.availableCardsList),
     switchMap(() => this.mbApiService.getPersonalClientInfo().pipe(
       map(payload => BankAccountsActions.availableCardsListSuccess({
@@ -43,7 +43,7 @@ export class BankAccountsEffects {
     )),
   ));
 
-  checkWebHook$  = createEffect(() => this.actions$.pipe(
+  checkWebHook$ = createEffect(() => this.actions$.pipe(
     ofType(BankAccountsActions.checkWebHook),
     switchMap(() => this.mbApiService.getPersonalClientInfo().pipe(
       map(payload => payload.webHookUrl
@@ -54,7 +54,7 @@ export class BankAccountsEffects {
     )),
   ));
 
-  setWebHook$  = createEffect(() => this.actions$.pipe(
+  setWebHook$ = createEffect(() => this.actions$.pipe(
     ofType(BankAccountsActions.setWebHook),
     switchMap(() => this.mbApiService.setWebHook().pipe(
       switchMap(payload => [

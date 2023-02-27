@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { CategoryModel, SpendingModel } from '../../interfaces/models';
-import { ActionsEnum, ActionsRoleEnum } from '../../enums/action-sheet.enums';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+
 import { SpendingActions } from '../../state/actions/spending.actions';
 import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';
+import { CategoryModel, SpendingModel } from '../../interfaces/models';
+import { ActionsEnum, ActionsRoleEnum } from '../../enums/action-sheet.enums';
 import {
   ConfigureSpendingModalComponent
 } from '../../../shared/components/configure-spending-modal/configure-spending-modal.component';
@@ -65,7 +66,7 @@ export class SpendingService {
     type: ActionsEnum.Add | ActionsEnum.Edit,
     categories: CategoryModel[],
     item?: SpendingModel,
-    amount?: any
+    amount?: number
   }) {
     const modal = await this.modalCtrl.create({
       component: ConfigureSpendingModalComponent,

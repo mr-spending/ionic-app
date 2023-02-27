@@ -32,11 +32,34 @@ export interface SpendingSortModel {
   direction: DirectionEnum;
 }
 
+export interface MonoBankUserData {
+  "clientId": string;
+  "name": string;
+  "webHookUrl": string;
+  "permissions": string;
+  "accounts": MonoBankAccount[];
+}
+
 export interface MonoBankAccount {
   currencyCode: number;
   id: string;
   maskedPan: string[];
   type: string;
+}
+
+export interface ServerBankTransaction {
+  "data": {
+    "account": string;
+    "statementItem": {
+      "id": string;
+      "amount": number;
+      "time": number;
+      "description": string;
+      "currencyCode": string;
+    }
+  };
+  "type": string;
+  "id": string;
 }
 
 export interface BankTransaction {

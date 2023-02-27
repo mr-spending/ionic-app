@@ -10,18 +10,17 @@ export function mapSpendingList(list: SpendingModel[]): SpendingModel[] {
   }))
 }
 
-export function groupingSpendingByDate(list: SpendingModel[]) {
+export function groupingSpendingByDate(list: SpendingModel[]): GroupedSpendingModel[] {
   const groupedList: GroupedSpendingModel[] = [];
 
   list.forEach(spending => {
-    const spendingDate = spending.date?.split(' ')[0] || '';
+    const spendingDate = moment(spending.time * 1000).format('YYYY-MM-DD');
     const dateIDX = groupedList.findIndex(item => item.title === spendingDate);
 
     dateIDX >= 0
       ? groupedList[dateIDX].children.push({ ...spending, date: spendingDate })
       : groupedList.push({ title: spendingDate, children: [{ ...spending, date: spendingDate }] })
   })
-
 
   return groupedList;
 }
