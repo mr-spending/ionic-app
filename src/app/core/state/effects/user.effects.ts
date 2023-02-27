@@ -57,11 +57,10 @@ export class UserEffects {
     ofType(UserActions.setMonoToken),
     concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
     switchMap(([{ payload } , user]) => {
-      if (user) return this.apiService.updateUser({ ...user, monoBankClientToken: payload, monoBankAccounts: [] }).pipe(
-        map(() => UserActions.setMonoTokenSuccess({ userId: user.id })),
+      return this.apiService.updateUser({ ...user as UserModel, monoBankClientToken: payload, monoBankAccounts: [] }).pipe(
+        map(() => UserActions.setMonoTokenSuccess({ userId: user!.id })),
         catchError(err => of(UserActions.setMonoTokenFailure()))
-      );
-      return of(UserActions.setMonoTokenFailure());
+      )
     }),
   ));
 
@@ -79,11 +78,10 @@ export class UserEffects {
     ofType(UserActions.setSelectedCards),
     concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
     switchMap(([{ payload } , user]) => {
-      if (user) return this.apiService.updateUser({ ...user, monoBankAccounts: payload }).pipe(
-        map(() => UserActions.setSelectedCardsSuccess({ userId: user.id })),
+      return this.apiService.updateUser({ ...user as UserModel, monoBankAccounts: payload }).pipe(
+        map(() => UserActions.setSelectedCardsSuccess({ userId: user!.id })),
         catchError(err => of(UserActions.setSelectedCardsFailure()))
-      );
-      return of(UserActions.setSelectedCardsFailure());
+      )
     }),
   ));
 }

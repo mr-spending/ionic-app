@@ -21,19 +21,17 @@ export class SpendingEffects {
     private apiService: ApiService,
     private userStore: Store<UserState>,
     private spendingStore: Store<SpendingState>,
-    private bankAccountsStored: Store<BankAccountsState>,
+    private bankAccountsStore: Store<BankAccountsState>,
   ) {}
 
   createSpendingItem$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.createSpendingItem),
     switchMap(({ payload }) => this.apiService.createSpending(payload).pipe(
       switchMap((payload) => [
-        (payload
-          ? SpendingActions.createSpendingItemSuccess()
-          : SpendingActions.createSpendingItemFailure()
-        ),
+        SpendingActions.createSpendingItemSuccess(),
         SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() })
       ]),
+      catchError(err => of(SpendingActions.createSpendingItemFailure())),
     )),
   ));
 
@@ -80,7 +78,7 @@ export class SpendingEffects {
     ofType(SpendingActions.reloadSpendingAndTransactionLists),
     concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUser)]),
     switchMap(([{ payload } , user]) => {
-      if (user?.monoBankAccounts) this.bankAccountsStored.dispatch(BankAccountsActions.transactionList(
+      if (user?.monoBankAccounts) this.bankAccountsStore.dispatch(BankAccountsActions.transactionList(
         { accounts: user.monoBankAccounts, period: payload }
       ));
       return [SpendingActions.homeSpendingList({ payload }), SpendingActions.statSpendingList({ payload })]
