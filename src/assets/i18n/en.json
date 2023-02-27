@@ -34,7 +34,10 @@
     },
     "dates" : {
       "today": "Today",
-      "yesterday": "Yesterday"
+      "yesterday": "Yesterday",
+      "week": "Week",
+      "month": "Month",
+      "year": "Year"
     }
   },
   "home": {

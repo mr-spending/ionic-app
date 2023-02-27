@@ -2,14 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
-import { ModalController } from '@ionic/angular';
 import { ChartData } from 'chart.js';
 
 import { CategoryModel, SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { SelectMonthYearModalComponent } from '../../shared/components/select-month-year-modal/select-month-year-modal.component';
-import { getCurrentMonthPeriodUNIX, getCustomPeriodUNIX } from '../../core/utils/time.utils';
+import { getCustomPeriodUNIX } from '../../core/utils/time.utils';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { SpendingService } from '../../core/services/spending/spending.service';
 import * as moment from 'moment/moment';
@@ -25,14 +23,10 @@ export class StatisticsPage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   categoryList!: CategoryModel[];
 
-  statisticsPeriod: 'currentMonth' | 'selectPeriod' = 'currentMonth';
-  startDate = '';
-  endDate = '';
-  isDoughnutChartRepaintNeed: boolean = true;
+  selectedPeriod!: 'week'| 'month'| 'year';
 
   constructor(
     private store: Store<AppState>,
-    private modalCtrl: ModalController,
     public spendingService : SpendingService,
   ) { }
 
@@ -40,42 +34,18 @@ export class StatisticsPage implements OnInit, OnDestroy {
     this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
       .subscribe((categories: CategoryModel[]) => this.categoryList = categories),
     );
-    this.getSpendingByCurrentMonth();
+    this.onPeriodSelect('month');
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  changeStatisticsPeriod(event: any) {
-    this.statisticsPeriod = event.currentTarget.id;
-    this.startDate = '';
-    this.endDate = '';
-    if (this.statisticsPeriod === 'currentMonth') this.getSpendingByCurrentMonth();
-  }
-
-  getSpendingByCurrentMonth() {
-    this.store.dispatch(SpendingActions.statSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
-  }
-
   onPeriodSelect(period: 'week'| 'month'| 'year'): void {
     const periodStart = moment().startOf(period).format('YYYY-MM-DD');
     const periodEnd = moment().endOf(period).format('YYYY-MM-DD');
-    console.log(periodStart, periodEnd)
     this.store.dispatch(SpendingActions.statSpendingList({ payload: getCustomPeriodUNIX(periodStart, periodEnd) }));
-  }
-
-  async selectDate(target: 'startDate' | 'endDate') {
-    const modal = await this.modalCtrl.create({
-      component: SelectMonthYearModalComponent,
-      cssClass: 'select-month-year-modal',
-    });
-    modal.present();
-    const { data, role } = await modal.onWillDismiss();
-    if (role === 'confirm') this[target] = data;
-    const period = getCustomPeriodUNIX(this.startDate, this.endDate);
-    if (period.startDate >= period.endDate) this.startDate = '';
-    if (this.startDate && this.endDate) this.store.dispatch(SpendingActions.statSpendingList({ payload: period }));
+    this.selectedPeriod = period;
   }
 
   generateDoughnutChartData(spendingList: SpendingByCategoriesItem[]): ChartData<'doughnut'> {
@@ -84,7 +54,8 @@ export class StatisticsPage implements OnInit, OnDestroy {
         {
           data: spendingList.map(item => item.totalAmount / 100),
           backgroundColor: spendingList.map(item => item.icon.background),
-          borderWidth: 0
+          borderColor: 'rgba(35, 40, 40, 0.5)',
+          borderWidth: -1
         }
       ]
     }

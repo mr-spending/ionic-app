@@ -34,7 +34,10 @@
     },
     "dates" : {
       "today": "Сьогодні",
-      "yesterday": "Вчора"
+      "yesterday": "Вчора",
+      "week": "Тиждень",
+      "month": "Місяць",
+      "year": "Рік"
     }
   },
   "home": {

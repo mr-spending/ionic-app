@@ -3,37 +3,29 @@ ion-content {
   --padding-start: 25px;
   --padding-end: 25px;
 
-  ion-radio-group {
+  .period-select {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
+    justify-content: space-between;
     width: 100%;
+    height: 40px;
+    padding: 3px;
+    background-color: var(--background-color-1);
+    border-radius: 20px;
+    margin-bottom: 12px;
 
     div {
       display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 8px;
-      height: 52px;
+      width: 100%;
+      height: 100%;
+      color: var(--text-color-gray);
 
-      ion-radio {
-        margin-bottom: 4px;
-        --border-radius: 10px;
-        --inner-border-radius: 10px;
-        --color: var(--ion-color-light-shade);
-        --color-checked: var(--ion-color-dark-tint);
-
-        &.ios {
-          width: 20px;
-          height: 20px;
-          border: 2px solid var(--ion-color-light-shade);
-          border-radius: 10px;
-        }
-
-        &.radio-checked.ios {
-          border-color: var(--ion-color-dark-tint);
-        }
+      &.checked {
+        color: var(--text-color-special-dark);
+        background-color: var(--accent-color-1);
+        border-radius: 17px;
       }
     }
   }
@@ -42,6 +34,7 @@ ion-content {
     display: flex;
     justify-content: center;
     width: 100%;
+    margin-bottom: 22px;
 
     canvas {
       max-width: 200px;
@@ -151,41 +144,6 @@ ion-content {
           }
         }
       }
-    }
-  }
-}
-
-.date-select-prefix {
-  width: 185px;
-}
-
-.date-select-suffix {
-  width: calc(100% - 125px);
-  text-align: center;
-}
-
-.period-select {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  height: 50px;
-  padding: 5px 15px;
-  background-color: var(--background-color-1);
-  border-radius: 25px;
-
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    color: var(--text-color-gray);
-
-    &.checked {
-      color: var(--text-color-special-dark);
-      background-color: var(--accent-color-1);
-      border-radius: 20px;
     }
   }
 }

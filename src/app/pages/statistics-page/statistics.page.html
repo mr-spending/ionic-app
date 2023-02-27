@@ -5,34 +5,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
-  <ion-row>
-    <ion-radio-group [value]="statisticsPeriod">
-      <div id="currentMonth" (click)="changeStatisticsPeriod($event)">
-        <ion-radio slot="end" value="currentMonth"></ion-radio>
-        <ion-label>{{ 'statistics.currentMonth' | translate }}</ion-label>
-      </div>
-      <div id="selectPeriod" (click)="changeStatisticsPeriod($event)">
-        <ion-radio slot="end" value="selectPeriod"></ion-radio>
-        <ion-label>{{ 'statistics.selectPeriod' | translate }}</ion-label>
-      </div>
-    </ion-radio-group>
-  </ion-row>
-
-  <ion-list *ngIf="statisticsPeriod === 'selectPeriod'">
-    <ion-item>
-      <p class="date-select-prefix">{{ 'statistics.fromDate' | translate }}</p>
-      <p class="date-select-suffix" (click)="selectDate('startDate')">{{ startDate || 'statistics.choosePlaceholder' | translate }}</p>
-    </ion-item>
-    <ion-item>
-      <p class="date-select-prefix">{{ 'statistics.toDate' | translate }}</p>
-      <p class="date-select-suffix" (click)="selectDate('endDate')">{{ endDate || 'statistics.choosePlaceholder' | translate }}</p>
-    </ion-item>
-  </ion-list>
 
   <div class="period-select">
-    <div class="week" (click)="onPeriodSelect('week')">Week</div>
-    <div class="month checked" (click)="onPeriodSelect('month')">Month</div>
-    <div class="year" (click)="onPeriodSelect('year')">Year</div>
+    <div class="week {{ selectedPeriod === 'week' ? 'checked' : '' }}" (click)="onPeriodSelect('week')">{{ 'general.dates.week' | translate }}</div>
+    <div class="month {{ selectedPeriod === 'month' ? 'checked' : '' }}" (click)="onPeriodSelect('month')">{{ 'general.dates.month' | translate }}</div>
+    <div class="year {{ selectedPeriod === 'year' ? 'checked' : '' }}" (click)="onPeriodSelect('year')">{{ 'general.dates.year' | translate }}</div>
   </div>
 
   <div class="doughnut-chart">
@@ -40,7 +17,7 @@
             class="chart"
             [data]="generateDoughnutChartData(categories)"
             [type]="'doughnut'"
-            [options]="{ cutout: '80%' }"
+            [options]="{ cutout: '80%', animation: false }"
     >
     </canvas>
   </div>
