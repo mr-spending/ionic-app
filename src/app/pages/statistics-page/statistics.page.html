@@ -7,9 +7,15 @@
 <ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
 
   <div class="period-select">
-    <div class="week {{ selectedPeriod === 'week' ? 'checked' : '' }}" (click)="onPeriodSelect('week')">{{ 'general.dates.week' | translate }}</div>
-    <div class="month {{ selectedPeriod === 'month' ? 'checked' : '' }}" (click)="onPeriodSelect('month')">{{ 'general.dates.month' | translate }}</div>
-    <div class="year {{ selectedPeriod === 'year' ? 'checked' : '' }}" (click)="onPeriodSelect('year')">{{ 'general.dates.year' | translate }}</div>
+    <div class="week {{ selectedPeriod === 'week' ? 'checked' : '' }}" (click)="onPeriodSelect('week')">
+      {{ 'general.dates.week' | translate }}
+    </div>
+    <div class="month {{ selectedPeriod === 'month' ? 'checked' : '' }}" (click)="onPeriodSelect('month')">
+      {{ 'general.dates.month' | translate }}
+    </div>
+    <div class="year {{ selectedPeriod === 'year' ? 'checked' : '' }}" (click)="onPeriodSelect('year')">
+      {{ 'general.dates.year' | translate }}
+    </div>
   </div>
 
   <div class="doughnut-chart">
@@ -20,6 +26,20 @@
             [options]="{ cutout: '80%', animation: false }"
     >
     </canvas>
+    <div class="sum-select">
+      <div class="sum">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</div>
+      <div class="select">
+<!--        <ion-select-->
+<!--          [placeholder]="'pages.selectLanguagePlaceholder' | translate"-->
+<!--          [formControl]="languageControl"-->
+<!--          (ngModelChange)="languageChange($event)"-->
+<!--        >-->
+<!--          <ion-select-option *ngFor="let item of languageList" [value]="item">-->
+<!--            {{ 'language.' + item | translate }}-->
+<!--          </ion-select-option>-->
+<!--        </ion-select>-->
+      </div>
+    </div>
   </div>
 
   <ion-accordion-group>

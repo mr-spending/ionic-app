@@ -3,14 +3,16 @@ import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import { ChartData } from 'chart.js';
+import * as moment from 'moment/moment';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { CategoryModel, SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
-import { getCustomPeriodUNIX } from '../../core/utils/time.utils';
+import { getAvailableMonthsInCurrentYear, getCustomPeriodUNIX } from '../../core/utils/time.utils';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { SpendingService } from '../../core/services/spending/spending.service';
-import * as moment from 'moment/moment';
+import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 
 @Component({
   selector: 'app-statistics-page',
@@ -18,17 +20,31 @@ import * as moment from 'moment/moment';
   styleUrls: ['./statistics.page.scss'],
 })
 export class StatisticsPage implements OnInit, OnDestroy {
-  spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
-  currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
-  subscription: Subscription = new Subscription();
+  formGroup: FormGroup;
   categoryList!: CategoryModel[];
-
   selectedPeriod!: 'week'| 'month'| 'year';
 
+  subscription: Subscription = new Subscription();
+
+  spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
+  totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectStatTotalAmount);
+  currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
+
+
   constructor(
+    private fb: FormBuilder,
     private store: Store<AppState>,
     public spendingService : SpendingService,
-  ) { }
+  ) {
+    this.formGroup = this.fb.group({
+      monthControl: this.fb.control(''),
+      yearControl: this.fb.control('')
+    });
+  }
+
+  get monthControl() { return this.formGroup.controls['monthControl'] };
+
+  get yearControl() { return this.formGroup.controls['yearControl'] };
 
   ngOnInit() {
     this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
@@ -41,9 +57,18 @@ export class StatisticsPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  onPeriodSelect(period: 'week'| 'month'| 'year'): void {
-    const periodStart = moment().startOf(period).format('YYYY-MM-DD');
-    const periodEnd = moment().endOf(period).format('YYYY-MM-DD');
+  onPeriodSelect(period: 'week'| 'month'| 'year', subPeriod?: string): void {
+    let periodStart = '';
+    let periodEnd = '';
+
+    if (subPeriod) {
+
+    } else {
+      periodStart = moment().startOf(period).format('YYYY-MM-DD');
+      periodEnd = moment().endOf(period).format('YYYY-MM-DD');
+    }
+
+    console.log(periodStart, periodEnd)
     this.store.dispatch(SpendingActions.statSpendingList({ payload: getCustomPeriodUNIX(periodStart, periodEnd) }));
     this.selectedPeriod = period;
   }

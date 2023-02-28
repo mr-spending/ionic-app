@@ -31,8 +31,15 @@ export namespace SpendingSelectors {
     }
   );
 
-  export const selectTotalAmount = createSelector(
+  export const selectHomeTotalAmount = createSelector(
     selectHomeSpendingList,
+    (list: SpendingModel[]) => {
+      return list.reduce((total, item) => total + item.amount, 0) / 100;
+    }
+  );
+
+  export const selectStatTotalAmount = createSelector(
+    selectStatSpendingList,
     (list: SpendingModel[]) => {
       return list.reduce((total, item) => total + item.amount, 0) / 100;
     }

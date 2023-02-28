@@ -31,14 +31,20 @@ ion-content {
   }
 
   .doughnut-chart {
+    position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
     width: 100%;
+    height: 250px;
     margin-bottom: 22px;
 
     canvas {
-      max-width: 200px;
-      max-height: 200px;
+      position: absolute;
+    }
+
+    .sum-select {
+
     }
   }
 
