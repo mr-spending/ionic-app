@@ -19,5 +19,15 @@ export function getCustomPeriodUNIX(startTime: string, endTime: string): TimePer
 
 export function getAvailableMonthsInCurrentYear(): string[] {
   const numberOfCurrentMonth = Number(moment().format('MM'));
-  return monthsList.filter((_, idx) => idx < numberOfCurrentMonth)
+  return monthsList.filter((_, idx) => idx < numberOfCurrentMonth);
+}
+
+export function getYearsFromToCurrent(from: number): number[] {
+  const yearsList = [];
+  for (let i = from; i <= getCurrentYear(); i++ ) yearsList.push(i);
+  return yearsList;
+}
+
+export function getCurrentYear(): number {
+  return Number(moment().format('YYYY'));
 }

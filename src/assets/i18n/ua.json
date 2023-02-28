@@ -22,7 +22,7 @@
     "selectLanguagePlaceholder": "Обрати"
   },
   "general": {
-    "actions" : {
+    "actions": {
       "add": "Додати",
       "edit": "Змінити",
       "delete": "Видалити",
@@ -32,12 +32,26 @@
       "save": "Зберегти",
       "back": "Назад"
     },
-    "dates" : {
+    "dates": {
       "today": "Сьогодні",
       "yesterday": "Вчора",
       "week": "Тиждень",
       "month": "Місяць",
       "year": "Рік"
+    },
+    "months": {
+      "january": "Січень",
+      "february": "Лютий",
+      "march": "Березень",
+      "april": "Квітень",
+      "may": "Травень",
+      "june": "Червень",
+      "july": "Липень",
+      "august": "Серпень",
+      "september": "Вересень",
+      "october": "Жовтень",
+      "november": "Листопад",
+      "december": "Грудень"
     }
   },
   "home": {

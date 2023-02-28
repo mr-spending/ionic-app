@@ -26,18 +26,28 @@
             [options]="{ cutout: '80%', animation: false }"
     >
     </canvas>
+
     <div class="sum-select">
       <div class="sum">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</div>
+
       <div class="select">
-<!--        <ion-select-->
-<!--          [placeholder]="'pages.selectLanguagePlaceholder' | translate"-->
-<!--          [formControl]="languageControl"-->
-<!--          (ngModelChange)="languageChange($event)"-->
-<!--        >-->
-<!--          <ion-select-option *ngFor="let item of languageList" [value]="item">-->
-<!--            {{ 'language.' + item | translate }}-->
-<!--          </ion-select-option>-->
-<!--        </ion-select>-->
+        <ion-select
+          *ngIf="selectedPeriod === 'month'"
+          [formControl]="monthControl"
+          (ngModelChange)="onPeriodSelect('month', $event)"
+        >
+          <ion-select-option *ngFor="let item of availableMonthsInCurrentYear" [value]="item">
+            {{ 'general.months.' + item | translate }}
+          </ion-select-option>
+        </ion-select>
+
+        <ion-select
+          *ngIf="selectedPeriod === 'year'"
+          [formControl]="yearControl"
+          (ngModelChange)="onPeriodSelect('year', $event)"
+        >
+          <ion-select-option *ngFor="let item of availableYears" [value]="item">{{ item }}</ion-select-option>
+        </ion-select>
       </div>
     </div>
   </div>
