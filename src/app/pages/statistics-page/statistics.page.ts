@@ -6,7 +6,7 @@ import { ChartData } from 'chart.js';
 import * as moment from 'moment/moment';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-import { CategoryModel, SpendingByCategoriesItem } from '../../core/interfaces/models';
+import { CategoryModel, SpendingByCategoriesItem, TimePeriodModel } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import {
@@ -31,12 +31,11 @@ export class StatisticsPage implements OnInit, OnDestroy {
 
   subscription: Subscription = new Subscription();
   availableMonthsInCurrentYear = getAvailableMonthsInCurrentYear();
-  availableYears = getYearsFromToCurrent(2020);
+  availableYears = getYearsFromToCurrent(2023);
 
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectStatTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
-
 
   constructor(
     private fb: FormBuilder,
@@ -65,24 +64,24 @@ export class StatisticsPage implements OnInit, OnDestroy {
   }
 
   onPeriodSelect(period: 'week'| 'month'| 'year', subPeriod?: string | number): void {
-    let periodStart = '';
-    let periodEnd = '';
+    let startDate = 0;
+    let endDate = 0;
 
     if (subPeriod) {
       if(period === 'month') {
-        periodStart = moment(`${ getCurrentYear() }-${ subPeriod }`).startOf('month').format('YYYY-MM-DD');
-        periodEnd = moment(`${ getCurrentYear() }-${ subPeriod }`).endOf('month').format('YYYY-MM-DD');
+        startDate = moment(`${ getCurrentYear() }-${ subPeriod }`).startOf('month').unix();
+        endDate = moment(`${ getCurrentYear() }-${ subPeriod }`).endOf('month').unix();
       } else if (period === 'year') {
-        periodStart = moment(String(subPeriod)).startOf('year').format('YYYY-MM-DD');
-        periodEnd = moment(String(subPeriod)).endOf('year').format('YYYY-MM-DD');
+        startDate = moment(String(subPeriod)).startOf('year').unix();
+        endDate = moment(String(subPeriod)).endOf('year').unix();
       }
     } else {
-      periodStart = moment().startOf(period).format('YYYY-MM-DD');
-      periodEnd = moment().endOf(period).format('YYYY-MM-DD');
+      startDate = moment().startOf(period).unix();
+      endDate = moment().endOf(period).unix();
     }
 
-    console.log(periodStart, periodEnd)
-    this.store.dispatch(SpendingActions.statSpendingList({ payload: getCustomPeriodUNIX(periodStart, periodEnd) }));
+    this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }))
+    this.store.dispatch(SpendingActions.statSpendingList());
     this.selectedPeriod = period;
   }
 

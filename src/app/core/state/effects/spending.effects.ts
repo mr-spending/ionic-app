@@ -12,6 +12,8 @@ import { SpendingState } from '../reducers/spending.reducer';
 import { BankAccountsState } from '../reducers/bank-accounts.reducer';
 import { BankAccountsActions } from '../actions/bank-accounts.actions';
 import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';
+import { SpendingSelectors } from '../selectors/spending.selectors';
+import { TimePeriodModel } from '../../interfaces/models';
 
 @Injectable()
 export class SpendingEffects {
@@ -56,7 +58,8 @@ export class SpendingEffects {
 
   statSpendingList$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.statSpendingList),
-    switchMap(({ payload }) => this.apiService.getSpendingList(payload).pipe(
+    concatLatestFrom(() => [this.userStore.select(SpendingSelectors.selectStatTimePeriod)]),
+    switchMap(([_, period]) => this.apiService.getSpendingList(period as TimePeriodModel).pipe(
       map((payload) => SpendingActions.statSpendingListSuccess({ payload: mapSpendingList(payload) })),
       catchError(err => of(SpendingActions.statSpendingListFailure()))
     )),
@@ -81,7 +84,7 @@ export class SpendingEffects {
       if (user?.monoBankAccounts) this.bankAccountsStore.dispatch(BankAccountsActions.transactionList(
         { accounts: user.monoBankAccounts, period: payload }
       ));
-      return [SpendingActions.homeSpendingList({ payload }), SpendingActions.statSpendingList({ payload })]
+      return [SpendingActions.homeSpendingList({ payload }), SpendingActions.statSpendingList()]
     }),
   ));
 }

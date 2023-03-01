@@ -15,6 +15,7 @@ export namespace SpendingSelectors {
   export const selectHomeSpendingList = createSelector(spendingSelector, state => state.homeSpendingList);
   export const selectStatSpendingList = createSelector(spendingSelector, state => state.statSpendingList);
   export const selectSpendingSort = createSelector(spendingSelector, state => state.spendingSort);
+  export const selectStatTimePeriod = createSelector(spendingSelector, state => state.statTimePeriod);
 
   const selectCategories = createSelector(categoriesSelector, state => state.categories);
 

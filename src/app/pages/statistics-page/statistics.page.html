@@ -27,7 +27,7 @@
     >
     </canvas>
 
-    <div class="sum-select">
+    <div class="sum-select {{ selectedPeriod === 'week' && 'week' }}">
       <div class="sum">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</div>
 
       <div class="select">
