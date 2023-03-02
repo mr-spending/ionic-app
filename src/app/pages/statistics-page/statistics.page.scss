@@ -84,6 +84,12 @@ ion-content {
       display: none;
     }
 
+    .no-data-message {
+      text-align: center;
+      color: var(--text-color-gray);
+      font-size: 18px;
+    }
+
     ion-accordion {
       background: transparent;
 

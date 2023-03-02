@@ -10,9 +10,11 @@
     <div class="week {{ selectedPeriod === 'week' ? 'checked' : '' }}" (click)="onPeriodSelect('week')">
       {{ 'general.dates.week' | translate }}
     </div>
+
     <div class="month {{ selectedPeriod === 'month' ? 'checked' : '' }}" (click)="onPeriodSelect('month')">
       {{ 'general.dates.month' | translate }}
     </div>
+
     <div class="year {{ selectedPeriod === 'year' ? 'checked' : '' }}" (click)="onPeriodSelect('year')">
       {{ 'general.dates.year' | translate }}
     </div>
@@ -33,6 +35,7 @@
       <div class="select">
         <ion-select
           *ngIf="selectedPeriod === 'month'"
+          interface="popover"
           [formControl]="monthControl"
           (ngModelChange)="onPeriodSelect('month')"
         >
@@ -53,6 +56,8 @@
   </div>
 
   <ion-accordion-group>
+    <p *ngIf="!categories.length" class="no-data-message">No Data</p>
+
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
       <ion-item slot="header" color="light">
@@ -61,8 +66,10 @@
             <div class="icon-wrapper" [style.background-color]="category.icon.background">
               <ion-icon slot="icon-only" [name]="category.icon.iconType"></ion-icon>
             </div>
+
             <ion-label>{{ category.name }}</ion-label>
           </div>
+
           <ion-label>{{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
         </ion-row>
       </ion-item>
@@ -75,8 +82,10 @@
         >
           <ion-label>
             <p *ngIf="item.description" class="spending-description">{{ item.description }}</p>
+
             <p class="spending-date">{{ item.date | date: 'MMM d, HH:mm' }}</p>
           </ion-label>
+
           <ion-label class="spending-amount">{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</ion-label>
         </div>
       </ion-list>

@@ -27,9 +27,14 @@
 
 * {
   --background: transparent;
+  background: transparent;
 }
 
 .list-ios {
+  background: transparent;
+}
+
+.list-md {
   background: transparent;
 }
 
@@ -41,4 +46,21 @@ input::placeholder {
   font-size: 14px;
 }
 
+ion-alert.select-alert {
+  backdrop-filter: blur(10px);
 
+  .alert-wrapper {
+    background: var(--background-color-5);
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: var(--modal-shadow);
+  }
+}
+
+ion-popover.select-popover {
+  backdrop-filter: blur(10px);
+
+  .popover-viewport {
+    background: var(--background-color-5);
+  }
+}
