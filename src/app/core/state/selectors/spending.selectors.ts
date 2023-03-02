@@ -15,6 +15,7 @@ export namespace SpendingSelectors {
   export const selectHomeSpendingList = createSelector(spendingSelector, state => state.homeSpendingList);
   export const selectStatSpendingList = createSelector(spendingSelector, state => state.statSpendingList);
   export const selectSpendingSort = createSelector(spendingSelector, state => state.spendingSort);
+  export const selectStatTimePeriod = createSelector(spendingSelector, state => state.statTimePeriod);
 
   const selectCategories = createSelector(categoriesSelector, state => state.categories);
 
@@ -31,8 +32,15 @@ export namespace SpendingSelectors {
     }
   );
 
-  export const selectTotalAmount = createSelector(
+  export const selectHomeTotalAmount = createSelector(
     selectHomeSpendingList,
+    (list: SpendingModel[]) => {
+      return list.reduce((total, item) => total + item.amount, 0) / 100;
+    }
+  );
+
+  export const selectStatTotalAmount = createSelector(
+    selectStatSpendingList,
     (list: SpendingModel[]) => {
       return list.reduce((total, item) => total + item.amount, 0) / 100;
     }

@@ -75,9 +75,25 @@ ion-content {
       }
     }
 
+    .update-all-button {
+      display: none;
+      padding: 10px 0;
+
+      ion-button {
+        width: 40px;
+        height: 40px;
+        margin: 0;
+
+        ion-icon {
+          min-width: 40px;
+          min-height: 40px;
+        }
+      }
+    }
+
     .spending-title {
       font-size: 24px;
-      margin: 0 0 15px;
+      margin: 15px 0;
     }
   }
 
@@ -92,7 +108,7 @@ ion-content {
   }
 
   .scroll {
-    height: calc( 100% - 210px );
+    height: calc( 100% - 171px );
     padding-top: 20px;
     overflow: scroll;
 
@@ -104,6 +120,7 @@ ion-content {
       display: flex;
       flex-direction: column;
       background-color: transparent;
+      padding: 0;
 
       .bank-transactions-title {
         font-size: 14px;;
@@ -121,6 +138,7 @@ ion-content {
       display: flex;
       flex-direction: column;
       background-color: transparent;
+      padding: 0;
 
       .date-delimiter {
         font-size: 14px;

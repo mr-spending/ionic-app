@@ -5,31 +5,60 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
-  <ion-row>
-    <ion-radio-group [value]="statisticsPeriod">
-      <div id="currentMonth" (click)="changeStatisticsPeriod($event)">
-        <ion-radio slot="end" value="currentMonth"></ion-radio>
-        <ion-label>{{ 'statistics.currentMonth' | translate }}</ion-label>
-      </div>
-      <div id="selectPeriod" (click)="changeStatisticsPeriod($event)">
-        <ion-radio slot="end" value="selectPeriod"></ion-radio>
-        <ion-label>{{ 'statistics.selectPeriod' | translate }}</ion-label>
-      </div>
-    </ion-radio-group>
-  </ion-row>
 
-  <ion-list *ngIf="statisticsPeriod === 'selectPeriod'">
-    <ion-item>
-      <p class="date-select-prefix">{{ 'statistics.fromDate' | translate }}</p>
-      <p class="date-select-suffix" (click)="selectDate('startDate')">{{ startDate || 'statistics.choosePlaceholder' | translate }}</p>
-    </ion-item>
-    <ion-item>
-      <p class="date-select-prefix">{{ 'statistics.toDate' | translate }}</p>
-      <p class="date-select-suffix" (click)="selectDate('endDate')">{{ endDate || 'statistics.choosePlaceholder' | translate }}</p>
-    </ion-item>
-  </ion-list>
+  <div class="period-select">
+    <div class="week {{ selectedPeriod === 'week' ? 'checked' : '' }}" (click)="onPeriodSelect('week')">
+      {{ 'general.dates.week' | translate }}
+    </div>
+
+    <div class="month {{ selectedPeriod === 'month' ? 'checked' : '' }}" (click)="onPeriodSelect('month')">
+      {{ 'general.dates.month' | translate }}
+    </div>
+
+    <div class="year {{ selectedPeriod === 'year' ? 'checked' : '' }}" (click)="onPeriodSelect('year')">
+      {{ 'general.dates.year' | translate }}
+    </div>
+  </div>
+
+  <div class="doughnut-chart">
+    <canvas baseChart
+            class="chart"
+            [data]="generateDoughnutChartData(categories)"
+            [type]="'doughnut'"
+            [options]="{ cutout: '80%', animation: false }"
+    >
+    </canvas>
+
+    <div class="sum-select {{ selectedPeriod === 'week' && 'week' }}">
+      <div class="sum">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</div>
+
+      <div class="select">
+        <ion-select
+          *ngIf="selectedPeriod === 'month'"
+          interface="popover"
+          [formControl]="monthControl"
+          (ngModelChange)="onPeriodSelect('month')"
+        >
+          <ion-select-option *ngFor="let item of availableMonthsInCurrentYear" [value]="item">
+            {{ 'general.months.' + item | translate }}
+          </ion-select-option>
+        </ion-select>
+
+        <ion-select
+          *ngIf="selectedPeriod === 'year'"
+          interface="popover"
+          [formControl]="yearControl"
+          (ngModelChange)="onPeriodSelect('year')"
+        >
+          <ion-select-option *ngFor="let item of availableYears" [value]="item">{{ item }}</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+  </div>
 
   <ion-accordion-group>
+    <p *ngIf="!categories.length" class="no-data-message">No Data</p>
+
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
       <ion-item slot="header" color="light">
@@ -38,8 +67,10 @@
             <div class="icon-wrapper" [style.background-color]="category.icon.background">
               <ion-icon slot="icon-only" [name]="category.icon.iconType"></ion-icon>
             </div>
+
             <ion-label>{{ category.name }}</ion-label>
           </div>
+
           <ion-label>{{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
         </ion-row>
       </ion-item>
@@ -52,8 +83,10 @@
         >
           <ion-label>
             <p *ngIf="item.description" class="spending-description">{{ item.description }}</p>
+
             <p class="spending-date">{{ item.date | date: 'MMM d, HH:mm' }}</p>
           </ion-label>
+
           <ion-label class="spending-amount">{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</ion-label>
         </div>
       </ion-list>

@@ -83,15 +83,23 @@
     --background-color-3: #60693e;
     --background-color-4: #000000;
     --background-color-5: #2f2f31;
+
     --spending-icon-color: #000000;
+
     --button-content-color-1: #efff72;
+
+    --accent-color-1: #e6fe82;
+
     --text-color-white: #ffffff;
     --text-color-black: #000000;
+    --text-color-gray: #8a8a8a;
+    --text-color-special-dark: #212629;
+
     --color-gray-1: #676770;
     --color-gray-2: #c4c4c4;
 
     /** shadows **/
-    --modal-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    --modal-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 
     /** backgrounds **/
     --page-background: radial-gradient(circle at right top, #60693e 5%, #4a5233 10%, #232828 30%);

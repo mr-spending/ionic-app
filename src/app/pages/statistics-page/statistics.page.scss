@@ -3,47 +3,91 @@ ion-content {
   --padding-start: 25px;
   --padding-end: 25px;
 
-  ion-radio-group {
+  .period-select {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
+    justify-content: space-between;
     width: 100%;
+    height: 40px;
+    padding: 3px;
+    background-color: var(--background-color-1);
+    border-radius: 20px;
+    margin-bottom: 12px;
 
     div {
       display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 8px;
-      height: 52px;
+      width: 100%;
+      height: 100%;
+      color: var(--text-color-gray);
 
-      ion-radio {
-        margin-bottom: 4px;
-        --border-radius: 10px;
-        --inner-border-radius: 10px;
-        --color: var(--ion-color-light-shade);
-        --color-checked: var(--ion-color-dark-tint);
+      &.checked {
+        color: var(--text-color-special-dark);
+        background-color: var(--accent-color-1);
+        border-radius: 17px;
+      }
+    }
+  }
 
-        &.ios {
-          width: 20px;
-          height: 20px;
-          border: 2px solid var(--ion-color-light-shade);
-          border-radius: 10px;
-        }
+  .doughnut-chart {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 276px;
 
-        &.radio-checked.ios {
-          border-color: var(--ion-color-dark-tint);
-        }
+    &:after {
+      content: '';
+      display: block;
+      width: 100%;
+      min-height: 4px;
+      border-radius: 2px;
+      background-color: var(--background-color-3);
+    }
+
+    .chart {
+      width: 250px !important;
+      height: 250px !important;
+      margin-bottom: 22px;
+    }
+
+    .sum-select {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &.week {
+        top: 116px;
+      }
+
+      .sum {
+        font-size: 22px;
+      }
+
+      .select {
+        color: var(--text-color-gray);
       }
     }
   }
 
   ion-accordion-group {
-    max-height: calc( 100% - 52px );
+    max-height: calc( 100% - 329px );
     overflow: scroll;
+    padding-top: 20px;
 
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    .no-data-message {
+      text-align: center;
+      color: var(--text-color-gray);
+      font-size: 18px;
     }
 
     ion-accordion {
@@ -142,13 +186,4 @@ ion-content {
       }
     }
   }
-}
-
-.date-select-prefix {
-  width: 185px;
-}
-
-.date-select-suffix {
-  width: calc(100% - 125px);
-  text-align: center;
 }

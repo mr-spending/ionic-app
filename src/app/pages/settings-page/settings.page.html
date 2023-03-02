@@ -9,6 +9,7 @@
     <ion-item>
       <ion-label>{{ 'pages.selectLanguage' | translate }}</ion-label>
       <ion-select
+        interface="popover"
         [placeholder]="'pages.selectLanguagePlaceholder' | translate"
         [formControl]="languageControl"
         (ngModelChange)="languageChange($event)"
