@@ -1,7 +1,7 @@
 import * as moment from 'moment';
 
 import { TimePeriodModel } from '../interfaces/models';
-import { monthsList } from '../constants/time.constants';
+import { MONTHS_LIST } from '../constants/time.constants';
 
 export function getCurrentMonthPeriodUNIX(): TimePeriodModel {
   return {
@@ -19,7 +19,7 @@ export function getCustomPeriodUNIX(startTime: string, endTime: string): TimePer
 
 export function getAvailableMonthsInCurrentYear(): string[] {
   const numberOfCurrentMonth = Number(moment().format('MM'));
-  return monthsList.filter((_, idx) => idx < numberOfCurrentMonth);
+  return MONTHS_LIST.filter((_, idx) => idx < numberOfCurrentMonth);
 }
 
 export function getYearsFromToCurrent(from: number): number[] {

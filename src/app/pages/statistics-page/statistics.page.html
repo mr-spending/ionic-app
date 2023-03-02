@@ -34,7 +34,7 @@
         <ion-select
           *ngIf="selectedPeriod === 'month'"
           [formControl]="monthControl"
-          (ngModelChange)="onPeriodSelect('month', $event)"
+          (ngModelChange)="onPeriodSelect('month')"
         >
           <ion-select-option *ngFor="let item of availableMonthsInCurrentYear" [value]="item">
             {{ 'general.months.' + item | translate }}
@@ -44,7 +44,7 @@
         <ion-select
           *ngIf="selectedPeriod === 'year'"
           [formControl]="yearControl"
-          (ngModelChange)="onPeriodSelect('year', $event)"
+          (ngModelChange)="onPeriodSelect('year')"
         >
           <ion-select-option *ngFor="let item of availableYears" [value]="item">{{ item }}</ion-select-option>
         </ion-select>

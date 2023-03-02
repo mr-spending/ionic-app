@@ -13,4 +13,6 @@ export enum MonthsEnum {
   Dec = 'december'
 }
 
-export const monthsList: string[] = Object.values(MonthsEnum);
+export const START_YEAR = 2022;
+
+export const MONTHS_LIST: string[] = Object.values(MonthsEnum);
