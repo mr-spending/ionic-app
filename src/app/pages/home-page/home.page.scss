@@ -21,6 +21,10 @@ ion-header {
         --border-radius: 0;
         --padding-start: 0;
         --padding-end: 0;
+        --background-activated: none;
+        --background-focused: none;
+        --background-hover: none;
+        --ripple-color: transparent;
 
         ion-icon {
           width: 25px;
