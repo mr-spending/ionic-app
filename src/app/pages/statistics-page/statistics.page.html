@@ -46,6 +46,7 @@
 
         <ion-select
           *ngIf="selectedPeriod === 'year'"
+          interface="popover"
           [formControl]="yearControl"
           (ngModelChange)="onPeriodSelect('year')"
         >
