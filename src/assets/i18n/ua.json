@@ -52,6 +52,9 @@
       "october": "Жовтень",
       "november": "Листопад",
       "december": "Грудень"
+    },
+    "messages": {
+      "noData": "Дані відсутні"
     }
   },
   "home": {

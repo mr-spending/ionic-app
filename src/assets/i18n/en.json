@@ -52,6 +52,9 @@
       "october": "October",
       "november": "November",
       "december": "December"
+    },
+    "messages": {
+      "noData": "No Data"
     }
   },
   "home": {

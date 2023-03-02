@@ -57,7 +57,7 @@
   </div>
 
   <ion-accordion-group>
-    <p *ngIf="!categories.length" class="no-data-message">No Data</p>
+    <p *ngIf="!categories.length" class="no-data-message">{{ 'general.messages.noData' | translate }}</p>
 
     <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
