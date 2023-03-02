@@ -38,8 +38,16 @@
   background: transparent;
 }
 
+ion-header::after {
+  content: none !important;
+}
+
 ion-toolbar {
   --border-width: 0 !important;
+}
+
+.button-solid {
+  --box-shadow: none;
 }
 
 input::placeholder {
@@ -47,7 +55,7 @@ input::placeholder {
 }
 
 ion-alert.select-alert {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
 
   .alert-wrapper {
     background: var(--background-color-5);
@@ -58,7 +66,7 @@ ion-alert.select-alert {
 }
 
 ion-popover.select-popover {
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
 
   .popover-viewport {
     background: var(--background-color-5);
