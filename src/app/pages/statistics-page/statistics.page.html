@@ -6,12 +6,14 @@
 
 <ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
 
-  <ng-container [formGroup]="periodFormGroup">
+  <ng-container [formGroup]="formGroup">
     <ion-radio-group formControlName="periodRange">
-      <ion-item *ngFor="let period of periods">
-        <ion-label>{{ period }}</ion-label>
-        <ion-radio slot="end" [value]="period"></ion-radio>
-      </ion-item>
+      <ion-row>
+        <ion-item *ngFor="let period of periods" lines="none">
+          <ion-label>{{ period }}</ion-label>
+          <ion-radio slot="end" [value]="period"></ion-radio>
+        </ion-item>
+      </ion-row>
     </ion-radio-group>
   </ng-container>
 
@@ -27,12 +29,11 @@
     <div class="sum-select {{ selectedPeriod === 'week' && 'week' }}">
       <div class="sum">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</div>
 
-      <div class="select">
+      <div class="select" [formGroup]="formGroup">
         <ion-select
           *ngIf="selectedPeriod === 'month'"
           interface="popover"
-          [formControl]="monthControl"
-          (ngModelChange)="onPeriodSelect('month')"
+          formControlName="monthControl"
         >
           <ion-select-option *ngFor="let item of availableMonthsInCurrentYear" [value]="item">
             {{ 'general.months.' + item | translate }}
@@ -42,8 +43,7 @@
         <ion-select
           *ngIf="selectedPeriod === 'year'"
           interface="popover"
-          [formControl]="yearControl"
-          (ngModelChange)="onPeriodSelect('year')"
+          formControlName="yearControl"
         >
           <ion-select-option *ngFor="let item of availableYears" [value]="item">{{ item }}</ion-select-option>
         </ion-select>
@@ -70,7 +70,7 @@
         </ion-row>
       </ion-item>
 
-      <ion-list slot="content">
+      <ion-list *ngIf="categoryList$ | async as categoryList" slot="content">
         <div
           *ngFor="let item of category.spendingList"
           [class.ion-page-hidden]="item.categoryId !== category.id"

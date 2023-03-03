@@ -26,17 +26,16 @@ import { START_YEAR } from '../../core/constants/time.constants';
 })
 export class StatisticsPage implements OnInit, OnDestroy {
   formGroup: FormGroup;
-  categoryList!: CategoryModel[];
   selectedPeriod!: 'week'| 'month'| 'year';
 
-  subscription: Subscription = new Subscription();
+  // subscription: Subscription = new Subscription();
   availableMonthsInCurrentYear = getAvailableMonthsInCurrentYear();
   availableYears = getYearsFromToCurrent(START_YEAR);
 
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
+  categoryList$: Observable<CategoryModel[]> = this.store.select(CategoriesSelectors.selectCategories);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectStatTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
-  periodFormGroup: FormGroup;
   periods = ['week', 'month', 'year'];
 
   constructor(
@@ -44,75 +43,49 @@ export class StatisticsPage implements OnInit, OnDestroy {
     private store: Store<AppState>,
     public spendingService : SpendingService,
   ) {
-
-    this.periodFormGroup = this.fb.group({
-      periodRange: this.fb.control(null)
-    })
     this.formGroup = this.fb.group({
+      periodRange: this.fb.control(null),
       monthControl: this.fb.control(this.availableMonthsInCurrentYear.slice(-1)[0]),
       yearControl: this.fb.control(this.availableYears.slice(-1)[0])
     });
 
-    this.periodFormGroup.valueChanges.subscribe(period => {
-      console.log(period);
-      const value = period.periodRange;
-
+    this.formGroup.valueChanges.subscribe(({ periodRange, monthControl, yearControl }) => {
+      this.selectedPeriod = periodRange;
       let startDate = 0;
       let endDate = 0;
 
-      if (value === 'month') {
-        startDate = moment().startOf('month').unix();
-        endDate = moment().endOf('month').unix();
-      } else if (period === 'year') {
-        startDate = moment(String(this.yearControl.value)).startOf('year').unix();
-        endDate = moment(String(this.yearControl.value)).endOf('year').unix();
+      if (periodRange === 'month') {
+        startDate = moment(getCurrentYear() + monthControl ).startOf('month').unix();
+        endDate = moment(getCurrentYear() + monthControl).endOf('month').unix();
+      } else if (periodRange === 'year') {
+        startDate = moment(String(yearControl)).startOf('year').unix();
+        endDate = moment(String(yearControl)).endOf('year').unix();
       } else {
-        startDate = moment().startOf(period).unix();
-        endDate = moment().endOf(period).unix();
+        startDate = moment().startOf(periodRange).unix();
+        endDate = moment().endOf(periodRange).unix();
       }
+
       this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }))
       this.store.dispatch(SpendingActions.statSpendingList());
     });
 
-    this.periodFormGroup.get('periodRange')?.setValue(this.periods[1]);
+    this.formGroup.get('periodRange')?.setValue(this.periods[1]);
   }
 
   get monthControl() {
-    console.log('hello Arthur')
     return this.formGroup.controls['monthControl'] as FormControl
   };
 
   get yearControl() { return this.formGroup.controls['yearControl'] as FormControl };
 
   ngOnInit() {
-    this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
-      .subscribe((categories: CategoryModel[]) => this.categoryList = categories),
-    );
-    this.onPeriodSelect('month');
+    // this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
+    //   .subscribe((categories: CategoryModel[]) => this.categoryList = categories),
+    // );
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  onPeriodSelect(period: 'week'| 'month'| 'year'): void {
-    let startDate = 0;
-    let endDate = 0;
-
-    if(period === 'month') {
-      startDate = moment(`${ getCurrentYear() }-${ this.monthControl.value }`).startOf('month').unix();
-      endDate = moment(`${ getCurrentYear() }-${ this.monthControl.value }`).endOf('month').unix();
-    } else if (period === 'year') {
-      startDate = moment(String(this.yearControl.value)).startOf('year').unix();
-      endDate = moment(String(this.yearControl.value)).endOf('year').unix();
-    } else {
-    startDate = moment().startOf(period).unix();
-    endDate = moment().endOf(period).unix();
-    }
-
-    // this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }))
-    // this.store.dispatch(SpendingActions.statSpendingList());
-    this.selectedPeriod = period;
+    // this.subscription.unsubscribe();
   }
 
   generateDoughnutChartData(spendingList: SpendingByCategoriesItem[]): ChartData<'doughnut'> {
