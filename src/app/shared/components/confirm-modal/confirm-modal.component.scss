@@ -1,0 +1,20 @@
+ion-modal.confirm-modal {
+  --width: 300px;
+  --height: 244px;
+  --border-radius: 16px;
+  --box-shadow: var(--modal-shadow);
+
+  &::part(backdrop) {
+    background: var(--background-color-4);
+    opacity: 1;
+  }
+
+  ion-toolbar {
+    --background: var(--ion-color-light-tint);
+    --color: var(--ion-color-light-contrast);
+  }
+}
+
+ion-datetime {
+  background: var(--background-color-2);
+}

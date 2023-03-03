@@ -11,6 +11,7 @@ import { ActionsEnum, ActionsRoleEnum } from '../../enums/action-sheet.enums';
 import {
   ConfigureSpendingModalComponent
 } from '../../../shared/components/configure-spending-modal/configure-spending-modal.component';
+import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +56,8 @@ export class SpendingService {
 
     switch (result.data?.action) {
       case ActionsEnum.Delete:
-        this.removeSpendingItem(item.id);
+        // this.removeSpendingItem(item.id);
+        await this.selectDate('startDate')
         break;
       case ActionsEnum.Edit:
         await this.openConfigureSpendingModal({ type: ActionsEnum.Edit, categories, item });
@@ -79,6 +81,15 @@ export class SpendingService {
     });
     modal.present();
     await modal.onWillDismiss();
+  }
+
+  async selectDate(target: 'startDate' | 'endDate') {
+    const modal = await this.modalCtrl.create({
+      component: ConfirmModalComponent,
+      cssClass: 'confirm-modal',
+    });
+    modal.present();
+    const { data, role } = await modal.onWillDismiss();
   }
 
   removeSpendingItem(id: string) {
