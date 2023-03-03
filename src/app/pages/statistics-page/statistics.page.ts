@@ -36,19 +36,51 @@ export class StatisticsPage implements OnInit, OnDestroy {
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectStatTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
+  periodFormGroup: FormGroup;
+  periods = ['week', 'month', 'year'];
 
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
     public spendingService : SpendingService,
   ) {
+
+    this.periodFormGroup = this.fb.group({
+      periodRange: this.fb.control(null)
+    })
     this.formGroup = this.fb.group({
       monthControl: this.fb.control(this.availableMonthsInCurrentYear.slice(-1)[0]),
       yearControl: this.fb.control(this.availableYears.slice(-1)[0])
     });
+
+    this.periodFormGroup.valueChanges.subscribe(period => {
+      console.log(period);
+      const value = period.periodRange;
+
+      let startDate = 0;
+      let endDate = 0;
+
+      if (value === 'month') {
+        startDate = moment().startOf('month').unix();
+        endDate = moment().endOf('month').unix();
+      } else if (period === 'year') {
+        startDate = moment(String(this.yearControl.value)).startOf('year').unix();
+        endDate = moment(String(this.yearControl.value)).endOf('year').unix();
+      } else {
+        startDate = moment().startOf(period).unix();
+        endDate = moment().endOf(period).unix();
+      }
+      this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }))
+      this.store.dispatch(SpendingActions.statSpendingList());
+    });
+
+    this.periodFormGroup.get('periodRange')?.setValue(this.periods[1]);
   }
 
-  get monthControl() { return this.formGroup.controls['monthControl'] as FormControl };
+  get monthControl() {
+    console.log('hello Arthur')
+    return this.formGroup.controls['monthControl'] as FormControl
+  };
 
   get yearControl() { return this.formGroup.controls['yearControl'] as FormControl };
 
@@ -78,8 +110,8 @@ export class StatisticsPage implements OnInit, OnDestroy {
     endDate = moment().endOf(period).unix();
     }
 
-    this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }))
-    this.store.dispatch(SpendingActions.statSpendingList());
+    // this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }))
+    // this.store.dispatch(SpendingActions.statSpendingList());
     this.selectedPeriod = period;
   }
 

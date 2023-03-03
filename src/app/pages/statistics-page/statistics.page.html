@@ -6,19 +6,14 @@
 
 <ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
 
-  <div class="period-select">
-    <div class="week {{ selectedPeriod === 'week' ? 'checked' : '' }}" (click)="onPeriodSelect('week')">
-      {{ 'general.dates.week' | translate }}
-    </div>
-
-    <div class="month {{ selectedPeriod === 'month' ? 'checked' : '' }}" (click)="onPeriodSelect('month')">
-      {{ 'general.dates.month' | translate }}
-    </div>
-
-    <div class="year {{ selectedPeriod === 'year' ? 'checked' : '' }}" (click)="onPeriodSelect('year')">
-      {{ 'general.dates.year' | translate }}
-    </div>
-  </div>
+  <ng-container [formGroup]="periodFormGroup">
+    <ion-radio-group formControlName="periodRange">
+      <ion-item *ngFor="let period of periods">
+        <ion-label>{{ period }}</ion-label>
+        <ion-radio slot="end" [value]="period"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ng-container>
 
   <div class="doughnut-chart">
     <canvas baseChart
