@@ -116,10 +116,10 @@ ion-content {
       margin-bottom: 10px;
 
       ion-item {
-        border-radius: 28px;
-        --ion-color-base: var(--background-color-1) !important;
 
         &::part(native) {
+          background: var(--background-color-1);
+          border-radius: 28px;
           padding-left: 12px;
           border: 0;
         }
