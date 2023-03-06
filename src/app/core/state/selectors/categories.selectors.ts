@@ -21,7 +21,9 @@ export namespace CategoriesSelectors {
     (spendingList: SpendingModel[], categories: CategoryModel[]) => {
 
       const spendingByCategoriesList = categories.map(item => {
-        const list = spendingList.filter(spItem => spItem.categoryId === item.id);
+        const list = spendingList
+          .filter(spItem => spItem.categoryId === item.id)
+          .map(item => ({ ...item, category: categories.find(category => category.id === item.categoryId) }));
         let totalAmount = 0;
         list.forEach(item => { totalAmount += item.amount });
         return {

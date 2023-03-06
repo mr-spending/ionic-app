@@ -80,8 +80,7 @@ ion-content {
     }
 
     .update-all-button {
-      display: none;
-      padding: 10px 0;
+      padding: 10px 0 0;
 
       ion-button {
         width: 40px;
@@ -91,6 +90,7 @@ ion-content {
         ion-icon {
           min-width: 40px;
           min-height: 40px;
+          color: var(--button-content-color-1);
         }
       }
     }
@@ -112,7 +112,7 @@ ion-content {
   }
 
   .scroll {
-    height: calc( 100% - 171px );
+    height: calc( 100% - 221px );
     padding-top: 20px;
     overflow: scroll;
 

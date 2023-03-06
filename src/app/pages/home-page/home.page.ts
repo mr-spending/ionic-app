@@ -80,13 +80,13 @@ export class HomePage implements OnInit, OnDestroy {
             action: ActionsEnum.Add,
           },
         },
-        {
-          text: this.translateService.instant('general.actions.delete'),
-          role: ActionsRoleEnum.Destructive,
-          data: {
-            action: ActionsEnum.Delete,
-          },
-        },
+        // {
+        //   text: this.translateService.instant('general.actions.delete'),
+        //   role: ActionsRoleEnum.Destructive,
+        //   data: {
+        //     action: ActionsEnum.Delete,
+        //   },
+        // },
         {
           text: this.translateService.instant('general.actions.cancel'),
           role: ActionsRoleEnum.Cancel,

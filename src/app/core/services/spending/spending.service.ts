@@ -55,7 +55,7 @@ export class SpendingService {
 
     switch (result.data?.action) {
       case ActionsEnum.Delete:
-        this.removeSpendingItem(item.id);
+        await this.confirmRemove(item.id);
         break;
       case ActionsEnum.Edit:
         await this.openConfigureSpendingModal({ type: ActionsEnum.Edit, categories, item });
@@ -79,6 +79,27 @@ export class SpendingService {
     });
     modal.present();
     await modal.onWillDismiss();
+  }
+
+  async confirmRemove(id: string) {
+    const actionSheet = await this.actionSheetController.create({
+      header: this.translateService.instant('general.messages.areYouSure'),
+      buttons: [
+        {
+          text: this.translateService.instant('general.actions.yes'),
+          role: ActionsRoleEnum.Confirm,
+        },
+        {
+          text: this.translateService.instant('general.actions.no'),
+          role: ActionsRoleEnum.Cancel,
+        },
+      ],
+    });
+
+    actionSheet.present();
+    const { role } = await actionSheet.onWillDismiss();
+
+    if (role === ActionsRoleEnum.Confirm) this.removeSpendingItem(id);
   }
 
   removeSpendingItem(id: string) {
