@@ -7,11 +7,11 @@
 <ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
 
   <ng-container [formGroup]="formGroup">
-    <ion-radio-group formControlName="periodRange">
-      <ion-row>
-        <ion-item *ngFor="let period of periods" lines="none">
-          <ion-label>{{ period }}</ion-label>
-          <ion-radio slot="end" [value]="period"></ion-radio>
+    <ion-radio-group formControlName="periodRange" class="period-select">
+      <ion-row class="row-radio">
+        <ion-item *ngFor="let period of periods" lines="none" class="item-radio">
+          <ion-label class="title-radio">{{ 'general.dates.' + period | translate }}</ion-label>
+          <ion-radio slot="end" [value]="period" class="icon-radio"></ion-radio>
         </ion-item>
       </ion-row>
     </ion-radio-group>
@@ -26,12 +26,14 @@
     >
     </canvas>
 
-    <div class="sum-select {{ selectedPeriod === 'week' && 'week' }}">
+    <div class="sum-select">
       <div class="sum">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</div>
 
       <div class="select" [formGroup]="formGroup">
+        <p *ngIf="selectedPeriod === ViewPeriod.Week">{{ 'statistics.currentWeek' | translate }}</p>
+
         <ion-select
-          *ngIf="selectedPeriod === 'month'"
+          *ngIf="selectedPeriod === ViewPeriod.Month"
           interface="popover"
           formControlName="monthControl"
         >
@@ -41,7 +43,7 @@
         </ion-select>
 
         <ion-select
-          *ngIf="selectedPeriod === 'year'"
+          *ngIf="selectedPeriod === ViewPeriod.Year"
           interface="popover"
           formControlName="yearControl"
         >

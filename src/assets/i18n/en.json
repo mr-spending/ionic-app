@@ -76,7 +76,8 @@
     "selectPeriod": "Select period",
     "fromDate": "From (year-month):",
     "toDate": "To (year-month):",
-    "choosePlaceholder": "click here to choose..."
+    "choosePlaceholder": "click here to choose...",
+    "currentWeek": "Current week"
   },
   "settings": {
     "title": "Settings",
