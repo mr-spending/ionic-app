@@ -30,7 +30,9 @@
       "confirm": "Confirm",
       "set": "Set",
       "save": "Save",
-      "back": "Back"
+      "back": "Back",
+      "yes": "Yes",
+      "no": "No"
     },
     "dates" : {
       "today": "Today",
@@ -54,7 +56,8 @@
       "december": "December"
     },
     "messages": {
-      "noData": "No Data"
+      "noData": "No Data",
+      "areYouSure": "Are you sure?"
     }
   },
   "home": {

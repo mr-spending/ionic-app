@@ -4,9 +4,12 @@ export enum ActionsEnum {
   Delete = 'Delete',
   Cancel = 'Cancel',
   Confirm = 'Confirm',
+  Yes = 'Yes',
+  No = 'No',
 }
 
 export enum ActionsRoleEnum {
   Cancel = 'cancel',
+  Confirm = 'confirm',
   Destructive = 'destructive',
 }

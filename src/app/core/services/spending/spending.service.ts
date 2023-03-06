@@ -11,7 +11,6 @@ import { ActionsEnum, ActionsRoleEnum } from '../../enums/action-sheet.enums';
 import {
   ConfigureSpendingModalComponent
 } from '../../../shared/components/configure-spending-modal/configure-spending-modal.component';
-import { ConfirmModalComponent } from '../../../shared/components/confirm-modal/confirm-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +55,7 @@ export class SpendingService {
 
     switch (result.data?.action) {
       case ActionsEnum.Delete:
-        // this.removeSpendingItem(item.id);
-        await this.selectDate('startDate')
+        await this.confirmRemove(item.id);
         break;
       case ActionsEnum.Edit:
         await this.openConfigureSpendingModal({ type: ActionsEnum.Edit, categories, item });
@@ -83,13 +81,25 @@ export class SpendingService {
     await modal.onWillDismiss();
   }
 
-  async selectDate(target: 'startDate' | 'endDate') {
-    const modal = await this.modalCtrl.create({
-      component: ConfirmModalComponent,
-      cssClass: 'confirm-modal',
+  async confirmRemove(id: string) {
+    const actionSheet = await this.actionSheetController.create({
+      header: this.translateService.instant('general.messages.areYouSure'),
+      buttons: [
+        {
+          text: this.translateService.instant('general.actions.yes'),
+          role: ActionsRoleEnum.Confirm,
+        },
+        {
+          text: this.translateService.instant('general.actions.no'),
+          role: ActionsRoleEnum.Cancel,
+        },
+      ],
     });
-    modal.present();
-    const { data, role } = await modal.onWillDismiss();
+
+    actionSheet.present();
+    const { role } = await actionSheet.onWillDismiss();
+
+    if (role === ActionsRoleEnum.Confirm) this.removeSpendingItem(id);
   }
 
   removeSpendingItem(id: string) {
