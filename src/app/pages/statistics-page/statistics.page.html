@@ -6,19 +6,16 @@
 
 <ion-content [fullscreen]="true" *ngIf="spendingByCategoriesList$ | async as categories" scroll-y="false">
 
-  <div class="period-select">
-    <div class="week {{ selectedPeriod === 'week' ? 'checked' : '' }}" (click)="onPeriodSelect('week')">
-      {{ 'general.dates.week' | translate }}
-    </div>
-
-    <div class="month {{ selectedPeriod === 'month' ? 'checked' : '' }}" (click)="onPeriodSelect('month')">
-      {{ 'general.dates.month' | translate }}
-    </div>
-
-    <div class="year {{ selectedPeriod === 'year' ? 'checked' : '' }}" (click)="onPeriodSelect('year')">
-      {{ 'general.dates.year' | translate }}
-    </div>
-  </div>
+  <ng-container [formGroup]="formGroup">
+    <ion-radio-group formControlName="periodRange" class="period-select">
+      <ion-row class="row-radio">
+        <ion-item *ngFor="let period of periods" lines="none" class="item-radio">
+          <ion-label class="title-radio">{{ 'general.dates.' + period | translate }}</ion-label>
+          <ion-radio slot="end" [value]="period" class="icon-radio"></ion-radio>
+        </ion-item>
+      </ion-row>
+    </ion-radio-group>
+  </ng-container>
 
   <div class="doughnut-chart">
     <canvas baseChart
@@ -29,15 +26,16 @@
     >
     </canvas>
 
-    <div class="sum-select {{ selectedPeriod === 'week' && 'week' }}">
+    <div class="sum-select">
       <div class="sum">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</div>
 
-      <div class="select">
+      <div class="select" [formGroup]="formGroup">
+        <p *ngIf="selectedPeriod === ViewPeriod.Week">{{ 'statistics.currentWeek' | translate }}</p>
+
         <ion-select
-          *ngIf="selectedPeriod === 'month'"
+          *ngIf="selectedPeriod === ViewPeriod.Month"
           interface="popover"
-          [formControl]="monthControl"
-          (ngModelChange)="onPeriodSelect('month')"
+          formControlName="monthControl"
         >
           <ion-select-option *ngFor="let item of availableMonthsInCurrentYear" [value]="item">
             {{ 'general.months.' + item | translate }}
@@ -45,10 +43,9 @@
         </ion-select>
 
         <ion-select
-          *ngIf="selectedPeriod === 'year'"
+          *ngIf="selectedPeriod === ViewPeriod.Year"
           interface="popover"
-          [formControl]="yearControl"
-          (ngModelChange)="onPeriodSelect('year')"
+          formControlName="yearControl"
         >
           <ion-select-option *ngFor="let item of availableYears" [value]="item">{{ item }}</ion-select-option>
         </ion-select>
@@ -75,7 +72,7 @@
         </ion-row>
       </ion-item>
 
-      <ion-list slot="content">
+      <ion-list *ngIf="categoryList$ | async as categoryList" slot="content">
         <div
           *ngFor="let item of category.spendingList"
           [class.ion-page-hidden]="item.categoryId !== category.id"

@@ -76,7 +76,8 @@
     "selectPeriod": "Обрати період",
     "fromDate": "Від (рік-місяць):",
     "toDate": "До (рік-місяць):",
-    "choosePlaceholder": "Натисніть для вибору..."
+    "choosePlaceholder": "Натисніть для вибору...",
+    "currentWeek": "Поточний тиждень"
   },
   "settings": {
     "title": "Налаштування",
