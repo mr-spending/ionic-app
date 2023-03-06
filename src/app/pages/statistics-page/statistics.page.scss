@@ -113,10 +113,7 @@ ion-content {
 
     ion-accordion {
       background: transparent;
-
-      &:not(:last-child) {
-        margin-bottom: 10px;
-      }
+      margin-bottom: 10px;
 
       ion-item {
         border-radius: 28px;

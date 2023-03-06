@@ -19,7 +19,8 @@ export class MrCurrencyMaskDirective implements OnInit {
   }
 
   private changeValue(value: string | number | undefined | null): void {
-    if (value == '' || !value) return;
+    if (!value) return;
+    const pattern = /[0-9.,]/;
     value = value + '';
     value = parseInt(value.replace(/[\D]+/g, ''));
     value = value + '';
@@ -27,6 +28,6 @@ export class MrCurrencyMaskDirective implements OnInit {
     let parts = value.toString().split(this.decimal);
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, this.thousand) || '0';
     value = parts.join(this.decimal);
-    this.inputRef.nativeElement.value = value;
+    this.inputRef.nativeElement.value = pattern.test(value) ? value : value.slice(-1, 0);
   }
 }
