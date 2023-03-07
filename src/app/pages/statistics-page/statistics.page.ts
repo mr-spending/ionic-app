@@ -60,11 +60,11 @@ export class StatisticsPage implements OnInit, OnDestroy {
         let endDate = 0;
 
         if (periodRange === ViewPeriod.Month) {
-          startDate = moment(getCurrentYear() + monthControl).startOf(ViewPeriod.Month).unix();
-          endDate = moment(getCurrentYear() + monthControl).endOf(ViewPeriod.Month).unix();
+          startDate = moment(getCurrentYear() + monthControl, 'YYYYMMMM').startOf(ViewPeriod.Month).unix();
+          endDate = moment(getCurrentYear() + monthControl, 'YYYYMMMM').endOf(ViewPeriod.Month).unix();
         } else if (periodRange === ViewPeriod.Year) {
-          startDate = moment(String(yearControl)).startOf(ViewPeriod.Year).unix();
-          endDate = moment(String(yearControl)).endOf(ViewPeriod.Year).unix();
+          startDate = moment(String(yearControl), 'YYYY').startOf(ViewPeriod.Year).unix();
+          endDate = moment(String(yearControl), 'YYYY').endOf(ViewPeriod.Year).unix();
         } else {
           startDate = moment().startOf(periodRange).unix();
           endDate = moment().endOf(periodRange).unix();
