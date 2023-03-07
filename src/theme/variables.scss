@@ -94,11 +94,15 @@
     --color-gray-2: #c4c4c4;
 
     /** shadows **/
+
     --modal-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 
     /** backgrounds **/
-    --page-background: radial-gradient(circle at right top, #60693e 5%, #4a5233 10%, #232828 30%);
+
+    --page-background: repeat url("../assets/image/backgrounds/img-noise-100x100.png");
+
     --backdrop-background: rgba(0, 0, 0, 0.8);
+
     --background-color-1: #36383c;
     --background-color-2: #232828;
     --background-color-3: #60693e;
