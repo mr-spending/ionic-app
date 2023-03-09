@@ -31,11 +31,16 @@
 }
 
 app-sign-in {
+
   background: var(--background-color-2);
 }
 
 app-sign-up {
   background: var(--background-color-2);
+}
+
+ion-modal, ion-popover {
+  z-index: 998 !important;
 }
 
 .list-ios {

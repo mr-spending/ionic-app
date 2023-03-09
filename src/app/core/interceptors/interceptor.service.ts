@@ -1,18 +1,14 @@
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor,
-} from '@angular/common/http';
-import { Observable, switchMap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState } from '@capacitor/app';
 import { Injectable } from '@angular/core';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import { finalize, Observable, switchMap } from 'rxjs';
 
 import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
-import { Store } from '@ngrx/store';
-import { AppState } from '@capacitor/app';
 import { UserSelectors } from '../state/selectors/user.selectors';
+import { LoadingService } from '../services/loading/loading.service';
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
@@ -22,6 +18,7 @@ export class Interceptor implements HttpInterceptor {
     private lsService: LocalStorageService,
     private auth: AuthService,
     private store: Store<AppState>,
+    private loader: LoadingService,
   ) {
     this.store.select(UserSelectors.selectMonoToken)
       .subscribe(token => this.monoBankToken = token || '');
@@ -31,6 +28,7 @@ export class Interceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.auth.token.pipe(
       switchMap(token => {
+        this.loader.show();
         if (request.url.includes(environment.baseUrl)) {
           request = request.clone({
             setHeaders: {
@@ -46,7 +44,9 @@ export class Interceptor implements HttpInterceptor {
             }
           });
         }
-        return next.handle(request);
+        return next.handle(request).pipe(
+          finalize(() => this.loader.hide())
+        );
       })
     );
   }
