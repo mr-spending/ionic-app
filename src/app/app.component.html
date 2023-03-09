@@ -1,3 +1,5 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+
+  <ion-spinner *ngIf="isAppLoading$ | async" name="circular" class="loader"></ion-spinner>
 </ion-app>
