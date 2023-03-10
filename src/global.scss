@@ -25,6 +25,10 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+body {
+  background: var(--page-background);
+}
+
 * {
   --background: transparent;
   background: transparent;
@@ -40,7 +44,7 @@ app-sign-up {
 }
 
 ion-modal, ion-popover {
-  z-index: 998 !important;
+  z-index: 997 !important;
 }
 
 .list-ios {

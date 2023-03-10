@@ -24,6 +24,4 @@ const reducer = createReducer<UserState>(
   on(UserActions.setUserData, (state, { userId }) => ({ ...state, userId })),
 
   on(UserActions.setUserDataSuccess, (state, { payload }) => ({ ...state, user: payload })),
-
-  on(UserActions.setUserLanguageSuccess, (state, { payload }) => ({ ...state, user: payload })),
 );
