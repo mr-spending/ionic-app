@@ -84,16 +84,6 @@ export class UserEffects {
     }),
   ));
 
-  updateUserAndTransactionList$ = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(UserActions.setMonoTokenSuccess, UserActions.setSelectedCardsSuccess),
-      switchMap(({ userId }) => [
-        UserActions.setUserData({ userId }),
-        BankAccountsActions.transactionListSuccess({ payload: [] })
-      ]),
-    );
-  });
-
   setSelectedCards$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.setSelectedCards),
     concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
