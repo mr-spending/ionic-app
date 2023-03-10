@@ -17,6 +17,7 @@ import { UserSelectors } from './core/state/selectors/user.selectors';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnDestroy {
+  isAppBuilt = false;
   isAppLoading$: Observable<boolean>;
 
   private subscription: Subscription = new Subscription();
@@ -40,6 +41,7 @@ export class AppComponent implements OnDestroy {
     this.translate.addLangs(languageList);
     this.translate.setDefaultLang(languageList[0]);
     this.angularFireAuth.user.pipe(take(1)).subscribe(user => {
+      this.isAppBuilt = true;
       if (user?.uid) {
         this.userStore.dispatch(UserActions.setUserData({ userId: user.uid }));
       }

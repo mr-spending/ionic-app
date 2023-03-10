@@ -25,5 +25,4 @@ const reducer = createReducer<UserState>(
 
   on(UserActions.setUserDataSuccess, (state, { payload }) => ({ ...state, user: payload })),
 
-  on(UserActions.setUserLanguageSuccess, (state, { payload }) => ({ ...state, user: payload })),
 );

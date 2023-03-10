@@ -1,8 +1,32 @@
+.loading-text {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--accent-color-1);
+  background: var(--page-background);
+  width: 100vw;
+  height: 100vh;
+  z-index: 999 !important;
+
+  .title {
+    font-size: 26px;
+    margin: 0 0 18px;
+  }
+
+  .loading {
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin: 0;
+  }
+}
+
 .loader {
   width: 60px;
   height: 60px;
   color: var(--button-content-color-1);
-  z-index: 999 !important;
+  z-index: 998 !important;
   margin: auto;
 
   &::before {

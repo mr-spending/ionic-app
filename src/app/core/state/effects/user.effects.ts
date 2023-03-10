@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, map, Observable, of, switchMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 
 import { UserActions } from '../actions/user.actions';
@@ -69,9 +69,17 @@ export class UserEffects {
     concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
     switchMap(([{ payload } , user]) => {
       return this.apiService.updateUser({ ...user as UserModel, displayLanguage: payload }).pipe(
-        map(() => UserActions.setUserLanguageSuccess({ payload: { ...user as UserModel, displayLanguage: payload } })),
+        map(() => UserActions.setUserLanguageSuccess()),
         catchError(err => of(UserActions.setUserLanguageFailure()))
       )
+    }),
+  ));
+
+  setUserLanguageSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.setUserLanguageSuccess),
+    switchMap(() => {
+      window.location.reload();
+      return null as unknown as Observable<any>;
     }),
   ));
 

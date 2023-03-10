@@ -2,4 +2,9 @@
   <ion-router-outlet></ion-router-outlet>
 
   <ion-spinner *ngIf="isAppLoading$ | async" name="circular" class="loader"></ion-spinner>
+
+  <div *ngIf="!isAppBuilt" class="loading-text">
+    <p class="title">Mr. Spending</p>
+    <p class="loading">Application loading...</p>
+  </div>
 </ion-app>
