@@ -11,4 +11,5 @@ export namespace UserSelectors {
   export const selectCurrency = createSelector(userSelector, state => state.user?.currency || '₴');
   export const selectMonoToken = createSelector(userSelector, state => state.user?.monoBankClientToken);
   export const selectConnectedMonoCards = createSelector(userSelector, state => state.user?.monoBankAccounts);
+  export const selectDisplayLanguage = createSelector(userSelector, state => state.user?.displayLanguage);
 }

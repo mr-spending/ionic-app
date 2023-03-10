@@ -22,4 +22,8 @@ export namespace UserActions {
   export const setSelectedCardsSuccess = createAction(`[${stateType}] Set Selected Cards Success`, props<{ userId: string, user?: UserModel }>());
   export const setSelectedCardsFailure = createAction(`[${stateType}] Set Selected Cards Failure`);
 
+  export const setUserLanguage = createAction(`[${stateType}] Set User Language`, props<{ payload: string }>());
+  export const setUserLanguageSuccess = createAction(`[${stateType}] Set User Language Success`, props<{ payload: UserModel }>());
+  export const setUserLanguageFailure = createAction(`[${stateType}] Set User Language Failure`);
+
 }
