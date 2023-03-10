@@ -19,6 +19,7 @@ import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { START_YEAR } from '../../core/constants/time.constants';
 import { ViewPeriod } from '../../core/enums/time.enum';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-statistics-page',
@@ -44,6 +45,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private store: Store<AppState>,
     public spendingService : SpendingService,
+    private translateService: TranslateService,
   ) {
     this.formGroup = this.fb.group({
       periodRange: this.fb.control(null),
@@ -60,8 +62,14 @@ export class StatisticsPage implements OnInit, OnDestroy {
         let endDate = 0;
 
         if (periodRange === ViewPeriod.Month) {
-          startDate = moment(getCurrentYear() + monthControl, 'YYYYMMMM').startOf(ViewPeriod.Month).unix();
-          endDate = moment(getCurrentYear() + monthControl, 'YYYYMMMM').endOf(ViewPeriod.Month).unix();
+          startDate = moment(
+            getCurrentYear() + this.translateService.instant('general.months.' + monthControl),
+            'YYYYMMMM'
+          ).startOf(ViewPeriod.Month).unix();
+          endDate = moment(
+            getCurrentYear() + this.translateService.instant('general.months.' + monthControl),
+            'YYYYMMMM'
+          ).endOf(ViewPeriod.Month).unix();
         } else if (periodRange === ViewPeriod.Year) {
           startDate = moment(String(yearControl), 'YYYY').startOf(ViewPeriod.Year).unix();
           endDate = moment(String(yearControl), 'YYYY').endOf(ViewPeriod.Year).unix();

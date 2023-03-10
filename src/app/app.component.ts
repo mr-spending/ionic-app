@@ -3,11 +3,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Observable, Subscription, take } from 'rxjs';
 import { Store } from '@ngrx/store';
+import * as moment from 'moment/moment';
 
-import { languageList } from './core/constants/languages.constants';
+import { LanguageEnum, languageList } from './core/constants/languages.constants';
 import { UserActions } from './core/state/actions/user.actions';
 import { UserState } from './core/state/reducers/user.reducer';
 import { LoadingService } from './core/services/loading/loading.service';
+import { UserSelectors } from './core/state/selectors/user.selectors';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +19,7 @@ import { LoadingService } from './core/services/loading/loading.service';
 export class AppComponent implements OnDestroy {
   isAppLoading$: Observable<boolean>;
 
-  subscription: Subscription = new Subscription();
+  private subscription: Subscription = new Subscription();
   constructor(
     private translate: TranslateService,
     private angularFireAuth: AngularFireAuth,
@@ -42,6 +44,12 @@ export class AppComponent implements OnDestroy {
         this.userStore.dispatch(UserActions.setUserData({ userId: user.uid }));
       }
     });
+    this.subscription.add(this.userStore.select(UserSelectors.selectDisplayLanguage).subscribe(displayLanguage => {
+        if (displayLanguage) {
+          this.translate.use(displayLanguage);
+          moment.locale(displayLanguage === LanguageEnum.UA ? 'uk' : displayLanguage);
+        }
+    }));
   }
 
   ngOnDestroy(): void {

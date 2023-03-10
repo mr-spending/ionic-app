@@ -64,6 +64,17 @@ export class UserEffects {
     }),
   ));
 
+  setUserLanguage$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.setUserLanguage),
+    concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
+    switchMap(([{ payload } , user]) => {
+      return this.apiService.updateUser({ ...user as UserModel, displayLanguage: payload }).pipe(
+        map(() => UserActions.setUserLanguageSuccess({ payload: { ...user as UserModel, displayLanguage: payload } })),
+        catchError(err => of(UserActions.setUserLanguageFailure()))
+      )
+    }),
+  ));
+
   updateUserAndTransactionList$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(UserActions.setMonoTokenSuccess, UserActions.setSelectedCardsSuccess),
