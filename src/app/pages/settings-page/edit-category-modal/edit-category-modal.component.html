@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title>Edit category</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [disabled]="">{{ 'general.actions.confirm' | translate }}</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content scroll-y="false">
+  <div class="icon-edit">
+    <app-icon
+      [iconName]="choseIcon"
+      [backgroundColor]="choseColor"
+      [size]="'large'"
+    ></app-icon>
+    <div class="edit symbol" [class.chose]="editMode === 'icon'">
+      <ion-icon name="image" (click)="changeMode('icon')"></ion-icon>
+    </div>
+    <div class="edit color" [class.chose]="editMode === 'color'">
+      <ion-icon name="color-palette" (click)="changeMode('color')"></ion-icon>
+    </div>
+  </div>
+
+  <ion-item class="name-edit">
+    <ion-label>Category name</ion-label>
+    <ion-input placeholder="Enter category name"></ion-input>
+  </ion-item>
+
+  <div *ngIf="editMode === 'icon'" class="icon-chose">
+    <ion-list class="icon-chose-list" lines="none">
+      <ion-icon
+        *ngFor="let icon of selectIcons"
+        [name]="icon" (click)="iconClick(icon)"
+        [class.chose]="choseIcon === icon"
+      ></ion-icon>
+    </ion-list>
+  </div>
+</ion-content>
+
+<!--<ion-content scroll-y="false">-->
+<!--  <div class="icon-edit">-->
+<!--    <app-icon-->
+<!--      [iconName]="'add-outline'"-->
+<!--      [iconColor]="category ? '#000' : '#4a4b4f'"-->
+<!--      [backgroundColor]="category ? category.icon.background : 'gray'"-->
+<!--      [size]="'large'"-->
+<!--    ></app-icon>-->
+<!--    <div class="edit symbol">-->
+<!--      <ion-icon name="image" (click)="changeSymbol()"></ion-icon>-->
+<!--    </div>-->
+<!--    <div class="edit color">-->
+<!--      <ion-icon name="color-palette" (click)="changeColor()"></ion-icon>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <ion-item class="name-edit">-->
+<!--    <ion-label>Category name</ion-label>-->
+<!--    <ion-input placeholder="Enter category name"></ion-input>-->
+<!--  </ion-item>-->
+<!--</ion-content>-->

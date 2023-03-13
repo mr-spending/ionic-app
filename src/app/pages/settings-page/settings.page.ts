@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../auth/services/auth.service';
-import { MonobankAccountSettingsComponent } from './select-card-modal/monobank-account-settings.component';
+import { MonobankAccountSettingsComponent } from './monobank-account-settings-modal/monobank-account-settings.component';
 import { BankAccountsActions } from '../../core/state/actions/bank-accounts.actions';
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
