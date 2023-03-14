@@ -12,6 +12,7 @@ import { SelectMonthYearModalComponent } from './components/select-month-year-mo
 import { MrSpendingListDateFormatPipe } from './pipes/spending-list-date-format.pipe';
 import { BankCardFormatPipe } from './pipes/bank-card-format.pipe';
 import { IconComponent } from './components/icon/icon.component';
+import { ColorpickerComponent } from './components/colorpicker/colorpicker.component';
 
 const declarations = [
   MrCurrencyMaskDirective,
@@ -22,6 +23,7 @@ const declarations = [
   ConfigureSpendingModalComponent,
   SelectMonthYearModalComponent,
   IconComponent,
+  ColorpickerComponent,
 ];
 
 const sharedModules = [

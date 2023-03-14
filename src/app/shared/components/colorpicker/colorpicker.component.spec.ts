@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ColorpickerModalComponent } from './colorpicker-modal.component';
+import { ColorpickerComponent } from './colorpicker.component';
 
-describe('ColorpickerModalComponent', () => {
-  let component: ColorpickerModalComponent;
-  let fixture: ComponentFixture<ColorpickerModalComponent>;
+describe('ColorpickerComponent', () => {
+  let component: ColorpickerComponent;
+  let fixture: ComponentFixture<ColorpickerComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ColorpickerModalComponent ],
+      declarations: [ ColorpickerComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ColorpickerModalComponent);
+    fixture = TestBed.createComponent(ColorpickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -5,7 +5,12 @@
     </ion-buttons>
     <ion-title>Edit category</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="confirm()" [disabled]="">{{ 'general.actions.confirm' | translate }}</ion-button>
+      <ion-button
+        (click)="confirm()"
+        [disabled]="category.icon.iconType === 'add-outline' || !this.formGroup.value.categoryName"
+      >
+        {{ 'general.actions.confirm' | translate }}
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -13,8 +18,8 @@
 <ion-content scroll-y="false">
   <div class="icon-edit">
     <app-icon
-      [iconName]="choseIcon"
-      [backgroundColor]="choseColor"
+      [iconName]="category.icon.iconType"
+      [backgroundColor]="category.icon.background"
       [size]="'large'"
     ></app-icon>
     <div class="edit symbol" [class.chose]="editMode === 'icon'">
@@ -25,40 +30,23 @@
     </div>
   </div>
 
-  <ion-item class="name-edit">
+  <ion-item class="name-edit" [formGroup]="formGroup">
     <ion-label>Category name</ion-label>
-    <ion-input placeholder="Enter category name"></ion-input>
+    <ion-input placeholder="Enter category name" formControlName="categoryName"></ion-input>
   </ion-item>
 
   <div *ngIf="editMode === 'icon'" class="icon-chose">
     <ion-list class="icon-chose-list" lines="none">
       <ion-icon
-        *ngFor="let icon of selectIcons"
-        [name]="icon" (click)="iconClick(icon)"
-        [class.chose]="choseIcon === icon"
+        *ngFor="let icon of categoryIcons"
+        [name]="icon"
+        (click)="iconClick(icon)"
+        [class.chose]="category.icon.iconType === icon"
       ></ion-icon>
     </ion-list>
   </div>
+
+  <div *ngIf="editMode === 'color'" class="color-chose">
+    <app-colorpicker [color]="category.icon.background" (changeColor)="changeColor($event)"></app-colorpicker>
+  </div>
 </ion-content>
-
-<!--<ion-content scroll-y="false">-->
-<!--  <div class="icon-edit">-->
-<!--    <app-icon-->
-<!--      [iconName]="'add-outline'"-->
-<!--      [iconColor]="category ? '#000' : '#4a4b4f'"-->
-<!--      [backgroundColor]="category ? category.icon.background : 'gray'"-->
-<!--      [size]="'large'"-->
-<!--    ></app-icon>-->
-<!--    <div class="edit symbol">-->
-<!--      <ion-icon name="image" (click)="changeSymbol()"></ion-icon>-->
-<!--    </div>-->
-<!--    <div class="edit color">-->
-<!--      <ion-icon name="color-palette" (click)="changeColor()"></ion-icon>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  <ion-item class="name-edit">-->
-<!--    <ion-label>Category name</ion-label>-->
-<!--    <ion-input placeholder="Enter category name"></ion-input>-->
-<!--  </ion-item>-->
-<!--</ion-content>-->
