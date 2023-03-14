@@ -7,7 +7,7 @@
     <ion-buttons slot="end">
       <ion-button
         (click)="confirm()"
-        [disabled]="category.icon.iconType === 'add-outline' || !this.formGroup.value.categoryName"
+        [disabled]="formGroup.value.iconType === 'add-outline' || !this.formGroup.valid"
       >
         {{ 'general.actions.confirm' | translate }}
       </ion-button>
@@ -15,11 +15,11 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content scroll-y="false">
+<ion-content class="ion-padding" scroll-y="false">
   <div class="icon-edit">
     <app-icon
-      [iconName]="category.icon.iconType"
-      [backgroundColor]="category.icon.background"
+      [iconName]="formGroup.value.iconType"
+      [backgroundColor]="formGroup.value.background"
       [size]="'large'"
     ></app-icon>
     <div class="edit symbol" [class.chose]="editMode === 'icon'">
@@ -41,7 +41,7 @@
         *ngFor="let icon of categoryIcons"
         [name]="icon"
         (click)="iconClick(icon)"
-        [class.chose]="category.icon.iconType === icon"
+        [class.chose]="formGroup.value.iconType === icon"
       ></ion-icon>
     </ion-list>
   </div>

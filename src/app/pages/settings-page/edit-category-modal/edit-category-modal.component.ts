@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 
 import { CategoryModel } from '../../../core/interfaces/models';
 import { categoryIcons } from '../../../core/constants/ion-icons.constants';
@@ -10,7 +11,7 @@ import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
   templateUrl: './edit-category-modal.component.html',
   styleUrls: ['./edit-category-modal.component.scss'],
 })
-export class EditCategoryModalComponent {
+export class EditCategoryModalComponent implements OnInit{
   @Input() category: CategoryModel = { id: '', name: '', icon: { iconType: 'add-outline', background: '#808080' } };
   @Input() type!: ActionsEnum.Add | ActionsEnum.Edit;
 
@@ -18,10 +19,16 @@ export class EditCategoryModalComponent {
   categoryIcons = categoryIcons;
   actionsEnum = ActionsEnum;
 
-  formGroup: FormGroup;
+  formGroup!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.formGroup = this.fb.group({ categoryName: this.fb.control(null) });
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder) { };
+
+  ngOnInit() {
+    this.formGroup = this.fb.group({
+      categoryName: this.fb.control(this.category.name, Validators.required),
+      iconType: this.fb.control(this.category.icon.iconType),
+      background: this.fb.control(this.category.icon.background),
+    });
   }
 
   changeMode(mode: 'icon' | 'color'): void {
@@ -29,14 +36,26 @@ export class EditCategoryModalComponent {
   }
 
   changeColor(color: string): void {
-    this.category.icon.background = color;
+    this.formGroup.controls['background'].setValue(color);
   }
 
   iconClick(icon: string): void {
-    this.category.icon.iconType = icon;
+    this.formGroup.controls['iconType'].setValue(icon);
   }
 
-  cancel(): void { }
+  cancel() {
+    return this.modalCtrl.dismiss(null, ActionsEnum.Cancel);
+  }
 
-  confirm(): void { console.log({ ...this.category, name: this.formGroup.value.categoryName }) }
+  confirm() {
+    console.log({
+      id: this.category.id,
+      name: this.formGroup.value.categoryName,
+      icon: {
+        iconType: this.formGroup.value.iconType,
+        background: this.formGroup.value.background
+      }
+    });
+    return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
+  }
 }
