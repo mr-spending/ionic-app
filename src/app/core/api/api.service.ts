@@ -29,6 +29,20 @@ export class ApiService {
     return this.http.patch<UserDto>(this.path + `user`, user);
   }
 
+  /** User Categories Data **/
+
+  addUserCategory(category: CategoryDto): Observable<CategoryDto> {
+    return this.http.post<CategoryDto>(this.path + 'user/categories', category);
+  }
+
+  updateUserCategory(category: CategoryDto): Observable<CategoryDto> {
+    return this.http.patch<CategoryDto>(this.path + 'user/categories', category);
+  }
+
+  deleteUserCategory(id: string): Observable<void> {
+    return this.http.delete<void>(this.path + `user/categories/${id}`);
+  }
+
   /** Spending Data */
 
   getAllSpending(): Observable<SpendingDto[]> {

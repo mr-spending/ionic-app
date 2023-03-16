@@ -20,6 +20,11 @@
       </ion-select>
     </ion-item>
 
+    <ion-item (click)="categoryManagementOpen()">
+      <ion-label>{{ 'settings.categoryManagement' | translate }}</ion-label>
+      <ion-icon name="list"></ion-icon>
+    </ion-item>
+
     <ion-item (click)="monoAccSettingsOpen()">
       <ion-label>{{ 'settings.monoAccSettings' | translate }}</ion-label>
       <ion-icon name="card-outline"></ion-icon>

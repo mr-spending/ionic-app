@@ -12,6 +12,7 @@ import { UserModel } from '../../core/interfaces/models';
 import User = firebase.User;
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserState } from '../../core/state/reducers/user.reducer';
+import { defaultCategoriesList } from '../../core/constants/categories.constants';
 
 @Injectable()
 export class AuthService {
@@ -122,6 +123,8 @@ export class AuthService {
       displayName: user.displayName ?? '',
       photoURL: user.photoURL ?? '',
       emailVerified: user.emailVerified,
+      displayLanguage: 'en',
+      categories: defaultCategoriesList
     }
     this.store.dispatch(UserActions.addUser({ payload }));
   }

@@ -12,6 +12,7 @@ import { BankAccountsState } from '../reducers/bank-accounts.reducer';
 import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';
 import { UserSelectors } from '../selectors/user.selectors';
 import { UserState } from '../reducers/user.reducer';
+import { SpendingActions } from '../actions/spending.actions';
 
 @Injectable()
 export class UserEffects {
@@ -102,5 +103,47 @@ export class UserEffects {
         catchError(err => of(UserActions.setSelectedCardsFailure()))
       )
     }),
+  ));
+
+  addUserCategory$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.addUserCategory),
+    switchMap(({ payload }) => this.apiService.addUserCategory(payload)),
+    map(() => UserActions.addUserCategorySuccess()),
+    catchError(() => of(UserActions.addUserCategoryFailure()))
+  ));
+
+  updateUserCategory$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.updateUserCategory),
+    switchMap(({ payload }) => this.apiService.updateUserCategory(payload)),
+    map(() => UserActions.updateUserCategorySuccess()),
+    catchError(() => of(UserActions.updateUserCategoryFailure()))
+  ));
+
+  deleteUserCategory$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.deleteUserCategory),
+    switchMap(({ payload }) => this.apiService.deleteUserCategory(payload).pipe(
+      switchMap(() => [
+        UserActions.deleteUserCategorySuccess(),
+        SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() })
+      ]),
+      catchError(() => of(UserActions.deleteUserCategoryFailure()))
+    )),
+  ));
+
+  userCategoryOperationSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(
+      UserActions.addUserCategorySuccess,
+      UserActions.updateUserCategorySuccess,
+      UserActions.deleteUserCategorySuccess
+    ),
+    concatLatestFrom(() => this.userStore.select(UserSelectors.selectUserId)),
+    switchMap(([{}, userId]) => [UserActions.clearUpdateUserData({ userId })]),
+  ));
+
+  clearUpdateUserData$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.clearUpdateUserData),
+    switchMap(({ userId }) => this.apiService.getUserData(userId)),
+    map((payload: UserModel) => UserActions.clearUpdateUserDataSuccess({ payload })),
+    catchError(() => of(UserActions.clearUpdateUserDataFailure()))
   ));
 }

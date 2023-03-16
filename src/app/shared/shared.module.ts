@@ -11,6 +11,8 @@ import { SpendingListItemComponent } from './components/spending-list-item/spend
 import { SelectMonthYearModalComponent } from './components/select-month-year-modal/select-month-year-modal.component';
 import { MrSpendingListDateFormatPipe } from './pipes/spending-list-date-format.pipe';
 import { BankCardFormatPipe } from './pipes/bank-card-format.pipe';
+import { IconComponent } from './components/icon/icon.component';
+import { ColorpickerComponent } from './components/colorpicker/colorpicker.component';
 
 const declarations = [
   MrCurrencyMaskDirective,
@@ -20,6 +22,8 @@ const declarations = [
   SpendingListItemComponent,
   ConfigureSpendingModalComponent,
   SelectMonthYearModalComponent,
+  IconComponent,
+  ColorpickerComponent,
 ];
 
 const sharedModules = [

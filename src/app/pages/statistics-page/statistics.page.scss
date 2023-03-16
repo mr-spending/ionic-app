@@ -141,19 +141,6 @@ ion-content {
             align-items: center;
             gap: 10px;
 
-            .icon-wrapper {
-              height: 38px;
-              width: 38px;
-              border-radius: 22px;
-              padding-left: 6px;
-
-              ion-icon {
-                height: 26px;
-                width: 26px;
-                color: var(--spending-icon-color);
-              }
-            }
-
             ion-label {
               max-width: 140px;
               max-height: 52px;

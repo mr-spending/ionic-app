@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'editCategoryModal.editCategory' | translate }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="confirm()"
+        [disabled]="formGroup.value.iconType === 'add-outline' || !this.formGroup.valid"
+      >
+        {{ 'general.actions.confirm' | translate }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" scroll-y="false">
+  <div class="icon-edit">
+    <app-icon
+      [iconName]="formGroup.value.iconType"
+      [backgroundColor]="formGroup.value.background"
+      [size]="'large'"
+    ></app-icon>
+    <div class="edit symbol" [class.chose]="editMode === 'icon'">
+      <ion-icon name="image" (click)="changeMode('icon')"></ion-icon>
+    </div>
+    <div class="edit color" [class.chose]="editMode === 'color'">
+      <ion-icon name="color-palette" (click)="changeMode('color')"></ion-icon>
+    </div>
+  </div>
+
+  <ion-item class="name-edit" [formGroup]="formGroup">
+    <ion-label>{{ 'editCategoryModal.categoryName' | translate }}</ion-label>
+    <ion-input placeholder="{{ 'editCategoryModal.enterCategoryName' | translate }}" formControlName="categoryName"></ion-input>
+  </ion-item>
+
+  <div *ngIf="editMode === 'icon'" class="icon-chose">
+    <ion-list class="icon-chose-list" lines="none">
+      <ion-icon
+        *ngFor="let icon of categoryIcons"
+        [name]="icon"
+        (click)="iconClick(icon)"
+        [class.chose]="formGroup.value.iconType === icon"
+      ></ion-icon>
+    </ion-list>
+  </div>
+
+  <div *ngIf="editMode === 'color'" class="color-chose">
+    <app-colorpicker [color]="category.icon.background" (changeColor)="changeColor($event)"></app-colorpicker>
+  </div>
+</ion-content>

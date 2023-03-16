@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">{{ 'general.actions.back' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'categoryManagementModal.categoryManagement' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" scroll-y="false">
+  <div (click)="editCategory(actionsEnum.Add)" class="category-add">
+    <ion-label>{{ 'categoryManagementModal.addCategory' | translate }}</ion-label>
+    <ion-icon name="add"></ion-icon>
+  </div>
+
+  <div class="page-delimiter"></div>
+
+  <ion-list *ngIf="categoryList$ | async as categoryList" class="category-list">
+    <div *ngFor="let category of categoryList" class="category-item">
+        <div class="category-desc">
+          <app-icon [iconName]="category.icon.iconType" [backgroundColor]="category.icon.background"></app-icon>
+          <ion-label>{{ category.name }}</ion-label>
+        </div>
+        <div class="category-commands">
+          <div (click)="editCategory(actionsEnum.Edit, category)" class="category-commands-edit">
+            <ion-icon name="build"></ion-icon>
+          </div>
+          <div
+            *ngIf="category.id !== '63e3ca87631b20b10e81bcab'"
+            (click)="deleteCategory(category.id)"
+            class="category-commands-delete"
+          >
+            <ion-icon color="danger" name="trash"></ion-icon>
+          </div>
+        </div>
+    </div>
+  </ion-list>
+</ion-content>

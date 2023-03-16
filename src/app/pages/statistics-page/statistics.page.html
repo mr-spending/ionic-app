@@ -61,9 +61,7 @@
       <ion-item slot="header" color="light">
         <ion-row>
           <div>
-            <div class="icon-wrapper" [style.background-color]="category.icon.background">
-              <ion-icon slot="icon-only" [name]="category.icon.iconType"></ion-icon>
-            </div>
+            <app-icon [iconName]="category.icon.iconType" [backgroundColor]="category.icon.background"></app-icon>
 
             <ion-label>{{ category.name }}</ion-label>
           </div>

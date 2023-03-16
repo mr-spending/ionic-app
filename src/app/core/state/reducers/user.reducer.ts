@@ -25,4 +25,5 @@ const reducer = createReducer<UserState>(
 
   on(UserActions.setUserDataSuccess, (state, { payload }) => ({ ...state, user: payload })),
 
+  on(UserActions.clearUpdateUserDataSuccess, (state, { payload }) => ({ ...state, user: payload }))
 );

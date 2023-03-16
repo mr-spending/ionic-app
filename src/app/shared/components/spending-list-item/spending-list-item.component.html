@@ -1,9 +1,7 @@
 <div class="main-wrapper">
   <ion-row>
     <div>
-      <div *ngIf="showIcon" class="icon-wrapper" [style.background-color]="background">
-        <ion-icon slot="icon-only" [name]="icon"></ion-icon>
-      </div>
+      <app-icon *ngIf="showIcon" [iconName]="icon" [backgroundColor]="background"></app-icon>
       <ion-label>
         <p *ngIf="isSpendingModel(spending) && showCategory" class="category-name">{{ spending.category?.name }}</p>
         <p class="category-description">{{ spending.description }}</p>

@@ -15,7 +15,7 @@ import { FormBuilder, FormControl } from '@angular/forms';
 import { BankAccountsActions } from '../../../core/state/actions/bank-accounts.actions';
 
 @Component({
-  selector: 'select-card-modal',
+  selector: 'monobank-account-settings-modal',
   templateUrl: './monobank-account-settings.component.html',
   styleUrls: ['./monobank-account-settings.component.scss'],
 })

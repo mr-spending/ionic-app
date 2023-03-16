@@ -36,8 +36,8 @@ export class StatisticsPage implements OnInit, OnDestroy {
   periods = Object.values(ViewPeriod);
   ViewPeriod = ViewPeriod;
 
-  spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(CategoriesSelectors.selectSpendingByCategories);
-  categoryList$: Observable<CategoryModel[]> = this.store.select(CategoriesSelectors.selectCategories);
+  spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(UserSelectors.selectSpendingByUserCategories);
+  categoryList$: Observable<CategoryModel[] | undefined> = this.store.select(UserSelectors.selectUserCategories);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectStatTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
 
