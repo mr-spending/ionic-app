@@ -1,14 +1,14 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 import { SpendingState, spendingStateKey } from '../reducers/spending.reducer';
-import { CategoryModel, GroupedSpendingModel, SpendingModel } from '../../interfaces/models';
+import { CategoryModel, SpendingModel } from '../../interfaces/models';
 import { sortArrayByProperty } from '../../utils/helper.functions';
-import { CategoriesState, categoriesStateKey } from '../reducers/categories.reducer';
 import { DirectionEnum } from '../../enums/spending.enums';
 import { groupingSpendingByDate } from '../../utils/spending.utils';
+import { UserState, userStateKey } from '../reducers/user.reducer';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
-const categoriesSelector = createFeatureSelector<CategoriesState>(categoriesStateKey);
+const categoriesSelector = createFeatureSelector<UserState>(userStateKey);
 
 export namespace SpendingSelectors {
 
@@ -17,7 +17,7 @@ export namespace SpendingSelectors {
   export const selectSpendingSort = createSelector(spendingSelector, state => state.spendingSort);
   export const selectStatTimePeriod = createSelector(spendingSelector, state => state.statTimePeriod);
 
-  const selectCategories = createSelector(categoriesSelector, state => state.categories);
+  const selectCategories = createSelector(categoriesSelector, state => state.user?.categories || []);
 
   export const selectGroupedSpendingItemList = createSelector(
     selectHomeSpendingList,

@@ -2,6 +2,13 @@
   background: var(--page-background);
 }
 
+ion-header {
+
+  ion-title {
+    width: max-content;
+  }
+}
+
 .icon-edit {
   position: relative;
   width: 78px;

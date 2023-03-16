@@ -84,6 +84,7 @@
   },
   "settings": {
     "title": "Settings",
+    "categoryManagement": "Category management",
     "monoAccSettings": "Monobank account settings",
     "inputToken": "Input token...",
     "setAcc": "Set account",
@@ -107,5 +108,14 @@
   },
   "selectMonthYearModal": {
     "selectDate": "Select date"
+  },
+  "categoryManagementModal": {
+    "categoryManagement": "Category management",
+    "addCategory": "Add category"
+  },
+  "editCategoryModal": {
+    "editCategory": "Edit category",
+    "categoryName": "Category name",
+    "enterCategoryName": "Enter category name"
   }
 }

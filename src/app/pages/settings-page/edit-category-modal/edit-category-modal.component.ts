@@ -1,10 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
+import { Store } from '@ngrx/store';
+import { AppState } from '@capacitor/app';
+import { Guid } from 'typescript-guid';
 
 import { CategoryModel } from '../../../core/interfaces/models';
 import { categoryIcons } from '../../../core/constants/ion-icons.constants';
 import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
+import { UserActions } from '../../../core/state/actions/user.actions';
 
 @Component({
   selector: 'app-edit-category-modal',
@@ -21,7 +25,7 @@ export class EditCategoryModalComponent implements OnInit{
 
   formGroup!: FormGroup;
 
-  constructor(private modalCtrl: ModalController, private fb: FormBuilder) { };
+  constructor(private modalCtrl: ModalController, private fb: FormBuilder, private store: Store<AppState>) { };
 
   ngOnInit() {
     this.formGroup = this.fb.group({
@@ -48,14 +52,19 @@ export class EditCategoryModalComponent implements OnInit{
   }
 
   confirm() {
-    console.log({
-      id: this.category.id,
+    const category = {
+      id: this.category.id || Guid.create().toString(),
       name: this.formGroup.value.categoryName,
       icon: {
         iconType: this.formGroup.value.iconType,
         background: this.formGroup.value.background
       }
-    });
+    };
+    if (this.type === ActionsEnum.Add) {
+      this.store.dispatch(UserActions.addUserCategory({ payload: category }));
+    } else if (this.type === ActionsEnum.Edit) {
+      this.store.dispatch(UserActions.updateUserCategory({ payload: category }));
+    }
     return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
   }
 }

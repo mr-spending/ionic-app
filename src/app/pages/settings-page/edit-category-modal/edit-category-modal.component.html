@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title>Edit category</ion-title>
+    <ion-title>{{ 'editCategoryModal.editCategory' | translate }}</ion-title>
     <ion-buttons slot="end">
       <ion-button
         (click)="confirm()"
@@ -31,8 +31,8 @@
   </div>
 
   <ion-item class="name-edit" [formGroup]="formGroup">
-    <ion-label>Category name</ion-label>
-    <ion-input placeholder="Enter category name" formControlName="categoryName"></ion-input>
+    <ion-label>{{ 'editCategoryModal.categoryName' | translate }}</ion-label>
+    <ion-input placeholder="{{ 'editCategoryModal.enterCategoryName' | translate }}" formControlName="categoryName"></ion-input>
   </ion-item>
 
   <div *ngIf="editMode === 'icon'" class="icon-chose">

@@ -53,8 +53,10 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription.add(this.store.select(CategoriesSelectors.selectCategories)
-      .subscribe((categories: CategoryModel[]) => this.categories = categories),
+    this.subscription.add(this.store.select(UserSelectors.selectUserCategories)
+      .subscribe((categories: CategoryModel[] | undefined) => {
+        if (categories) this.categories = categories
+      }),
     );
     this.subscription.add(timer(0, 1000)
       .pipe(map(() => moment().format('DD MMMM')))

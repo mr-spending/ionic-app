@@ -84,6 +84,7 @@
   },
   "settings": {
     "title": "Налаштування",
+    "categoryManagement": "Керування категоріями",
     "monoAccSettings": "Налаштування Monobank акаунту",
     "inputToken": "Введення токену...",
     "setAcc": "Встановити (змінити) акаунт",
@@ -107,5 +108,14 @@
   },
   "selectMonthYearModal": {
     "selectDate": "Вибір дати"
+  },
+  "categoryManagementModal": {
+    "categoryManagement": "Керування категоріями",
+    "addCategory": "Додати категорію"
+  },
+  "editCategoryModal": {
+    "editCategory": "Встановлення категорії",
+    "categoryName": "Назва категорії",
+    "enterCategoryName": "Введіть назву категорії"
   }
 }

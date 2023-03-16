@@ -10,7 +10,8 @@ export interface UserModel {
   currencyId?: string;
   monoBankClientToken?: string;
   monoBankAccounts?: MonoBankAccount[];
-  displayLanguage?: string;
+  displayLanguage: string;
+  categories: CategoryModel[];
 }
 
 export interface SpendingModel {

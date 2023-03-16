@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
-import { MonoBankAccount, UserModel } from '../../interfaces/models';
+import { CategoryModel, MonoBankAccount, UserModel } from '../../interfaces/models';
 
 const stateType = 'User';
 
@@ -26,4 +26,19 @@ export namespace UserActions {
   export const setUserLanguageSuccess = createAction(`[${stateType}] Set User Language Success`);
   export const setUserLanguageFailure = createAction(`[${stateType}] Set User Language Failure`);
 
+  export const addUserCategory = createAction(`[${stateType}] Add User Category`, props<{ payload: CategoryModel }>());
+  export const addUserCategorySuccess = createAction(`[${stateType}] Add User Category Success`);
+  export const addUserCategoryFailure = createAction(`[${stateType}] Add User Category Failure`);
+
+  export const updateUserCategory = createAction(`[${stateType}] Update User Category`, props<{ payload: CategoryModel }>());
+  export const updateUserCategorySuccess = createAction(`[${stateType}] Update User Category Success`);
+  export const updateUserCategoryFailure = createAction(`[${stateType}] Update User Category Failure`);
+
+  export const deleteUserCategory = createAction(`[${stateType}] Delete User Category`, props<{ payload: string }>());
+  export const deleteUserCategorySuccess = createAction(`[${stateType}] Delete User Category Success`);
+  export const deleteUserCategoryFailure = createAction(`[${stateType}] Delete User Category Failure`);
+
+  export const clearUpdateUserData = createAction(`[${stateType}] Clear Update User Data`, props<{ userId: string }>());
+  export const clearUpdateUserDataSuccess = createAction(`[${stateType}] Clear Update User Data Success`, props<{ payload: UserModel }>());
+  export const clearUpdateUserDataFailure = createAction(`[${stateType}] Clear Update User Data Failure`);
 }

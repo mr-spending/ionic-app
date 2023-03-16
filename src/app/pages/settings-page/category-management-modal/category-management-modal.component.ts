@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
 
 import { ActionsEnum, ActionsRoleEnum } from '../../../core/enums/action-sheet.enums';
 import { CategoryModel } from '../../../core/interfaces/models';
-import { CategoriesSelectors } from '../../../core/state/selectors/categories.selectors';
 import { EditCategoryModalComponent } from '../edit-category-modal/edit-category-modal.component';
-import { TranslateService } from '@ngx-translate/core';
+import { UserActions } from '../../../core/state/actions/user.actions';
+import { UserSelectors } from '../../../core/state/selectors/user.selectors';
 
 @Component({
   selector: 'app-category-management-modal',
@@ -16,7 +17,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./category-management-modal.component.scss'],
 })
 export class CategoryManagementModalComponent {
-  categoryList$: Observable<CategoryModel[]> = this.store.select(CategoriesSelectors.selectCategories);
+  categoryList$: Observable<CategoryModel[] | undefined> = this.store.select(UserSelectors.selectUserCategories);
   actionsEnum = ActionsEnum;
 
   constructor(
@@ -52,8 +53,7 @@ export class CategoryManagementModalComponent {
 
     actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
-
-    if (role === ActionsRoleEnum.Confirm) console.log('Delete category: ', id);
+    if (role === ActionsRoleEnum.Confirm) this.store.dispatch(UserActions.deleteUserCategory({ payload: id }));
   }
 
   cancel() {
