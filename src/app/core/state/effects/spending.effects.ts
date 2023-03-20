@@ -65,6 +65,14 @@ export class SpendingEffects {
     )),
   ));
 
+  deletedSpendingList$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.deletedSpendingList),
+    switchMap(() => this.apiService.getDeletedSpending().pipe(
+      map((payload) => SpendingActions.deletedSpendingListSuccess({ payload: mapSpendingList(payload) })),
+      catchError(err => of(SpendingActions.deletedSpendingListFailure()))
+    )),
+  ));
+
   updateSpendingItem$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.updateSpendingItem),
     concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUserId)]),

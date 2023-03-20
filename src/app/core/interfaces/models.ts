@@ -27,6 +27,7 @@ export interface SpendingModel {
   comment?: string;
   accountId?: string;
   accountType?: string;
+  userId?: string;
 }
 
 export interface SpendingSortModel {

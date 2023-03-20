@@ -49,6 +49,10 @@ export class ApiService {
     return this.http.get<SpendingDto[]>(this.path + 'spending');
   }
 
+  getDeletedSpending(): Observable<SpendingDto[]> {
+    return this.http.get<SpendingDto[]>(this.path + 'spending/deleted');
+  }
+
   getSpendingList(timePeriod: TimePeriodModel): Observable<SpendingDto[]> {
     let params = new HttpParams();
     params = params.append('startDate', timePeriod.startDate.toString());
@@ -85,5 +89,9 @@ export class ApiService {
     params = params.append('startDate', timePeriod.startDate.toString());
     params = params.append('endDate', timePeriod.endDate.toString());
     return this.http.get(this.path + 'monobank/transactions', { params });
+  }
+
+  deleteBankTransaction(id: string): Observable<any> {
+    return this.http.get(this.path + `monobank/transactions/${id}`);
   }
 }

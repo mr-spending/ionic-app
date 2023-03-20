@@ -32,6 +32,15 @@ export class BankAccountsEffects {
     )),
   ));
 
+  deleteTransaction$ = createEffect(() => this.actions$.pipe(
+    ofType(BankAccountsActions.deleteTransaction),
+    switchMap(({ id }) => this.ApiService.deleteBankTransaction(id).pipe(
+      map(() => BankAccountsActions.deleteTransactionSuccess()
+      ),
+      catchError(err => of(BankAccountsActions.deleteTransactionFailure()))
+    )),
+  ));
+
   availableCardsList$ = createEffect(() => this.actions$.pipe(
     ofType(BankAccountsActions.availableCardsList),
     switchMap(() => this.mbApiService.getPersonalClientInfo().pipe(

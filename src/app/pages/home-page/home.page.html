@@ -1,10 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-row>
+    <ion-row class="data-btn-container">
       <span class="date-time">{{ currentTime }}</span>
-      <ion-button (click)="navigateToStatisticsPage()">
-        <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
-      </ion-button>
+      <ion-row  class="btn-container">
+        <ion-button (click)="navigateToStatisticsPage()">
+          <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="openSpendingBasketModal()">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
     </ion-row>
   </ion-toolbar>
 </ion-header>

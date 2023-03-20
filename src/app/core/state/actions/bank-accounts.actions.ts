@@ -9,6 +9,10 @@ export namespace BankAccountsActions {
   export const transactionListSuccess = createAction(`[${stateType}] Transaction List Success`, props<{ payload: any[] }>());
   export const transactionListFailure = createAction(`[${stateType}] Transaction List Failure`);
 
+  export const deleteTransaction = createAction(`[${stateType}] Delete Transaction`, props<{ id: string }>());
+  export const deleteTransactionSuccess = createAction(`[${stateType}] Delete Transaction Success`);
+  export const deleteTransactionFailure = createAction(`[${stateType}] Delete Transaction Failure`);
+
   export const availableCardsList = createAction(`[${stateType}] Available Cards List`);
   export const availableCardsListSuccess = createAction(`[${stateType}] Available Cards List Success`, props<{ payload: MonoBankAccount[] }>());
   export const availableCardsListFailure = createAction(`[${stateType}] Available Cards List Failure`);

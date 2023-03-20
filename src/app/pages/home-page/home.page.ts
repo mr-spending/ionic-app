@@ -15,11 +15,12 @@ import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { BankAccountsSelectors } from '../../core/state/selectors/bank-accounts.selectors';
-import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 import { SpendingService } from '../../core/services/spending/spending.service';
+import { BankAccountsActions } from '../../core/state/actions/bank-accounts.actions';
+import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 
 @Component({
   selector: 'app-home-page',
@@ -73,6 +74,14 @@ export class HomePage implements OnInit, OnDestroy {
     this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.Statistics}`]).then();
   }
 
+  async openSpendingBasketModal() {
+    this.store.dispatch(SpendingActions.deletedSpendingList());
+
+    const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent });
+    modal.present();
+    await modal.onWillDismiss();
+  }
+
   async transactionClick(transaction: BankTransaction): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
@@ -82,13 +91,13 @@ export class HomePage implements OnInit, OnDestroy {
             action: ActionsEnum.Add,
           },
         },
-        // {
-        //   text: this.translateService.instant('general.actions.delete'),
-        //   role: ActionsRoleEnum.Destructive,
-        //   data: {
-        //     action: ActionsEnum.Delete,
-        //   },
-        // },
+        {
+          text: this.translateService.instant('general.actions.delete'),
+          role: ActionsRoleEnum.Destructive,
+          data: {
+            action: ActionsEnum.Delete,
+          },
+        },
         {
           text: this.translateService.instant('general.actions.cancel'),
           role: ActionsRoleEnum.Cancel,
@@ -103,7 +112,8 @@ export class HomePage implements OnInit, OnDestroy {
     const result = await actionSheet.onDidDismiss();
 
     switch (result.data?.action) {
-      case ActionsEnum.Add: this.addTransaction(transaction);
+      case ActionsEnum.Add: this.addTransaction(transaction); break
+      case ActionsEnum.Delete: this.deleteTransaction(transaction.id); break
     }
   }
 
@@ -121,6 +131,10 @@ export class HomePage implements OnInit, OnDestroy {
       categoryId: this.categories.find(item => item.name === 'Other')?.id
     }
     this.store.dispatch(SpendingActions.createSpendingItem({ payload: spendingItem }));
+  }
+
+  deleteTransaction(id: string) {
+    this.store.dispatch(BankAccountsActions.deleteTransaction({ id }));
   }
 
   async addSpending(type: ActionsEnum.Add | ActionsEnum.Edit): Promise<void> {

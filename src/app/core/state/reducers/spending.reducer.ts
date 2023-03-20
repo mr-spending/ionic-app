@@ -7,6 +7,7 @@ import { SortFieldEnum, DirectionEnum } from '../../enums/spending.enums';
 export interface SpendingState {
   homeSpendingList: SpendingModel[];
   statSpendingList: SpendingModel[];
+  deletedSpendingList: SpendingModel[];
   statTimePeriod: TimePeriodModel | null,
   spendingSort: SpendingSortModel;
 }
@@ -14,6 +15,7 @@ export interface SpendingState {
 export const initialState: SpendingState = {
   homeSpendingList: [],
   statSpendingList: [],
+  deletedSpendingList: [],
   statTimePeriod: null,
   spendingSort: {
     field: SortFieldEnum.Time,
@@ -31,5 +33,6 @@ const reducer = createReducer<SpendingState>(
   initialState,
   on(SpendingActions.homeSpendingListSuccess, (state, { payload }) => ({ ...state, homeSpendingList: payload })),
   on(SpendingActions.statSpendingListSuccess, (state, { payload }) => ({ ...state, statSpendingList: payload })),
+  on(SpendingActions.deletedSpendingListSuccess, (state, { payload }) => ({ ...state, deletedSpendingList: payload })),
   on(SpendingActions.updateStatTimePeriod, (state, { payload }) => ({ ...state, statTimePeriod: payload })),
 );

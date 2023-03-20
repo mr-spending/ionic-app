@@ -30,6 +30,10 @@ export namespace SpendingActions {
   export const statSpendingListSuccess = createAction(`[${stateType}] Statistics Spending List Success`, props<{ payload: SpendingModel[] }>());
   export const statSpendingListFailure = createAction(`[${stateType}] Statistics Spending List Failure`);
 
+  export const deletedSpendingList = createAction(`[${stateType}] Deleted Spending List`);
+  export const deletedSpendingListSuccess = createAction(`[${stateType}] Deleted Spending List Success`, props<{ payload: SpendingModel[] }>());
+  export const deletedSpendingListFailure = createAction(`[${stateType}] Deleted Spending List Failure`);
+
   /** Reload */
 
   export const reloadSpendingAndTransactionLists = createAction(`[${stateType}] Reload Spending And Transaction Lists`, props<{ payload: TimePeriodModel }>());
