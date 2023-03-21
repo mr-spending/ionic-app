@@ -1,4 +1,5 @@
 import { SortFieldEnum, DirectionEnum } from '../enums/spending.enums';
+import { SpendingStatusEnum } from '../enums/spending-status.enum';
 
 export interface UserModel {
   id: string;
@@ -19,6 +20,7 @@ export interface SpendingModel {
   bankId: string;
   amount: number;
   time: number;
+  status: SpendingStatusEnum;
   category?: CategoryModel;
   categoryId?: string;
   description?: string;
@@ -28,6 +30,7 @@ export interface SpendingModel {
   accountId?: string;
   accountType?: string;
   userId?: string;
+  removalTime?: number;
 }
 
 export interface SpendingSortModel {

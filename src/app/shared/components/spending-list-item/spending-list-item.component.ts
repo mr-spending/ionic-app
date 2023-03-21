@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 
-import { BankTransaction, SpendingModel } from '../../../core/interfaces/models';
+import { SpendingModel } from '../../../core/interfaces/models';
 import { ListItemTypeEnum } from '../../../core/enums/list-item.enum';
 
 @Component({
@@ -10,7 +10,7 @@ import { ListItemTypeEnum } from '../../../core/enums/list-item.enum';
 })
 export class SpendingListItemComponent implements OnInit {
   @Input() currency!: string | null;
-  @Input() spending!: SpendingModel | BankTransaction;
+  @Input() spending!: SpendingModel;
   @Input() type!: ListItemTypeEnum.bankTransaction | ListItemTypeEnum.spending;
   @Input() showIcon = true;
   @Input() showCategory = true;
@@ -20,13 +20,9 @@ export class SpendingListItemComponent implements OnInit {
   icon = 'card-outline';
 
   ngOnInit() {
-    if (this.isSpendingModel(this.spending)) {
+    if (this.type === ListItemTypeEnum.spending) {
       this.background = this.spending.category?.icon.background || '';
       this.icon = this.spending.category?.icon.iconType || '';
     }
-  }
-
-  isSpendingModel(spending: SpendingModel | BankTransaction): spending is SpendingModel {
-    return 'category' in spending;
   }
 }

@@ -6,6 +6,11 @@ ion-header {
 
   ion-title {
     width: max-content;
+    padding-left: calc( 50% - 85px);
+  }
+
+  ion-title.md {
+    padding-left: calc( 50% - 140px);
   }
 }
 

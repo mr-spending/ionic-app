@@ -21,6 +21,14 @@ export namespace SpendingActions {
   export const deleteSpendingItemSuccess = createAction(`[${stateType}] Delete Spending Item Success`);
   export const deleteSpendingItemFailure = createAction(`[${stateType}] Delete Spending Item Failure`);
 
+  export const hardDeleteSpendingItem = createAction(`[${stateType}] Hard Delete Spending Item`, props<{ payload: string }>());
+  export const hardDeleteSpendingItemSuccess = createAction(`[${stateType}] Hard Delete Spending Item Success`);
+  export const hardDeleteSpendingItemFailure = createAction(`[${stateType}] Hard Delete Spending Item Failure`);
+
+  export const hardDeleteAllRejectedSpendingItems = createAction(`[${stateType}] Hard Delete All Rejected Spending Item`);
+  export const hardDeleteAllRejectedSpendingItemsSuccess = createAction(`[${stateType}] Hard Delete All Rejected Spending Item Success`);
+  export const hardDeleteAllRejectedSpendingItemsFailure = createAction(`[${stateType}] Hard Delete All Rejected Spending Item Failure`);
+
   /** Lists */
   export const homeSpendingList = createAction(`[${stateType}] Home Spending List`, props<{ payload: TimePeriodModel }>());
   export const homeSpendingListSuccess = createAction(`[${stateType}] Home Spending List Success`, props<{ payload: SpendingModel[] }>());
@@ -29,6 +37,10 @@ export namespace SpendingActions {
   export const statSpendingList = createAction(`[${stateType}] Statistics Spending List`);
   export const statSpendingListSuccess = createAction(`[${stateType}] Statistics Spending List Success`, props<{ payload: SpendingModel[] }>());
   export const statSpendingListFailure = createAction(`[${stateType}] Statistics Spending List Failure`);
+
+  export const pendingSpendingList = createAction(`[${stateType}] Pending Spending List`);
+  export const pendingSpendingListSuccess = createAction(`[${stateType}] Pending Spending List Success`, props<{ payload: SpendingModel[] }>());
+  export const pendingSpendingListFailure = createAction(`[${stateType}] Pending Spending List Failure`);
 
   export const deletedSpendingList = createAction(`[${stateType}] Deleted Spending List`);
   export const deletedSpendingListSuccess = createAction(`[${stateType}] Deleted Spending List Success`, props<{ payload: SpendingModel[] }>());

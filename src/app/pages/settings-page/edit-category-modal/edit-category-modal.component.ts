@@ -53,7 +53,7 @@ export class EditCategoryModalComponent implements OnInit{
 
   confirm() {
     const category = {
-      id: this.category.id || Guid.create().toString(),
+      id: this.category.id || '',
       name: this.formGroup.value.categoryName,
       icon: {
         iconType: this.formGroup.value.iconType,
