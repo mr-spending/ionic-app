@@ -80,7 +80,7 @@ export class UserEffects {
       ofType(UserActions.setMonoTokenSuccess, UserActions.setSelectedCardsSuccess),
       switchMap(({ userId }) => [
         UserActions.setUserData({ userId }),
-        SpendingActions.pendingSpendingListSuccess({ payload: [] })
+        SpendingActions.pendingSpendingList()
       ]),
     );
   });
