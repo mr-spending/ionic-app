@@ -12,8 +12,7 @@ export class ApiService {
 
   path = environment.baseUrl;
 
-  constructor(private firestore: AngularFirestore, private http: HttpClient) {
-  }
+  constructor(private firestore: AngularFirestore, private http: HttpClient) { }
 
   /** User Data */
 
@@ -49,15 +48,19 @@ export class ApiService {
     return this.http.get<SpendingDto[]>(this.path + 'spending');
   }
 
+  getPendingSpending(): Observable<SpendingDto[]> {
+    return this.http.get<SpendingDto[]>(this.path + 'spending/pending');
+  }
+
+  getDeletedSpending(): Observable<SpendingDto[]> {
+    return this.http.get<SpendingDto[]>(this.path + 'spending/deleted');
+  }
+
   getSpendingList(timePeriod: TimePeriodModel): Observable<SpendingDto[]> {
     let params = new HttpParams();
     params = params.append('startDate', timePeriod.startDate.toString());
     params = params.append('endDate', timePeriod.endDate.toString());
     return this.http.get<SpendingDto[]>(this.path + 'spending', { params });
-  }
-
-  getSpending(id: string): Observable<SpendingDto | undefined> {
-    return this.http.get<SpendingDto>(this.path + `spending/${ id }`);
   }
 
   createSpending(spendingModel: SpendingModel): Observable<SpendingDto | undefined> {
@@ -72,18 +75,11 @@ export class ApiService {
     return this.http.delete<void>(this.path + `spending/${ id }`);
   }
 
-  /** Categories Data */
-
-  getAllCategories(): Observable<CategoryDto[]> {
-    return this.http.get<CategoryDto[]>(this.path + 'categories');
+  hardDeleteSpending(id: string): Observable<void> {
+    return this.http.delete<void>(this.path + `spending/hard-delete/${ id }`);
   }
 
-  /** Bank Transactions Data */
-
-  getBankTransactionsList(timePeriod: TimePeriodModel): Observable<any> {
-    let params = new HttpParams();
-    params = params.append('startDate', timePeriod.startDate.toString());
-    params = params.append('endDate', timePeriod.endDate.toString());
-    return this.http.get(this.path + 'monobank/transactions', { params });
+  hardDeleteAllRejectedSpending(): Observable<void> {
+    return this.http.delete<void>(this.path + `spending/hard-delete/all-rejected`);
   }
 }

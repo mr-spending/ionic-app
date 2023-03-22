@@ -32,7 +32,8 @@
       "save": "Save",
       "back": "Back",
       "yes": "Yes",
-      "no": "No"
+      "no": "No",
+      "removeToBasket": "Remove to basket"
     },
     "dates" : {
       "today": "Today",
@@ -117,5 +118,10 @@
     "editCategory": "Edit category",
     "categoryName": "Category name",
     "enterCategoryName": "Enter category name"
+  },
+  "spendingBasketModal": {
+    "spendingBasket": "Spending Basket",
+    "cleanBasket": "Clean Basket",
+    "basketEmpty": "The basket is empty..."
   }
 }

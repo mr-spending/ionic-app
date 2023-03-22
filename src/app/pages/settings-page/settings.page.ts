@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../auth/services/auth.service';
 import { MonobankAccountSettingsComponent } from './monobank-account-settings-modal/monobank-account-settings.component';
-import { BankAccountsActions } from '../../core/state/actions/bank-accounts.actions';
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoryManagementModalComponent } from './category-management-modal/category-management-modal.component';
@@ -45,15 +44,13 @@ export class SettingsPage implements OnDestroy {
     this.store.dispatch(UserActions.setUserLanguage({ payload: language }));
   }
 
-  async categoryManagementOpen() {
+  async categoryManagementOpen(): Promise<void> {
     const modal = await this.modalCtrl.create({ component: CategoryManagementModalComponent });
     modal.present();
     await modal.onWillDismiss();
   }
 
-  async monoAccSettingsOpen() {
-    this.store.dispatch(BankAccountsActions.availableCardsList());
-
+  async monoAccSettingsOpen(): Promise<void> {
     const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent });
     modal.present();
     await modal.onWillDismiss();

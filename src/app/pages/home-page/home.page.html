@@ -1,10 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-row>
+    <ion-row class="data-btn-container">
       <span class="date-time">{{ currentTime }}</span>
-      <ion-button (click)="navigateToStatisticsPage()">
-        <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
-      </ion-button>
+      <ion-row  class="btn-container">
+        <ion-button (click)="navigateToStatisticsPage()">
+          <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="openSpendingBasketModal()">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </ion-row>
     </ion-row>
   </ion-toolbar>
 </ion-header>
@@ -42,14 +47,14 @@
   </div>
 
   <div class="scroll">
-    <ion-list *ngIf="bankTransactions$ | async as bankTransactions" class="bank-transactions-list">
-      <p *ngIf="bankTransactions.length" class="bank-transactions-title">{{ 'home.newTransactions' | translate }}</p>
+    <ion-list *ngIf="pendingSpendingList$ | async as pendingSpendingList" class="bank-transactions-list">
+      <p *ngIf="pendingSpendingList.length" class="bank-transactions-title">{{ 'home.newTransactions' | translate }}</p>
       <app-spending-list-item
-        *ngFor="let item of bankTransactions"
+        *ngFor="let item of pendingSpendingList"
         [currency]="currency$ | async"
         [spending]="item"
         [type]="listItemTypeEnum.bankTransaction"
-        (click)="transactionClick(item)">
+        (click)="transactionClickActionsModal(item)">
       </app-spending-list-item>
     </ion-list>
 

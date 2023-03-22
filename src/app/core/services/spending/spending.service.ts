@@ -24,7 +24,7 @@ export class SpendingService {
     private translateService: TranslateService,
   ) { }
 
-  async spendingClickActionsModal(item: SpendingModel, categories: CategoryModel[]) {
+  async spendingClickActionsModal(item: SpendingModel, categories: CategoryModel[]): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
       buttons: [
         {
@@ -34,7 +34,7 @@ export class SpendingService {
           },
         },
         {
-          text: this.translateService.instant('general.actions.delete'),
+          text: this.translateService.instant('general.actions.removeToBasket'),
           role: ActionsRoleEnum.Destructive,
           data: {
             action: ActionsEnum.Delete,
@@ -67,7 +67,7 @@ export class SpendingService {
     categories: CategoryModel[],
     item?: SpendingModel,
     amount?: number
-  }) {
+  }): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: ConfigureSpendingModalComponent,
       componentProps: {
@@ -81,7 +81,7 @@ export class SpendingService {
     await modal.onWillDismiss();
   }
 
-  async confirmRemove(id: string) {
+  async confirmRemove(id: string): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
       header: this.translateService.instant('general.messages.areYouSure'),
       buttons: [
@@ -102,11 +102,11 @@ export class SpendingService {
     if (role === ActionsRoleEnum.Confirm) this.removeSpendingItem(id);
   }
 
-  removeSpendingItem(id: string) {
+  removeSpendingItem(id: string): void {
     this.store.dispatch(SpendingActions.deleteSpendingItem({ payload: id }));
   }
 
-  updateSpendingList() {
+  updateSpendingList(): void {
     this.store.dispatch(SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() }));
   }
 }

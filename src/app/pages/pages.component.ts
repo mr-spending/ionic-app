@@ -7,7 +7,6 @@ import * as moment from 'moment';
 
 import { AuthService } from '../auth/services/auth.service';
 import { PageRoutesEnum } from '../core/enums/routing.enums';
-import { CategoriesActions } from '../core/state/actions/categories.actions';
 import { UserSelectors } from '../core/state/selectors/user.selectors';
 import { BankAccountsActions } from '../core/state/actions/bank-accounts.actions';
 import { SpendingActions } from '../core/state/actions/spending.actions';
@@ -43,7 +42,6 @@ export class PagesComponent implements OnDestroy {
     private translateService: TranslateService,
     private store: Store<AppState>,
   ) {
-    this.store.dispatch(CategoriesActions.categoriesList());
     this.store.dispatch(SpendingActions.updateStatTimePeriod({
       payload: {
         startDate: moment().startOf(ViewPeriod.Month).unix(),

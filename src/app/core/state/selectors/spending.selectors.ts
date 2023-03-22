@@ -14,6 +14,8 @@ export namespace SpendingSelectors {
 
   export const selectHomeSpendingList = createSelector(spendingSelector, state => state.homeSpendingList);
   export const selectStatSpendingList = createSelector(spendingSelector, state => state.statSpendingList);
+  export const selectDeletedSpendingList = createSelector(spendingSelector, state => state.deletedSpendingList);
+  export const selectPendingSpendingList = createSelector(spendingSelector, state => state.pendingSpendingList);
   export const selectSpendingSort = createSelector(spendingSelector, state => state.spendingSort);
   export const selectStatTimePeriod = createSelector(spendingSelector, state => state.statTimePeriod);
 
@@ -29,6 +31,18 @@ export namespace SpendingSelectors {
         category: categories.find(item => item.id === spending.categoryId),
       }))
       return groupingSpendingByDate(sortedListWithCategories);
+    }
+  );
+
+  export const selectCategorizedDeletedSpendingList = createSelector(
+    selectDeletedSpendingList,
+    selectCategories,
+    (list: SpendingModel[], categories: CategoryModel[]) => {
+      const sortedList = sortArrayByProperty(list, 'time', DirectionEnum.Descending) as SpendingModel[];
+      return sortedList.map(spending => ({
+        ...spending,
+        category: categories.find(item => item.id === spending.categoryId),
+      }))
     }
   );
 

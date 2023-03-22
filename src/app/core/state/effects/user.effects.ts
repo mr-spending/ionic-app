@@ -6,9 +6,6 @@ import { Store } from '@ngrx/store';
 import { UserActions } from '../actions/user.actions';
 import { ApiService } from '../../api/api.service';
 import { UserModel } from '../../interfaces/models';
-import { LocalStorageService } from '../../services/local-storage/local-storage.service';
-import { BankAccountsActions } from '../actions/bank-accounts.actions';
-import { BankAccountsState } from '../reducers/bank-accounts.reducer';
 import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';
 import { UserSelectors } from '../selectors/user.selectors';
 import { UserState } from '../reducers/user.reducer';
@@ -21,8 +18,6 @@ export class UserEffects {
     private actions$: Actions,
     private apiService: ApiService,
     private userStore: Store<UserState>,
-    private lsService: LocalStorageService,
-    private bankAccountsStore: Store<BankAccountsState>,
   ) { }
 
   setUserData$ = createEffect(() => this.actions$.pipe(
@@ -34,11 +29,7 @@ export class UserEffects {
 
   setUserDataSuccess$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.setUserDataSuccess),
-    map(({ payload }) => {
-      if (payload.monoBankAccounts?.length) this.bankAccountsStore.dispatch(BankAccountsActions.transactionList({
-          accounts: payload.monoBankAccounts, period: getCurrentMonthPeriodUNIX()
-      }));
-    })
+    map(({ payload }) => SpendingActions.pendingSpendingList()),
   ), { dispatch: false });
 
   addUser$ = createEffect(() => this.actions$.pipe(
@@ -89,7 +80,7 @@ export class UserEffects {
       ofType(UserActions.setMonoTokenSuccess, UserActions.setSelectedCardsSuccess),
       switchMap(({ userId }) => [
         UserActions.setUserData({ userId }),
-        BankAccountsActions.transactionListSuccess({ payload: [] })
+        SpendingActions.pendingSpendingListSuccess({ payload: [] })
       ]),
     );
   });

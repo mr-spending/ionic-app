@@ -1,4 +1,5 @@
 import { SortFieldEnum, DirectionEnum } from '../enums/spending.enums';
+import { SpendingStatusEnum } from '../enums/spending-status.enum';
 
 export interface UserModel {
   id: string;
@@ -19,6 +20,7 @@ export interface SpendingModel {
   bankId: string;
   amount: number;
   time: number;
+  status: SpendingStatusEnum;
   category?: CategoryModel;
   categoryId?: string;
   description?: string;
@@ -27,6 +29,8 @@ export interface SpendingModel {
   comment?: string;
   accountId?: string;
   accountType?: string;
+  userId?: string;
+  removalTime?: number;
 }
 
 export interface SpendingSortModel {
@@ -47,33 +51,6 @@ export interface MonoBankAccount {
   id: string;
   maskedPan: string[];
   type: string;
-}
-
-export interface ServerBankTransaction {
-  "data": {
-    "account": string;
-    "statementItem": {
-      "id": string;
-      "amount": number;
-      "time": number;
-      "description": string;
-      "currencyCode": string;
-    }
-  };
-  "type": string;
-  "id": string;
-}
-
-export interface BankTransaction {
-  amount: number;
-  currencyCode: number;
-  description?: string;
-  comment?: string;
-  id: string;
-  time: number;
-  date?: string;
-  accountId: string;
-  accountType: string;
 }
 
 export interface CategoryModel {

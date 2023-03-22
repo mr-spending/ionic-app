@@ -7,10 +7,6 @@ import { ApiService } from '../../api/api.service';
 import { SpendingActions } from '../actions/spending.actions';
 import { UserSelectors } from '../selectors/user.selectors';
 import { UserState } from '../reducers/user.reducer';
-import { mapSpendingList } from '../../utils/spending.utils';
-import { SpendingState } from '../reducers/spending.reducer';
-import { BankAccountsState } from '../reducers/bank-accounts.reducer';
-import { BankAccountsActions } from '../actions/bank-accounts.actions';
 import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';
 import { SpendingSelectors } from '../selectors/spending.selectors';
 import { TimePeriodModel } from '../../interfaces/models';
@@ -22,9 +18,7 @@ export class SpendingEffects {
     private actions$: Actions,
     private apiService: ApiService,
     private userStore: Store<UserState>,
-    private spendingStore: Store<SpendingState>,
-    private bankAccountsStore: Store<BankAccountsState>,
-  ) {}
+  ) { }
 
   createSpendingItem$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.createSpendingItem),
@@ -48,10 +42,32 @@ export class SpendingEffects {
     )),
   ));
 
+  hardDeleteSpendingItem$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.hardDeleteSpendingItem),
+    switchMap(({ payload }) => this.apiService.hardDeleteSpending(payload).pipe(
+      switchMap(() => [
+        SpendingActions.hardDeleteSpendingItemSuccess(),
+        SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() })
+      ]),
+      catchError(err => of(SpendingActions.hardDeleteSpendingItemFailure()))
+    )),
+  ));
+
+  hardDeleteAllRejectedSpendingItems$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.hardDeleteAllRejectedSpendingItems),
+    switchMap(() => this.apiService.hardDeleteAllRejectedSpending().pipe(
+      switchMap(() => [
+        SpendingActions.hardDeleteAllRejectedSpendingItemsSuccess(),
+        SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() })
+      ]),
+      catchError(err => of(SpendingActions.hardDeleteAllRejectedSpendingItemsFailure()))
+    )),
+  ));
+
   homeSpendingList$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.homeSpendingList),
     switchMap(({ payload }) => this.apiService.getSpendingList(payload).pipe(
-      map((payload) => SpendingActions.homeSpendingListSuccess({ payload: mapSpendingList(payload) })),
+      map((payload) => SpendingActions.homeSpendingListSuccess({ payload })),
       catchError(err => of(SpendingActions.homeSpendingListFailure()))
     )),
   ));
@@ -60,8 +76,24 @@ export class SpendingEffects {
     ofType(SpendingActions.statSpendingList),
     concatLatestFrom(() => [this.userStore.select(SpendingSelectors.selectStatTimePeriod)]),
     switchMap(([_, period]) => this.apiService.getSpendingList(period as TimePeriodModel).pipe(
-      map((payload) => SpendingActions.statSpendingListSuccess({ payload: mapSpendingList(payload) })),
+      map((payload) => SpendingActions.statSpendingListSuccess({ payload })),
       catchError(err => of(SpendingActions.statSpendingListFailure()))
+    )),
+  ));
+
+  pendingSpendingList$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.pendingSpendingList),
+    switchMap(() => this.apiService.getPendingSpending().pipe(
+      map((payload) => SpendingActions.pendingSpendingListSuccess({ payload })),
+      catchError(err => of(SpendingActions.pendingSpendingListFailure()))
+    )),
+  ));
+
+  deletedSpendingList$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.deletedSpendingList),
+    switchMap(() => this.apiService.getDeletedSpending().pipe(
+      map((payload) => SpendingActions.deletedSpendingListSuccess({ payload })),
+      catchError(err => of(SpendingActions.deletedSpendingListFailure()))
     )),
   ));
 
@@ -79,12 +111,13 @@ export class SpendingEffects {
 
   reloadSpendingAndTransactionLists$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.reloadSpendingAndTransactionLists),
-    concatLatestFrom(() => [this.userStore.select(UserSelectors.selectUser)]),
-    switchMap(([{ payload } , user]) => {
-      if (user?.monoBankAccounts) this.bankAccountsStore.dispatch(BankAccountsActions.transactionList(
-        { accounts: user.monoBankAccounts, period: payload }
-      ));
-      return [SpendingActions.homeSpendingList({ payload }), SpendingActions.statSpendingList()]
+    switchMap(({ payload }) => {
+      return [
+        SpendingActions.homeSpendingList({ payload }),
+        SpendingActions.statSpendingList(),
+        SpendingActions.pendingSpendingList(),
+        SpendingActions.deletedSpendingList()
+      ];
     }),
   ));
 }

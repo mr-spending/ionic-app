@@ -5,10 +5,10 @@ import { AppState } from '@capacitor/app';
 import { ChartData } from 'chart.js';
 import * as moment from 'moment/moment';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 
 import { CategoryModel, SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
-import { CategoriesSelectors } from '../../core/state/selectors/categories.selectors';
 import {
   getAvailableMonthsInCurrentYear,
   getCurrentYear,
@@ -19,7 +19,6 @@ import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { START_YEAR } from '../../core/constants/time.constants';
 import { ViewPeriod } from '../../core/enums/time.enum';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-statistics-page',
@@ -42,10 +41,10 @@ export class StatisticsPage implements OnInit, OnDestroy {
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
 
   constructor(
+    private translateService: TranslateService,
     private fb: FormBuilder,
     private store: Store<AppState>,
     public spendingService : SpendingService,
-    private translateService: TranslateService,
   ) {
     this.formGroup = this.fb.group({
       periodRange: this.fb.control(null),

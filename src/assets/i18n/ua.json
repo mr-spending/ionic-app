@@ -32,7 +32,8 @@
       "save": "Зберегти",
       "back": "Назад",
       "yes": "Так",
-      "no": "Ні"
+      "no": "Ні",
+      "removeToBasket": "Прибрати в кошик"
     },
     "dates": {
       "today": "Сьогодні",
@@ -117,5 +118,10 @@
     "editCategory": "Встановлення категорії",
     "categoryName": "Назва категорії",
     "enterCategoryName": "Введіть назву категорії"
+  },
+  "spendingBasketModal": {
+    "spendingBasket": "Кошик витрат",
+    "cleanBasket": "Очистити кошик",
+    "basketEmpty": "Кошик порожній..."
   }
 }

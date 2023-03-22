@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">{{ 'general.actions.back' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title>{{ 'spendingBasketModal.spendingBasket' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="deletedSpendingList$ | async as deletedSpendingList" class="ion-padding" scroll-y="false">
+  <div *ngIf="deletedSpendingList.length" (click)="confirmSpendingDelete()" class="clean-basket">
+    <ion-label>{{ 'spendingBasketModal.cleanBasket' | translate }}</ion-label>
+    <ion-icon name="trash-bin-outline"></ion-icon>
+  </div>
+
+  <div class="page-delimiter"></div>
+
+  <p *ngIf="!deletedSpendingList.length" class="page-placeholder">{{ 'spendingBasketModal.basketEmpty' | translate }}</p>
+
+  <ion-list class="spending-list">
+    <div *ngFor="let spending of deletedSpendingList" class="spending-item">
+      <div class="spending-desc">
+        <app-icon [iconName]="spending.category!.icon.iconType" [backgroundColor]="spending.category!.icon.background"></app-icon>
+        <ion-label>
+          <p>{{ spending.description }}</p>
+          <p>{{ spending.date | date: 'MMM d, HH:mm' }}</p>
+          <p *ngIf="currency$ | async as currency" class="amount">{{ currency }} {{ spending.amount | mrMoneyFormat }}</p>
+        </ion-label>
+      </div>
+      <div class="spending-commands">
+        <div (click)="rollbackSpending(spending)" class="spending-commands-edit">
+          <ion-icon name="arrow-undo-outline"></ion-icon>
+        </div>
+        <div
+          (click)="confirmSpendingDelete(spending.id)"
+          class="spending-commands-delete"
+        >
+          <ion-icon color="danger" name="trash"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </ion-list>
+</ion-content>
