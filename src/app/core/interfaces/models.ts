@@ -53,33 +53,6 @@ export interface MonoBankAccount {
   type: string;
 }
 
-export interface ServerBankTransaction {
-  "data": {
-    "account": string;
-    "statementItem": {
-      "id": string;
-      "amount": number;
-      "time": number;
-      "description": string;
-      "currencyCode": string;
-    }
-  };
-  "type": string;
-  "id": string;
-}
-
-export interface BankTransaction {
-  amount: number;
-  currencyCode: number;
-  description?: string;
-  comment?: string;
-  id: string;
-  time: number;
-  date?: string;
-  accountId: string;
-  accountType: string;
-}
-
 export interface CategoryModel {
   id: string;
   name: string;
