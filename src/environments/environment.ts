@@ -1,6 +1,12 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+enum env {
+  dev = 'http://localhost:3500/',
+  prod = 'https://nest-api-git-develop-mr-spending.vercel.app/',
+}
+
+const baseUrl = env.prod;
 
 export const environment = {
   production: false,
@@ -15,7 +21,7 @@ export const environment = {
     measurementId: "G-ZLMGMXP4KF"
   },
   monoBankApiUrl: 'https://api.monobank.ua/',
-  baseUrl: 'https://nest-api-git-develop-mr-spending.vercel.app/'
+  baseUrl,
 };
 
 /*
