@@ -17,6 +17,10 @@ export namespace UserSelectors {
   export const selectConnectedMonoCards = createSelector(userSelector, state => state.user?.monoBankAccounts);
   export const selectDisplayLanguage = createSelector(userSelector, state => state.user?.displayLanguage);
   export const selectUserCategories = createSelector(userSelector, state => state.user?.categories);
+  export const selectLastUpdateTime = createSelector(userSelector, state => state.user?.availableMonoBankAccounts?.lastUpdateTime);
+  export const selectAvailableCards = createSelector(userSelector, state =>
+    sortArrayByProperty(state.user?.availableMonoBankAccounts?.availableAccounts || [], 'type', DirectionEnum.Descending)
+  );
 
   export const selectSpendingByUserCategories = createSelector(
     SpendingSelectors.selectStatSpendingList,

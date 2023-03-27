@@ -26,6 +26,10 @@ export namespace UserActions {
   export const setUserLanguageSuccess = createAction(`[${stateType}] Set User Language Success`);
   export const setUserLanguageFailure = createAction(`[${stateType}] Set User Language Failure`);
 
+  export const setAvailableCardsList = createAction(`[${stateType}] Set Available Cards List`, props<{ payload: MonoBankAccount[] }>());
+  export const setAvailableCardsListSuccess = createAction(`[${stateType}] Set Available Cards List Success`);
+  export const setAvailableCardsListFailure = createAction(`[${stateType}] Set Available Cards List Failure`);
+
   export const addUserCategory = createAction(`[${stateType}] Add User Category`, props<{ payload: CategoryModel }>());
   export const addUserCategorySuccess = createAction(`[${stateType}] Add User Category Success`);
   export const addUserCategoryFailure = createAction(`[${stateType}] Add User Category Failure`);

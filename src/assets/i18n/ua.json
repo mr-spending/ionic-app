@@ -96,7 +96,9 @@
     "black": "Чорна",
     "eAid": "Є-Підтримка",
     "currency": "Валюта",
-    "type": "Тип"
+    "type": "Тип",
+    "updateCardList": "Оновити доступні картки",
+    "cardsForTracking": "Вибір карток для трекінгу:"
   },
   "editSpendingModal": {
     "title": "Редагувати",

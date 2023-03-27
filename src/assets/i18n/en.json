@@ -96,7 +96,9 @@
     "black": "Black",
     "eAid": "E-Aid",
     "currency": "Currency",
-    "type": "Type"
+    "type": "Type",
+    "updateCardList": "Update card list",
+    "cardsForTracking": "Select cards for tracking:"
   },
   "editSpendingModal": {
     "title": "Edit spending",

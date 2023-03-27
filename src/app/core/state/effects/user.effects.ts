@@ -49,7 +49,12 @@ export class UserEffects {
     ofType(UserActions.setMonoToken),
     concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
     switchMap(([{ payload } , user]) => {
-      return this.apiService.updateUser({ ...user as UserModel, monoBankClientToken: payload, monoBankAccounts: [] }).pipe(
+      return this.apiService.updateUser({
+        ...user as UserModel,
+        monoBankClientToken: payload,
+        monoBankAccounts: [],
+        availableMonoBankAccounts: { availableAccounts: [], lastUpdateTime: 0 }
+      }).pipe(
         map(() => UserActions.setMonoTokenSuccess({ userId: user!.id })),
         catchError(err => of(UserActions.setMonoTokenFailure()))
       )
@@ -73,6 +78,29 @@ export class UserEffects {
       window.location.reload();
       return null as unknown as Observable<any>;
     }),
+  ));
+
+  setAvailableCardsList$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.setAvailableCardsList),
+    concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
+    switchMap(([{ payload } , user]) => {
+      return this.apiService.updateUser({
+        ...user as UserModel,
+        availableMonoBankAccounts: {
+          lastUpdateTime: Math.floor(new Date().getTime() / 1000),
+          availableAccounts: payload
+        }
+      }).pipe(
+        map(() => UserActions.setAvailableCardsListSuccess()),
+        catchError(err => of(UserActions.setAvailableCardsListFailure()))
+      )
+    }),
+  ));
+
+  setAvailableCardsListSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.setAvailableCardsListSuccess),
+    concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
+    map(([_, user]) => UserActions.clearUpdateUserData({ userId: user!.id })),
   ));
 
   updateUserAndTransactionList$ = createEffect(() => {

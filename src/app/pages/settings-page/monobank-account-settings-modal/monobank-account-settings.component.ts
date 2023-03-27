@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, timer } from 'rxjs';
+import { FormBuilder, FormControl } from '@angular/forms';
 
 import { MonoBankAccount } from '../../../core/interfaces/models';
 import { UserSelectors } from '../../../core/state/selectors/user.selectors';
 import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
-import { BankAccountsSelectors } from '../../../core/state/selectors/bank-accounts.selectors';
 import { UserActions } from '../../../core/state/actions/user.actions';
 import { CurrencyCodesEnum } from '../../../core/enums/сurrency.enums';
 import { environment } from '../../../../environments/environment';
-import { FormBuilder, FormControl } from '@angular/forms';
 import { BankAccountsActions } from '../../../core/state/actions/bank-accounts.actions';
 
 @Component({
@@ -19,17 +18,22 @@ import { BankAccountsActions } from '../../../core/state/actions/bank-accounts.a
   templateUrl: './monobank-account-settings.component.html',
   styleUrls: ['./monobank-account-settings.component.scss'],
 })
-export class MonobankAccountSettingsComponent implements OnInit {
-  availableCards$: Observable<MonoBankAccount[]> = this.store.select(BankAccountsSelectors.selectAvailableCards);
-  connectedMonoCards!: MonoBankAccount[];
+export class MonobankAccountSettingsComponent implements OnInit, OnDestroy {
+  availableCards$: Observable<MonoBankAccount[] | undefined> = this.store.select(UserSelectors.selectAvailableCards);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
-  monoBankApiUrl = environment.monoBankApiUrl;
-  actionsEnum = ActionsEnum;
+
   subscription: Subscription = new Subscription();
-  currencyCodesEnum = CurrencyCodesEnum;
-  monoToken!: string;
+  monoBankApiUrl = environment.monoBankApiUrl;
   isMonoAccSettingOpened: boolean = false;
+  currencyCodesEnum = CurrencyCodesEnum;
+  actionsEnum = ActionsEnum;
+
+  connectedMonoCards!: MonoBankAccount[];
+  isUpdateCardsForbidden!: boolean;
   tokenInput: FormControl;
+  lastUpdateTime!: number;
+  timeToUpdate!: string;
+  monoToken!: string;
 
   constructor(
     private store: Store<AppState>,
@@ -44,10 +48,25 @@ export class MonobankAccountSettingsComponent implements OnInit {
     this.subscription.add(this.store.select(UserSelectors.selectConnectedMonoCards)
       .subscribe(value => this.connectedMonoCards = value || []));
     this.subscription.add(this.store.select(UserSelectors.selectMonoToken)
-      .subscribe(value => {
-        if (value) this.store.dispatch(BankAccountsActions.availableCardsList());
-        this.monoToken = value || '';
-      }));
+      .subscribe(value => this.monoToken = value || ''));
+    this.subscription.add(this.store.select(UserSelectors.selectLastUpdateTime)
+      .subscribe(value => value && (this.lastUpdateTime = value)));
+    this.subscription.add(timer(0, 1000)
+      .subscribe(() => {
+        const timeDifference = Math.floor(new Date().getTime() / 1000) - this.lastUpdateTime;
+        if (timeDifference <= 1800) {
+          const lastTime = 1800 - timeDifference;
+          this.isUpdateCardsForbidden = true;
+          this.timeToUpdate = Math.floor(lastTime / 60) + ':' + lastTime % 60;
+        } else {
+          this.isUpdateCardsForbidden = false;
+        }
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
   cancel() {
@@ -84,5 +103,9 @@ export class MonobankAccountSettingsComponent implements OnInit {
       ? this.connectedMonoCards = [...this.connectedMonoCards, card]
       : this.connectedMonoCards = this.connectedMonoCards.filter(item => item.id != card.id);
     this.store.dispatch(UserActions.setSelectedCards({ payload: this.connectedMonoCards }));
+  }
+
+  updateCardList(): void {
+    this.store.dispatch(BankAccountsActions.availableCardsList());
   }
 }
