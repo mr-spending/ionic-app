@@ -1,5 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { BankAccountsActions } from '../actions/bank-accounts.actions';
+import { Action, createReducer } from '@ngrx/store';
 import { MonoBankAccount } from '../../interfaces/models';
 
 export interface BankAccountsState {
@@ -15,11 +14,4 @@ export function bankAccountsReducer(state: BankAccountsState | undefined, action
 }
 
 export const bankAccountsKey = 'bankAccounts';
-const reducer = createReducer<BankAccountsState>(
-  initialState,
-
-  on(BankAccountsActions.availableCardsListSuccess, (state, { payload }) => ({ ...state, availableCards: payload })),
-
-  on(BankAccountsActions.availableCardsListFailure, (state) => ({ ...state, availableCards: [] })),
-
-);
+const reducer = createReducer<BankAccountsState>(initialState);

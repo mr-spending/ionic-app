@@ -11,6 +11,7 @@ export interface UserModel {
   currencyId?: string;
   monoBankClientToken?: string;
   monoBankAccounts?: MonoBankAccount[];
+  availableMonoBankAccounts?: AvailableMonoBankAccounts;
   displayLanguage: string;
   categories: CategoryModel[];
 }
@@ -51,6 +52,11 @@ export interface MonoBankAccount {
   id: string;
   maskedPan: string[];
   type: string;
+}
+
+export interface AvailableMonoBankAccounts {
+  lastUpdateTime: number;
+  availableAccounts: MonoBankAccount[];
 }
 
 export interface CategoryModel {

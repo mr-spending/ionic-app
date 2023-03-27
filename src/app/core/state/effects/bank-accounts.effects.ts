@@ -6,6 +6,7 @@ import { MonoBankApiService } from '../../api/mono-bank-api.service';
 import { BankAccountsActions } from '../actions/bank-accounts.actions';
 import { configureMonoCardsList, filterBankTransactionsByCurrencyCode } from '../../utils/bank-accounts.utils';
 import { CurrencyCodesEnum } from '../../enums/сurrency.enums';
+import { UserActions } from '../actions/user.actions';
 
 @Injectable()
 export class BankAccountsEffects {
@@ -23,6 +24,11 @@ export class BankAccountsEffects {
       })),
       catchError(err => of(BankAccountsActions.availableCardsListFailure()))
     )),
+  ));
+
+  availableCardsListSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(BankAccountsActions.availableCardsListSuccess),
+    map(({ payload }) => UserActions.setAvailableCardsList({ payload })),
   ));
 
   checkWebHook$ = createEffect(() => this.actions$.pipe(

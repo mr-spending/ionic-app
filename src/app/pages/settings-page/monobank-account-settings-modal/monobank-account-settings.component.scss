@@ -12,6 +12,13 @@ ion-header {
 ion-content {
   height: 100%;
 
+  ion-button {
+    --background-activated: none;
+    --background-focused: none;
+    --background-hover: none;
+    --ripple-color: transparent;
+  }
+
   .account-management {
 
     .account {
@@ -25,8 +32,27 @@ ion-content {
     }
   }
 
+  .update-btn {
+    height: 46px;
+    margin-top: 10px;
+    margin-left: calc(50%);
+    transform: translate(-50%);
+    color: var(--button-content-color-1);
+    background: var(--background-color-1);
+    border-radius: 23px;
+  }
+
+  .update-btn.button-disabled {
+    color: var(--color-gray-2);
+  }
+
   .card-management {
-    padding: 15px 0;
+    padding-bottom: 15px;
+
+    p {
+      text-align: center;
+      margin-top: 10px;
+    }
 
     .card {
       position: relative;

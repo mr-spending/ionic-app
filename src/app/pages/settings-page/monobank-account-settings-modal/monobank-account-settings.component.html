@@ -12,17 +12,17 @@
     <div *ngIf="!isMonoAccSettingOpened" class="account">
       <ion-button *ngIf="!monoToken" (click)="openMonoTokenPage()" slot="start">
         <ion-icon name="add-outline"></ion-icon>
-        <ion-label>{{ 'settings.setAcc' | translate }}</ion-label>
+        <ion-label>&nbsp;{{ 'settings.setAcc' | translate }}</ion-label>
       </ion-button>
 
       <ion-button *ngIf="monoToken" (click)="openMonoTokenPage()" slot="start">
-        <ion-icon name="sync-outline"></ion-icon>
-        <ion-label>{{ 'settings.changeAcc' | translate }}</ion-label>
+        <ion-icon name="arrow-redo-outline"></ion-icon>
+        <ion-label>&nbsp;{{ 'settings.changeAcc' | translate }}</ion-label>
       </ion-button>
 
       <ion-button *ngIf="monoToken" (click)="forgetMonoToken()" slot="end">
         <ion-icon name="trash-outline" color="danger"></ion-icon>
-        <ion-label color="danger">{{ 'settings.forgetAcc' | translate }}</ion-label>
+        <ion-label color="danger">&nbsp;{{ 'settings.forgetAcc' | translate }}</ion-label>
       </ion-button>
     </div>
 
@@ -31,7 +31,7 @@
 
       <ion-button [disabled]="!this.tokenInput.value" (click)="setMonoToken()">
         <ion-icon name="add-outline"></ion-icon>
-        {{ 'general.actions.add' | translate }}
+        &nbsp;{{ 'general.actions.add' | translate }}
       </ion-button>
 
       <ion-button (click)="resetSettingToken()">
@@ -40,8 +40,15 @@
     </ion-item>
   </ion-list>
 
-  <ion-list *ngIf="monoToken" class="card-management">
-    <div *ngIf="availableCards$ | async as availableCards">
+  <ion-button *ngIf="monoToken" [disabled]="isUpdateCardsForbidden" (click)="updateCardList()" class="update-btn">
+    <ion-icon *ngIf="!isUpdateCardsForbidden" name="sync-outline"></ion-icon>
+    <ion-label *ngIf="isUpdateCardsForbidden">{{ timeToUpdate }}</ion-label>
+    <ion-label>&nbsp;{{ 'settings.updateCardList' | translate }}</ion-label>
+  </ion-button>
+
+  <ion-list *ngIf="availableCards$ | async as availableCards" class="card-management">
+    <p *ngIf="availableCards.length">{{ 'settings.cardsForTracking' | translate }}</p>
+    <div>
       <div
         class="card"
         *ngFor="let card of availableCards"
