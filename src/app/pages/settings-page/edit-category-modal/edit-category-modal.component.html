@@ -32,7 +32,11 @@
 
   <ion-item class="name-edit" [formGroup]="formGroup">
     <ion-label>{{ 'editCategoryModal.categoryName' | translate }}</ion-label>
-    <ion-input placeholder="{{ 'editCategoryModal.enterCategoryName' | translate }}" formControlName="categoryName"></ion-input>
+    <ion-input
+      placeholder="{{ 'editCategoryModal.enterCategoryName' | translate }}"
+      formControlName="categoryName"
+      maxlength="15"
+    ></ion-input>
   </ion-item>
 
   <div *ngIf="editMode === 'icon'" class="icon-chose">
