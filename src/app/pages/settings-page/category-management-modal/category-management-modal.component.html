@@ -1,7 +1,9 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-button (click)="cancel()">{{ 'general.actions.back' | translate }}</ion-button>
+      <ion-button (click)="cancel()">
+        <ion-label color="primary">{{ 'general.actions.back' | translate }}</ion-label>
+      </ion-button>
     </ion-buttons>
     <ion-title>{{ 'categoryManagementModal.categoryManagement' | translate }}</ion-title>
   </ion-toolbar>

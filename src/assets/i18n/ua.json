@@ -86,7 +86,7 @@
   "settings": {
     "title": "Налаштування",
     "categoryManagement": "Керування категоріями",
-    "monoAccSettings": "Налаштування Monobank акаунту",
+    "monoAccSettings": "Параметри Monobank акаунту",
     "inputToken": "Введення токену...",
     "setAcc": "Встановити (змінити) акаунт",
     "changeAcc": "Змінити акаунт",

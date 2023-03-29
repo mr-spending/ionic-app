@@ -34,15 +34,6 @@ body {
   background: transparent;
 }
 
-app-sign-in {
-
-  background: var(--background-color-2);
-}
-
-app-sign-up {
-  background: var(--background-color-2);
-}
-
 ion-modal, ion-popover {
   z-index: 997 !important;
 }
@@ -112,4 +103,17 @@ ion-action-sheet {
       }
     }
   }
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  background-color: transparent !important;
+  border: none !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+ion-button ion-label {
+  text-transform: none !important;
 }

@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" (click)="cancel()">
-      <ion-label color="primary">{{ 'general.actions.back' | translate }}</ion-label>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">
+        <ion-label color="primary">{{ 'general.actions.back' | translate }}</ion-label>
+      </ion-button>
     </ion-buttons>
-    <ion-title slot="end">{{ 'settings.monoAccSettings' | translate }}</ion-title>
+    <ion-title>{{ 'settings.monoAccSettings' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -48,7 +50,8 @@
 
   <ion-list *ngIf="availableCards$ | async as availableCards" class="card-management">
     <p *ngIf="availableCards.length">{{ 'settings.cardsForTracking' | translate }}</p>
-    <div>
+    <div class="page-delimiter"></div>
+    <div class="card-list">
       <div
         class="card"
         *ngFor="let card of availableCards"

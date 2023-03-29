@@ -1,0 +1,17 @@
+:host {
+  background: var(--page-background);
+}
+
+ion-input {
+  --background: var(--page-background);
+}
+
+.sign-up-btn {
+  color: var(--button-content-color-1);
+  border: 1px solid var(--button-content-color-1);
+  border-radius: 64px;
+  --background-activated: none;
+  --background-focused: none;
+  --background-hover: none;
+  --ripple-color: transparent;
+}
