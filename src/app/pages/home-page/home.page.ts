@@ -90,6 +90,12 @@ export class HomePage implements OnInit, OnDestroy {
           },
         },
         {
+          text: this.translateService.instant('general.actions.addAs'),
+          data: {
+            action: ActionsEnum.AddAs,
+          },
+        },
+        {
           text: this.translateService.instant('general.actions.delete'),
           role: ActionsRoleEnum.Destructive,
           data: {
@@ -111,6 +117,11 @@ export class HomePage implements OnInit, OnDestroy {
 
     switch (result.data?.action) {
       case ActionsEnum.Add: this.addTransaction(transaction); break
+      case ActionsEnum.AddAs: await this.spendingService.openConfigureSpendingModal({
+        type: ActionsEnum.Edit,
+        categories: this.categories,
+        item: { ...transaction, status: SpendingStatusEnum.Accepted }
+      }); break
       case ActionsEnum.Delete: await this.confirmTransactionRemove(transaction.id); break
     }
   }
