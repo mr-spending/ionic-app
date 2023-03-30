@@ -8,9 +8,7 @@ import { SpendingActions } from '../../state/actions/spending.actions';
 import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';
 import { CategoryModel, SpendingModel } from '../../interfaces/models';
 import { ActionsEnum, ActionsRoleEnum } from '../../enums/action-sheet.enums';
-import {
-  ConfigureSpendingModalComponent
-} from '../../../shared/components/configure-spending-modal/configure-spending-modal.component';
+import { ConfigureSpendingModalComponent } from '../../../shared/components/configure-spending-modal/configure-spending-modal.component';
 
 @Injectable({
   providedIn: 'root'

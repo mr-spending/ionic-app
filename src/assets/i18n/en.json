@@ -24,6 +24,7 @@
   "general": {
     "actions" : {
       "add": "Add",
+      "addAs": "Add As",
       "edit": "Edit",
       "delete": "Delete",
       "cancel": "Cancel",
