@@ -9,11 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { CategoryModel, SpendingByCategoriesItem } from '../../core/interfaces/models';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
-import {
-  getAvailableMonthsInCurrentYear,
-  getCurrentYear,
-  getYearsFromToCurrent
-} from '../../core/utils/time.utils';
+import { getAvailableMonthsInCurrentYear, getCurrentYear, getYearsFromToCurrent } from '../../core/utils/time.utils';
 import { SpendingActions } from '../../core/state/actions/spending.actions';
 import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';

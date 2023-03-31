@@ -36,7 +36,7 @@ export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
 
   groupedSpendingList$: Observable<GroupedSpendingModel[]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
-  pendingSpendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectPendingSpendingList);
+  pendingSpendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedPendingSpendingList);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectHomeTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
 
