@@ -59,4 +59,11 @@ export namespace SpendingSelectors {
       return list.reduce((total, item) => total + item.amount, 0) / 100;
     }
   );
+
+  export const selectSortedPendingSpendingList = createSelector(
+    selectPendingSpendingList,
+    (list: SpendingModel[]) => {
+      return sortArrayByProperty(list, 'time', DirectionEnum.Descending);
+    }
+  );
 }
