@@ -11,6 +11,8 @@ import { MonobankAccountSettingsComponent } from './monobank-account-settings-mo
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoryManagementModalComponent } from './category-management-modal/category-management-modal.component';
+import { ChangeEmailPasswordModalComponent } from './change-email-password-modal/change-email-password-modal.component';
+import { UserEditEnum } from '../../core/enums/user-edit.enums';
 
 @Component({
   selector: 'app-settings-page',
@@ -18,6 +20,8 @@ import { CategoryManagementModalComponent } from './category-management-modal/ca
   styleUrls: ['./settings.page.scss'],
 })
 export class SettingsPage implements OnDestroy {
+  userEditEnum = UserEditEnum;
+
   languageControl!: FormControl;
   languageList: string[];
 
@@ -54,6 +58,15 @@ export class SettingsPage implements OnDestroy {
     const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent });
     modal.present();
     await modal.onWillDismiss();
+  }
+
+  async changeEmailPasswordModal(type: UserEditEnum) {
+    const modal = await this.modalCtrl.create({
+      component: ChangeEmailPasswordModalComponent,
+      componentProps: { type }
+    });
+    modal.present();
+    await modal.onWillDismiss()
   }
 
   logOut(): void {

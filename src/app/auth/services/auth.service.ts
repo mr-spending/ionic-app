@@ -6,6 +6,8 @@ import { Store } from '@ngrx/store';
 import firebase from 'firebase/compat';
 import UserCredential = firebase.auth.UserCredential;
 import { AlertController } from '@ionic/angular';
+// import { getAuth, updateEmail } from "firebase/auth";
+// const auth = getAuth();
 
 import { AuthRoutesEnum, MainRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
@@ -127,6 +129,44 @@ export class AuthService {
       categories: defaultCategoriesList
     }
     this.store.dispatch(UserActions.addUser({ payload }));
+  }
+
+  /** Change Email with current password **/
+
+  changeEmail(currentEmail: string, newEmail: string, password: string) {
+    return this.afAuth
+      .signInWithEmailAndPassword(currentEmail, password)
+      .then(() => {
+        console.log(':)')
+      })
+      .catch((error) => {
+        console.log(':(')
+        this.alertController.create({
+          header: 'Alert',
+          subHeader: 'Important message',
+          message: error.message,
+          buttons: ['OK'],
+        }).then((res) => res.present());
+      });
+  }
+
+  /** Change Password with current password **/
+
+  changePassword(email: string, newPassword: string, password: string) {
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        console.log(':)')
+      })
+      .catch((error) => {
+        console.log(':(')
+        this.alertController.create({
+          header: 'Alert',
+          subHeader: 'Important message',
+          message: error.message,
+          buttons: ['OK'],
+        }).then((res) => res.present());
+      });
   }
 
   /** Sign out */

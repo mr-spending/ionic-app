@@ -6,6 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { MonobankAccountSettingsComponent } from './monobank-account-settings-modal/monobank-account-settings.component';
 import { EditCategoryModalComponent } from './edit-category-modal/edit-category-modal.component';
 import { CategoryManagementModalComponent } from './category-management-modal/category-management-modal.component';
+import { ChangeEmailPasswordModalComponent } from './change-email-password-modal/change-email-password-modal.component';
 
 
 
@@ -14,7 +15,8 @@ import { CategoryManagementModalComponent } from './category-management-modal/ca
     SettingsPage,
     MonobankAccountSettingsComponent,
     CategoryManagementModalComponent,
-    EditCategoryModalComponent
+    EditCategoryModalComponent,
+    ChangeEmailPasswordModalComponent
   ],
   imports: [
     SettingsPageRoutingModule,
