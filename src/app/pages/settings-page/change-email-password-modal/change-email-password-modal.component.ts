@@ -3,11 +3,10 @@ import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { ActionsEnum, ActionsRoleEnum } from '../../../core/enums/action-sheet.enums';
 import { UserModel } from '../../../core/interfaces/models';
-import { UserActions } from '../../../core/state/actions/user.actions';
 import { UserSelectors } from '../../../core/state/selectors/user.selectors';
 import { UserEditEnum } from '../../../core/enums/user-edit.enums';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -37,7 +36,10 @@ export class ChangeEmailPasswordModalComponent {
     private translateService: TranslateService,
     private actionSheetController: ActionSheetController,
   ) {
-    this.subscription.add(this.store.select(UserSelectors.selectUser).subscribe(data => data ? this.user = data : null));
+    this.subscription.add(this.store.select(UserSelectors.selectUser).subscribe(data => {
+      if (data) this.user = data ;
+      if (data?.email === this.formGroup?.controls['repeatInput'].value) this.confirm();
+    }));
   }
 
   ngOnInit() {
@@ -85,16 +87,14 @@ export class ChangeEmailPasswordModalComponent {
     const { role } = await actionSheet.onWillDismiss();
     const repeatInput =  this.formGroup.controls['repeatInput'].value
     const currentPass = this.formGroup.controls['currentPass'].value
+    let changeResp: any;
 
     if (role === ActionsRoleEnum.Confirm && this.type === this.userEditEnum.Password) {
-      console.log(this.formGroup.value);
-      this.authService.changePassword(this.user.email, repeatInput, currentPass);
-      // this.confirm();
+      changeResp = await this.authService.changePassword(this.user.email, repeatInput, currentPass);
     } else if (role === ActionsRoleEnum.Confirm && this.type === this.userEditEnum.Email) {
-      console.log(this.formGroup.value);
-      this.authService.changeEmail(this.user.email, repeatInput, currentPass);
-      // this.confirm();
+      changeResp = await this.authService.changeEmail(this.user.email, repeatInput, currentPass);
     }
+    if (changeResp) await this.confirm();
   }
 
   cancel() {

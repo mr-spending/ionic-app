@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
-import { map, Observable, Subject } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import firebase from 'firebase/compat';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 import UserCredential = firebase.auth.UserCredential;
-import { AlertController } from '@ionic/angular';
-// import { getAuth, updateEmail } from "firebase/auth";
-// const auth = getAuth();
+import User = firebase.User;
 
 import { AuthRoutesEnum, MainRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
-import User = firebase.User;
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserState } from '../../core/state/reducers/user.reducer';
 import { defaultCategoriesList } from '../../core/constants/categories.constants';
+import { AlertService } from '../../core/services/alert/alert.service';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +24,7 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth,
     public router: Router,
-    private alertController: AlertController,
+    private alertService: AlertService,
     private store: Store<UserState>,
   ) {
   }
@@ -48,12 +48,7 @@ export class AuthService {
         }
       })
       .catch((error) => {
-        this.alertController.create({
-          header: 'Alert',
-          subHeader: 'Important message',
-          message: error.message,
-          buttons: ['OK'],
-        }).then((res) => res.present());
+        this.alertService.showAlert(error.message);
       });
   }
 
@@ -69,12 +64,7 @@ export class AuthService {
         }
       })
       .catch((error) => {
-        this.alertController.create({
-          header: 'Alert',
-          subHeader: 'Important message',
-          message: error.message,
-          buttons: ['OK'],
-        }).then((res) => res.present());
+        this.alertService.showAlert(error.message);
       });
   }
 
@@ -137,16 +127,17 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(currentEmail, password)
       .then(() => {
-        console.log(':)')
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+        return user.updateEmail(newEmail)
+          .then(() => {
+            this.store.dispatch(UserActions.setUserEmail({ payload: newEmail }));
+            return;
+          })
+          .catch((err) => this.alertService.showAlert(err.message));
       })
       .catch((error) => {
-        console.log(':(')
-        this.alertController.create({
-          header: 'Alert',
-          subHeader: 'Important message',
-          message: error.message,
-          buttons: ['OK'],
-        }).then((res) => res.present());
+        this.alertService.showAlert(error.message);
       });
   }
 
@@ -156,16 +147,17 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        console.log(':)')
+        const user = firebase.auth().currentUser;
+        if (!user) return;
+        return user.updatePassword(newPassword)
+          .then(() => {
+            this.alertService.showAlert('Password update successful', 'Message');
+            return true;
+          })
+          .catch((err) => this.alertService.showAlert(err.message));
       })
-      .catch((error) => {
-        console.log(':(')
-        this.alertController.create({
-          header: 'Alert',
-          subHeader: 'Important message',
-          message: error.message,
-          buttons: ['OK'],
-        }).then((res) => res.present());
+      .catch((err) => {
+        this.alertService.showAlert(err.message);
       });
   }
 
