@@ -22,8 +22,8 @@ export class SignUpComponent {
     this.formGroup = this.fb.group(
       {
         email: this.fb.control(null, [Validators.required, Validators.email]),
-        password: this.fb.control(null, Validators.required),
-        confirmPassword: this.fb.control(null, Validators.required),
+        password: [Validators.required, Validators.minLength(6), Validators.maxLength(15)],
+        confirmPassword: [Validators.required, Validators.minLength(6), Validators.maxLength(15)],
       },
       {
         validators: CustomValidators.matchControls('password', 'confirmPassword')

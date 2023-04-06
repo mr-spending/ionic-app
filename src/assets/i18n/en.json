@@ -99,7 +99,18 @@
     "currency": "Currency",
     "type": "Type",
     "updateCardList": "Update card list",
-    "cardsForTracking": "Select cards for tracking:"
+    "cardsForTracking": "Select cards for tracking:",
+    "pas": "Password",
+    "currentPass": "Current password",
+    "changePass": "Change password",
+    "enterPass": "Enter password",
+    "newPass": "New password",
+    "repeatPass": "Repeat password",
+    "email": "Email",
+    "changeEmail": "Change email",
+    "enterEmail": "Enter email",
+    "newEmail": "New email",
+    "repeatEmail": "Repeat email"
   },
   "editSpendingModal": {
     "title": "Edit spending",

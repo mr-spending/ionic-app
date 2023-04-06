@@ -99,7 +99,18 @@
     "currency": "Валюта",
     "type": "Тип",
     "updateCardList": "Оновити доступні картки",
-    "cardsForTracking": "Вибір карток для трекінгу:"
+    "cardsForTracking": "Вибір карток для трекінгу:",
+    "pas": "Пароль",
+    "currentPass": "Поточний пароль",
+    "changePass": "Змінити пароль",
+    "enterPass": "Ввести пароль",
+    "newPass": "Новий пароль",
+    "repeatPass": "Повторити пароль",
+    "email": "Пошта",
+    "changeEmail": "Змінити пошту",
+    "enterEmail": "Ввести пошту",
+    "newEmail": "Нова пошта",
+    "repeatEmail": "Повторити пошту"
   },
   "editSpendingModal": {
     "title": "Редагувати",
