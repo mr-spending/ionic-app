@@ -26,6 +26,10 @@ export namespace UserActions {
   export const setUserLanguageSuccess = createAction(`[${stateType}] Set User Language Success`);
   export const setUserLanguageFailure = createAction(`[${stateType}] Set User Language Failure`);
 
+  export const setUserEmail = createAction(`[${stateType}] Set User Email`, props<{ payload: string }>());
+  export const setUserEmailSuccess = createAction(`[${stateType}] Set User Email Success`);
+  export const setUserEmailFailure = createAction(`[${stateType}] Set User Email Failure`);
+
   export const setAvailableCardsList = createAction(`[${stateType}] Set Available Cards List`, props<{ payload: MonoBankAccount[] }>());
   export const setAvailableCardsListSuccess = createAction(`[${stateType}] Set Available Cards List Success`);
   export const setAvailableCardsListFailure = createAction(`[${stateType}] Set Available Cards List Failure`);

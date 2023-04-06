@@ -80,6 +80,25 @@ export class UserEffects {
     }),
   ));
 
+  setUserEmail$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.setUserEmail),
+    concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
+    switchMap(([{ payload } , user]) => {
+      return this.apiService.updateUser({ ...user as UserModel, email: payload }).pipe(
+        map(() => UserActions.setUserEmailSuccess()),
+        catchError(err => of(UserActions.setUserEmailFailure()))
+      )
+    }),
+  ));
+
+  setUserEmailSuccess$ = createEffect(() => this.actions$.pipe(
+    ofType(UserActions.setUserEmailSuccess),
+    switchMap(() => {
+      window.location.reload();
+      return null as unknown as Observable<any>;
+    }),
+  ));
+
   setAvailableCardsList$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.setAvailableCardsList),
     concatLatestFrom(() => this.userStore.select(UserSelectors.selectUser)),
