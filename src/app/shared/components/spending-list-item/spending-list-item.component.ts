@@ -12,6 +12,7 @@ export class SpendingListItemComponent implements OnInit {
   @Input() currency!: string | null;
   @Input() spending!: SpendingModel;
   @Input() type!: ListItemTypeEnum.bankTransaction | ListItemTypeEnum.spending;
+  @Input() selected = false;
   @Input() showIcon = true;
   @Input() showCategory = true;
 

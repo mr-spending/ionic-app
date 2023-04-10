@@ -27,6 +27,7 @@
       "addAs": "Add As",
       "edit": "Edit",
       "delete": "Delete",
+      "deleteSelected": "Delete selected",
       "cancel": "Cancel",
       "confirm": "Confirm",
       "set": "Set",

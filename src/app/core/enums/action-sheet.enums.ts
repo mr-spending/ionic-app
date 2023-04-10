@@ -3,6 +3,7 @@ export enum ActionsEnum {
   AddAs = 'AddAs',
   Edit = 'Edit',
   Delete = 'Delete',
+  DeleteSelected = 'DeleteSelected',
   Cancel = 'Cancel',
   Confirm = 'Confirm',
   Yes = 'Yes',
