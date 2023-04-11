@@ -53,6 +53,28 @@ export class SpendingEffects {
     )),
   ));
 
+  deleteSpendingByIds$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.deleteSpendingByIds),
+    switchMap(({ payload }) => this.apiService.deleteSpendingByIds(payload).pipe(
+      switchMap(() => [
+        SpendingActions.deleteSpendingByIdsSuccess(),
+        SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() })
+      ]),
+      catchError(() => of(SpendingActions.deleteSpendingByIdsFailure()))
+    )),
+  ));
+
+  hardDeleteSpendingByIds$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.hardDeleteSpendingByIds),
+    switchMap(({ payload }) => this.apiService.deleteSpendingByIds(payload).pipe(
+      switchMap(() => [
+        SpendingActions.hardDeleteSpendingByIdsSuccess(),
+        SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() })
+      ]),
+      catchError(() => of(SpendingActions.hardDeleteSpendingByIdsFailure()))
+    )),
+  ));
+
   hardDeleteAllRejectedSpendingItems$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.hardDeleteAllRejectedSpendingItems),
     switchMap(() => this.apiService.hardDeleteAllRejectedSpending().pipe(
