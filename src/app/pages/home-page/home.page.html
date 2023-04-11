@@ -71,7 +71,7 @@
           [spending]="item"
           [type]="listItemTypeEnum.spending"
           [selected]="selectedSpending.selectList.includes(item.id)"
-          (click)="$event.stopPropagation(); spendingService.spendingClickActionsModal(item, categories)"
+          (click)="$event.stopPropagation(); spendingService.spendingClickActionsModal(item, categories, selectedSpending.selectList)"
           (touchstart)="onButtonPress(item.id, 'spending')"
           (touchend)="onButtonRelease()"
         >

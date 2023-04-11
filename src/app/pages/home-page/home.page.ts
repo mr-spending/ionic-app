@@ -57,13 +57,16 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription.add(this.store.select(UserSelectors.selectUserCategories)
       .subscribe((categories: CategoryModel[] | undefined) => {
-        if (categories) this.categories = categories
+        if (categories) this.categories = categories;
       }),
     );
     this.subscription.add(timer(0, 1000)
       .pipe(map(() => moment().format('DD MMMM')))
       .subscribe(time => this.currentTime = time)
     );
+    this.subscription.add(this.spendingService.cleanSelected.subscribe(() => {
+      this.selectedSpending = { target: '', selectList: [] };
+    }));
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
     this.store.dispatch(SpendingActions.pendingSpendingList());
   }
@@ -173,13 +176,13 @@ export class HomePage implements OnInit, OnDestroy {
       case ActionsRoleEnum.Confirm:
         type === 'single'
           ? this.deleteTransaction(ids[0])
-          : console.log(ids);
+          : this.multiDeleteTransactions(ids);
         break
     }
   }
 
   addTransaction(transaction: SpendingModel): void {
-    const spendingItem: SpendingModel = { ...transaction, status: SpendingStatusEnum.Accepted }
+    const spendingItem: SpendingModel = { ...transaction, status: SpendingStatusEnum.Accepted };
     this.store.dispatch(SpendingActions.updateSpendingItem({ payload: spendingItem }));
   }
 
@@ -187,12 +190,17 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.hardDeleteSpendingItem({ payload: id }));
   }
 
+  multiDeleteTransactions(ids: string[]) {
+    this.store.dispatch(SpendingActions.hardDeleteSpendingByIds({ payload: ids }));
+    this.selectedSpending = { target: '', selectList: [] };
+  }
+
   async addSpending(type: ActionsEnum.Add | ActionsEnum.Edit): Promise<void> {
     await this.spendingService.openConfigureSpendingModal({
       type,
       categories: this.categories,
       amount: this.formGroup.value.amount
-    })
+    });
     this.formGroup?.reset();
   }
 
