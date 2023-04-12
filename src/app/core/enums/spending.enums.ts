@@ -8,5 +8,5 @@ export enum SortFieldEnum {
 }
 
 export enum WebSocketMessageEnum {
-  New = 'newTransaction'
+  NewTransaction = 'newTransaction'
 }

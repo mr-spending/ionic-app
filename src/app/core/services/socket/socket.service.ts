@@ -8,7 +8,7 @@ import { WebSocketMessageEnum } from '../../enums/spending.enums';
 })
 export class SocketService {
 
-  newTransaction$ = this.socket.fromEvent<string>(WebSocketMessageEnum.New);
+  newTransaction$ = this.socket.fromEvent<string>(WebSocketMessageEnum.NewTransaction);
 
   constructor(private socket: Socket) { }
 
