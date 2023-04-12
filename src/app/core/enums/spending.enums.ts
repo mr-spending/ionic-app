@@ -6,3 +6,7 @@ export enum DirectionEnum {
 export enum SortFieldEnum {
   Time = 'time'
 }
+
+export enum WebSocketMessageEnum {
+  New = 'newTransaction'
+}

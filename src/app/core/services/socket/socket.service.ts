@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
+import { WebSocketMessageEnum } from '../../enums/spending.enums';
 
 
 @Injectable({
@@ -7,7 +8,7 @@ import { Socket } from 'ngx-socket-io';
 })
 export class SocketService {
 
-  newTransactions$ = this.socket.fromEvent<any>('newTransaction');
+  newTransaction$ = this.socket.fromEvent<string>(WebSocketMessageEnum.New);
 
   constructor(private socket: Socket) { }
 

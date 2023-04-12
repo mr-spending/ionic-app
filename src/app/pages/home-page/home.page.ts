@@ -65,7 +65,7 @@ export class HomePage implements OnInit, OnDestroy {
       .subscribe(time => this.currentTime = time)
     );
     
-    this.subscription.add( this.socketService.newTransactions$.subscribe((_message: string) => {
+    this.subscription.add(this.socketService.newTransaction$.subscribe(() => {
       this.store.dispatch(SpendingActions.pendingSpendingList());
     }))
 
