@@ -64,6 +64,7 @@ export class HomePage implements OnInit, OnDestroy {
       .pipe(map(() => moment().format('DD MMMM')))
       .subscribe(time => this.currentTime = time)
     );
+
     this.subscription.add(this.spendingService.cleanSelected.subscribe(() => {
       this.selectedSpending = { target: '', selectList: [] };
     }));
