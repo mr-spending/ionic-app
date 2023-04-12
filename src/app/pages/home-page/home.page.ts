@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { Observable, Subscription, map, timer } from 'rxjs';
+import { Observable, Subscription, map, timer, Subject, takeUntil } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
@@ -19,8 +19,8 @@ import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enum
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 import { SpendingService } from '../../core/services/spending/spending.service';
-import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
+import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 
 @Component({
   selector: 'app-home-page',
@@ -35,11 +35,13 @@ export class HomePage implements OnInit, OnDestroy {
   listItemTypeEnum = ListItemTypeEnum;
   actionsEnum = ActionsEnum;
   subscription: Subscription = new Subscription();
+  selectedSpending: { target: '' | 'transaction' | 'spending', selectList: string[] } = { target: '', selectList: [] };
 
   groupedSpendingList$: Observable<GroupedSpendingModel[]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   pendingSpendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedPendingSpendingList);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectHomeTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
+  private buttonPressed$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -57,14 +59,17 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription.add(this.store.select(UserSelectors.selectUserCategories)
       .subscribe((categories: CategoryModel[] | undefined) => {
-        if (categories) this.categories = categories
+        if (categories) this.categories = categories;
       }),
     );
     this.subscription.add(timer(0, 1000)
       .pipe(map(() => moment().format('DD MMMM')))
       .subscribe(time => this.currentTime = time)
     );
-    
+    this.subscription.add(this.spendingService.cleanSelected.subscribe(() => {
+      this.selectedSpending = { target: '', selectList: [] };
+    }));
+
     this.subscription.add(this.socketService.newTransaction$.subscribe(() => {
       this.store.dispatch(SpendingActions.pendingSpendingList());
     }))
@@ -88,36 +93,60 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async transactionClickActionsModal(transaction: SpendingModel): Promise<void> {
-    const actionSheet = await this.actionSheetController.create({
-      buttons: [
-        {
-          text: this.translateService.instant('general.actions.add'),
-          data: {
-            action: ActionsEnum.Add,
+    const selectedSpending = this.selectedSpending.selectList;
+    let actionSheet: HTMLIonActionSheetElement;
+
+    if (selectedSpending.includes(transaction.id)) {
+      actionSheet = await this.actionSheetController.create({
+        buttons: [
+          {
+            text: this.translateService.instant('general.actions.deleteSelected'),
+            role: ActionsRoleEnum.Destructive,
+            data: {
+              action: ActionsEnum.DeleteSelected,
+            },
           },
-        },
-        {
-          text: this.translateService.instant('general.actions.addAs'),
-          data: {
-            action: ActionsEnum.AddAs,
+          {
+            text: this.translateService.instant('general.actions.cancel'),
+            role: ActionsRoleEnum.Cancel,
+            data: {
+              action: ActionsEnum.Cancel,
+            },
           },
-        },
-        {
-          text: this.translateService.instant('general.actions.delete'),
-          role: ActionsRoleEnum.Destructive,
-          data: {
-            action: ActionsEnum.Delete,
+        ],
+      });
+    } else {
+      actionSheet = await this.actionSheetController.create({
+        buttons: [
+          {
+            text: this.translateService.instant('general.actions.add'),
+            data: {
+              action: ActionsEnum.Add,
+            },
           },
-        },
-        {
-          text: this.translateService.instant('general.actions.cancel'),
-          role: ActionsRoleEnum.Cancel,
-          data: {
-            action: ActionsEnum.Cancel,
+          {
+            text: this.translateService.instant('general.actions.addAs'),
+            data: {
+              action: ActionsEnum.AddAs,
+            },
           },
-        },
-      ],
-    });
+          {
+            text: this.translateService.instant('general.actions.delete'),
+            role: ActionsRoleEnum.Destructive,
+            data: {
+              action: ActionsEnum.Delete,
+            },
+          },
+          {
+            text: this.translateService.instant('general.actions.cancel'),
+            role: ActionsRoleEnum.Cancel,
+            data: {
+              action: ActionsEnum.Cancel,
+            },
+          },
+        ],
+      });
+    }
 
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss();
@@ -129,11 +158,12 @@ export class HomePage implements OnInit, OnDestroy {
         categories: this.categories,
         item: { ...transaction, status: SpendingStatusEnum.Accepted }
       }); break
-      case ActionsEnum.Delete: await this.confirmTransactionRemove(transaction.id); break
+      case ActionsEnum.Delete: await this.confirmTransactionRemove([transaction.id], 'single'); break
+      case ActionsEnum.DeleteSelected: await this.confirmTransactionRemove(selectedSpending, 'multi'); break
     }
   }
 
-  async confirmTransactionRemove(id: string): Promise<void> {
+  async confirmTransactionRemove(ids: string[], type: 'single' | 'multi'): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
       header: this.translateService.instant('general.messages.areYouSure'),
       buttons: [
@@ -150,12 +180,16 @@ export class HomePage implements OnInit, OnDestroy {
     actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
     switch (role) {
-      case ActionsRoleEnum.Confirm: this.deleteTransaction(id); break
+      case ActionsRoleEnum.Confirm:
+        type === 'single'
+          ? this.deleteTransaction(ids[0])
+          : this.multiDeleteTransactions(ids);
+        break
     }
   }
 
   addTransaction(transaction: SpendingModel): void {
-    const spendingItem: SpendingModel = { ...transaction, status: SpendingStatusEnum.Accepted }
+    const spendingItem: SpendingModel = { ...transaction, status: SpendingStatusEnum.Accepted };
     this.store.dispatch(SpendingActions.updateSpendingItem({ payload: spendingItem }));
   }
 
@@ -163,12 +197,42 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.hardDeleteSpendingItem({ payload: id }));
   }
 
+  multiDeleteTransactions(ids: string[]) {
+    this.store.dispatch(SpendingActions.hardDeleteSpendingByIds({ payload: ids }));
+    this.selectedSpending = { target: '', selectList: [] };
+  }
+
   async addSpending(type: ActionsEnum.Add | ActionsEnum.Edit): Promise<void> {
     await this.spendingService.openConfigureSpendingModal({
       type,
       categories: this.categories,
       amount: this.formGroup.value.amount
-    })
+    });
     this.formGroup?.reset();
+  }
+
+  onButtonPress(id: string, target: 'transaction' | 'spending') {
+    this.buttonPressed$.next();
+    timer(600).pipe(
+      takeUntil(this.buttonPressed$)
+    ).subscribe(() => {
+      if (this.selectedSpending.target === target || !this.selectedSpending.target) {
+        this.selectedSpending.target = target;
+        this.selectedSpending.selectList.includes(id)
+          ? this.selectedSpending.selectList = this.selectedSpending.selectList.filter(item => item != id)
+          : this.selectedSpending.selectList.push(id);
+      } else {
+        this.selectedSpending.target = target;
+        this.selectedSpending.selectList = [id];
+      }
+    });
+  }
+
+  onButtonRelease() {
+    this.buttonPressed$.next();
+  }
+
+  cleanSelectedItems() {
+    this.selectedSpending = { target: '', selectList: [] };
   }
 }

@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" scroll-y="false" class="transaction-spending-list">
+<ion-content [fullscreen]="true" (click)="cleanSelectedItems()" scroll-y="false" class="transaction-spending-list">
   <div class="fixed">
     <h1 size="large" class="ion-text-center">
       {{ currency$ | async }}
@@ -54,7 +54,11 @@
         [currency]="currency$ | async"
         [spending]="item"
         [type]="listItemTypeEnum.bankTransaction"
-        (click)="transactionClickActionsModal(item)">
+        [selected]="selectedSpending.selectList.includes(item.id)"
+        (click)="$event.stopPropagation(); transactionClickActionsModal(item)"
+        (touchstart)="onButtonPress(item.id, 'transaction')"
+        (touchend)="onButtonRelease()"
+      >
       </app-spending-list-item>
     </ion-list>
 
@@ -66,7 +70,11 @@
           [currency]="currency$ | async"
           [spending]="item"
           [type]="listItemTypeEnum.spending"
-          (click)="spendingService.spendingClickActionsModal(item, categories)">
+          [selected]="selectedSpending.selectList.includes(item.id)"
+          (click)="$event.stopPropagation(); spendingService.spendingClickActionsModal(item, categories, selectedSpending.selectList)"
+          (touchstart)="onButtonPress(item.id, 'spending')"
+          (touchend)="onButtonRelease()"
+        >
         </app-spending-list-item>
       </div>
     </ion-list>

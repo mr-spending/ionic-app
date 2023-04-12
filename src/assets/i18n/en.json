@@ -27,6 +27,7 @@
       "addAs": "Add As",
       "edit": "Edit",
       "delete": "Delete",
+      "deleteSelected": "Delete selected",
       "cancel": "Cancel",
       "confirm": "Confirm",
       "set": "Set",
@@ -34,7 +35,8 @@
       "back": "Back",
       "yes": "Yes",
       "no": "No",
-      "removeToBasket": "Remove to basket"
+      "removeToBasket": "Remove to basket",
+      "selectedToBasket": "Selected to basket"
     },
     "dates" : {
       "today": "Today",
