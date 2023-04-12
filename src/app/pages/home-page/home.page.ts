@@ -7,6 +7,7 @@ import { ActionSheetController } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { SocketService } from '../../core/services/socket/socket.service';
 import * as moment from 'moment';
 
 import { CategoryModel, GroupedSpendingModel, SpendingModel } from '../../core/interfaces/models';
@@ -48,6 +49,7 @@ export class HomePage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private translateService: TranslateService,
     public spendingService : SpendingService,
+    private socketService: SocketService,
   ) {
     this.formGroup = this.fb.group({ amount: this.fb.control(null) });
   }
@@ -62,6 +64,11 @@ export class HomePage implements OnInit, OnDestroy {
       .pipe(map(() => moment().format('DD MMMM')))
       .subscribe(time => this.currentTime = time)
     );
+    
+    this.subscription.add( this.socketService.newTransactions$.subscribe((_message: string) => {
+      this.store.dispatch(SpendingActions.pendingSpendingList());
+    }))
+
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
     this.store.dispatch(SpendingActions.pendingSpendingList());
   }
