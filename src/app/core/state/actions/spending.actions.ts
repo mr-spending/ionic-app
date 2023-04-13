@@ -29,10 +29,6 @@ export namespace SpendingActions {
   export const deleteSpendingByIdsSuccess = createAction(`[${stateType}] Delete Spending By Ids Success`);
   export const deleteSpendingByIdsFailure = createAction(`[${stateType}] Delete Spending By Ids Failure`);
 
-  export const hardDeleteSpendingByIds = createAction(`[${stateType}] Delete Spending By Ids`, props<{ payload: string[] }>());
-  export const hardDeleteSpendingByIdsSuccess = createAction(`[${stateType}] Delete Spending By Ids Success`);
-  export const hardDeleteSpendingByIdsFailure = createAction(`[${stateType}] Delete Spending By Ids Failure`);
-
   export const hardDeleteAllRejectedSpendingItems = createAction(`[${stateType}] Hard Delete All Rejected Spending Item`);
   export const hardDeleteAllRejectedSpendingItemsSuccess = createAction(`[${stateType}] Hard Delete All Rejected Spending Item Success`);
   export const hardDeleteAllRejectedSpendingItemsFailure = createAction(`[${stateType}] Hard Delete All Rejected Spending Item Failure`);

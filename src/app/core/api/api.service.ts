@@ -83,10 +83,6 @@ export class ApiService {
     return this.http.post<void>(this.path + `spending/delete-by-ids`, ids);
   }
 
-  hardDeleteSpendingByIds(ids: string[]): Observable<void> {
-    return this.http.post<void>(this.path + `spending/hard-delete-by-ids`, ids);
-  }
-
   hardDeleteAllRejectedSpending(): Observable<void> {
     return this.http.delete<void>(this.path + `spending/hard-delete/all-rejected`);
   }
