@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" scroll-y="false" class="transaction-spending-list">
+<ion-content [fullscreen]="true" (click)="cleanSelectedItems()" scroll-y="false" class="transaction-spending-list">
   <div class="fixed">
     <h1 size="large" class="ion-text-center">
       {{ currency$ | async }}

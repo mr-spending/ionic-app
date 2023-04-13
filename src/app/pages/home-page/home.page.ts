@@ -41,6 +41,7 @@ export class HomePage implements OnInit, OnDestroy {
   pendingSpendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedPendingSpendingList);
   totalAmount$: Observable<number> = this.store.select(SpendingSelectors.selectHomeTotalAmount);
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
+  private buttonPressed$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
@@ -64,6 +65,10 @@ export class HomePage implements OnInit, OnDestroy {
       .pipe(map(() => moment().format('DD MMMM')))
       .subscribe(time => this.currentTime = time)
     );
+
+    this.subscription.add(this.spendingService.cleanSelected.subscribe(() => {
+      this.selectedSpending = { target: '', selectList: [] };
+    }));
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
     this.store.dispatch(SpendingActions.pendingSpendingList());
   }
@@ -83,36 +88,60 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async transactionClickActionsModal(transaction: SpendingModel): Promise<void> {
-    const actionSheet = await this.actionSheetController.create({
-      buttons: [
-        {
-          text: this.translateService.instant('general.actions.add'),
-          data: {
-            action: ActionsEnum.Add,
+    const selectedSpending = this.selectedSpending.selectList;
+    let actionSheet: HTMLIonActionSheetElement;
+
+    if (selectedSpending.includes(transaction.id)) {
+      actionSheet = await this.actionSheetController.create({
+        buttons: [
+          {
+            text: this.translateService.instant('general.actions.deleteSelected'),
+            role: ActionsRoleEnum.Destructive,
+            data: {
+              action: ActionsEnum.DeleteSelected,
+            },
           },
-        },
-        {
-          text: this.translateService.instant('general.actions.addAs'),
-          data: {
-            action: ActionsEnum.AddAs,
+          {
+            text: this.translateService.instant('general.actions.cancel'),
+            role: ActionsRoleEnum.Cancel,
+            data: {
+              action: ActionsEnum.Cancel,
+            },
           },
-        },
-        {
-          text: this.translateService.instant('general.actions.delete'),
-          role: ActionsRoleEnum.Destructive,
-          data: {
-            action: ActionsEnum.Delete,
+        ],
+      });
+    } else {
+      actionSheet = await this.actionSheetController.create({
+        buttons: [
+          {
+            text: this.translateService.instant('general.actions.add'),
+            data: {
+              action: ActionsEnum.Add,
+            },
           },
-        },
-        {
-          text: this.translateService.instant('general.actions.cancel'),
-          role: ActionsRoleEnum.Cancel,
-          data: {
-            action: ActionsEnum.Cancel,
+          {
+            text: this.translateService.instant('general.actions.addAs'),
+            data: {
+              action: ActionsEnum.AddAs,
+            },
           },
-        },
-      ],
-    });
+          {
+            text: this.translateService.instant('general.actions.delete'),
+            role: ActionsRoleEnum.Destructive,
+            data: {
+              action: ActionsEnum.Delete,
+            },
+          },
+          {
+            text: this.translateService.instant('general.actions.cancel'),
+            role: ActionsRoleEnum.Cancel,
+            data: {
+              action: ActionsEnum.Cancel,
+            },
+          },
+        ],
+      });
+    }
 
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss();
@@ -181,5 +210,30 @@ export class HomePage implements OnInit, OnDestroy {
       amount: this.formGroup.value.amount
     });
     this.formGroup?.reset();
+  }
+
+  onButtonPress(id: string, target: 'transaction' | 'spending') {
+    this.buttonPressed$.next();
+    timer(600).pipe(
+      takeUntil(this.buttonPressed$)
+    ).subscribe(() => {
+      if (this.selectedSpending.target === target || !this.selectedSpending.target) {
+        this.selectedSpending.target = target;
+        this.selectedSpending.selectList.includes(id)
+          ? this.selectedSpending.selectList = this.selectedSpending.selectList.filter(item => item != id)
+          : this.selectedSpending.selectList.push(id);
+      } else {
+        this.selectedSpending.target = target;
+        this.selectedSpending.selectList = [id];
+      }
+    });
+  }
+
+  onButtonRelease() {
+    this.buttonPressed$.next();
+  }
+
+  cleanSelectedItems() {
+    this.selectedSpending = { target: '', selectList: [] };
   }
 }
