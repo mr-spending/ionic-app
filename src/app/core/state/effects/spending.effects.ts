@@ -64,17 +64,6 @@ export class SpendingEffects {
     )),
   ));
 
-  hardDeleteSpendingByIds$ = createEffect(() => this.actions$.pipe(
-    ofType(SpendingActions.hardDeleteSpendingByIds),
-    switchMap(({ payload }) => this.apiService.deleteSpendingByIds(payload).pipe(
-      switchMap(() => [
-        SpendingActions.hardDeleteSpendingByIdsSuccess(),
-        SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() })
-      ]),
-      catchError(() => of(SpendingActions.hardDeleteSpendingByIdsFailure()))
-    )),
-  ));
-
   hardDeleteAllRejectedSpendingItems$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.hardDeleteAllRejectedSpendingItems),
     switchMap(() => this.apiService.hardDeleteAllRejectedSpending().pipe(

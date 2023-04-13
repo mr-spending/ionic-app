@@ -99,9 +99,55 @@ ion-content {
       }
     }
 
-    .spending-title {
-      font-size: 24px;
-      margin: 15px 0;
+    .title-block {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      .spending-title {
+        font-size: 24px;
+        margin: 15px 0;
+      }
+
+      .action-block {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+
+        .selection-action {
+          border: 1px solid var(--button-content-color-1);
+          border-radius: 15px;
+          color: var(--button-content-color-1);
+          margin: 16px 0 12px;
+          padding: 6px 10px 4px;
+        }
+
+        .active {
+          color: var(--text-color-special-dark);
+          background-color: var(--button-content-color-1);
+        }
+
+        ion-button {
+          width: 25px;
+          height: 25px;
+          margin: 0;
+          --border-radius: 0;
+          --padding-start: 0;
+          --padding-end: 0;
+          --background-activated: none;
+          --background-focused: none;
+          --background-hover: none;
+          --ripple-color: transparent;
+
+          ion-icon {
+            width: 25px;
+            height: 25px;
+            color: var(--button-content-color-1);
+          }
+        }
+      }
     }
   }
 

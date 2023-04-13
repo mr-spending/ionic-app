@@ -14,7 +14,6 @@ import { ConfigureSpendingModalComponent } from '../../../shared/components/conf
   providedIn: 'root'
 })
 export class SpendingService {
-  cleanSelected = new EventEmitter<void>();
 
   constructor(
     private store: Store<AppState>,
@@ -23,60 +22,37 @@ export class SpendingService {
     private translateService: TranslateService,
   ) { }
 
-  async spendingClickActionsModal(item: SpendingModel, categories: CategoryModel[], selectedSpending?: string[]): Promise<void> {
-    let actionSheet: HTMLIonActionSheetElement;
-    if (selectedSpending?.includes(item.id)) {
-      actionSheet = await this.actionSheetController.create({
-        buttons: [
-          {
-            text: this.translateService.instant('general.actions.selectedToBasket'),
-            role: ActionsRoleEnum.Destructive,
-            data: {
-              action: ActionsEnum.DeleteSelected,
-            },
+  async spendingClickActionsModal(item: SpendingModel, categories: CategoryModel[]): Promise<void> {
+    const actionSheet = await this.actionSheetController.create({
+      buttons: [
+        {
+          text: this.translateService.instant('general.actions.edit'),
+          data: {
+            action: ActionsEnum.Edit,
           },
-          {
-            text: this.translateService.instant('general.actions.cancel'),
-            role: ActionsRoleEnum.Cancel,
-            data: {
-              action: ActionsEnum.Cancel,
-            },
+        },
+        {
+          text: this.translateService.instant('general.actions.removeToBasket'),
+          role: ActionsRoleEnum.Destructive,
+          data: {
+            action: ActionsEnum.Delete,
           },
-        ],
-      });
-    } else {
-      actionSheet = await this.actionSheetController.create({
-        buttons: [
-          {
-            text: this.translateService.instant('general.actions.edit'),
-            data: {
-              action: ActionsEnum.Edit,
-            },
+        },
+        {
+          text: this.translateService.instant('general.actions.cancel'),
+          role: ActionsRoleEnum.Cancel,
+          data: {
+            action: ActionsEnum.Cancel,
           },
-          {
-            text: this.translateService.instant('general.actions.removeToBasket'),
-            role: ActionsRoleEnum.Destructive,
-            data: {
-              action: ActionsEnum.Delete,
-            },
-          },
-          {
-            text: this.translateService.instant('general.actions.cancel'),
-            role: ActionsRoleEnum.Cancel,
-            data: {
-              action: ActionsEnum.Cancel,
-            },
-          },
-        ],
-      });
-    }
+        },
+      ],
+    });
 
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss();
 
     switch (result.data?.action) {
-      case ActionsEnum.Delete: await this.confirmRemove([item.id], 'single'); break
-      case ActionsEnum.DeleteSelected: await this.confirmRemove(selectedSpending!, 'multi'); break
+      case ActionsEnum.Delete: await this.confirmRemove(item.id); break
       case ActionsEnum.Edit: await this.openConfigureSpendingModal({ type: ActionsEnum.Edit, categories, item }); break
     }
   }
@@ -100,7 +76,7 @@ export class SpendingService {
     await modal.onWillDismiss();
   }
 
-  async confirmRemove(ids: string[], type: 'single' | 'multi'): Promise<void> {
+  async confirmRemove(id: string): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
       header: this.translateService.instant('general.messages.areYouSure'),
       buttons: [
@@ -117,21 +93,12 @@ export class SpendingService {
     actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
     switch (role) {
-      case ActionsRoleEnum.Confirm:
-        type === 'single'
-          ? this.removeSpendingItem(ids[0])
-          : this.multiRemoveSpendingItems(ids);
-        break
+      case ActionsRoleEnum.Confirm: this.removeSpendingItem(id); break
     }
   }
 
   removeSpendingItem(id: string): void {
     this.store.dispatch(SpendingActions.deleteSpendingItem({ payload: id }));
-  }
-
-  multiRemoveSpendingItems(ids: string[]) {
-    this.store.dispatch(SpendingActions.deleteSpendingByIds({ payload: ids }));
-    this.cleanSelected.emit();
   }
 
   updateSpendingList(): void {
