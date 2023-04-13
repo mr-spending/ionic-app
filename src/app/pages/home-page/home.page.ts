@@ -19,8 +19,8 @@ import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enum
 import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
 import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 import { SpendingService } from '../../core/services/spending/spending.service';
-import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
+import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 
 @Component({
   selector: 'app-home-page',
@@ -35,6 +35,8 @@ export class HomePage implements OnInit, OnDestroy {
   listItemTypeEnum = ListItemTypeEnum;
   actionsEnum = ActionsEnum;
   subscription: Subscription = new Subscription();
+  selectedSpending: string[] = [];
+  isSelectionActive = false;
 
   groupedSpendingList$: Observable<GroupedSpendingModel[]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   pendingSpendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedPendingSpendingList);
@@ -57,7 +59,7 @@ export class HomePage implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription.add(this.store.select(UserSelectors.selectUserCategories)
       .subscribe((categories: CategoryModel[] | undefined) => {
-        if (categories) this.categories = categories
+        if (categories) this.categories = categories;
       }),
     );
     this.subscription.add(timer(0, 1000)
@@ -129,11 +131,11 @@ export class HomePage implements OnInit, OnDestroy {
         categories: this.categories,
         item: { ...transaction, status: SpendingStatusEnum.Accepted }
       }); break
-      case ActionsEnum.Delete: await this.confirmTransactionRemove(transaction.id); break
+      case ActionsEnum.Delete: await this.confirmTransactionRemove([transaction.id]); break
     }
   }
 
-  async confirmTransactionRemove(id: string): Promise<void> {
+  async confirmTransactionRemove(ids: string[], isMultiDelete?: boolean): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
       header: this.translateService.instant('general.messages.areYouSure'),
       buttons: [
@@ -150,12 +152,16 @@ export class HomePage implements OnInit, OnDestroy {
     actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
     switch (role) {
-      case ActionsRoleEnum.Confirm: this.deleteTransaction(id); break
+      case ActionsRoleEnum.Confirm:
+        isMultiDelete
+          ? this.multiDeleteTransactions(ids)
+          : this.deleteTransaction(ids[0]);
+        break;
     }
   }
 
   addTransaction(transaction: SpendingModel): void {
-    const spendingItem: SpendingModel = { ...transaction, status: SpendingStatusEnum.Accepted }
+    const spendingItem: SpendingModel = { ...transaction, status: SpendingStatusEnum.Accepted };
     this.store.dispatch(SpendingActions.updateSpendingItem({ payload: spendingItem }));
   }
 
@@ -163,12 +169,24 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.hardDeleteSpendingItem({ payload: id }));
   }
 
+  selectionClick(id: string) {
+    this.selectedSpending.includes(id)
+      ? this.selectedSpending = this.selectedSpending.filter(item => item !== id)
+      : this.selectedSpending.push(id);
+  }
+
+  multiDeleteTransactions(ids: string[]) {
+    this.store.dispatch(SpendingActions.deleteSpendingByIds({ payload: ids }));
+    this.selectedSpending = [];
+    this.isSelectionActive = false;
+  }
+
   async addSpending(type: ActionsEnum.Add | ActionsEnum.Edit): Promise<void> {
     await this.spendingService.openConfigureSpendingModal({
       type,
       categories: this.categories,
       amount: this.formGroup.value.amount
-    })
+    });
     this.formGroup?.reset();
   }
 }

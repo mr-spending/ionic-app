@@ -27,6 +27,7 @@
       "addAs": "Додати як",
       "edit": "Змінити",
       "delete": "Видалити",
+      "deleteSelected": "Видалити обране",
       "cancel": "Відміна",
       "confirm": "Так",
       "set": "Встановити",
@@ -34,7 +35,8 @@
       "back": "Назад",
       "yes": "Так",
       "no": "Ні",
-      "removeToBasket": "Прибрати в кошик"
+      "removeToBasket": "Прибрати в кошик",
+      "selectedToBasket": "Обране в кошик"
     },
     "dates": {
       "today": "Сьогодні",

@@ -35,3 +35,7 @@
     }
   }
 }
+
+.main-wrapper.selected {
+  border: 2px solid var(--button-content-color-1);
+}

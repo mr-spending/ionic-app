@@ -52,11 +52,8 @@ export class SpendingService {
     const result = await actionSheet.onDidDismiss();
 
     switch (result.data?.action) {
-      case ActionsEnum.Delete:
-        await this.confirmRemove(item.id);
-        break;
-      case ActionsEnum.Edit:
-        await this.openConfigureSpendingModal({ type: ActionsEnum.Edit, categories, item });
+      case ActionsEnum.Delete: await this.confirmRemove(item.id); break
+      case ActionsEnum.Edit: await this.openConfigureSpendingModal({ type: ActionsEnum.Edit, categories, item }); break
     }
   }
 
@@ -93,11 +90,11 @@ export class SpendingService {
         },
       ],
     });
-
     actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
-
-    if (role === ActionsRoleEnum.Confirm) this.removeSpendingItem(id);
+    switch (role) {
+      case ActionsRoleEnum.Confirm: this.removeSpendingItem(id); break
+    }
   }
 
   removeSpendingItem(id: string): void {

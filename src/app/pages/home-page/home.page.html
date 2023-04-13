@@ -43,7 +43,23 @@
       </ion-button>
     </ion-row>
 
-    <p class="spending-title">{{ 'home.mySpending' | translate }}</p>
+    <ion-row class="title-block">
+      <p class="spending-title">{{ 'home.mySpending' | translate }}</p>
+
+      <div class="action-block">
+        <p *ngIf="!isSelectionActive" (click)="isSelectionActive = true" class="selection-action">
+          {{ 'Select' }}
+        </p>
+
+        <p *ngIf="isSelectionActive" (click)="isSelectionActive = false; selectedSpending = []" class="selection-action active">
+          {{ 'Cancel' }}
+        </p>
+
+        <ion-button *ngIf="isSelectionActive" (click)="confirmTransactionRemove(selectedSpending, true)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-row>
   </div>
 
   <div class="scroll">
@@ -54,7 +70,12 @@
         [currency]="currency$ | async"
         [spending]="item"
         [type]="listItemTypeEnum.bankTransaction"
-        (click)="transactionClickActionsModal(item)">
+        [selected]="selectedSpending.includes(item.id)"
+        (click)="
+          $event.stopPropagation();
+          isSelectionActive ? selectionClick(item.id) : transactionClickActionsModal(item)
+        "
+      >
       </app-spending-list-item>
     </ion-list>
 
@@ -66,7 +87,12 @@
           [currency]="currency$ | async"
           [spending]="item"
           [type]="listItemTypeEnum.spending"
-          (click)="spendingService.spendingClickActionsModal(item, categories)">
+          [selected]="selectedSpending.includes(item.id)"
+          (click)="
+            $event.stopPropagation();
+            isSelectionActive ? selectionClick(item.id) : spendingService.spendingClickActionsModal(item, categories)
+          "
+        >
         </app-spending-list-item>
       </div>
     </ion-list>
