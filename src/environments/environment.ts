@@ -2,8 +2,9 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 enum env {
-  dev = 'http://localhost:3500/',
-  prod = 'https://nest-api-git-develop-mr-spending.vercel.app/',
+  local = 'http://localhost:3500/',
+  dev = 'https://nest-api-git-develop-mr-spending.vercel.app/',
+  prod = 'https://nest-api-git-main-mr-spending.vercel.app/',
 }
 
 const baseUrl = env.prod;
