@@ -68,6 +68,7 @@ export class HomePage implements OnInit, OnDestroy {
     );
     
     this.subscription.add(this.socketService.newTransaction$.subscribe(() => {
+      console.log("newTransaction message arrived on Front End")
       this.store.dispatch(SpendingActions.pendingSpendingList());
     }))
 
