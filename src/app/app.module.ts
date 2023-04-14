@@ -11,10 +11,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { Interceptor } from './core/interceptors/interceptor.service';
+import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+const config: SocketIoConfig = { url: 'http://localhost:3500', options: {} };
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +34,7 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
+    SocketIoModule.forRoot(config)
   ],
   providers: [
     FormBuilder,

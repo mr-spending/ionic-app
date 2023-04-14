@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { Observable, Subscription, map, timer } from 'rxjs';
+import { Observable, Subscription, map, timer, interval } from 'rxjs';
 import { ActionSheetController } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
@@ -20,6 +20,9 @@ import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
 import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
+import { WebSocketService } from '../../core/services/web-socket.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-home-page',
@@ -50,6 +53,8 @@ export class HomePage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private translateService: TranslateService,
     public spendingService : SpendingService,
+    private webSocketService: WebSocketService,
+    private httpClient: HttpClient
   ) {
     this.formGroup = this.fb.group({ amount: this.fb.control(null) });
   }
@@ -66,6 +71,11 @@ export class HomePage implements OnInit, OnDestroy {
     );
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
     this.store.dispatch(SpendingActions.pendingSpendingList());
+
+    this.webSocketService.activeUsers$.subscribe(res => {
+      console.log(res)
+    });
+
   }
 
   ngOnDestroy() {
@@ -181,5 +191,11 @@ export class HomePage implements OnInit, OnDestroy {
       amount: this.formGroup.value.amount
     });
     this.formGroup?.reset();
+  }
+
+  test() {
+    this.httpClient.post(`${environment.baseUrl}monobank/test`, { name: 'Vladislav' }).subscribe((res) => {
+      console.log(res);
+    })
   }
 }
