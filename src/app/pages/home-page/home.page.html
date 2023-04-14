@@ -48,15 +48,19 @@
 
       <div class="action-block">
         <p *ngIf="!isSelectionActive" (click)="isSelectionActive = true" class="selection-action">
-          {{ 'Select' }}
+          {{ 'general.actions.select' | translate }}
         </p>
 
         <p *ngIf="isSelectionActive" (click)="isSelectionActive = false; selectedSpending = []" class="selection-action active">
-          {{ 'Cancel' }}
+          {{ 'general.actions.cancel' | translate }}
         </p>
 
-        <ion-button *ngIf="isSelectionActive" (click)="confirmTransactionRemove(selectedSpending, true)">
-          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        <ion-button
+          *ngIf="isSelectionActive"
+          (click)="confirmTransactionRemove(selectedSpending, true)"
+          [disabled]="!selectedSpending.length"
+        >
+          <ion-icon slot="icon-only" name="trash-outline" [class.active]="selectedSpending.length"></ion-icon>
         </ion-button>
       </div>
     </ion-row>

@@ -124,7 +124,7 @@ ion-content {
           padding: 6px 10px 4px;
         }
 
-        .active {
+        .selection-action.active {
           color: var(--text-color-special-dark);
           background-color: var(--button-content-color-1);
         }
@@ -144,6 +144,13 @@ ion-content {
           ion-icon {
             width: 25px;
             height: 25px;
+          }
+
+          ion-icon:disabled {
+            color: var(--color-gray-2);
+          }
+
+          ion-icon.active {
             color: var(--button-content-color-1);
           }
         }
