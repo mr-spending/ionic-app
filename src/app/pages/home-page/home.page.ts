@@ -67,8 +67,8 @@ export class HomePage implements OnInit, OnDestroy {
       .subscribe(time => this.currentTime = time)
     );
     
-    this.subscription.add(this.socketService.newTransaction$.subscribe(() => {
-      console.log("newTransaction message arrived on Front End")
+    this.subscription.add(this.socketService.newTransaction$.subscribe((data) => {
+      console.log("newTransaction message arrived on Front End ", data)
       this.store.dispatch(SpendingActions.pendingSpendingList());
     }))
 
@@ -189,5 +189,9 @@ export class HomePage implements OnInit, OnDestroy {
       amount: this.formGroup.value.amount
     });
     this.formGroup?.reset();
+  }
+
+  test(): void {
+    this.socketService.sendMessage("some-messsage")
   }
 }

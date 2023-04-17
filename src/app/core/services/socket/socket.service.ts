@@ -12,4 +12,7 @@ export class SocketService {
 
   constructor(private socket: Socket) { }
 
+  sendMessage(msg: any) {
+    this.socket.emit('message', msg);
+  }
 }
