@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription, map, timer } from 'rxjs';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, InfiniteScrollCustomEvent } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,7 +15,7 @@ import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
-import { getCurrentMonthPeriodUNIX } from '../../core/utils/time.utils';
+import { getCurrentMonthPeriodUNIX, getMonthPeriodCurrentMonthMinusValueUNIX } from '../../core/utils/time.utils';
 import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
@@ -36,6 +36,7 @@ export class HomePage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   selectedSpending: string[] = [];
   isSelectionActive = false;
+  countOfAdditionalMonths = 0;
 
   groupedSpendingList$: Observable<GroupedSpendingModel[]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   pendingSpendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedPendingSpendingList);
@@ -181,5 +182,13 @@ export class HomePage implements OnInit, OnDestroy {
       amount: this.formGroup.value.amount
     });
     this.formGroup?.reset();
+  }
+
+  loadMoreData(event: any) {
+    this.countOfAdditionalMonths ++;
+    this.store.dispatch(SpendingActions.homeSpendingList({
+      payload: getMonthPeriodCurrentMonthMinusValueUNIX(this.countOfAdditionalMonths)
+    }));
+    event.target.complete();
   }
 }
