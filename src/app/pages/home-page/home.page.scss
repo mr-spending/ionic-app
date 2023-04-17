@@ -169,12 +169,12 @@ ion-content {
   }
 
   .scroll {
-    height: calc( 100% - 221px );
-    padding-top: 20px;
+    width: calc(100% + 35px);
+    height: calc(100% - 221px);
     overflow: scroll;
 
-    &::-webkit-scrollbar {
-      display: none;
+    &::part(scroll) {
+      padding: 0 35px 0 0;
     }
 
     .bank-transactions-list {
@@ -187,7 +187,7 @@ ion-content {
         font-size: 14px;;
         color: var(--ion-color-danger-tint);
         align-self: center;
-        margin: 0 0 10px;
+        margin: 10px 0;
       }
 
       app-spending-list-item {
@@ -212,6 +212,11 @@ ion-content {
       app-spending-list-item {
         margin-bottom: 10px;
       }
+    }
+
+    ion-infinite-scroll {
+      max-height: 1px;
+      overflow: hidden;
     }
   }
 }

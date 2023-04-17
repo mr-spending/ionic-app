@@ -10,6 +10,13 @@ export function getCurrentMonthPeriodUNIX(): TimePeriodModel {
   };
 }
 
+export function getMonthPeriodCurrentMonthMinusValueUNIX(numMonths: number): TimePeriodModel {
+  return {
+    startDate: moment().subtract(numMonths, 'months').startOf('month').unix(),
+    endDate: moment().endOf('month').unix()
+  };
+}
+
 export function getCustomPeriodUNIX(startTime: string, endTime: string): TimePeriodModel {
   return {
     startDate: moment(startTime).unix(),
