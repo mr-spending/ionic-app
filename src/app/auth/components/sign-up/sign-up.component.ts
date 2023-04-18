@@ -4,6 +4,8 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { CustomValidators } from '../../../core/utils/custom-validators.class';
 import { AuthRoutesEnum, MainRoutesEnum } from '../../../core/enums/routing.enums';
+import { ModalController } from '@ionic/angular';
+import { PrivacyNoticeModalComponent } from 'src/app/pages/settings-page/privacy-notice-modal/privacy-notice-modal.component';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,12 +20,13 @@ export class SignUpComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    private modalCtrl: ModalController,
   ) {
     this.formGroup = this.fb.group(
       {
         email: this.fb.control(null, [Validators.required, Validators.email]),
-        password: [Validators.required, Validators.minLength(6), Validators.maxLength(15)],
-        confirmPassword: [Validators.required, Validators.minLength(6), Validators.maxLength(15)],
+        password: this.fb.control(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+        confirmPassword: this.fb.control(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
       },
       {
         validators: CustomValidators.matchControls('password', 'confirmPassword')
@@ -33,7 +36,7 @@ export class SignUpComponent {
 
   signUp(): void {
     const formValue = this.formGroup.value;
-    this.authService.signUp(formValue.email, formValue.password).then();
+    this.authService.signUp(formValue.email, formValue.password, true).then();
   }
 
   goToSignIn(): void {
@@ -42,5 +45,17 @@ export class SignUpComponent {
 
   toggleShowPassword(): void {
     this.showPassword = !this.showPassword;
+  }
+
+  async privacyNoticeModal() {
+    const modal = await this.modalCtrl.create({
+      component: PrivacyNoticeModalComponent,
+      componentProps: { confirmation: true }
+    });
+    modal.present();   
+    modal.onDidDismiss()
+    .then((data) => {
+      if(data['data']) this.signUp();
+    });     
   }
 }

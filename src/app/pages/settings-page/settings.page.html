@@ -40,6 +40,11 @@
       <ion-icon name="key-outline"></ion-icon>
     </ion-item>
 
+    <ion-item (click)="privacyNoticeModal()">
+      <ion-label>{{ 'settings.privacyNotice' | translate }}</ion-label>
+      <ion-icon name="newspaper-outline"></ion-icon>
+    </ion-item>
+
     <ion-item (click)="logOut()">
       <ion-label>{{ 'pages.logOut' | translate}}</ion-label>
       <ion-icon name="log-out-outline"></ion-icon>

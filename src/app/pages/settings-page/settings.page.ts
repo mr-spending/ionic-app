@@ -13,6 +13,7 @@ import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoryManagementModalComponent } from './category-management-modal/category-management-modal.component';
 import { ChangeEmailPasswordModalComponent } from './change-email-password-modal/change-email-password-modal.component';
 import { UserEditEnum } from '../../core/enums/user-edit.enums';
+import { PrivacyNoticeModalComponent } from './privacy-notice-modal/privacy-notice-modal.component';
 
 @Component({
   selector: 'app-settings-page',
@@ -66,6 +67,14 @@ export class SettingsPage implements OnDestroy {
       componentProps: { type }
     });
     await modal.present();
+    await modal.onWillDismiss()
+  }
+
+  async privacyNoticeModal() {
+    const modal = await this.modalCtrl.create({
+      component: PrivacyNoticeModalComponent,
+    });
+    modal.present();
     await modal.onWillDismiss()
   }
 

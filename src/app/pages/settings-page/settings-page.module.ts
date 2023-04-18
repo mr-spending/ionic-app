@@ -7,6 +7,7 @@ import { MonobankAccountSettingsComponent } from './monobank-account-settings-mo
 import { EditCategoryModalComponent } from './edit-category-modal/edit-category-modal.component';
 import { CategoryManagementModalComponent } from './category-management-modal/category-management-modal.component';
 import { ChangeEmailPasswordModalComponent } from './change-email-password-modal/change-email-password-modal.component';
+import { PrivacyNoticeModalComponent } from './privacy-notice-modal/privacy-notice-modal.component';
 
 
 
@@ -16,7 +17,8 @@ import { ChangeEmailPasswordModalComponent } from './change-email-password-modal
     MonobankAccountSettingsComponent,
     CategoryManagementModalComponent,
     EditCategoryModalComponent,
-    ChangeEmailPasswordModalComponent
+    ChangeEmailPasswordModalComponent,
+    PrivacyNoticeModalComponent
   ],
   imports: [
     SettingsPageRoutingModule,

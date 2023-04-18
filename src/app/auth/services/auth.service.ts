@@ -53,13 +53,13 @@ export class AuthService {
   }
 
   /** Sign up with email/password */
-  signUp(email: string, password: string) {
+  signUp(email: string, password: string, isPolicyAgreed: boolean) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result: UserCredential) => {
         this.sendVerificationMail().then();
         if (result.user) {
-          this.addUser(result.user);
+          this.addUser(result.user, isPolicyAgreed);
           this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
         }
       })
@@ -108,7 +108,7 @@ export class AuthService {
   // }
 
   /** Adding new user data when sign up with username/password */
-  addUser(user: User) {
+  addUser(user: User, isPolicyAgreed: boolean) {
     const payload: UserModel = {
       id: user.uid,
       email: user.email ?? '',
@@ -116,7 +116,8 @@ export class AuthService {
       photoURL: user.photoURL ?? '',
       emailVerified: user.emailVerified,
       displayLanguage: 'en',
-      categories: defaultCategoriesList
+      categories: defaultCategoriesList,
+      isPolicyAgreed
     }
     this.store.dispatch(UserActions.addUser({ payload }));
   }
