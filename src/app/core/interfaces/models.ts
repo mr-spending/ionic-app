@@ -14,6 +14,7 @@ export interface UserModel {
   availableMonoBankAccounts?: AvailableMonoBankAccounts;
   displayLanguage: string;
   categories: CategoryModel[];
+  isPolicyAgreed: boolean;
 }
 
 export interface SpendingModel {

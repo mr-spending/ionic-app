@@ -1,0 +1,109 @@
+<ion-header>  
+  <ion-toolbar>
+    <ion-buttons class="ion-padding">
+      <ion-button (click)="cancel()">
+        <ion-label color="primary">{{ 'general.actions.back' | translate }}</ion-label>
+      </ion-button>  
+    </ion-buttons> 
+  </ion-toolbar>
+  <ion-title class="ion-text-center">{{ 'privacyNoticeModal.title' | translate }}</ion-title>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <p>{{ 'privacyNoticeModal.intro' | translate }}</p>     
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.informationWeCollect.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.informationWeCollect.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.logData.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.logData.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.personalInformation.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.personalInformation.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.processing.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.processing.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.collectionAndUse.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.collectionAndUse.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.security.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.security.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.durationOfKeeping.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.durationOfKeeping.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.disclosure.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.disclosure.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.international.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.international.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.yourRights.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.yourRights.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.limits.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.limits.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.changes.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.changes.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+    <ion-item>
+      <div>
+        <h4>{{ 'privacyNoticeModal.contact.title' | translate }}</h4>
+        <p>{{ 'privacyNoticeModal.contact.content' | translate }}</p>    
+      </div>        
+    </ion-item>
+  </ion-list>
+  <ion-toolbar *ngIf="confirmation">
+    <div class="policy-checkbox">
+      <ion-label slot="start">{{ "general.actions.agreeWithPolicyCheckBox" | translate }}</ion-label>
+      <ion-checkbox #policyCheckbox ></ion-checkbox>  
+    </div>         
+    <ion-button 
+      *ngIf="policyCheckbox.checked" 
+      slot="end"
+      (click)="confirm()">
+      <ion-label color="primary">{{ 'auth.signUp' | translate }}</ion-label>
+    </ion-button>     
+  </ion-toolbar>
+</ion-content>
+
