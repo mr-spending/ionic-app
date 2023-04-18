@@ -82,8 +82,7 @@ export class ChangeEmailPasswordModalComponent {
         },
       ],
     });
-
-    actionSheet.present();
+    await actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
     const repeatInput =  this.formGroup.controls['repeatInput'].value
     const currentPass = this.formGroup.controls['currentPass'].value

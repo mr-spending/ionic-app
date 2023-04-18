@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalController } from '@ionic/angular';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
-import { Guid } from 'typescript-guid';
 
 import { CategoryModel } from '../../../core/interfaces/models';
 import { categoryIcons } from '../../../core/constants/ion-icons.constants';

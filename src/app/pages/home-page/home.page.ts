@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription, map, timer } from 'rxjs';
-import { ActionSheetController, InfiniteScrollCustomEvent } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -79,7 +79,7 @@ export class HomePage implements OnInit, OnDestroy {
 
   async openSpendingBasketModal(): Promise<void> {
     const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent });
-    modal.present();
+    await modal.present();
     await modal.onWillDismiss();
   }
 
@@ -114,10 +114,8 @@ export class HomePage implements OnInit, OnDestroy {
         },
       ],
     });
-
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss();
-
     switch (result.data?.action) {
       case ActionsEnum.Add: this.addTransaction(transaction); break
       case ActionsEnum.AddAs: await this.spendingService.openConfigureSpendingModal({
@@ -143,7 +141,7 @@ export class HomePage implements OnInit, OnDestroy {
         },
       ],
     });
-    actionSheet.present();
+    await actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
     switch (role) {
       case ActionsRoleEnum.Confirm:

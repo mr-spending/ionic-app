@@ -48,7 +48,7 @@ export class SpendingBasketModalComponent implements OnInit {
         },
       ],
     });
-    actionSheet.present();
+    await actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
     if (role === ActionsRoleEnum.Confirm) {
       id ? this.deleteSpending(id) : this.cleanBasket();

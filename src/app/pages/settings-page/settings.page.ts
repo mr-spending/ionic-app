@@ -50,13 +50,13 @@ export class SettingsPage implements OnDestroy {
 
   async categoryManagementOpen(): Promise<void> {
     const modal = await this.modalCtrl.create({ component: CategoryManagementModalComponent });
-    modal.present();
+    await modal.present();
     await modal.onWillDismiss();
   }
 
   async monoAccSettingsOpen(): Promise<void> {
     const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent });
-    modal.present();
+    await modal.present();
     await modal.onWillDismiss();
   }
 
@@ -65,7 +65,7 @@ export class SettingsPage implements OnDestroy {
       component: ChangeEmailPasswordModalComponent,
       componentProps: { type }
     });
-    modal.present();
+    await modal.present();
     await modal.onWillDismiss()
   }
 

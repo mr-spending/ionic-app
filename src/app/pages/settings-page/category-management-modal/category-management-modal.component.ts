@@ -32,7 +32,7 @@ export class CategoryManagementModalComponent {
       component: EditCategoryModalComponent,
       componentProps: category ? { category, type } : { type }
     });
-    modal.present();
+    await modal.present();
     await modal.onWillDismiss();
   }
 
@@ -51,7 +51,7 @@ export class CategoryManagementModalComponent {
       ],
     });
 
-    actionSheet.present();
+    await actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
     if (role === ActionsRoleEnum.Confirm) this.store.dispatch(UserActions.deleteUserCategory({ payload: id }));
   }
