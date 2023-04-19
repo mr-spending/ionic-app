@@ -14,6 +14,10 @@
     "en": "Англійська",
     "ua": "Українська"
   },
+  "alert": {
+    "passwordHasBeenUpdatedHeader": "Нове повідомлення",
+    "passwordHasBeenUpdatedText": "Пароль було успішно змінено!"
+  },
   "pages": {
     "createSpending": "Додати витрати",
     "listOfExpenses": "Список витрат",
@@ -169,7 +173,7 @@
     },
     "security": {
       "title": "Security of your personal information",
-      "content": "When we collect and process personal information, and while we retain this information, we will protect it within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use, or modification. Although we will do our best to protect the personal information you provide to us, we advise that no method of electronic transmission or storage is 100% secure, and no one can guarantee absolute data security. We will comply with laws applicable to us in respect of any data breach. You are responsible for selecting any password and its overall security strength, ensuring the security of your own information within the bounds of our services." 
+      "content": "When we collect and process personal information, and while we retain this information, we will protect it within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use, or modification. Although we will do our best to protect the personal information you provide to us, we advise that no method of electronic transmission or storage is 100% secure, and no one can guarantee absolute data security. We will comply with laws applicable to us in respect of any data breach. You are responsible for selecting any password and its overall security strength, ensuring the security of your own information within the bounds of our services."
     },
     "durationOfKeeping": {
       "title": "How Long We Keep Your Personal Information",
