@@ -15,6 +15,9 @@ import { AuthService } from '../auth/services/auth.service';
 import { UserEffects } from './state/effects/user.effects';
 import { SpendingEffects } from './state/effects/spending.effects';
 import { BankAccountsEffects } from './state/effects/bank-accounts.effects';
+import { AlertService } from './services/alert/alert.service';
+import { LoadingService } from './services/loading/loading.service';
+import { SpendingService } from './services/spending/spending.service';
 
 const ngRxModules = [
   StoreModule.forRoot(appReducer),
@@ -36,6 +39,6 @@ const angularFirebaseModules = [
     CommonModule,
     BrowserModule,
   ],
-  providers: [ApiService, AuthService],
+  providers: [ApiService, AuthService, AlertService, LoadingService, SpendingService],
 })
 export class CoreModule { }
