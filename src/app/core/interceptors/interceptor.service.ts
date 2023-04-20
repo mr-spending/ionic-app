@@ -4,7 +4,6 @@ import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { finalize, Observable, switchMap } from 'rxjs';
 
-import { LocalStorageService } from '../services/local-storage/local-storage.service';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../auth/services/auth.service';
 import { UserSelectors } from '../state/selectors/user.selectors';
@@ -15,7 +14,6 @@ export class Interceptor implements HttpInterceptor {
   private monoBankToken!: string;
 
   constructor(
-    private lsService: LocalStorageService,
     private auth: AuthService,
     private store: Store<AppState>,
     private loader: LoadingService,

@@ -10,9 +10,7 @@ import { CategoryModel, SpendingModel } from '../../interfaces/models';
 import { ActionsEnum, ActionsRoleEnum } from '../../enums/action-sheet.enums';
 import { ConfigureSpendingModalComponent } from '../../../shared/components/configure-spending-modal/configure-spending-modal.component';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SpendingService {
 
   constructor(

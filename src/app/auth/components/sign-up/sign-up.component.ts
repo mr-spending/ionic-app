@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ModalController } from '@ionic/angular';
+
+import { AuthService } from '../../services/auth.service';
 import { CustomValidators } from '../../../core/utils/custom-validators.class';
 import { AuthRoutesEnum, MainRoutesEnum } from '../../../core/enums/routing.enums';
-import { ModalController } from '@ionic/angular';
 import { PrivacyNoticeModalComponent } from 'src/app/pages/settings-page/privacy-notice-modal/privacy-notice-modal.component';
 
 @Component({
@@ -52,10 +53,10 @@ export class SignUpComponent {
       component: PrivacyNoticeModalComponent,
       componentProps: { confirmation: true }
     });
-    modal.present();   
+    modal.present();
     modal.onDidDismiss()
     .then((data) => {
       if(data['data']) this.signUp();
-    });     
+    });
   }
 }

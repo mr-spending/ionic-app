@@ -8,6 +8,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import UserCredential = firebase.auth.UserCredential;
 import User = firebase.User;
+import { TranslateService } from '@ngx-translate/core';
 
 import { AuthRoutesEnum, MainRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
@@ -15,6 +16,8 @@ import { UserActions } from '../../core/state/actions/user.actions';
 import { UserState } from '../../core/state/reducers/user.reducer';
 import { defaultCategoriesList } from '../../core/constants/categories.constants';
 import { AlertService } from '../../core/services/alert/alert.service';
+import { LanguageEnum } from '../../core/constants/languages.constants';
+import { AlertEnum } from '../../core/enums/alert.enums';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +29,7 @@ export class AuthService {
     public router: Router,
     private alertService: AlertService,
     private store: Store<UserState>,
+    private translate: TranslateService,
   ) {
   }
 
@@ -72,40 +76,6 @@ export class AuthService {
   sendVerificationMail() {
     return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification());
   }
-  // // Reset Forggot password
-  // ForgotPassword(passwordResetEmail: string) {
-  //   return this.afAuth
-  //     .sendPasswordResetEmail(passwordResetEmail)
-  //     .then(() => {
-  //       window.alert('Password reset email sent, check your inbox.');
-  //     })
-  //     .catch((error) => {
-  //       window.alert(error);
-  //     });
-  // }
-  // // Returns true when user is looged in and email is verified
-  // get isLoggedIn(): boolean {
-  //   const user = JSON.parse(localStorage.getItem('user')!);
-  //   return user !== null && user.emailVerified !== false ? true : false;
-  // }
-  // // Sign in with Google
-  // GoogleAuth() {
-  //   return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-  //     this.router.navigate(['dashboard']);
-  //   });
-  // }
-  // // Auth logic to run auth providers
-  // AuthLogin(provider: any) {
-  //   return this.afAuth
-  //     .signInWithPopup(provider)
-  //     .then((result) => {
-  //       this.router.navigate(['dashboard']);
-  //       this.SetUserData(result.user);
-  //     })
-  //     .catch((error) => {
-  //       window.alert(error);
-  //     });
-  // }
 
   /** Adding new user data when sign up with username/password */
   addUser(user: User, isPolicyAgreed: boolean) {
@@ -115,7 +85,7 @@ export class AuthService {
       displayName: user.displayName ?? '',
       photoURL: user.photoURL ?? '',
       emailVerified: user.emailVerified,
-      displayLanguage: 'en',
+      displayLanguage: LanguageEnum.EN,
       categories: defaultCategoriesList,
       isPolicyAgreed
     }
@@ -152,7 +122,10 @@ export class AuthService {
         if (!user) return;
         return user.updatePassword(newPassword)
           .then(() => {
-            this.alertService.showAlert('Password update successful', 'Message');
+            this.alertService.showAlert(
+              this.translate.instant(AlertEnum.PasswordHasBeenUpdatedText),
+              this.translate.instant(AlertEnum.PasswordHasBeenUpdatedHeader),
+            );
             return true;
           })
           .catch((err) => this.alertService.showAlert(err.message));

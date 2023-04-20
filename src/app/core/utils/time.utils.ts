@@ -17,13 +17,6 @@ export function getMonthPeriodCurrentMonthMinusValueUNIX(numMonths: number): Tim
   };
 }
 
-export function getCustomPeriodUNIX(startTime: string, endTime: string): TimePeriodModel {
-  return {
-    startDate: moment(startTime).unix(),
-    endDate: moment(endTime).unix()
-  };
-}
-
 export function getAvailableMonthsInCurrentYear(): string[] {
   const numberOfCurrentMonth = Number(moment().format('MM'));
   return MONTHS_LIST.filter((_, idx) => idx < numberOfCurrentMonth);
