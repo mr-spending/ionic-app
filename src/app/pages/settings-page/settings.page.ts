@@ -80,5 +80,6 @@ export class SettingsPage implements OnDestroy {
 
   logOut(): void {
     this.authService.signOut().then();
+    window.location.reload();
   }
 }
