@@ -159,7 +159,7 @@
     },
     "logData": {
       "title": "Log Data",
-      "content": "When you visit our website, our servers may automatically log the standard data provided by your web browser. It may include your device’s Internet Protocol (IP) address, your browser type and version, the pages you visit, the time and date of your visit, the time spent on each page, other details about your visit, and technical details that occur in conjunction with any errors you may encounter. Please be aware that while this information may not be personally identifying by itself, it may be possible to combine it with other data to personally identify individual persons."
+      "content": "When you visit our app, our servers may automatically log the standard data provided by your device. It may include your device’s Internet Protocol (IP) address, the pages you visit, the time and date of your visit, the time spent on each page, other details about your visit, and technical details that occur in conjunction with any errors you may encounter. Please be aware that while this information may not be personally identifying by itself, it may be possible to combine it with other data to personally identify individual persons."
     },
     "personalInformation": {
       "title": "Personal information",
@@ -195,7 +195,7 @@
     },
     "limits": {
       "title": "Limits of Our Policy",
-      "content": "Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and policies of those sites, and cannot accept responsibility or liability for their respective privacy practices."
+      "content": "Our app may link to external sites that are not operated by us. Please be aware that we have no control over the content and policies of those sites, and cannot accept responsibility or liability for their respective privacy practices."
     },
     "changes": {
       "title": "Changes to This Policy",

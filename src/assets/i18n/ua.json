@@ -151,15 +151,15 @@
     "basketEmpty": "Кошик порожній..."
   },
   "privacyNoticeModal": {
-    "title": "Політика конфіденційності",
-    "intro": "Вступає в дію: 17 квітня 2023. \nДотримання Політика конфіденційності є для нас дуже важливим. Mr.Spending поважає Вашу приватність і дотримується чинного закондавства стосовно будь-яких персональних даних які ми можемо збирати про Вас під час використання додатку Mr.Spending (нижче, 'додаток').",
+    "title": "Privacy notice",
+    "intro": "Effective Date: April 17, 2023. \nYour privacy is important to us. It is Mr.Spending's policy to respect your privacy and comply with any applicable law and regulation regarding any personal information we may collect about you during usage of Mr.Spending. \nAs used below in this Privacy Notice 'app' means Mr-Spending.",
     "informationWeCollect": {
       "title": "Information we collect",
       "content": "Information we collect includes both information you knowingly and actively provide us when using app and any information automatically sent by your devices in the course of accessing our app."
     },
     "logData": {
       "title": "Log Data",
-      "content": "When you visit our website, our servers may automatically log the standard data provided by your web browser. It may include your device’s Internet Protocol (IP) address, your browser type and version, the pages you visit, the time and date of your visit, the time spent on each page, other details about your visit, and technical details that occur in conjunction with any errors you may encounter. Please be aware that while this information may not be personally identifying by itself, it may be possible to combine it with other data to personally identify individual persons."
+      "content": "When you visit our app, our servers may automatically log the standard data provided by your device. It may include your device’s Internet Protocol (IP) address, the pages you visit, the time and date of your visit, the time spent on each page, other details about your visit, and technical details that occur in conjunction with any errors you may encounter. Please be aware that while this information may not be personally identifying by itself, it may be possible to combine it with other data to personally identify individual persons."
     },
     "personalInformation": {
       "title": "Personal information",
@@ -195,7 +195,7 @@
     },
     "limits": {
       "title": "Limits of Our Policy",
-      "content": "Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and policies of those sites, and cannot accept responsibility or liability for their respective privacy practices."
+      "content": "Our app may link to external sites that are not operated by us. Please be aware that we have no control over the content and policies of those sites, and cannot accept responsibility or liability for their respective privacy practices."
     },
     "changes": {
       "title": "Changes to This Policy",
