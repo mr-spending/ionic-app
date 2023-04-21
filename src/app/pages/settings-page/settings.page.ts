@@ -32,7 +32,7 @@ export class SettingsPage implements OnDestroy {
     private translateService: TranslateService,
     private fb: FormBuilder,
     private store: Store<AppState>,
-    private modalCtrl: ModalController,
+    private modalCtrl: ModalController
   ) {
     this.languageList = this.translateService.getLangs();
     this.subscription.add(this.store.select(UserSelectors.selectDisplayLanguage).subscribe(displayLanguage => {

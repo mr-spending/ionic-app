@@ -59,5 +59,4 @@ export namespace SpendingActions {
   /** Time Period */
 
   export const updateStatTimePeriod = createAction(`[${stateType}] Update Stat Time Period`, props<{ payload: TimePeriodModel }>());
-
 }

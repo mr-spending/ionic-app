@@ -1,4 +1,5 @@
 import { Action, createReducer } from '@ngrx/store';
+
 import { MonoBankAccount } from '../../interfaces/models';
 
 export interface BankAccountsState {

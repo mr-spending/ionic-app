@@ -16,5 +16,4 @@ export class CustomValidators {
       return !list.includes(value) ? { notIncludes: true } : null;
     }
   }
-
 }

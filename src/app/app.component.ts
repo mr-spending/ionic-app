@@ -32,7 +32,6 @@ export class AppComponent implements OnDestroy {
     this.initializeApp();
   }
 
-
   toggleDarkTheme(shouldAdd: boolean): void {
     document.body.classList.toggle('dark', shouldAdd);
   }

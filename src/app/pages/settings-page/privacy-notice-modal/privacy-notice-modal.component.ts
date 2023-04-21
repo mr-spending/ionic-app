@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
@@ -6,12 +6,10 @@ import { ModalController } from '@ionic/angular';
   templateUrl: './privacy-notice-modal.component.html',
   styleUrls: ['./privacy-notice-modal.component.scss'],
 })
-export class PrivacyNoticeModalComponent implements OnInit {
+export class PrivacyNoticeModalComponent {
   @Input() confirmation: boolean = false;
 
-  constructor(private modalCtrl: ModalController,) { }
-
-  ngOnInit() {}
+  constructor(private modalCtrl: ModalController) { }
 
   cancel() {
     return this.modalCtrl.dismiss();

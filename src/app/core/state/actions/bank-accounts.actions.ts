@@ -16,5 +16,4 @@ export namespace BankAccountsActions {
   export const setWebHook = createAction(`[${stateType}] Set Web Hook`);
   export const setWebHookSuccess = createAction(`[${stateType}] Set Web Hook Success`);
   export const setWebHookFailure = createAction(`[${stateType}] Set Web Hook Failure`);
-
 }
