@@ -62,6 +62,12 @@ input::placeholder {
   font-size: 14px;
 }
 
+.alert-wrapper {
+  background: var(--page-background) !important;
+  border: 1px solid var(--ion-color-medium-shade);
+  border-radius: 16px !important;
+}
+
 ion-alert.select-alert {
   backdrop-filter: blur(6px);
 
