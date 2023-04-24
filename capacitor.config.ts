@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'mr.spending',
-  appName: 'mr-spending',
+  appId: 'iTeam.development',
+  appName: 'Mr. Spending',
   webDir: 'www',
   bundledWebRuntime: false
 };
