@@ -151,59 +151,59 @@
     "basketEmpty": "Кошик порожній..."
   },
   "privacyNoticeModal": {
-    "title": "Privacy notice",
-    "intro": "Effective Date: April 17, 2023. \nYour privacy is important to us. It is Mr.Spending's policy to respect your privacy and comply with any applicable law and regulation regarding any personal information we may collect about you during usage of Mr.Spending. \nAs used below in this Privacy Notice 'app' means Mr-Spending.",
+    "title": "Повідомлення про конфіденційність",
+    "intro": "Дата набрання чинності: 17 квітня 2023 року. \nВаша конфіденційність має важливе значення для нас. Політика Mr.Spending полягає в повазі до вашої приватності та виконанні всіх відповідних законів та регуляцій, що стосуються будь-якої особистої інформації, яку ми можемо зібрати про вас під час використання Mr.Spending. \nУ цьому Повідомленні про конфіденційність нижче, термін 'додаток' означає Mr-Spending",
     "informationWeCollect": {
-      "title": "Information we collect",
-      "content": "Information we collect includes both information you knowingly and actively provide us when using app and any information automatically sent by your devices in the course of accessing our app."
+      "title": "Інформація, яку ми збираємо.",
+      "content": "Інформація, яку ми збираємо, включає як інформацію, яку ви надаєте нам свідомо та активно в процесі використання додатка, так і будь-яку інформацію, яку автоматично надсилають ваші пристрої під час доступу до нашого додатка."
     },
     "logData": {
-      "title": "Log Data",
-      "content": "When you visit our app, our servers may automatically log the standard data provided by your device. It may include your device’s Internet Protocol (IP) address, the pages you visit, the time and date of your visit, the time spent on each page, other details about your visit, and technical details that occur in conjunction with any errors you may encounter. Please be aware that while this information may not be personally identifying by itself, it may be possible to combine it with other data to personally identify individual persons."
+      "title": "Дані журналу",
+      "content": "Коли ви відвідуєте наш додаток, наші сервери можуть автоматично реєструвати стандартні дані, які надає ваш пристрій. Це може включати IP-адресу вашого пристрою, сторінки, які ви відвідуєте, дату та час вашого візиту, час, проведений на кожній сторінці, інші деталі вашого візиту та технічні деталі, які виникають разом із будь-якими помилками, які ви можете зустріти. Будь ласка, зверніть увагу, що хоча ця інформація може не бути особисто ідентифіковувальною сама по собі, її можна поєднати з іншими даними, щоб особисто ідентифікувати окремих осіб."
     },
     "personalInformation": {
-      "title": "Personal information",
-      "content": "We may ask for personal information which may include one or more of the following:  Email, Name, Monobank account token in case you want to upload transactions directly from bank api to app"
+      "title": "Особиста інформація",
+      "content": "Ми можемо запитувати особисту інформацію, до якої може належати один або декілька з наступних елементів: електронна пошта, ім'я, токен облікового запису Monobank у разі, якщо ви хочете завантажити транзакції безпосередньо з банківського API в додаток"
     },
     "processing": {
-      "title": "Legitimate Reasons for Processing Your Personal Information",
-      "content": "We only collect and use your personal information when we have a legitimate reason for doing so. In which instance, we only collect personal information that is reasonably necessary to provide our services to you."
+      "title": "Законні підстави для обробки вашої особистої інформації",
+      "content": "Ми збираємо та використовуємо вашу особисту інформацію тільки тоді, коли маємо законну підставу для цього. У таких випадках ми збираємо тільки ту особисту інформацію, яка є необхідною для надання наших послуг вам."
     },
     "collectionAndUse": {
-      "title": "Collection and Use of Information",
-      "content": "We may collect, hold, use, and disclose information for the following purposes, and personal information will not be further processed in a manner that is incompatible with these purposes: to enable you to access and use our app and to upload information about your monobank account transactions directly from bank api to app"
+      "title": "Збір та використання інформації",
+      "content": "Ми можемо збирати, зберігати, використовувати та розкривати інформацію з метою досягнення наступних цілей, і персональна інформація не буде оброблятися подальшим чином, що несумісний з цими цілями: забезпечення можливості доступу та використання нашої програми, а також завантаження інформації про транзакції вашого рахунку в Monobank безпосередньо з API банку до програми."
     },
     "security": {
-      "title": "Security of your personal information",
-      "content": "When we collect and process personal information, and while we retain this information, we will protect it within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use, or modification. Although we will do our best to protect the personal information you provide to us, we advise that no method of electronic transmission or storage is 100% secure, and no one can guarantee absolute data security. We will comply with laws applicable to us in respect of any data breach. You are responsible for selecting any password and its overall security strength, ensuring the security of your own information within the bounds of our services."
+      "title": "Безпека ваших персональних даних",
+      "content": "Коли ми збираємо та обробляємо персональну інформацію, і під час зберігання цієї інформації, ми будемо захищати її комерційно прийнятними засобами, щоб запобігти втраті, крадіжці, а також несанкціонованому доступу, розкриттю, копіюванню, використанню або зміні. Хоча ми зробимо все можливе, щоб захистити персональну інформацію, яку ви надаєте нам, ми радимо, що жоден метод електронної передачі або зберігання не є на 100% безпечним, і ніхто не може гарантувати абсолютну безпеку даних. Ми будемо дотримуватися законів, що застосовуються до нас, щодо будь-якої порушення даних. Ви несете відповідальність за вибір будь-якого пароля та його надійності, забезпечуючи безпеку вашої власної інформації в межах наших послуг."
     },
     "durationOfKeeping": {
-      "title": "How Long We Keep Your Personal Information",
-      "content": "We keep your personal information only for as long as we need to. This time period may depend on what we are using your information for, in accordance with this privacy policy. If your personal information is no longer required, we will delete it or make it anonymous by removing all details that identify you."
+      "title": "Як довго ми зберігаємо вашу персональну інформацію",
+      "content": "Ми зберігаємо вашу особисту інформацію лише стільки, скільки потрібно. Цей період часу може залежати від того, для чого ми використовуємо вашу інформацію відповідно до цієї політики конфіденційності. Якщо ваша особиста інформація більше не потрібна, ми видалимо її або зробимо анонімною, видаливши всі деталі, що ідентифікують вас."
     },
     "disclosure": {
-      "title": "Disclosure of Personal Information to Third Parties",
-      "content": "We may disclose personal information to: IT service providers, data storage, hosting and server providers, advertisers, or analytics platforms our employees. Third parties we currently use include Firebase for authentication, Vercel for our web hosting, MongoDB for data storage."
+      "title": "Розкриття персональної інформації третім сторонам",
+      "content": "Ми можемо розкривати персональну інформацію наступним третім сторонам: провайдерам ІТ-послуг, провайдерам зберігання даних, хостингу та серверів, рекламодавцям або платформам аналітики, нашим співробітникам. Серед третіх сторін, які ми в даний час використовуємо, є Firebase для аутентифікації, Vercel для нашого веб-хостингу та MongoDB для зберігання даних."
     },
     "international": {
-      "title": "International Transfers of Personal Information",
-      "content": "The personal information we collect is stored and/or processed where we or our partners, affiliates, and third-party providers maintain facilities. Please be aware that the locations to which we store, process, or transfer your personal information may not have the same data protection laws as the country in which you initially provided the information. If we transfer your personal information to third parties in other countries: (i) we will perform those transfers in accordance with the requirements of applicable law; (ii) we will protect the transferred personal information in accordance with this privacy policy."
+      "title": "Міжнародні передачі персональної інформації",
+      "content": "Персональну інформацію, яку ми збираємо, зберігається та/або обробляється в тих місцях, де ми або наші партнери, афілійовані компанії та постачальники третьої сторони мають відповідні заклади. Будь ласка, зверніть увагу, що місця, в яких ми зберігаємо, обробляємо або передаємо вашу персональну інформацію, можуть не мати тих самих законів про захист даних, що й країна, в якій ви спочатку надали цю інформацію. Якщо ми передаємо вашу персональну інформацію третім сторонам в інші країни: (i) ми будемо виконувати ті передачі відповідно до вимог чинного законодавства; (ii) ми будемо захищати передану персональну інформацію відповідно до цієї політики конфіденційності."
     },
     "yourRights": {
-      "title": "Your Rights and Controlling Your Personal Information",
-      "content": "You always retain the right to withhold personal information from us, with the understanding that your experience of our website may be affected. We will not discriminate against you for exercising any of your rights over your personal information. If you do provide us with personal information you understand that we will collect, hold, use and disclose it in accordance with this privacy policy. You retain the right to request details of any personal information we hold about you. If we receive personal information about you from a third party, we will protect it as set out in this privacy policy. If you are a third party providing personal information about somebody else, you represent and warrant that you have such person’s consent to provide the personal information to us. If you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time. Please be aware we may need to request specific information from you to help us confirm your identity. If you believe that any information we hold about you is inaccurate, out of date, incomplete, irrelevant, or misleading, please contact us using the details provided in this privacy policy. We will take reasonable steps to correct any information found to be inaccurate, incomplete, misleading, or out of date. If you believe that we have breached a relevant data protection law and wish to make a complaint, please contact us using the details below and provide us with full details of the alleged breach. We will promptly investigate your complaint and respond to you, in writing, setting out the outcome of our investigation and the steps we will take to deal with your complaint. You also have the right to contact a regulatory body or data protection authority in relation to your complaint."
+      "title": "Ваші права та контроль над вашою персональною інформацією",
+      "content": "Ви завжди маєте право зберігати від нас свої персональні дані, з розумінням того, що це може вплинути на ваш досвід використання нашого веб-сайту. Ми не будемо дискримінувати вас за використання будь-яких ваших прав щодо персональної інформації. Якщо ви надаєте нам персональну інформацію, ви розумієте, що ми будемо збирати, зберігати, використовувати та розкривати її відповідно до цієї політики конфіденційності. Ви маєте право запитати деталей будь-якої персональної інформації, яку ми маємо про вас. Якщо ми отримали персональну інформацію про вас від третьої сторони, ми будемо захищати її відповідно до цієї політики конфіденційності. Якщо ви є третьою стороною, яка надає персональну інформацію про когось іншого, ви заявляєте та гарантуєте, що у вас є згода цієї особи на надання персональної інформації нам. Якщо ви раніше дали згоду на використання вашої персональної інформації для прямого маркетингу, ви можете змінити своє рішення в будь-який момент. Будь ласка, зверніть увагу, що ми можемо запросити від вас конкретну інформацію для того, щоб підтвердити вашу особу. Якщо ви вважаєте, що будь-яка інформація, яку ми маємо про вас, є неточною, застарілою, неповною, неактуальною або містить помилки, будь ласка, зв'яжіться з нами за деталями, наданими в цій політиці конфіденційності. Ми приймемо розумні кроки для виправлення будь-якої інформації, що виявиться неточною, неповною, містить помилки або застарілою. Якщо ви вважаєте, що ми порушили відповідне законодавство про захист даних і хочете подати скаргу, будь ласка, зв'яжіться з нами за нижчевказаними деталями та надайте нам повну інформацію про заявлене порушення. Ми оперативно розглянемо вашу скаргу та надамо відповідь в письмовій формі, викладаючи результати нашого розслідування та кроки, які ми зробимо для вирішення вашої скарги. Ви також маєте право звернутися до регулюючого органу або органу захисту даних у зв'язку з вашою скаргою."
     },
     "limits": {
-      "title": "Limits of Our Policy",
-      "content": "Our app may link to external sites that are not operated by us. Please be aware that we have no control over the content and policies of those sites, and cannot accept responsibility or liability for their respective privacy practices."
+      "title": "Обмеження нашої політики",
+      "content": "Наш додаток може містити посилання на зовнішні сайти, які не є нашими. Будь ласка, зверніть увагу, що ми не маємо контролю над змістом та політикою цих сайтів і не можемо приймати відповідальність за їх практики з охорони приватності."
     },
     "changes": {
-      "title": "Changes to This Policy",
-      "content": "At our discretion, we may change our privacy policy to reflect updates to our business processes, current acceptable practices, or legislative or regulatory changes. If we decide to change this privacy policy, we will post the changes here at the same link by which you are accessing this privacy policy. If required by law, we will get your permission or give you the opportunity to opt in to or opt out of, as applicable, any new uses of your personal information."
+      "title": "Зміни до цієї політики",
+      "content": "Mи можемо змінювати нашу політику конфіденційності на нашу розсуд, щоб відображати оновлення наших бізнес-процесів, поточні прийнятні практики, або зміни в законодавстві або регулюванні. Якщо ми вирішимо змінити цю політику конфіденційності, ми опублікуємо зміни тут за тим самим посиланням, за яким ви звертаєтеся до цієї політики конфіденційності. Якщо цього вимагає закон, ми отримаємо вашу згоду або надамо вам можливість відмовитися від будь-яких нових використань вашої особистої інформації."
     },
     "contact": {
-      "title": "Contact Us",
-      "content": "For any questions or concerns regarding your privacy, you may contact us using the following details: Mr.Spending Data Protection Officer kovalovy76@gmail.com"
+      "title": "Контакти",
+      "content": "З питань конфіденційності ви можете звернутися до нас за наступними контактами: kovalovy76@gmail.com"
     }
   }
 }
