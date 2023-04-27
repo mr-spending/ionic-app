@@ -28,6 +28,10 @@ export class ApiService {
     return this.http.patch<UserDto>(this.path + `user`, user);
   }
 
+  deleteAccount(): any {
+    return this.http.get(this.path + 'delete-account')
+  }
+
   /** User Categories Data **/
 
   addUserCategory(category: CategoryDto): Observable<CategoryDto> {

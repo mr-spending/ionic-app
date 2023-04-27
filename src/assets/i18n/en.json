@@ -25,7 +25,8 @@
     "menu": "Menu",
     "logOut": "Sign out",
     "selectLanguage": "Language",
-    "selectLanguagePlaceholder": "Select"
+    "selectLanguagePlaceholder": "Select",
+    "deleteAccount": "Delete account"
   },
   "general": {
     "actions" : {

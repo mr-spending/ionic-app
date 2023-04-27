@@ -14,6 +14,7 @@ import { CategoryManagementModalComponent } from './category-management-modal/ca
 import { ChangeEmailPasswordModalComponent } from './change-email-password-modal/change-email-password-modal.component';
 import { UserEditEnum } from '../../core/enums/user-edit.enums';
 import { PrivacyNoticeModalComponent } from './privacy-notice-modal/privacy-notice-modal.component';
+import { ApiService } from 'src/app/core/api/api.service';
 
 @Component({
   selector: 'app-settings-page',
@@ -32,7 +33,8 @@ export class SettingsPage implements OnDestroy {
     private translateService: TranslateService,
     private fb: FormBuilder,
     private store: Store<AppState>,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private apiService: ApiService
   ) {
     this.languageList = this.translateService.getLangs();
     this.subscription.add(this.store.select(UserSelectors.selectDisplayLanguage).subscribe(displayLanguage => {
@@ -81,5 +83,9 @@ export class SettingsPage implements OnDestroy {
   logOut(): void {
     this.authService.signOut().then();
     window.location.reload();
+  }
+
+  deleteAccount(): void {
+    this.apiService.deleteAccount();
   }
 }

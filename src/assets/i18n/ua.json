@@ -26,7 +26,8 @@
     "menu": "Меню",
     "logOut": "Вийди розбійник",
     "selectLanguage": "Мова",
-    "selectLanguagePlaceholder": "Обрати"
+    "selectLanguagePlaceholder": "Обрати",
+    "deleteAccount": "Видалти акаунт"
   },
   "general": {
     "actions": {
