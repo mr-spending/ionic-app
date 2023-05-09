@@ -23,6 +23,8 @@ export const environment = {
   },
   monoBankApiUrl: 'https://api.monobank.ua/',
   baseUrl,
+  supportUrl: 'https://documents-mr-spending.vercel.app/support',
+  deleteAccountUrl: 'https://documents-mr-spending.vercel.app/delete-account'
 };
 
 /*

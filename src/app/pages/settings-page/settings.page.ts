@@ -14,6 +14,7 @@ import { CategoryManagementModalComponent } from './category-management-modal/ca
 import { ChangeEmailPasswordModalComponent } from './change-email-password-modal/change-email-password-modal.component';
 import { UserEditEnum } from '../../core/enums/user-edit.enums';
 import { PrivacyNoticeModalComponent } from './privacy-notice-modal/privacy-notice-modal.component';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-settings-page',
@@ -22,6 +23,9 @@ import { PrivacyNoticeModalComponent } from './privacy-notice-modal/privacy-noti
 })
 export class SettingsPage implements OnDestroy {
   userEditEnum = UserEditEnum;
+  window = window;
+  supportUrl = environment.supportUrl;
+  deleteAccountUrl = environment.deleteAccountUrl;
 
   languageControl!: FormControl;
   languageList: string[];

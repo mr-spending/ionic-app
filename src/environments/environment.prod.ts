@@ -11,5 +11,7 @@ export const environment = {
     measurementId: "G-ZLMGMXP4KF"
   },
   monoBankApiUrl: 'https://api.monobank.ua/',
-  baseUrl: 'https://nest-api-git-main-mr-spending.vercel.app/'
+  baseUrl: 'https://nest-api-git-main-mr-spending.vercel.app/',
+  supportUrl: 'https://documents-mr-spending.vercel.app/support',
+  deleteAccountUrl: 'https://documents-mr-spending.vercel.app/delete-account'
 };

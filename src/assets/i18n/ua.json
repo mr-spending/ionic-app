@@ -122,7 +122,9 @@
     "changeEmail": "Змінити пошту",
     "enterEmail": "Ввести пошту",
     "newEmail": "Нова пошта",
-    "repeatEmail": "Повторити пошту"
+    "repeatEmail": "Повторити пошту",
+    "supportService": "Служба підтримки",
+    "accDeletion": "Видалити акаунт"
   },
   "editSpendingModal": {
     "title": "Редагувати",

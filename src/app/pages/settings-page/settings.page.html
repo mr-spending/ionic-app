@@ -45,6 +45,16 @@
       <ion-icon name="newspaper-outline"></ion-icon>
     </ion-item>
 
+    <ion-item (click)="window.open(this.supportUrl, '_support');">
+      <ion-label>{{ 'settings.supportService' | translate }}</ion-label>
+      <ion-icon name="mail-outline"></ion-icon>
+    </ion-item>
+
+    <ion-item (click)="window.open(this.deleteAccountUrl, '_support');">
+      <ion-label>{{ 'settings.accDeletion' | translate }}</ion-label>
+      <ion-icon name="trash-outline"></ion-icon>
+    </ion-item>
+
     <ion-item (click)="logOut()">
       <ion-label>{{ 'pages.logOut' | translate}}</ion-label>
       <ion-icon name="log-out-outline"></ion-icon>
