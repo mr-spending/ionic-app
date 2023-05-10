@@ -39,6 +39,7 @@ export class AppComponent implements OnDestroy {
   initializeApp() {
     this.translate.addLangs(languageList);
     this.translate.setDefaultLang(languageList[0]);
+
     this.angularFireAuth.user.pipe(take(1)).subscribe(user => {
       if (user?.uid && !this.isAppBuilt) {
         this.userStore.dispatch(UserActions.setUserData({ userId: user.uid }));
@@ -48,7 +49,11 @@ export class AppComponent implements OnDestroy {
     this.subscription.add(this.userStore.select(UserSelectors.selectDisplayLanguage).subscribe(displayLanguage => {
         if (displayLanguage) {
           this.translate.use(displayLanguage);
-          moment.locale(displayLanguage === LanguageEnum.UA ? 'uk' : displayLanguage);
+          moment.locale(displayLanguage === LanguageEnum.UA ? 'uk' : displayLanguage, {
+            week: {
+              dow: 1
+            }
+          });
         }
     }));
   }
