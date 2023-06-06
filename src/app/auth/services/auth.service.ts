@@ -14,7 +14,6 @@ import { AuthRoutesEnum, MainRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserState } from '../../core/state/reducers/user.reducer';
-import { defaultCategoriesList } from '../../core/constants/categories.constants';
 import { AlertService } from '../../core/services/alert/alert.service';
 import { LanguageEnum } from '../../core/constants/languages.constants';
 import { AlertEnum } from '../../core/enums/alert.enums';
@@ -86,7 +85,7 @@ export class AuthService {
       photoURL: user.photoURL ?? '',
       emailVerified: user.emailVerified,
       displayLanguage: LanguageEnum.EN,
-      categories: defaultCategoriesList,
+      categories: [],
       isPolicyAgreed
     }
     this.store.dispatch(UserActions.addUser({ payload }));

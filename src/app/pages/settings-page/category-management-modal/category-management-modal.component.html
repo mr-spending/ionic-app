@@ -28,7 +28,7 @@
             <ion-icon name="build"></ion-icon>
           </div>
           <div
-            *ngIf="category.id !== '63e3ca87631b20b10e81bcab'"
+            *ngIf="!category.isBase"
             (click)="deleteCategory(category.id)"
             class="category-commands-delete"
           >

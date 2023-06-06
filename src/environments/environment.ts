@@ -7,7 +7,7 @@ enum env {
   prod = 'https://nest-api-git-main-mr-spending.vercel.app/',
 }
 
-const baseUrl = env.prod;
+const baseUrl = env.local;
 
 export const environment = {
   production: false,
