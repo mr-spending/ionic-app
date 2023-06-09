@@ -15,7 +15,6 @@ import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { START_YEAR } from '../../core/constants/time.constants';
 import { ViewPeriod } from '../../core/enums/time.enum';
-import { DateFormatEnum } from '../../core/enums/date-format.enums';
 
 @Component({
   selector: 'app-statistics-page',
@@ -29,7 +28,6 @@ export class StatisticsPage implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   availableMonthsInCurrentYear = getAvailableMonthsInCurrentYear();
   availableYears = getYearsFromToCurrent(START_YEAR);
-  DateFormatEnum = DateFormatEnum;
   periods = Object.values(ViewPeriod);
   ViewPeriod = ViewPeriod;
   moment = moment;
@@ -62,33 +60,29 @@ export class StatisticsPage implements OnInit, OnDestroy {
         if (periodRange === ViewPeriod.Month) {
           const currentMonth = this.translateService.instant('general.months.' + monthControl);
           if (currentMonth.includes('.')) {
-            startDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM).startOf(ViewPeriod.Month).unix();
-            endDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM).endOf(ViewPeriod.Month).unix();
+            startDate = moment(getCurrentYear() + monthControl, 'YYYYMMMM').startOf(ViewPeriod.Month).unix();
+            endDate = moment(getCurrentYear() + monthControl, 'YYYYMMMM').endOf(ViewPeriod.Month).unix();
           } else {
             startDate = moment(
-              getCurrentYear() + this.translateService.instant('general.months.' + monthControl), DateFormatEnum.YYYYMMMM
+              getCurrentYear() + this.translateService.instant('general.months.' + monthControl), 'YYYYMMMM'
             ).startOf(ViewPeriod.Month).unix();
             endDate = moment(
-              getCurrentYear() + this.translateService.instant('general.months.' + monthControl), DateFormatEnum.YYYYMMMM
+              getCurrentYear() + this.translateService.instant('general.months.' + monthControl), 'YYYYMMMM'
             ).endOf(ViewPeriod.Month).unix();
           }
         } else if (periodRange === ViewPeriod.Year) {
-          startDate = moment(String(yearControl), DateFormatEnum.YYYY).startOf(ViewPeriod.Year).unix();
-          endDate = moment(String(yearControl), DateFormatEnum.YYYY).endOf(ViewPeriod.Year).unix();
+          startDate = moment(String(yearControl), 'YYYY').startOf(ViewPeriod.Year).unix();
+          endDate = moment(String(yearControl), 'YYYY').endOf(ViewPeriod.Year).unix();
         } else {
           startDate = moment().startOf(periodRange).unix();
           endDate = moment().endOf(periodRange).unix();
         }
 
-        this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }));
-        this.updateList();
+        this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }))
+        this.store.dispatch(SpendingActions.statSpendingList());
       })
     );
     this.formGroup.get('periodRange')?.setValue(ViewPeriod.Month);
-  }
-
-  ionViewWillEnter() {
-    this.updateList();
   }
 
   ngOnDestroy(): void {
@@ -105,10 +99,6 @@ export class StatisticsPage implements OnInit, OnDestroy {
           borderWidth: -1
         }
       ]
-    };
-  }
-
-  updateList() {
-    this.store.dispatch(SpendingActions.statSpendingList());
+    }
   }
 }
