@@ -79,7 +79,7 @@
           <ion-label>
             <p *ngIf="item.description" class="spending-description">{{ item.description }}</p>
 
-            <p class="spending-date">{{ item.date | date: 'MMM d, HH:mm' }}</p>
+            <p class="spending-date">{{ moment.utc(item.date).local().format('MMM D, HH:mm') }}</p>
           </ion-label>
 
           <ion-label class="spending-amount">{{ currency$ | async }} {{ item.amount | mrMoneyFormat }}</ion-label>

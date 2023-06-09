@@ -47,14 +47,14 @@ export class AppComponent implements OnDestroy {
       this.isAppBuilt = true;
     });
     this.subscription.add(this.userStore.select(UserSelectors.selectDisplayLanguage).subscribe(displayLanguage => {
-        if (displayLanguage) {
-          this.translate.use(displayLanguage);
-          moment.locale(displayLanguage === LanguageEnum.UA ? 'uk' : displayLanguage, {
-            week: {
-              dow: 1
-            }
-          });
-        }
+      if (displayLanguage) {
+        this.translate.use(displayLanguage);
+        moment.updateLocale(displayLanguage === LanguageEnum.UA ? 'uk' : displayLanguage, {
+          week: {
+            dow: 1
+          }
+        });
+      }
     }));
   }
 

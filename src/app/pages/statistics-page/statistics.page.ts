@@ -30,6 +30,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
   availableYears = getYearsFromToCurrent(START_YEAR);
   periods = Object.values(ViewPeriod);
   ViewPeriod = ViewPeriod;
+  moment = moment;
 
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> = this.store.select(UserSelectors.selectSpendingByUserCategories);
   categoryList$: Observable<CategoryModel[] | undefined> = this.store.select(UserSelectors.selectUserCategories);
@@ -57,14 +58,18 @@ export class StatisticsPage implements OnInit, OnDestroy {
         let endDate = 0;
 
         if (periodRange === ViewPeriod.Month) {
-          startDate = moment(
-            getCurrentYear() + this.translateService.instant('general.months.' + monthControl),
-            'YYYYMMMM'
-          ).startOf(ViewPeriod.Month).unix();
-          endDate = moment(
-            getCurrentYear() + this.translateService.instant('general.months.' + monthControl),
-            'YYYYMMMM'
-          ).endOf(ViewPeriod.Month).unix();
+          const currentMonth = this.translateService.instant('general.months.' + monthControl);
+          if (currentMonth.includes('.')) {
+            startDate = moment(getCurrentYear() + monthControl, 'YYYYMMMM').startOf(ViewPeriod.Month).unix();
+            endDate = moment(getCurrentYear() + monthControl, 'YYYYMMMM').endOf(ViewPeriod.Month).unix();
+          } else {
+            startDate = moment(
+              getCurrentYear() + this.translateService.instant('general.months.' + monthControl), 'YYYYMMMM'
+            ).startOf(ViewPeriod.Month).unix();
+            endDate = moment(
+              getCurrentYear() + this.translateService.instant('general.months.' + monthControl), 'YYYYMMMM'
+            ).endOf(ViewPeriod.Month).unix();
+          }
         } else if (periodRange === ViewPeriod.Year) {
           startDate = moment(String(yearControl), 'YYYY').startOf(ViewPeriod.Year).unix();
           endDate = moment(String(yearControl), 'YYYY').endOf(ViewPeriod.Year).unix();

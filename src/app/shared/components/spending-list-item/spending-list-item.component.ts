@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 import { SpendingModel } from '../../../core/interfaces/models';
 import { ListItemTypeEnum } from '../../../core/enums/list-item.enum';
@@ -16,6 +17,7 @@ export class SpendingListItemComponent implements OnInit {
   @Input() showIcon = true;
   @Input() showCategory = true;
 
+  moment = moment;
   listItemTypeEnum = ListItemTypeEnum;
   background = '#fc6183';
   icon = 'card-outline';
