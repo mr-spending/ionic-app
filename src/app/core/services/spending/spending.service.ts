@@ -99,6 +99,10 @@ export class SpendingService {
     this.store.dispatch(SpendingActions.deleteSpendingItem({ payload: id }));
   }
 
+  updateHomePage(): void {
+    this.store.dispatch(SpendingActions.updateHomePage({ payload: getCurrentMonthPeriodUNIX() }));
+  }
+
   updateSpendingList(): void {
     this.store.dispatch(SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() }));
   }

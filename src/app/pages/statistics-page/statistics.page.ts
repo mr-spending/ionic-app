@@ -78,11 +78,15 @@ export class StatisticsPage implements OnInit, OnDestroy {
           endDate = moment().endOf(periodRange).unix();
         }
 
-        this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }))
-        this.store.dispatch(SpendingActions.statSpendingList());
+        this.store.dispatch(SpendingActions.updateStatTimePeriod({ payload: { startDate, endDate } }));
+        this.updateList();
       })
     );
     this.formGroup.get('periodRange')?.setValue(ViewPeriod.Month);
+  }
+
+  ionViewWillEnter() {
+    this.updateList();
   }
 
   ngOnDestroy(): void {
@@ -99,6 +103,10 @@ export class StatisticsPage implements OnInit, OnDestroy {
           borderWidth: -1
         }
       ]
-    }
+    };
+  }
+
+  updateList() {
+    this.store.dispatch(SpendingActions.statSpendingList());
   }
 }
