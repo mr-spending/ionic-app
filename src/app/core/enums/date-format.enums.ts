@@ -6,6 +6,5 @@ export enum DateFormatEnum {
   YYYYMMMM = 'YYYYMMMM',
   DD__MMMM = 'DD MMMM',
   YYYY = 'YYYY',
-  MMMM = 'MMMM',
   MM = 'MM'
 }
