@@ -20,6 +20,7 @@ import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
 import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
+import { DateFormatEnum } from '../../core/enums/date-format.enums';
 
 @Component({
   selector: 'app-home-page',
@@ -62,7 +63,7 @@ export class HomePage implements OnInit, OnDestroy {
       }),
     );
     this.subscription.add(timer(0, 1000)
-      .pipe(map(() => moment().format('DD MMMM')))
+      .pipe(map(() => moment().format(DateFormatEnum.DD__MMMM)))
       .subscribe(time => this.currentTime = time)
     );
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
