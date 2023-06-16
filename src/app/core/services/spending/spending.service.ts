@@ -59,8 +59,7 @@ export class SpendingService {
     type: ActionsEnum.Add | ActionsEnum.Edit,
     categories: CategoryModel[],
     item?: SpendingModel,
-    amount?: number,
-    isAmountChangeable?: boolean
+    amount?: number
   }): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: ConfigureSpendingModalComponent,
@@ -68,8 +67,7 @@ export class SpendingService {
         amount: payload.amount,
         categories: payload.categories,
         spendingItem: payload.item,
-        type: payload.type,
-        isAmountChangeable: payload.isAmountChangeable
+        type: payload.type
       },
       cssClass: 'fullscreen'
     });
