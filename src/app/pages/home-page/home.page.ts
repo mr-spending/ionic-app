@@ -79,7 +79,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async openSpendingBasketModal(): Promise<void> {
-    const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent });
+    const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent, cssClass: 'fullscreen' });
     await modal.present();
     await modal.onWillDismiss();
   }

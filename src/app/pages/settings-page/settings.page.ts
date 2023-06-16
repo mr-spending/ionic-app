@@ -54,13 +54,13 @@ export class SettingsPage implements OnDestroy {
   }
 
   async categoryManagementOpen(): Promise<void> {
-    const modal = await this.modalCtrl.create({ component: CategoryManagementModalComponent });
+    const modal = await this.modalCtrl.create({ component: CategoryManagementModalComponent, cssClass: 'fullscreen' });
     await modal.present();
     await modal.onWillDismiss();
   }
 
   async monoAccSettingsOpen(): Promise<void> {
-    const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent });
+    const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent, cssClass: 'fullscreen' });
     await modal.present();
     await modal.onWillDismiss();
   }
@@ -68,16 +68,15 @@ export class SettingsPage implements OnDestroy {
   async changeEmailPasswordModal(type: UserEditEnum) {
     const modal = await this.modalCtrl.create({
       component: ChangeEmailPasswordModalComponent,
-      componentProps: { type }
+      componentProps: { type },
+      cssClass: 'fullscreen'
     });
     await modal.present();
     await modal.onWillDismiss()
   }
 
   async privacyNoticeModal() {
-    const modal = await this.modalCtrl.create({
-      component: PrivacyNoticeModalComponent,
-    });
+    const modal = await this.modalCtrl.create({ component: PrivacyNoticeModalComponent, cssClass: 'fullscreen' });
     modal.present();
     await modal.onWillDismiss()
   }

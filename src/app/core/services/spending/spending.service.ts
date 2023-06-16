@@ -68,7 +68,8 @@ export class SpendingService {
         categories: payload.categories,
         spendingItem: payload.item,
         type: payload.type
-      }
+      },
+      cssClass: 'fullscreen'
     });
     modal.present();
     await modal.onWillDismiss();

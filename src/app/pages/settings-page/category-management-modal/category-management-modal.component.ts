@@ -30,7 +30,8 @@ export class CategoryManagementModalComponent {
   async editCategory(type: ActionsEnum.Add | ActionsEnum.Edit,category?: CategoryModel) {
     const modal = await this.modalCtrl.create({
       component: EditCategoryModalComponent,
-      componentProps: category ? { category, type } : { type }
+      componentProps: category ? { category, type } : { type },
+      cssClass: 'fullscreen'
     });
     await modal.present();
     await modal.onWillDismiss();

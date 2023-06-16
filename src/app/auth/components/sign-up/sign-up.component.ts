@@ -51,7 +51,8 @@ export class SignUpComponent {
   async privacyNoticeModal() {
     const modal = await this.modalCtrl.create({
       component: PrivacyNoticeModalComponent,
-      componentProps: { confirmation: true }
+      componentProps: { confirmation: true },
+      cssClass: 'fullscreen'
     });
     modal.present();
     modal.onDidDismiss()
