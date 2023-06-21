@@ -19,6 +19,7 @@
     <h1 size="large" class="ion-text-center">
       {{ currency$ | async }}
       {{ (totalAmount$ | async) | number: '.2' }}
+      <span>({{ ('general.dates.month' | translate).toLowerCase() }})</span>
     </h1>
 
     <ion-row class="add-spending" [formGroup]="formGroup">
