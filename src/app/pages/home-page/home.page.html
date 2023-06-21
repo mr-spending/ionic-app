@@ -19,7 +19,7 @@
     <h1 size="large" class="ion-text-center">
       {{ currency$ | async }}
       {{ (totalAmount$ | async) | number: '.2' }}
-      <span>({{ getCurrentMonth() }})</span>
+      <span>({{ ('general.dates.month' | translate).toLowerCase() }})</span>
     </h1>
 
     <ion-row class="add-spending" [formGroup]="formGroup">
@@ -58,14 +58,6 @@
 
         <ion-button
           *ngIf="isSelectionActive"
-          (click)="mergeTransactions(selectedSpending)"
-          [disabled]="selectedSpending.length < 2"
-        >
-          <ion-icon slot="icon-only" name="git-network-outline" [class.active]="selectedSpending.length > 1"></ion-icon>
-        </ion-button>
-
-        <ion-button
-          *ngIf="isSelectionActive"
           (click)="confirmTransactionRemove(selectedSpending, true)"
           [disabled]="!selectedSpending.length"
         >
@@ -92,11 +84,7 @@
       </app-spending-list-item>
     </ion-list>
 
-    <ion-list
-      *ngIf="groupedSpendingList$ | async as groupedSpendingList"
-      [style.margin-top]="fullPendingSpendingList.length ? 'unset' : '10px'"
-      class="spending-list"
-    >
+    <ion-list *ngIf="groupedSpendingList$ | async as groupedSpendingList" class="spending-list">
       <div *ngFor="let spendingList of groupedSpendingList" class="spending-list">
         <p class="date-delimiter">{{ spendingList.title | MrSpendingListDateFormatPipe }}</p>
         <app-spending-list-item

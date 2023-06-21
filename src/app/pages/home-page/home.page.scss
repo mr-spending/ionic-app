@@ -56,9 +56,9 @@ ion-content {
       span {
         position: absolute;
         bottom: -16px;
-        left: calc(50% - 40px);
+        left: calc(50% - 30px);
         width: 80px;
-        text-align: center;
+        text-align: start;
         font-weight: 400;
         font-size: 16px;
         line-height: 18px;
@@ -127,7 +127,7 @@ ion-content {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 25px;
+        gap: 10px;
 
         .selection-action {
           border: 1px solid var(--button-content-color-1);
