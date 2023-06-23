@@ -58,6 +58,14 @@
 
         <ion-button
           *ngIf="isSelectionActive"
+          (click)="mergeTransactions(selectedSpending)"
+          [disabled]="selectedSpending.length < 2"
+        >
+          <ion-icon slot="icon-only" name="git-network-outline" [class.active]="selectedSpending.length > 1"></ion-icon>
+        </ion-button>
+
+        <ion-button
+          *ngIf="isSelectionActive"
           (click)="confirmTransactionRemove(selectedSpending, true)"
           [disabled]="!selectedSpending.length"
         >

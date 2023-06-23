@@ -34,8 +34,11 @@ export class HomePage implements OnInit, OnDestroy {
 
   listItemTypeEnum = ListItemTypeEnum;
   actionsEnum = ActionsEnum;
+  fullHomepageSpendingList: SpendingModel[] = [];
+  fullPendingSpendingList: SpendingModel[] = [];
   subscription: Subscription = new Subscription();
   selectedSpending: string[] = [];
+  deleteTask: string[] = [];
   isSelectionActive = false;
   countOfAdditionalMonths = 0;
 
@@ -60,7 +63,21 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscription.add(this.store.select(UserSelectors.selectUserCategories)
       .subscribe((categories: CategoryModel[] | undefined) => {
         if (categories) this.categories = categories;
-      }),
+      })
+    );
+    this.subscription.add(
+      this.store.select(SpendingSelectors.selectHomeSpendingList).subscribe((spendingList: SpendingModel[]) => {
+        this.fullHomepageSpendingList = spendingList;
+        if (this.deleteTask.length) {
+          this.multiDeleteTransactions(this.deleteTask);
+          this.deleteTask = [];
+        }
+      })
+    );
+    this.subscription.add(
+      this.store.select(SpendingSelectors.selectPendingSpendingList).subscribe((spendingList: SpendingModel[]) => {
+        this.fullPendingSpendingList = spendingList;
+      })
     );
     this.subscription.add(timer(0, 1000)
       .pipe(map(() => moment().format(DateFormatEnum.DD__MMMM)))
@@ -151,6 +168,23 @@ export class HomePage implements OnInit, OnDestroy {
           : this.deleteTransaction(ids[0]);
         break;
     }
+  }
+
+  async mergeTransactions(ids: string[]): Promise<void> {
+    const selectedSpending = this.fullHomepageSpendingList.filter(spending => ids.includes(spending.id));
+    const selectedPendingSpending = this.fullPendingSpendingList.filter(spending => ids.includes(spending.id));
+    if (selectedPendingSpending?.length) selectedSpending.push(...selectedPendingSpending);
+    this.deleteTask = this.selectedSpending;
+    await this.spendingService.openConfigureSpendingModal({
+      type: ActionsEnum.Add,
+      categories: this.categories,
+      amount: selectedSpending.reduce((acc: number, spending: SpendingModel) => {
+        console.log(acc + spending.amount, spending.amount)
+        return acc + spending.amount
+      }, 0)
+    });
+    this.isSelectionActive = false;
+    this.selectedSpending = [];
   }
 
   addTransaction(transaction: SpendingModel): void {
