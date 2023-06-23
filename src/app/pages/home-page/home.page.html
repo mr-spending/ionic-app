@@ -92,7 +92,11 @@
       </app-spending-list-item>
     </ion-list>
 
-    <ion-list *ngIf="groupedSpendingList$ | async as groupedSpendingList" class="spending-list">
+    <ion-list
+      *ngIf="groupedSpendingList$ | async as groupedSpendingList"
+      [style.margin-top]="fullPendingSpendingList.length ? 'unset' : '10px'"
+      class="spending-list"
+    >
       <div *ngFor="let spendingList of groupedSpendingList" class="spending-list">
         <p class="date-delimiter">{{ spendingList.title | MrSpendingListDateFormatPipe }}</p>
         <app-spending-list-item
