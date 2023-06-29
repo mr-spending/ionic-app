@@ -12,7 +12,7 @@
 
 <ion-content *ngIf="formGroup" class="ion-padding">
   <ion-list [formGroup]="formGroup">
-    <ion-item *ngIf="type === actionsEnum.Edit">
+    <ion-item *ngIf="type === actionsEnum.Edit || isAmountChangeable">
       <ion-label>{{ 'editSpendingModal.amount' | translate }}</ion-label>
       <ion-input
         class="ion-text-right"

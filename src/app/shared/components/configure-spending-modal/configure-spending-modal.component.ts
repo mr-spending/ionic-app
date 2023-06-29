@@ -21,6 +21,7 @@ export class ConfigureSpendingModalComponent implements OnInit {
   @Input() spendingItem!: SpendingModel | undefined;
   @Input() categories!: CategoryModel[];
   @Input() type!: ActionsEnum.Add | ActionsEnum.Edit;
+  @Input() isAmountChangeable = false;
 
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   actionsEnum = ActionsEnum;

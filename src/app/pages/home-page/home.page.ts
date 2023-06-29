@@ -181,7 +181,8 @@ export class HomePage implements OnInit, OnDestroy {
       amount: selectedSpending.reduce((acc: number, spending: SpendingModel) => {
         console.log(acc + spending.amount, spending.amount)
         return acc + spending.amount
-      }, 0)
+      }, 0),
+      isAmountChangeable: true
     });
     this.isSelectionActive = false;
     this.selectedSpending = [];
