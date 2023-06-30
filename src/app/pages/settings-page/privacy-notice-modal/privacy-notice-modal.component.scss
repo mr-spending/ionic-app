@@ -6,16 +6,20 @@ ion-header {
     ion-title {
         padding-bottom: 15px;
     }
+
+    .main-title {
+      text-overflow: inherit;
+      white-space: normal;
+    }
 }
 
-ion-content {          
+ion-content {
     p {
         white-space: break-spaces;
-    }     
+    }
 }
 
 .policy-checkbox {
-    margin: 0 15px;
     display: flex;
     gap: 5px;
     justify-content: space-between;

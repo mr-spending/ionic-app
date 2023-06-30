@@ -56,13 +56,13 @@ export class AuthService {
   }
 
   /** Sign up with email/password */
-  signUp(email: string, password: string, isPolicyAgreed: boolean) {
+  signUp(email: string, password: string, language: string, isPolicyAgreed: boolean) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result: UserCredential) => {
         this.sendVerificationMail().then();
         if (result.user) {
-          this.addUser(result.user, isPolicyAgreed);
+          this.addUser(result.user, language, isPolicyAgreed);
           this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
         }
       })
@@ -77,14 +77,14 @@ export class AuthService {
   }
 
   /** Adding new user data when sign up with username/password */
-  addUser(user: User, isPolicyAgreed: boolean) {
+  addUser(user: User, language: string, isPolicyAgreed: boolean) {
     const payload: UserModel = {
       id: user.uid,
       email: user.email ?? '',
       displayName: user.displayName ?? '',
       photoURL: user.photoURL ?? '',
       emailVerified: user.emailVerified,
-      displayLanguage: LanguageEnum.EN,
+      displayLanguage: language,
       categories: [],
       isPolicyAgreed
     }
