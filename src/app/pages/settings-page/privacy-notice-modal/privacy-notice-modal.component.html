@@ -4,11 +4,11 @@
       <ion-button (click)="cancel()">
         <ion-label color="primary">{{ 'general.actions.back' | translate }}</ion-label>
       </ion-button>
-      <ion-title class="ion-text-center">
-        <div class="main-title">{{ 'privacyNoticeModal.title' | translate }}</div>
-      </ion-title>
     </ion-buttons>
   </ion-toolbar>
+  <ion-title class="ion-text-center">
+    <div class="main-title">{{ 'privacyNoticeModal.title' | translate }}</div>
+  </ion-title>
 </ion-header>
 
 <ion-content class="ion-padding">
@@ -97,7 +97,7 @@
   </ion-list>
 </ion-content>
 
-<ion-toolbar *ngIf="confirmation" class="footer">
+<ion-toolbar *ngIf="confirmation">
   <div class="policy-checkbox">
     <ion-label slot="start">{{ "general.actions.agreeWithPolicyCheckBox" | translate }}</ion-label>
     <ion-checkbox #policyCheckbox ></ion-checkbox>
