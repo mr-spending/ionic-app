@@ -27,7 +27,7 @@ export class CategoryManagementModalComponent {
     private actionSheetController: ActionSheetController
   ) { }
 
-  async editCategory(type: ActionsEnum.Add | ActionsEnum.Edit,category?: CategoryModel) {
+  async editCategory(type: ActionsEnum.Add | ActionsEnum.Edit, category?: CategoryModel) {
     const modal = await this.modalCtrl.create({
       component: EditCategoryModalComponent,
       componentProps: category ? { category, type } : { type },

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title>{{ 'editCategoryModal.editCategory' | translate }}</ion-title>
+    <ion-title>{{ (type === actionsEnum.Add ? 'editCategoryModal.addingCategory' : 'editCategoryModal.editCategory') | translate }}</ion-title>
     <ion-buttons slot="end">
       <ion-button
         (click)="confirm()"

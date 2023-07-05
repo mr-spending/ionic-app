@@ -145,7 +145,8 @@
   "editCategoryModal": {
     "editCategory": "Edit category",
     "categoryName": "Category name",
-    "enterCategoryName": "Enter category name"
+    "enterCategoryName": "Enter category name",
+    "addingCategory": "Adding category"
   },
   "spendingBasketModal": {
     "spendingBasket": "Spending Basket",

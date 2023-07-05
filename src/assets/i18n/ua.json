@@ -146,7 +146,8 @@
   "editCategoryModal": {
     "editCategory": "Встановлення категорії",
     "categoryName": "Назва категорії",
-    "enterCategoryName": "Введіть назву категорії"
+    "enterCategoryName": "Введіть назву категорії",
+    "addingCategory": "Додавання категорії"
   },
   "spendingBasketModal": {
     "spendingBasket": "Кошик витрат",

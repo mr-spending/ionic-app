@@ -36,6 +36,9 @@
       >
         <ion-select-option *ngFor="let category of categories" [value]="category">{{ category.name }}</ion-select-option>
       </ion-select>
+      <div (click)="addCategory()" class="category-add">
+        <ion-icon name="add"></ion-icon>
+      </div>
     </ion-item>
 
     <ion-item>
