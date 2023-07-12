@@ -4,10 +4,11 @@
 enum env {
   local = 'http://localhost:3500/',
   dev = 'https://nest-api-git-develop-mr-spending.vercel.app/',
+  dev_v2 = 'https://nest-api-git-dev-v2-mr-spending.vercel.app/',
   prod = 'https://nest-api-git-main-mr-spending.vercel.app/',
 }
 
-const baseUrl = env.local;
+const baseUrl = env.dev_v2;
 
 export const environment = {
   production: false,
