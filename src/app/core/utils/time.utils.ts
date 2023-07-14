@@ -32,3 +32,7 @@ export function getYearsFromToCurrent(from: number): number[] {
 export function getCurrentYear(): number {
   return Number(moment().format(DateFormatEnum.YYYY));
 }
+
+export function getCurrentMonth(): string {
+  return moment().format(DateFormatEnum.MMMM);
+}

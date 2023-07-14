@@ -19,7 +19,7 @@
     <h1 size="large" class="ion-text-center">
       {{ currency$ | async }}
       {{ (totalAmount$ | async) | number: '.2' }}
-      <span>({{ currentTime ? currentTime.split(' ')[1] : '' }})</span>
+      <span>({{ getCurrentMonth() }})</span>
     </h1>
 
     <ion-row class="add-spending" [formGroup]="formGroup">

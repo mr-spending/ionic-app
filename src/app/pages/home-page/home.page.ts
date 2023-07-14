@@ -15,7 +15,11 @@ import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
-import { getCurrentMonthPeriodUNIX, getMonthPeriodCurrentMonthMinusValueUNIX } from '../../core/utils/time.utils';
+import {
+  getCurrentMonth,
+  getCurrentMonthPeriodUNIX,
+  getMonthPeriodCurrentMonthMinusValueUNIX
+} from '../../core/utils/time.utils';
 import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
@@ -41,6 +45,7 @@ export class HomePage implements OnInit, OnDestroy {
   deleteTask: string[] = [];
   isSelectionActive = false;
   countOfAdditionalMonths = 0;
+  getCurrentMonth = getCurrentMonth;
 
   groupedSpendingList$: Observable<GroupedSpendingModel[]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   pendingSpendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedPendingSpendingList);
