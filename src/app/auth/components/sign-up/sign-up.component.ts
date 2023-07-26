@@ -8,8 +8,6 @@ import { AuthService } from '../../services/auth.service';
 import { CustomValidators } from '../../../core/utils/custom-validators.class';
 import { AuthRoutesEnum, MainRoutesEnum } from '../../../core/enums/routing.enums';
 import { PrivacyNoticeModalComponent } from 'src/app/pages/settings-page/privacy-notice-modal/privacy-notice-modal.component';
-import { TranslateService } from '@ngx-translate/core';
-import { UserActions } from '../../../core/state/actions/user.actions';
 
 @Component({
   selector: 'app-sign-up',
