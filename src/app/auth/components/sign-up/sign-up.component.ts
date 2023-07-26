@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 
 import { AuthService } from '../../services/auth.service';
 import { CustomValidators } from '../../../core/utils/custom-validators.class';
 import { AuthRoutesEnum, MainRoutesEnum } from '../../../core/enums/routing.enums';
 import { PrivacyNoticeModalComponent } from 'src/app/pages/settings-page/privacy-notice-modal/privacy-notice-modal.component';
-import { TranslateService } from '@ngx-translate/core';
-import { UserActions } from '../../../core/state/actions/user.actions';
 
 @Component({
   selector: 'app-sign-up',
@@ -39,6 +38,7 @@ export class SignUpComponent {
         validators: CustomValidators.matchControls('password', 'confirmPassword')
       }
     );
+    this.translateService.use(this.languageList[0]);
   }
 
   signUp(): void {
@@ -47,6 +47,7 @@ export class SignUpComponent {
   }
 
   goToSignIn(): void {
+    this.translateService.use(this.languageList[0]);
     this.router.navigate([`${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignIn}`]).then();
   }
 

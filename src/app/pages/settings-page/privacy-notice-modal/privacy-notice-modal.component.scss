@@ -4,7 +4,9 @@
 
 ion-header {
     ion-title {
-        padding-bottom: 15px;
+      padding-left: 6px;
+      width: max-content;
+      padding-right: 0;
     }
 
     .main-title {
@@ -19,9 +21,18 @@ ion-content {
     }
 }
 
-.policy-checkbox {
+.footer {
+  padding: 6px 16px 12px 16px;
+
+  .policy-checkbox {
     display: flex;
-    gap: 5px;
-    justify-content: space-between;
+    gap: 12px;
+    justify-content: flex-end;
     align-items: center;
+
+    ion-checkbox {
+      min-height: 26px;
+      min-width: 26px;
+    }
+  }
 }
