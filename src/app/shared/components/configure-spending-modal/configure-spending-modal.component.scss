@@ -1,5 +1,5 @@
 :host {
-  background: var(--page-background);
+  background: var(--background-color-1);
 }
 
 ion-input {
@@ -23,3 +23,7 @@ ion-input {
     color: var(--button-content-color-1);
   }
 }
+ion-icon{
+  color: var(--button-content-color-1);
+}
+

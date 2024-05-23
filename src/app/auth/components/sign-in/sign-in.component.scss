@@ -3,12 +3,13 @@
 }
 
 ion-input {
-  --background: var(--page-background);
+  // --background: var(--page-background);
+  background-color: transparent !important;
 }
 
 ion-input * {
   --background: var(--page-background);
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .sign-in-btn {

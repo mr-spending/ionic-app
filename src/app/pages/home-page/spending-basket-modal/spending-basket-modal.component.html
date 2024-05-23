@@ -8,12 +8,16 @@
 </ion-header>
 
 <ion-content *ngIf="deletedSpendingList$ | async as deletedSpendingList" class="ion-padding" scroll-y="false">
-  <div *ngIf="deletedSpendingList.length" (click)="confirmSpendingDelete()" class="clean-basket">
+  <ion-item *ngIf="deletedSpendingList.length" [button]="true" (click)="confirmSpendingDelete()" class="delete-item">    
+    <ion-label color="danger">{{ 'spendingBasketModal.cleanBasket' | translate }}</ion-label>
+    <ion-icon slot="end" color="danger" name="trash-bin-outline"  size="large"></ion-icon>
+  </ion-item>
+  <!-- <div *ngIf="deletedSpendingList.length" (click)="confirmSpendingDelete()" class="clean-basket">
     <ion-label>{{ 'spendingBasketModal.cleanBasket' | translate }}</ion-label>
     <ion-icon name="trash-bin-outline"></ion-icon>
-  </div>
+  </div> -->
 
-  <div class="page-delimiter"></div>
+  <!-- <div class="page-delimiter"></div> -->
 
   <p *ngIf="!deletedSpendingList.length" class="page-placeholder">{{ 'spendingBasketModal.basketEmpty' | translate }}</p>
 

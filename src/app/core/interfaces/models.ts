@@ -86,3 +86,10 @@ export interface GroupedSpendingModel {
   title: string;
   children: SpendingModel[];
 }
+
+export interface TabModel {
+  route: string;
+  icon: string;
+  nameKey: string;
+}
+

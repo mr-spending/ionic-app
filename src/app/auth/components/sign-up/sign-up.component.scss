@@ -3,7 +3,8 @@
 }
 
 ion-input {
-  --background: var(--page-background);
+  // --background: var(--page-background);
+  background-color: transparent !important;
 }
 
 .sign-up-btn {
