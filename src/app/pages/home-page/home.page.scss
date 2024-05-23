@@ -172,20 +172,20 @@ ion-content {
     }
   }
 
-  .fixed:after {
-    content: '';
-    display: block;
-    top: -4px;
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background-color: var(--background-color-3);
-  }
+  // .fixed:after {
+  //   content: '';
+  //   display: block;
+  //   top: -4px;
+  //   width: 100%;
+  //   height: 4px;
+  //   border-radius: 2px;
+  //   background-color: var(--background-color-3);
+  // }
 
   .scroll {
     width: calc(100% + 35px);
     height: calc(100% - 221px);
-    overflow: scroll;
+    overflow-y: scroll;
 
     &::part(scroll) {
       padding: 0 35px 0 0;
@@ -234,7 +234,7 @@ ion-content {
     }
 
     .refresh{
-      width: 100%;
+      width: calc(95%);
       display: flex;
     }
   }

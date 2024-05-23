@@ -3,7 +3,10 @@
     <ion-buttons slot="start">
       <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title>{{ 'editSpendingModal.title' | translate }}</ion-title>
+    <ion-title *ngIf="type!==actionsEnum.Add;else add">{{ 'editSpendingModal.titleEdit' | translate }}</ion-title>
+    <ng-template #add>
+      <ion-title >{{ 'editSpendingModal.titleAdd' | translate }}</ion-title>
+    </ng-template>
     <ion-buttons *ngIf="type!==actionsEnum.Add" slot="end">
       <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">{{ 'general.actions.confirm' | translate }}</ion-button>
     </ion-buttons>

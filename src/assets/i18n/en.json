@@ -127,7 +127,8 @@
     "accDeletion": "Delete account"
   },
   "editSpendingModal": {
-    "title": "Edit spending",
+    "titleEdit": "Edit spending",
+    "titleAdd": "Add spending",
     "amount": "Amount:",
     "description": "Description:",
     "amountPlaceholder": "Type your amount",

@@ -161,12 +161,12 @@ export class StatisticsPage implements OnInit, OnDestroy {
             }) : 'rgba(35, 40, 40, 0.5)',
           borderWidth: spendingList.length? spendingList.map((item) => {
               if ( this.selectedCategory && this.selectedCategory.id === item.id ){
-                  return 8;
+                  return 6;
               }
               return -1;
             }) : -1,  
           spacing: 5,
-          borderRadius:2
+          borderRadius:2,
         },
       ],
     };
