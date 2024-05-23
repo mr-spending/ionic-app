@@ -52,6 +52,11 @@ export class PagesComponent implements OnDestroy {
       icon: 'cog',
       nameKey: 'settings.title',
     },
+    {
+      route: PageRoutesEnum.User,
+      icon: 'happy-outline',
+      nameKey: 'user.title'
+    }
   ];
   selectedTab: string = this.tabs[0].route;
 
