@@ -25,7 +25,7 @@
         [placeholder]="(currency$ | async) + '0'"
         #inputElement
       >
-      
+
     </ion-item>
 
     <ion-item>
@@ -44,14 +44,14 @@
     </ion-item>
 
     <ion-radio-group class="categories" value="strawberries" formControlName="category">
-      <ion-item  
-        *ngFor="let category of categories" 
-        [button]="true" 
-        (click)="selectCategory(category)" 
+      <ion-item
+        *ngFor="let category of categories"
+        [button]="true"
+        (click)="selectCategory(category)"
         detail="false">
-        <app-icon 
-          slot="start" 
-          [iconName]="category.icon.iconType" 
+        <app-icon
+          slot="start"
+          [iconName]="category.icon.iconType"
           [backgroundColor]="category.icon.background">
         </app-icon>
         <ion-label>{{category.name}}</ion-label>

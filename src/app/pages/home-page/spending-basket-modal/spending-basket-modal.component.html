@@ -8,13 +8,13 @@
 </ion-header>
 
 <ion-content *ngIf="deletedSpendingList$ | async as deletedSpendingList" class="ion-padding" scroll-y="false">
-  <ion-item 
-    lines="none" 
-    *ngIf="deletedSpendingList.length" 
-    [button]="true" 
-    detail="false" 
-    (click)="confirmSpendingDelete()" 
-    class="delete-item">    
+  <ion-item
+    lines="none"
+    *ngIf="deletedSpendingList.length"
+    [button]="true"
+    detail="false"
+    (click)="confirmSpendingDelete()"
+    class="delete-item">
     <ion-label slot="start">{{ 'spendingBasketModal.cleanBasket' | translate }}</ion-label>
     <ion-icon slot="end" color="danger" name="trash-bin-outline"  ></ion-icon>
   </ion-item>
@@ -24,8 +24,8 @@
   <ion-list class="spending-list">
     <div *ngFor="let spending of deletedSpendingList" class="spending-item">
       <div class="spending-desc">
-        <app-icon 
-          [iconName]="spending.category!.icon.iconType" 
+        <app-icon
+          [iconName]="spending.category!.icon.iconType"
           [backgroundColor]="spending.category!.icon.background">
         </app-icon>
         <ion-label>

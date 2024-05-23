@@ -19,7 +19,7 @@ import { EditCategoryModalComponent } from '../../../pages/settings-page/edit-ca
 })
 export class ConfigureSpendingModalComponent implements OnInit {
   @ViewChild('inputElement') inputElement!: ElementRef;
-  
+
   @Input() amount!: number | undefined;
   @Input() spendingItem!: SpendingModel | undefined;
   @Input() categories!: CategoryModel[];
