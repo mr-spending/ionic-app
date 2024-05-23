@@ -3,9 +3,6 @@
     <ion-row class="data-btn-container">
       <span class="date-time">{{ currentTime }}</span>
       <ion-row  class="btn-container">
-        <ion-button (click)="monoAccSettingsOpen()">
-          <ion-icon slot="icon-only" name="card-outline"></ion-icon>
-        </ion-button>
         <ion-button (click)="openSpendingBasketModal()">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
@@ -31,61 +28,45 @@
     </ion-row>
 
     <ion-row class="title-block">
+      <p class="spending-title">{{ 'home.mySpending' | translate }}</p>
 
-      <div class="action-block" [ngClass]="{'action-full-width': isSelectionActive}">
-        <div *ngIf="pendingSpendingList$ | async as pendingSpendingList" class="action">
-          <p *ngIf="isSelectionActive && pendingSpendingList.length" (click)="selectAllNewSpendings(pendingSpendingList)" class="selection-action">
-            SELECT ALL NEW
-          </p>
-        </div>
-        <div class="action-right action">
-          <p *ngIf="!isSelectionActive" (click)="isSelectionActive = true" class="selection-action">
-            {{ 'general.actions.select' | translate }}
-          </p>
+      <div class="action-block">
+        <p *ngIf="!isSelectionActive" (click)="isSelectionActive = true" class="selection-action">
+          {{ 'general.actions.select' | translate }}
+        </p>
 
-          <p
-            *ngIf="isSelectionActive"
-            (click)="isSelectionActive = false; selectedSpending = []"
-            class="selection-action active">
-            {{ 'general.actions.cancel' | translate }}
-          </p>
+        <p *ngIf="isSelectionActive" (click)="isSelectionActive = false; selectedSpending = []" class="selection-action active">
+          {{ 'general.actions.cancel' | translate }}
+        </p>
 
-          <ion-button
-            *ngIf="isSelectionActive"
-            (click)="mergeTransactions(selectedSpending)"
-            [disabled]="selectedSpending.length < 2"
-          >
-            <ion-icon
-              slot="icon-only"
-              name="git-network-outline"
-              [class.active]="selectedSpending.length > 1">
-            </ion-icon>
-          </ion-button>
+        <ion-button
+          *ngIf="isSelectionActive"
+          (click)="mergeTransactions(selectedSpending)"
+          [disabled]="selectedSpending.length < 2"
+        >
+          <ion-icon slot="icon-only" name="git-network-outline" [class.active]="selectedSpending.length > 1"></ion-icon>
+        </ion-button>
 
-          <ion-button
-            *ngIf="isSelectionActive"
-            (click)="confirmTransactionRemove(selectedSpending, true)"
-            [disabled]="!selectedSpending.length"
-          >
-            <ion-icon slot="icon-only" name="trash-outline" [class.active]="selectedSpending.length"></ion-icon>
-          </ion-button>
-        </div>
-
+        <ion-button
+          *ngIf="isSelectionActive"
+          (click)="confirmTransactionRemove(selectedSpending, true)"
+          [disabled]="!selectedSpending.length"
+        >
+          <ion-icon slot="icon-only" name="trash-outline" [class.active]="selectedSpending.length"></ion-icon>
+        </ion-button>
       </div>
-      <p *ngIf="!isSelectionActive" class="spending-title">{{ 'home.mySpending' | translate }}</p>
-
     </ion-row>
   </div>
 
   <ion-content class="scroll">
 
-    <ion-refresher slot="fixed" class="refresh" (ionRefresh)="spendingService.updateHomePage($event)">
+    <ion-refresher slot="fixed" class="refresh" (ionRefresh)="spendingService.updateHomePagePull($event)">
       <ion-refresher-content class="refresh"
         pullingText="Pull down to refresh"
         pullingIcon="chevron-down">
       </ion-refresher-content>
     </ion-refresher>
-
+    
     <ion-list *ngIf="pendingSpendingList$ | async as pendingSpendingList" class="bank-transactions-list">
       <p *ngIf="pendingSpendingList.length" class="bank-transactions-title">{{ 'home.newTransactions' | translate }}</p>
       <app-spending-list-item

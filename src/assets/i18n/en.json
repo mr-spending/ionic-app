@@ -7,9 +7,7 @@
     "confirmPassword": "Confirm password:",
     "goToSignUp": "Go to sign up",
     "goToSignIn": "Go to sign in",
-    "signUp": "Sign up",
-    "signInGoogle": "Sign in with google",
-    "confirmPolicy": "Please read the privacy policy"
+    "signUp": "Sign up"
   },
   "language": {
     "en": "English",
@@ -30,7 +28,6 @@
     "selectLanguagePlaceholder": "Select"
   },
   "general": {
-    "more": "More",
     "actions" : {
       "add": "Add",
       "addAs": "Add As",
@@ -103,8 +100,8 @@
     "categoryManagement": "Category management",
     "monoAccSettings": "Monobank account settings",
     "privacyNotice": "Privacy notice",
-    "inputToken": "Paste token here...",
-    "setAcc": "Link account",
+    "inputToken": "Input token...",
+    "setAcc": "Set account",
     "changeAcc": "Change account",
     "forgetAcc": "Forget account",
     "selectCards": "Select cards",
@@ -131,13 +128,6 @@
   },
   "user":{
     "title":"User"
-  },
-  "spendingDetailsModal":{
-    "title":"Details",
-    "amount": "Amount:",
-    "category": "Category:",
-    "description": "Description:",
-    "date": "Date:" 
   },
   "editSpendingModal": {
     "titleEdit": "Edit spending",
