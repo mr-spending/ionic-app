@@ -92,6 +92,12 @@ ion-content {
 
       .sum {
         font-size: 22px;
+        display: flex;
+
+        .small-digits{
+          font-size: smaller;
+          color: whitesmoke;
+        }
       }
 
       .select {
