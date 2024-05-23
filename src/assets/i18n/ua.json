@@ -128,7 +128,8 @@
     "accDeletion": "Видалити акаунт"
   },
   "editSpendingModal": {
-    "title": "Редагувати",
+    "titleEdit": "Редагувати",
+    "titleAdd": "Додати",
     "amount": "Сума:",
     "description": "Опис:",
     "amountPlaceholder": "Введіть сумму",
