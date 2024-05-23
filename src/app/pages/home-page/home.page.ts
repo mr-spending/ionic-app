@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription, map, timer } from 'rxjs';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, GestureController, GestureDetail } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -35,6 +35,9 @@ import {
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit, OnDestroy {
+
+  @ViewChild('content', { static: false, read: ElementRef }) contentEl!: ElementRef;
+
   formGroup: FormGroup;
   categories!: CategoryModel[];
   currentTime!: string;
