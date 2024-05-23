@@ -55,6 +55,10 @@ export namespace SpendingActions {
   export const updateHomePageSuccess = createAction(`[${stateType}] Update Home Page Success`);
   export const updateHomePageFailure = createAction(`[${stateType}] Update Home Page Failure`);
 
+  export const updateHomePageStealth = createAction(`[${stateType}] Update Home Page Stealth`, props<{ payload: TimePeriodModel }>());
+  export const updateHomePageSuccessStealth  = createAction(`[${stateType}] Update Home Page Success Stealth`);
+  export const updateHomePageFailureStealth  = createAction(`[${stateType}] Update Home Page Failure Stealth`);
+
   export const reloadSpendingAndTransactionLists = createAction(`[${stateType}] Reload Spending And Transaction Lists`, props<{ payload: TimePeriodModel }>());
   export const reloadSpendingAndTransactionListsSuccess = createAction(`[${stateType}] Reload Spending And Transaction Lists Success`);
   export const reloadSpendingAndTransactionListsFailure = createAction(`[${stateType}] Reload Spending And Transaction Lists Failure`);

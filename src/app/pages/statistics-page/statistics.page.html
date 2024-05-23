@@ -30,7 +30,7 @@
       <div class="sum">
         <span *ngIf="categoryAmount$ | async">{{ currency$ | async }} {{ categoryAmount$ | async | number: '.2' }} /&nbsp;</span>
         <span [ngClass]="{ 'small-digits': categoryAmount$ }">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</span>
-        
+
       </div>
 
       <div class="select" [formGroup]="formGroup">
