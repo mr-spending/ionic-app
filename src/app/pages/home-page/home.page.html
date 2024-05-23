@@ -14,7 +14,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" scroll-y="false" class="transaction-spending-list">
+<ion-content #content [fullscreen]="true" scroll-y="false" class="transaction-spending-list">
   <div class="fixed">
     <h1 size="large" class="ion-text-center">
       {{ currency$ | async }}
@@ -23,15 +23,7 @@
     </h1>
 
     <ion-row class="add-spending" [formGroup]="formGroup">
-      <ion-input
-        formControlName="amount"
-        maxlength="15"
-        type="tel"
-        mrCurrencyMask
-        [placeholder]="(currency$ | async) + '  0.00'"
-      ></ion-input>
       <ion-button
-        [disabled]="!this.formGroup.value.amount"
         (click)="addSpending(actionsEnum.Add)"
       >
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
@@ -76,6 +68,13 @@
   </div>
 
   <ion-content class="scroll">
+
+    <ion-refresher slot="fixed" class="refresh" (ionRefresh)="spendingService.updateHomePagePull($event)">
+      <ion-refresher-content
+        pullingIcon="chevron-down">
+      </ion-refresher-content>
+    </ion-refresher>
+    
     <ion-list *ngIf="pendingSpendingList$ | async as pendingSpendingList" class="bank-transactions-list">
       <p *ngIf="pendingSpendingList.length" class="bank-transactions-title">{{ 'home.newTransactions' | translate }}</p>
       <app-spending-list-item

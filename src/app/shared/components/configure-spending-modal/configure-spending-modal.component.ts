@@ -89,4 +89,11 @@ export class ConfigureSpendingModalComponent implements OnInit {
     this.formGroup?.reset();
     return this.modalCtrl.dismiss(null, ActionsEnum.Confirm);
   }
+
+  selectCategory(category: CategoryModel) {
+    this.formGroup?.get('category')!.setValue(category);
+    this.confirm()
+  }
+
+
 }

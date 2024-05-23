@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription, map, timer } from 'rxjs';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, GestureController, GestureDetail } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -32,6 +32,9 @@ import { DateFormatEnum } from '../../core/enums/date-format.enums';
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit, OnDestroy {
+
+  @ViewChild('content', { static: false, read: ElementRef }) contentEl!: ElementRef;
+
   formGroup: FormGroup;
   categories!: CategoryModel[];
   currentTime!: string;
@@ -92,9 +95,11 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.pendingSpendingList());
   }
 
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
 
   navigateToStatisticsPage(): void {
     this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.Statistics}`]).then();

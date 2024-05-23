@@ -19,12 +19,8 @@ import { UserSelectors } from '../core/state/selectors/user.selectors';
 import { BankAccountsActions } from '../core/state/actions/bank-accounts.actions';
 import { SpendingActions } from '../core/state/actions/spending.actions';
 import { ViewPeriod } from '../core/enums/time.enum';
+import { TabModel } from '../core/interfaces/models';
 
-export interface TabInterface {
-  route: string;
-  icon: string;
-  nameKey: string;
-}
 
 @Component({
   selector: 'app-pages',
@@ -82,7 +78,15 @@ export class PagesComponent implements OnDestroy {
     );
   }
 
-  setupSwipeGesture() {
+  ngAfterViewInit() {//
+    this.setupSwipeGesture();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  setupSwipeGesture() {//
     const gesture = this.GestureCtrl.create({
       el: this.tabsRef.nativeElement,
       gestureName: 'swipe',
@@ -91,7 +95,7 @@ export class PagesComponent implements OnDestroy {
     gesture.enable(true);
   }
 
-  onSwipe(ev: GestureDetail) {
+  onSwipe(ev: GestureDetail) {//
     if (ev.deltaX > 100) {
       this.swipePrev();
     } else if (ev.deltaX < -100) {
@@ -99,7 +103,7 @@ export class PagesComponent implements OnDestroy {
     }
   }
 
-  swipeNext() {
+  swipeNext() {//
     const currentIndex = this.tabs.findIndex(
       (tab) => tab.route === this.selectedTab
     );
@@ -107,7 +111,7 @@ export class PagesComponent implements OnDestroy {
     this.selectTab(this.tabs[nextIndex]);
   }
 
-  swipePrev() {
+  swipePrev() {//
     const currentIndex = this.tabs.findIndex(
       (tab) => tab.route === this.selectedTab
     );
@@ -115,16 +119,10 @@ export class PagesComponent implements OnDestroy {
     this.selectTab(this.tabs[prevIndex]);
   }
 
-  selectTab(tab: TabInterface) {
+  selectTab(tab: TabModel) {//
     this.selectedTab = tab.route;
     this.router.navigateByUrl('pages/' + this.selectedTab);
   }
 
-  ngAfterViewInit() {
-    this.setupSwipeGesture();
-  }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }
