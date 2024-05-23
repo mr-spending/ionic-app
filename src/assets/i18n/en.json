@@ -126,6 +126,9 @@
     "supportService": "Support service",
     "accDeletion": "Delete account"
   },
+  "user":{
+    "title":"User"
+  },
   "editSpendingModal": {
     "titleEdit": "Edit spending",
     "titleAdd": "Add spending",
@@ -134,7 +137,8 @@
     "amountPlaceholder": "Type your amount",
     "descriptionPlaceholder": "Type your description. Optional.",
     "category": "Category:",
-    "selectCategoryPlaceholder": "Select category"
+    "selectCategoryPlaceholder": "Select category",
+    "createCategory": "Create category"
   },
   "selectMonthYearModal": {
     "selectDate": "Select date"

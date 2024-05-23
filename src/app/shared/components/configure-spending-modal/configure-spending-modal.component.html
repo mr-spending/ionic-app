@@ -7,7 +7,7 @@
     <ng-template #add>
       <ion-title >{{ 'editSpendingModal.titleAdd' | translate }}</ion-title>
     </ng-template>
-    <ion-buttons *ngIf="type!==actionsEnum.Add" slot="end">
+    <ion-buttons slot="end">
       <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">{{ 'general.actions.confirm' | translate }}</ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -38,7 +38,7 @@
 
     <ion-item [button]="true" (click)="addCategory()">
       <ion-label >
-        Create new category:
+        {{ 'editSpendingModal.createCategory' | translate }}
       </ion-label>
         <ion-icon name="add"></ion-icon>
     </ion-item>
@@ -68,10 +68,11 @@
 
     
 
-    <ion-radio-group value="strawberries" formControlName="category">
-      <ion-item *ngFor="let category of categories" [button]="true" (click)="selectCategory(category)">
-        <ion-icon slot="start" [name]="category.icon.iconType" [style.color]="category.icon.background"></ion-icon>
+    <ion-radio-group class="categories" value="strawberries" formControlName="category">
+      <ion-item  *ngFor="let category of categories" [button]="true" (click)="selectCategory(category)">
+        <app-icon slot="start" [iconName]="category.icon.iconType" [backgroundColor]="category.icon.background"></app-icon>
         <ion-label>{{category.name}}</ion-label>
+        <ion-icon *ngIf="selectedCategory && selectedCategory.id == category.id" name="checkmark-outline"></ion-icon>
         <!-- <ion-radio slot="end" value="grapes" [value]="category"></ion-radio> -->
       </ion-item>
     </ion-radio-group>

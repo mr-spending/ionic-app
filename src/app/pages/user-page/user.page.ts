@@ -7,20 +7,18 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../auth/services/auth.service';
-import { MonobankAccountSettingsComponent } from './monobank-account-settings-modal/monobank-account-settings.component';
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
-import { CategoryManagementModalComponent } from './category-management-modal/category-management-modal.component';
+import { ChangeEmailPasswordModalComponent } from './change-email-password-modal/change-email-password-modal.component';
 import { UserEditEnum } from '../../core/enums/user-edit.enums';
-import { PrivacyNoticeModalComponent } from './privacy-notice-modal/privacy-notice-modal.component';
 import { environment } from '../../../environments/environment';
 
 @Component({
-  selector: 'app-settings-page',
-  templateUrl: './settings.page.html',
-  styleUrls: ['./settings.page.scss'],
+  selector: 'app-user-page',
+  templateUrl: './user.page.html',
+  styleUrls: ['./user.page.scss'],
 })
-export class SettingsPage implements OnDestroy {
+export class UserPage implements OnDestroy {
   userEditEnum = UserEditEnum;
   window = window;
   supportUrl = environment.supportUrl;
@@ -52,23 +50,17 @@ export class SettingsPage implements OnDestroy {
     this.store.dispatch(UserActions.setUserLanguage({ payload: language }));
   }
 
-  async categoryManagementOpen(): Promise<void> {
-    const modal = await this.modalCtrl.create({ component: CategoryManagementModalComponent, cssClass: 'fullscreen' });
-    await modal.present();
-    await modal.onWillDismiss();
-  }
 
-  async monoAccSettingsOpen(): Promise<void> {
-    const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent, cssClass: 'fullscreen' });
+  async changeEmailPasswordModal(type: UserEditEnum) {
+    const modal = await this.modalCtrl.create({
+      component: ChangeEmailPasswordModalComponent,
+      componentProps: { type },
+      cssClass: 'fullscreen'
+    });
     await modal.present();
-    await modal.onWillDismiss();
-  }
-
-  async privacyNoticeModal() {
-    const modal = await this.modalCtrl.create({ component: PrivacyNoticeModalComponent, cssClass: 'fullscreen' });
-    modal.present();
     await modal.onWillDismiss()
   }
+
 
   logOut(): void {
     this.authService.signOut().then();

@@ -27,6 +27,7 @@ export class ConfigureSpendingModalComponent implements OnInit {
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   actionsEnum = ActionsEnum;
   formGroup?: FormGroup;
+  selectedCategory: CategoryModel | null = this.spendingItem?.category ||  null
 
   constructor(
     private store: Store<AppState>,
@@ -40,6 +41,7 @@ export class ConfigureSpendingModalComponent implements OnInit {
       category: this.fb.control(this.spendingItem?.category || null, Validators.required),
       description: this.fb.control(this.spendingItem?.description || null),
     });
+    this.selectedCategory = this.spendingItem?.category || null
   }
 
   async addCategory() {
@@ -92,7 +94,8 @@ export class ConfigureSpendingModalComponent implements OnInit {
 
   selectCategory(category: CategoryModel) {
     this.formGroup?.get('category')!.setValue(category);
-    this.confirm()
+    this.selectedCategory = category
+    console.log(this.formGroup?.getRawValue())
   }
 
 

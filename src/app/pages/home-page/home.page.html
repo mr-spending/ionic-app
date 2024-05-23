@@ -3,9 +3,6 @@
     <ion-row class="data-btn-container">
       <span class="date-time">{{ currentTime }}</span>
       <ion-row  class="btn-container">
-        <ion-button (click)="navigateToStatisticsPage()">
-          <ion-icon slot="icon-only" name="stats-chart-outline"></ion-icon>
-        </ion-button>
         <ion-button (click)="openSpendingBasketModal()">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
@@ -29,12 +26,6 @@
         <ion-icon slot="icon-only" name="add-outline"></ion-icon>
       </ion-button>
     </ion-row>
-
-    <!-- <ion-row class="update-all-button ion-justify-content-center">
-      <ion-button fill="clear" (click)="spendingService.updateHomePage()">
-        <ion-icon size="large" name="refresh-circle-outline"></ion-icon>
-      </ion-button>
-    </ion-row> -->
 
     <ion-row class="title-block">
       <p class="spending-title">{{ 'home.mySpending' | translate }}</p>

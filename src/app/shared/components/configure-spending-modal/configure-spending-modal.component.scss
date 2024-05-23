@@ -26,4 +26,12 @@ ion-input {
 ion-icon{
   color: var(--button-content-color-1);
 }
+.categories{
+  ion-item{
+    --border-style:none;
+  }
+  .picked{
+    --background-color: red;
+  }
+}
 
