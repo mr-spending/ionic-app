@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController,  ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SpendingActions } from '../../state/actions/spending.actions';
@@ -71,7 +71,9 @@ export class SpendingService {
         type: payload.type,
         isAmountChangeable: payload.isAmountChangeable
       },
-      cssClass: 'fullscreen'
+      cssClass: 'fullscreen',
+      breakpoints: [0, 0.9],
+      initialBreakpoint: 0.9
     });
     modal.present();
     await modal.onWillDismiss();
@@ -104,6 +106,15 @@ export class SpendingService {
 
   updateHomePage(): void {
     this.store.dispatch(SpendingActions.updateHomePage({ payload: getCurrentMonthPeriodUNIX() }));
+  }
+
+  updateHomePagePull(event: any): void {
+    this.store.dispatch(SpendingActions.updateHomePage({ payload: getCurrentMonthPeriodUNIX() }));
+    event.target.complete()
+  }
+
+  updateHomePageStealth(): void {
+
   }
 
   updateSpendingList(): void {

@@ -73,4 +73,11 @@ export namespace SpendingSelectors {
       return sortArrayByProperty(list, 'time', DirectionEnum.Descending);
     }
   );
+
+  export const selectStatCategoryAmount =(categoryId:string)=> createSelector(
+    selectStatSpendingList,
+    (list:SpendingModel[])=>{
+      return list.filter(el=>el.categoryId===categoryId).reduce((total,item)=>total+item.amount, 0) / 100;
+    } 
+  )
 }
