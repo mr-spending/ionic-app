@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  NgZone,
   OnDestroy,
   SimpleChanges,
   ViewChild,
@@ -35,7 +36,7 @@ export class PagesComponent implements OnDestroy {
   tabs = [
     {
       route: PageRoutesEnum.CreateSpending,
-      icon: 'bag-add-outline',
+      icon: 'home',
       nameKey: 'home.title',
     },
     {
@@ -61,7 +62,8 @@ export class PagesComponent implements OnDestroy {
     private translateService: TranslateService,
     private store: Store<AppState>,
     private GestureCtrl: GestureController,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) {
     this.store.dispatch(
       SpendingActions.updateStatTimePeriod({
@@ -126,7 +128,10 @@ export class PagesComponent implements OnDestroy {
 
   selectTab(tab: TabModel) {//
     this.selectedTab = tab.route;
-    this.router.navigateByUrl('pages/' + this.selectedTab);
+    this.ngZone.run(()=>{
+      this.router.navigateByUrl('pages/' + this.selectedTab);
+    })
+    
   }
 
 
