@@ -3,6 +3,7 @@ import {
   ElementRef,
   NgZone,
   OnDestroy,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Subscription, take } from 'rxjs';
@@ -28,7 +29,8 @@ import { TabModel } from '../core/interfaces/models';
   styleUrls: ['./pages.component.scss'],
 })
 export class PagesComponent implements OnDestroy {
-  @ViewChild('tabsRef', { static: false, read: ElementRef }) tabsRef!: ElementRef;
+  @ViewChild('tabsRef', { static: false, read: ElementRef })
+  tabsRef!: ElementRef;
 
   subscription: Subscription = new Subscription();
   tabs = [
@@ -43,13 +45,8 @@ export class PagesComponent implements OnDestroy {
       nameKey: 'statistics.title',
     },
     {
-      route: PageRoutesEnum.User,
-      icon: 'person',
-      nameKey: 'user.title',
-    },
-    {
       route: PageRoutesEnum.Setting,
-      icon: 'cog',
+      icon: 'cog-outline',
       nameKey: 'settings.title',
     },
     {
@@ -64,8 +61,9 @@ export class PagesComponent implements OnDestroy {
     private authService: AuthService,
     private translateService: TranslateService,
     private store: Store<AppState>,
-    private gestureCtrl: GestureController,
+    private GestureCtrl: GestureController,
     private router: Router,
+    private ngZone: NgZone
   ) {
     this.store.dispatch(
       SpendingActions.updateStatTimePeriod({
@@ -76,13 +74,18 @@ export class PagesComponent implements OnDestroy {
       })
     );
     this.subscription.add(
-      this.store.select(UserSelectors.selectUser).subscribe(
-        (value) => value?.monoBankAccounts?.length && this.store.dispatch(BankAccountsActions.checkWebHook())
-      )
+      this.store
+        .select(UserSelectors.selectUser)
+        .pipe(take(2))
+        .subscribe(
+          (value) =>
+            value?.monoBankAccounts?.length &&
+            this.store.dispatch(BankAccountsActions.checkWebHook())
+        )
     );
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit() {//
     this.setupSwipeGesture();
   }
 
@@ -90,17 +93,16 @@ export class PagesComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  setupSwipeGesture() {
-    const gesture = this.gestureCtrl.create({
+  setupSwipeGesture() {//
+    const gesture = this.GestureCtrl.create({
       el: this.tabsRef.nativeElement,
       gestureName: 'swipe',
       onEnd: (ev) => this.onSwipe(ev),
-      gesturePriority: 500
-    }, true);
+    });
     gesture.enable(true);
   }
 
-  onSwipe(ev: GestureDetail) {
+  onSwipe(ev: GestureDetail) {//
     if (ev.deltaX > 100) {
       this.swipePrev();
     } else if (ev.deltaX < -100) {
@@ -108,7 +110,7 @@ export class PagesComponent implements OnDestroy {
     }
   }
 
-  swipeNext() {
+  swipeNext() {//
     const currentIndex = this.tabs.findIndex(
       (tab) => tab.route === this.selectedTab
     );
@@ -116,7 +118,7 @@ export class PagesComponent implements OnDestroy {
     this.selectTab(this.tabs[nextIndex]);
   }
 
-  swipePrev() {
+  swipePrev() {//
     const currentIndex = this.tabs.findIndex(
       (tab) => tab.route === this.selectedTab
     );
@@ -124,11 +126,13 @@ export class PagesComponent implements OnDestroy {
     this.selectTab(this.tabs[prevIndex]);
   }
 
-  selectTab(tab: TabModel) {
+  selectTab(tab: TabModel) {//
     this.selectedTab = tab.route;
-
-    this.router.navigateByUrl('pages/' + this.selectedTab);
-
+    this.ngZone.run(()=>{
+      this.router.navigateByUrl('pages/' + this.selectedTab);
+    })
+    
   }
+
 
 }
