@@ -48,3 +48,12 @@ ion-input {
     color: white;
   }
 }
+
+.btns{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .btn{
+    width: 40%;
+  }
+}
