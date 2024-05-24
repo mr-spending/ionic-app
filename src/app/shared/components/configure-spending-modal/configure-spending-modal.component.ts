@@ -94,8 +94,7 @@ export class ConfigureSpendingModalComponent implements OnInit {
 
   selectCategory(category: CategoryModel) {
     this.formGroup?.get('category')!.setValue(category);
-    this.selectedCategory = category
-    console.log(this.formGroup?.getRawValue())
+    this.selectedCategory = category;
   }
 
 
