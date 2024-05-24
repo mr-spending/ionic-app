@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import * as moment from 'moment';
-import { GestureController, GestureDetail } from '@ionic/angular';
+import { ActionSheetController, GestureController, GestureDetail } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/services/auth.service';
@@ -44,16 +44,16 @@ export class PagesComponent implements OnDestroy {
       icon: 'list-outline',
       nameKey: 'statistics.title',
     },
-    {
-      route: PageRoutesEnum.Setting,
-      icon: 'cog-outline',
-      nameKey: 'settings.title',
-    },
-    {
-      route: PageRoutesEnum.User,
-      icon: 'happy-outline',
-      nameKey: 'user.title'
-    }
+    // {
+    //   route: PageRoutesEnum.Setting,
+    //   icon: 'cog-outline',
+    //   nameKey: 'settings.title',
+    // },
+    // {
+    //   route: PageRoutesEnum.User,
+    //   icon: 'happy-outline',
+    //   nameKey: 'user.title',
+    // },
   ];
   selectedTab: string = this.tabs[0].route;
 
@@ -62,6 +62,7 @@ export class PagesComponent implements OnDestroy {
     private translateService: TranslateService,
     private store: Store<AppState>,
     private GestureCtrl: GestureController,
+    private ActionSheetCtrl: ActionSheetController,
     private router: Router,
     private ngZone: NgZone
   ) {
@@ -85,7 +86,8 @@ export class PagesComponent implements OnDestroy {
     );
   }
 
-  ngAfterViewInit() {//
+  ngAfterViewInit() {
+    //
     this.setupSwipeGesture();
   }
 
@@ -93,7 +95,8 @@ export class PagesComponent implements OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  setupSwipeGesture() {//
+  setupSwipeGesture() {
+    //
     const gesture = this.GestureCtrl.create({
       el: this.tabsRef.nativeElement,
       gestureName: 'swipe',
@@ -102,7 +105,8 @@ export class PagesComponent implements OnDestroy {
     gesture.enable(true);
   }
 
-  onSwipe(ev: GestureDetail) {//
+  onSwipe(ev: GestureDetail) {
+    //
     if (ev.deltaX > 100) {
       this.swipePrev();
     } else if (ev.deltaX < -100) {
@@ -110,7 +114,8 @@ export class PagesComponent implements OnDestroy {
     }
   }
 
-  swipeNext() {//
+  swipeNext() {
+    //
     const currentIndex = this.tabs.findIndex(
       (tab) => tab.route === this.selectedTab
     );
@@ -118,7 +123,8 @@ export class PagesComponent implements OnDestroy {
     this.selectTab(this.tabs[nextIndex]);
   }
 
-  swipePrev() {//
+  swipePrev() {
+    //
     const currentIndex = this.tabs.findIndex(
       (tab) => tab.route === this.selectedTab
     );
@@ -126,13 +132,35 @@ export class PagesComponent implements OnDestroy {
     this.selectTab(this.tabs[prevIndex]);
   }
 
-  selectTab(tab: TabModel) {//
+  selectTab(tab: TabModel) {
     this.selectedTab = tab.route;
-    this.ngZone.run(()=>{
+    this.ngZone.run(() => {
       this.router.navigateByUrl('pages/' + this.selectedTab);
-    })
-    
+    });
   }
 
-
+  async onMoreOpen() {
+    const actionSheet = await this.ActionSheetCtrl.create({
+      header:this.translateService.instant('general.more'),
+      buttons: [
+        {
+          text: this.translateService.instant('settings.title'),
+          handler: () => {
+            this.ngZone.run(() => {
+              this.router.navigateByUrl('pages/' + PageRoutesEnum.Setting);
+            });
+          },
+        },
+        {
+          text: this.translateService.instant('user.title'),
+          handler: () => {
+            this.ngZone.run(() => {
+              this.router.navigateByUrl('pages/' + PageRoutesEnum.User);
+            });
+          },
+        }
+      ]
+    });
+    await actionSheet.present();
+  }
 }
