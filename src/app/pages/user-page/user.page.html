@@ -5,13 +5,20 @@
 </ion-header>
 
 <ion-content class="ion-padding" scroll-y="false">
-  <ion-list>
-    <app-settings-item [text]="'settings.changeEmail' | translate" icon="at-outline"
-      (click)="changeEmailPasswordModal(userEditEnum.Email)">
-    </app-settings-item>
+  <ion-list class="settings-list">
+    <ion-list>
+      <app-settings-item [text]="'settings.changeEmail' | translate" icon="at-outline"
+        (click)="changeEmailPasswordModal(userEditEnum.Email)">
+      </app-settings-item>
 
-    <app-settings-item [text]="'settings.changePass' | translate" icon="key-outline"
-      (click)="changeEmailPasswordModal(userEditEnum.Password)">
+      <app-settings-item [text]="'settings.changePass' | translate" icon="key-outline"
+        (click)="changeEmailPasswordModal(userEditEnum.Password)">
+      </app-settings-item>
+    </ion-list>
+    <ion-list>
+      <app-settings-item icon="trash-outline" color="danger" [text]="'settings.accDeletion' | translate"
+      (click)="window.open(this.deleteAccountUrl, '_support');">
     </app-settings-item>
+    </ion-list>
   </ion-list>
 </ion-content>
