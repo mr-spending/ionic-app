@@ -72,7 +72,7 @@ export class SpendingService {
         isAmountChangeable: payload.isAmountChangeable
       },
       cssClass: 'fullscreen',
-      breakpoints: [0, 0.9],
+      breakpoints: [0, 0.4, 0.9, 1],
       initialBreakpoint: 0.9
     });
     modal.present();
@@ -111,10 +111,6 @@ export class SpendingService {
   updateHomePagePull(event: any): void {
     this.store.dispatch(SpendingActions.updateHomePage({ payload: getCurrentMonthPeriodUNIX() }));
     event.target.complete()
-  }
-
-  updateHomePageStealth(): void {
-
   }
 
   updateSpendingList(): void {

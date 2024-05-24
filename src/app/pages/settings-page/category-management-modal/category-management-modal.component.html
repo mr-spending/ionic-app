@@ -10,10 +10,10 @@
 </ion-header>
 
 <ion-content class="ion-padding" scroll-y="false">
-  <div (click)="editCategory(actionsEnum.Add)" class="category-add">
+  <ion-item mode="ios" (click)="editCategory(actionsEnum.Add)" >
     <ion-label>{{ 'categoryManagementModal.addCategory' | translate }}</ion-label>
     <ion-icon name="add"></ion-icon>
-  </div>
+  </ion-item>
 
   <div class="page-delimiter"></div>
 

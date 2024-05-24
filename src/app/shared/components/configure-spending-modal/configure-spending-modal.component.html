@@ -36,44 +36,18 @@
       ></ion-input>
     </ion-item>
 
-    <ion-item [button]="true" (click)="addCategory()">
+    <ion-item detail="false" [button]="true" (click)="addCategory()">
       <ion-label >
         {{ 'editSpendingModal.createCategory' | translate }}
       </ion-label>
         <ion-icon name="add"></ion-icon>
     </ion-item>
 
-    <!-- <ion-item>
-      <ion-label class="select-label">{{ 'editSpendingModal.category' | translate }}</ion-label>
-      <ion-select
-        class="select-selector"
-        interface="action-sheet"
-        [placeholder]="'editSpendingModal.selectCategoryPlaceholder' | translate"
-        name="category"
-        formControlName="category"
-        [selectedText]="formGroup.value.category?.name"
-      >
-      <ng-container *ngFor="let category of categories">
-        <ion-icon [name]="category.icon.iconType" [style.color]="category.icon.background" startIcon></ion-icon>
-        <ion-select-option [value]="category">
-          {{ category.name }}
-        </ion-select-option>
-      </ng-container>
-        
-      </ion-select>
-      
-      
-    </ion-item> -->
-    
-
-    
-
     <ion-radio-group class="categories" value="strawberries" formControlName="category">
-      <ion-item  *ngFor="let category of categories" [button]="true" (click)="selectCategory(category)">
+      <ion-item  *ngFor="let category of categories" [button]="true" (click)="selectCategory(category)" detail="false">
         <app-icon slot="start" [iconName]="category.icon.iconType" [backgroundColor]="category.icon.background"></app-icon>
         <ion-label>{{category.name}}</ion-label>
         <ion-icon *ngIf="selectedCategory && selectedCategory.id == category.id" name="checkmark-outline"></ion-icon>
-        <!-- <ion-radio slot="end" value="grapes" [value]="category"></ion-radio> -->
       </ion-item>
     </ion-radio-group>
 
