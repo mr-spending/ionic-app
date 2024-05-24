@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="ion-padding" scroll-y="false">
-  <ion-item mode="ios" (click)="editCategory(actionsEnum.Add)" >
+  <ion-item [button]="true" detail="false" mode="ios" (click)="editCategory(actionsEnum.Add)" >
     <ion-label>{{ 'categoryManagementModal.addCategory' | translate }}</ion-label>
     <ion-icon name="add"></ion-icon>
   </ion-item>
