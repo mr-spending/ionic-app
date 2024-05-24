@@ -28,6 +28,7 @@
     "selectLanguagePlaceholder": "Select"
   },
   "general": {
+    "more": "More",
     "actions" : {
       "add": "Add",
       "addAs": "Add As",
