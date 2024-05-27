@@ -128,6 +128,9 @@
     "supportService": "Служба підтримки",
     "accDeletion": "Видалити акаунт"
   },
+  "user":{
+    "title":"Користувач"
+  },
   "editSpendingModal": {
     "titleEdit": "Редагувати",
     "titleAdd": "Додати",
