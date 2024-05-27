@@ -12,12 +12,6 @@
     <ion-label color="danger">{{ 'spendingBasketModal.cleanBasket' | translate }}</ion-label>
     <ion-icon slot="end" color="danger" name="trash-bin-outline"  size="large"></ion-icon>
   </ion-item>
-  <!-- <div *ngIf="deletedSpendingList.length" (click)="confirmSpendingDelete()" class="clean-basket">
-    <ion-label>{{ 'spendingBasketModal.cleanBasket' | translate }}</ion-label>
-    <ion-icon name="trash-bin-outline"></ion-icon>
-  </div> -->
-
-  <!-- <div class="page-delimiter"></div> -->
 
   <p *ngIf="!deletedSpendingList.length" class="page-placeholder">{{ 'spendingBasketModal.basketEmpty' | translate }}</p>
 

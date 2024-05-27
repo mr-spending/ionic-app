@@ -3,7 +3,6 @@ import {
   ElementRef,
   NgZone,
   OnDestroy,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { Subscription, take } from 'rxjs';
@@ -44,16 +43,6 @@ export class PagesComponent implements OnDestroy {
       icon: 'list-outline',
       nameKey: 'statistics.title',
     },
-    // {
-    //   route: PageRoutesEnum.Setting,
-    //   icon: 'cog-outline',
-    //   nameKey: 'settings.title',
-    // },
-    // {
-    //   route: PageRoutesEnum.User,
-    //   icon: 'happy-outline',
-    //   nameKey: 'user.title',
-    // },
   ];
   selectedTab: string = this.tabs[0].route;
 
@@ -61,10 +50,9 @@ export class PagesComponent implements OnDestroy {
     private authService: AuthService,
     private translateService: TranslateService,
     private store: Store<AppState>,
-    private GestureCtrl: GestureController,
-    private ActionSheetCtrl: ActionSheetController,
+    private gestureCtrl: GestureController,
+    private actionSheetCtrl: ActionSheetController,
     private router: Router,
-    private ngZone: NgZone
   ) {
     this.store.dispatch(
       SpendingActions.updateStatTimePeriod({
@@ -95,7 +83,7 @@ export class PagesComponent implements OnDestroy {
   }
 
   setupSwipeGesture() {
-    const gesture = this.GestureCtrl.create({
+    const gesture = this.gestureCtrl.create({
       el: this.tabsRef.nativeElement,
       gestureName: 'swipe',
       onEnd: (ev) => this.onSwipe(ev),
@@ -136,7 +124,7 @@ export class PagesComponent implements OnDestroy {
   }
 
   async onMoreOpen() {
-    const actionSheet = await this.ActionSheetCtrl.create({
+    const actionSheet = await this.actionSheetCtrl.create({
       header:this.translateService.instant('general.more'),
       buttons: [
         {
