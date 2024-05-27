@@ -8,7 +8,6 @@
     "goToSignUp": "Реєстрація",
     "goToSignIn": "Вхід",
     "signUp": "Реєстрація",
-    "signInGoogle": "Увійти з Google",
     "confirmPolicy": "Будь ласка ознайомтеся з політикою конфіденційності"
   },
   "language": {
@@ -37,8 +36,8 @@
       "edit": "Змінити",
       "delete": "Видалити",
       "deleteSelected": "Видалити обране",
-      "cancel": "Скасувати",
-      "confirm": "Підтвердити",
+      "cancel": "Відміна",
+      "confirm": "Так",
       "set": "Встановити",
       "select": "Обрати",
       "save": "Зберегти",
@@ -103,8 +102,8 @@
     "categoryManagement": "Керування категоріями",
     "monoAccSettings": "Параметри Monobank акаунту",
     "privacyNotice": "Політика конфіденційності",
-    "inputToken": "Вставте сюди токен...",
-    "setAcc": "Прив'язати акаунт",
+    "inputToken": "Введення токену...",
+    "setAcc": "Встановити (змінити) акаунт",
     "changeAcc": "Змінити акаунт",
     "forgetAcc": "Видалити акаунт",
     "selectCards": "Обрати картки",
@@ -131,13 +130,6 @@
   },
   "user":{
     "title":"Користувач"
-  },
-  "spendingDetailsModal":{
-    "title":"Деталі",
-    "amount": "Сумма:",
-    "category": "Категорія:",
-    "description": "Опис:",
-    "date": "Дата:" 
   },
   "editSpendingModal": {
     "titleEdit": "Редагувати",
