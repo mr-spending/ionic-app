@@ -87,7 +87,6 @@ export class PagesComponent implements OnDestroy {
   }
 
   ngAfterViewInit() {
-    //
     this.setupSwipeGesture();
   }
 
@@ -96,17 +95,16 @@ export class PagesComponent implements OnDestroy {
   }
 
   setupSwipeGesture() {
-    //
     const gesture = this.GestureCtrl.create({
       el: this.tabsRef.nativeElement,
       gestureName: 'swipe',
       onEnd: (ev) => this.onSwipe(ev),
-    });
+      gesturePriority: 500
+    }, true);
     gesture.enable(true);
   }
 
   onSwipe(ev: GestureDetail) {
-    //
     if (ev.deltaX > 100) {
       this.swipePrev();
     } else if (ev.deltaX < -100) {
@@ -115,7 +113,6 @@ export class PagesComponent implements OnDestroy {
   }
 
   swipeNext() {
-    //
     const currentIndex = this.tabs.findIndex(
       (tab) => tab.route === this.selectedTab
     );
@@ -124,7 +121,6 @@ export class PagesComponent implements OnDestroy {
   }
 
   swipePrev() {
-    //
     const currentIndex = this.tabs.findIndex(
       (tab) => tab.route === this.selectedTab
     );
@@ -134,9 +130,9 @@ export class PagesComponent implements OnDestroy {
 
   selectTab(tab: TabModel) {
     this.selectedTab = tab.route;
-    this.ngZone.run(() => {
-      this.router.navigateByUrl('pages/' + this.selectedTab);
-    });
+    
+    this.router.navigateByUrl('pages/' + this.selectedTab);
+    
   }
 
   async onMoreOpen() {
@@ -146,17 +142,13 @@ export class PagesComponent implements OnDestroy {
         {
           text: this.translateService.instant('settings.title'),
           handler: () => {
-            this.ngZone.run(() => {
-              this.router.navigateByUrl('pages/' + PageRoutesEnum.Setting);
-            });
+            this.router.navigateByUrl('pages/' + PageRoutesEnum.Setting);
           },
         },
         {
           text: this.translateService.instant('user.title'),
           handler: () => {
-            this.ngZone.run(() => {
-              this.router.navigateByUrl('pages/' + PageRoutesEnum.User);
-            });
+            this.router.navigateByUrl('pages/' + PageRoutesEnum.User);
           },
         }
       ]
