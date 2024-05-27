@@ -100,8 +100,6 @@
 
     /** backgrounds **/
 
-    // --page-background: repeat url("../assets/image/backgrounds/img-noise-100x100.png");
-    // --page-background: repeat radial-gradient(circle at top right, var(--gradient-accent-color-1) , rgba(0, 0, 0, 0) 30% ), url("../assets/image/backgrounds/img-noise-100x100.png");
     --page-background: repeat radial-gradient(circle at top right, var(--gradient-accent-color-1) , rgba(0, 0, 0, 0) 30% ), var(--background-color-main);
 
     --backdrop-background: rgba(0, 0, 0, 0.8);
