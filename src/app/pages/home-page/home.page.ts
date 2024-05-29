@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription, map, timer } from 'rxjs';
-import { ActionSheetController, GestureController, GestureDetail } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -25,6 +25,7 @@ import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
 import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 import { DateFormatEnum } from '../../core/enums/date-format.enums';
+import { MonobankAccountSettingsComponent } from 'src/app/shared/components/monobank-account-settings-modal/monobank-account-settings.component';
 
 @Component({
   selector: 'app-home-page',
@@ -107,6 +108,12 @@ export class HomePage implements OnInit, OnDestroy {
 
   async openSpendingBasketModal(): Promise<void> {
     const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent, cssClass: 'fullscreen' });
+    await modal.present();
+    await modal.onWillDismiss();
+  }
+
+  async monoAccSettingsOpen(): Promise<void> {
+    const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent, cssClass: 'fullscreen' });
     await modal.present();
     await modal.onWillDismiss();
   }

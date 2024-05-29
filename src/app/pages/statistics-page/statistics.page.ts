@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Observable, Subscription, of } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
-import { ChartData } from 'chart.js';
+import { ChartConfiguration, ChartData } from 'chart.js';
+import { ChartEvent } from 'chart.js/auto';
+import { BaseChartDirective } from 'ng2-charts';
 import * as moment from 'moment/moment';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,12 +26,16 @@ import { START_YEAR } from '../../core/constants/time.constants';
 import { ViewPeriod } from '../../core/enums/time.enum';
 import { DateFormatEnum } from '../../core/enums/date-format.enums';
 
+
+
 @Component({
   selector: 'app-statistics-page',
   templateUrl: './statistics.page.html',
   styleUrls: ['./statistics.page.scss'],
 })
 export class StatisticsPage implements OnInit, OnDestroy {
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
   formGroup: FormGroup;
   selectedPeriod!: ViewPeriod;
 
@@ -41,6 +47,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
   ViewPeriod = ViewPeriod;
   moment = moment;
   selectedCategory: CategoryModel | null = null;
+  selectedCategoryIndex: number | null = null
 
   spendingByCategoriesList$: Observable<SpendingByCategoriesItem[]> =
     this.store.select(UserSelectors.selectSpendingByUserCategories);
@@ -50,10 +57,31 @@ export class StatisticsPage implements OnInit, OnDestroy {
   totalAmount$: Observable<number> = this.store.select(
     SpendingSelectors.selectStatTotalAmount
   );
-  categoryAmount$: Observable<number> | null = null
+  categoryAmount$: Observable<number> | null = null;
   currency$: Observable<string> = this.store.select(
     UserSelectors.selectCurrency
   );
+
+  chartOptions: ChartConfiguration<'doughnut'>['options'] = {
+    cutout: '80%',
+    animation: false,
+    onClick: (event) => this.onChartClick(event), 
+    events: ['click'],
+    interaction:{
+      mode: 'nearest',
+      intersect: true,
+      includeInvisible: true
+    },
+    plugins: {
+      tooltip: {
+        enabled: false,
+      },
+    },
+    hover: {
+      mode: 'nearest',
+      intersect: true,
+    },
+  };
 
   constructor(
     private translateService: TranslateService,
@@ -147,42 +175,83 @@ export class StatisticsPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  generateDoughnutChartData( spendingList: SpendingByCategoriesItem[] ): ChartData<'doughnut'> {
+  generateDoughnutChartData(
+    spendingList: SpendingByCategoriesItem[]
+  ): ChartData<'doughnut'> {
     return {
       datasets: [
         {
-          data: spendingList.length? spendingList.map((item) => item.totalAmount / 100): [0.001],
-          backgroundColor: spendingList.length? spendingList.map((item) => item.icon.background): '#8a8a8a',
-          borderColor: spendingList.length? spendingList.map((item) => {
-              if ( this.selectedCategory && this.selectedCategory.id === item.id ) {
+          data: spendingList.length ? spendingList.map((item) => item.totalAmount / 100) : [0.001],
+          backgroundColor: spendingList.length ? spendingList.map((item) => item.icon.background) : '#8a8a8a',
+          borderColor: spendingList.length ? spendingList.map((item, index) => {
+                if (
+                  (this.selectedCategory && this.selectedCategory.id === item.id) || 
+                  (index === this.selectedCategoryIndex)
+                ) {
                   return item.icon.background;
-              }
+                }
                 return 'rgba(35, 40, 40, 0.5)';
-            }) : 'rgba(35, 40, 40, 0.5)',
-          borderWidth: spendingList.length? spendingList.map((item) => {
-              if ( this.selectedCategory && this.selectedCategory.id === item.id ){
+              }) : 'rgba(35, 40, 40, 0.5)',
+          borderWidth: spendingList.length ? spendingList.map((item, index) => {
+                if (
+                  (this.selectedCategory && this.selectedCategory.id === item.id) || 
+                  (index === this.selectedCategoryIndex)
+                ) {
                   return 6;
-              }
-              return -1;
-            }) : -1,  
+                }
+                return -1;
+              }) : -1,
           spacing: 5,
-          borderRadius:2,
+          borderRadius: 2,
         },
       ],
     };
+  }
+
+  onChartClick(event: ChartEvent ) {
+    if (event) {
+      const chartInstance = this.chart!.chart;
+      this.selectedCategory = null
+      const activePoints = chartInstance!.getElementsAtEventForMode(
+        event.native!,
+        'nearest',
+        { intersect: true },
+        true
+      );
+      if (activePoints.length) {
+        const firstPoint = activePoints[0];
+        const index = firstPoint.index;
+        if(this.selectedCategoryIndex != null || this.selectedCategoryIndex == index){
+          this.selectedCategoryIndex = null
+          this.categoryAmount$ = null;
+        }else{
+          this.selectedCategoryIndex = index
+          this.subscription.add(this.spendingByCategoriesList$.subscribe(categories=>{
+            this.categoryAmount$ = of(categories[index].totalAmount / 100)
+          })) 
+        }
+      }else{
+        this.selectedCategoryIndex = null
+        this.categoryAmount$ = null;
+      }
+    }
   }
 
   updateList() {
     this.store.dispatch(SpendingActions.statSpendingList());
   }
 
-  onCategorySelect(category: CategoryModel) {
-    if (this.selectedCategory?.id == category.id) {
+  onCategorySelect(category: CategoryModel, index: number) {
+    if (this.selectedCategory?.id == category.id || this.selectedCategoryIndex == index) {
       this.selectedCategory = null;
-      this.categoryAmount$ = null
+      this.categoryAmount$ = null;
+      this.selectedCategoryIndex = null;
     } else {
       this.selectedCategory = category;
-      this.categoryAmount$ = this.store.select( SpendingSelectors.selectStatCategoryAmount(category.id) );
+      this.selectedCategoryIndex = index
+      this.categoryAmount$ = this.store.select(
+        SpendingSelectors.selectStatCategoryAmount(category.id)
+      );
     }
   }
 }

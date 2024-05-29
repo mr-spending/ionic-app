@@ -93,6 +93,8 @@ ion-content {
       .sum {
         font-size: 22px;
         display: flex;
+        flex-direction: column;
+        align-items: center;
 
         .small-digits{
           font-size: smaller;

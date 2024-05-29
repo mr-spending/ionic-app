@@ -30,3 +30,15 @@ ion-input * {
     width: 40%;
   }
 }
+
+.eye{
+  padding-top: 15px;
+  color: white;
+}
+.input-item{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  
+}
