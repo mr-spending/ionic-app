@@ -4,6 +4,12 @@
 
 ion-input {
   text-align: end;
+  --placeholder-color: white;
+  --placeholder-font-size: 2rem;
+
+  &::placeholder{
+    color: white;
+  }
 }
 
 .category-add {
@@ -34,4 +40,38 @@ ion-icon{
     --background-color: red;
   }
 }
+
+.amount-item{
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin-right: 16px !important;
+
+  .amount-input{
+    width: 100% !important;
+    padding: 0 !important;
+    display: flex !important;
+    text-align: center !important;
+    font-size: 2rem;
+    color: white;
+    border: none !important;
+    padding-left: 16px !important;
+
+    &::placeholder{
+      font-size: 2rem;
+      color: white;
+    }
+
+    &:active,
+    &:focus,
+    &:hover{
+      border: none !important;
+      outline: none !important;
+    }
+  }
+}
+
+
 

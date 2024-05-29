@@ -15,16 +15,18 @@
 
 <ion-content *ngIf="formGroup" class="ion-padding">
   <ion-list [formGroup]="formGroup">
-    <ion-item >
-      <ion-label>{{ 'editSpendingModal.amount' | translate }}</ion-label>
-      <ion-input
-        class="ion-text-right"
+    <ion-item class="amount-item ion-padding" lines="none">
+      <input
+        class="amount-input"
         formControlName="amount"
         maxlength="15"
-        type="tel"
+        type="number"
+        min="0"
         mrCurrencyMask
-        [placeholder]="(currency$ | async) + '0.00'"
-      ></ion-input>
+        [placeholder]="(currency$ | async) + '0'"
+        #inputElement
+      />
+      
     </ion-item>
 
     <ion-item>

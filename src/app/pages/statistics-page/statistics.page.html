@@ -22,7 +22,7 @@
             class="chart"
             [data]="generateDoughnutChartData(categories)"
             [type]="'doughnut'"
-            [options]="{ cutout: '80%', animation: false }"
+            [options]="chartOptions"
     >
     </canvas>
 
@@ -38,7 +38,7 @@
 
         <ion-select
           *ngIf="selectedPeriod === ViewPeriod.Month"
-          interface="popover"
+          interface="action-sheet"
           formControlName="monthControl"
         >
           <ion-select-option *ngFor="let item of availableMonthsInCurrentYear" [value]="item">
@@ -48,7 +48,7 @@
 
         <ion-select
           *ngIf="selectedPeriod === ViewPeriod.Year"
-          interface="popover"
+          interface="action-sheet"
           formControlName="yearControl"
         >
           <ion-select-option *ngFor="let item of availableYears" [value]="item">{{ item }}</ion-select-option>
@@ -57,12 +57,12 @@
     </div>
   </div>
 
-  <ion-accordion-group>
+  <ion-accordion-group [value]="selectedCategoryIndex">
     <p *ngIf="!categories.length" class="no-data-message">{{ 'general.messages.noData' | translate }}</p>
 
-    <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
+    <ion-accordion *ngFor="let category of categories; index as i" [value]=i >
 
-      <ion-item (click)="onCategorySelect(category)" slot="header" color="light">
+      <ion-item (click)="onCategorySelect(category, i)" slot="header" color="light">
         <ion-row>
           <div>
             <app-icon [iconName]="category.icon.iconType" [backgroundColor]="category.icon.background"></app-icon>

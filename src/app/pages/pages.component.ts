@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
 import * as moment from 'moment';
-import { ActionSheetController, GestureController, GestureDetail } from '@ionic/angular';
+import { GestureController, GestureDetail } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../auth/services/auth.service';
@@ -43,6 +43,16 @@ export class PagesComponent implements OnDestroy {
       icon: 'list-outline',
       nameKey: 'statistics.title',
     },
+    {
+      route: PageRoutesEnum.User,
+      icon: 'person',
+      nameKey: 'user.title',
+    },
+    {
+      route: PageRoutesEnum.Setting,
+      icon: 'cog',
+      nameKey: 'settings.title',
+    },
   ];
   selectedTab: string = this.tabs[0].route;
 
@@ -51,7 +61,6 @@ export class PagesComponent implements OnDestroy {
     private translateService: TranslateService,
     private store: Store<AppState>,
     private gestureCtrl: GestureController,
-    private actionSheetCtrl: ActionSheetController,
     private router: Router,
   ) {
     this.store.dispatch(
@@ -123,24 +132,4 @@ export class PagesComponent implements OnDestroy {
     
   }
 
-  async onMoreOpen() {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header:this.translateService.instant('general.more'),
-      buttons: [
-        {
-          text: this.translateService.instant('settings.title'),
-          handler: () => {
-            this.router.navigateByUrl('pages/' + PageRoutesEnum.Setting);
-          },
-        },
-        {
-          text: this.translateService.instant('user.title'),
-          handler: () => {
-            this.router.navigateByUrl('pages/' + PageRoutesEnum.User);
-          },
-        }
-      ]
-    });
-    await actionSheet.present();
-  }
 }
