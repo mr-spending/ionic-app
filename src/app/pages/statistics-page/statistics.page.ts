@@ -105,39 +105,28 @@ export class StatisticsPage implements OnInit, OnDestroy {
           this.selectedPeriod = periodRange;
           let startDate = 0;
           let endDate = 0;
-
           if (periodRange === ViewPeriod.Month) {
             const currentMonth = this.translateService.instant(
               'general.months.' + monthControl
             );
             if (currentMonth.includes('.')) {
-              startDate = moment(
-                getCurrentYear() + monthControl,
-                DateFormatEnum.YYYYMMMM
-              )
+              startDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM)
                 .startOf(ViewPeriod.Month)
                 .unix();
-              endDate = moment(
-                getCurrentYear() + monthControl,
-                DateFormatEnum.YYYYMMMM
-              )
+              endDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM)
                 .endOf(ViewPeriod.Month)
                 .unix();
             } else {
               startDate = moment(
-                getCurrentYear() +
-                  this.translateService.instant(
-                    'general.months.' + monthControl
-                  ),
+                getCurrentYear() + 
+                this.translateService.instant('general.months.' + monthControl),
                 DateFormatEnum.YYYYMMMM
               )
                 .startOf(ViewPeriod.Month)
                 .unix();
               endDate = moment(
                 getCurrentYear() +
-                  this.translateService.instant(
-                    'general.months.' + monthControl
-                  ),
+                this.translateService.instant('general.months.' + monthControl),
                 DateFormatEnum.YYYYMMMM
               )
                 .endOf(ViewPeriod.Month)
@@ -155,8 +144,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
             endDate = moment().endOf(periodRange).unix();
           }
 
-          this.store.dispatch(
-            SpendingActions.updateStatTimePeriod({
+          this.store.dispatch(SpendingActions.updateStatTimePeriod({
               payload: { startDate, endDate },
             })
           );
