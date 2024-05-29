@@ -13,6 +13,7 @@ import { BankCardFormatPipe } from './pipes/bank-card-format.pipe';
 import { IconComponent } from './components/icon/icon.component';
 import { ColorpickerComponent } from './components/colorpicker/colorpicker.component';
 import { SettingsItemComponent } from './components/settings-item/settings-item.component';
+import { MonobankAccountSettingsComponent } from './components/monobank-account-settings-modal/monobank-account-settings.component';
 
 const declarations = [
   MrCurrencyMaskDirective,
@@ -23,7 +24,8 @@ const declarations = [
   ConfigureSpendingModalComponent,
   IconComponent,
   ColorpickerComponent,
-  SettingsItemComponent
+  SettingsItemComponent,
+  MonobankAccountSettingsComponent
 ];
 
 const sharedModules = [

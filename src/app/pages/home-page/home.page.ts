@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Observable, Subscription, map, timer } from 'rxjs';
-import { ActionSheetController, GestureController, GestureDetail } from '@ionic/angular';
+import { ActionSheetController } from '@ionic/angular';
 import { AppState } from '@capacitor/app';
 import { ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -25,9 +25,7 @@ import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
 import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 import { DateFormatEnum } from '../../core/enums/date-format.enums';
-import {
-  MonobankAccountSettingsComponent
-} from 'src/app/shared/components/monobank-account-settings-modal/monobank-account-settings.component';
+import { MonobankAccountSettingsComponent } from 'src/app/shared/components/monobank-account-settings-modal/monobank-account-settings.component';
 
 @Component({
   selector: 'app-home-page',
@@ -48,7 +46,6 @@ export class HomePage implements OnInit, OnDestroy {
   fullPendingSpendingList: SpendingModel[] = [];
   subscription: Subscription = new Subscription();
   selectedSpending: string[] = [];
-  allNewSpendingsSelected: boolean = false;
   deleteTask: string[] = [];
   isSelectionActive = false;
   countOfAdditionalMonths = 0;
@@ -66,7 +63,7 @@ export class HomePage implements OnInit, OnDestroy {
     private actionSheetController: ActionSheetController,
     private modalCtrl: ModalController,
     private translateService: TranslateService,
-    public spendingService: SpendingService,
+    public spendingService : SpendingService,
   ) {
     this.formGroup = this.fb.group({ amount: this.fb.control(null) });
   }
@@ -155,19 +152,13 @@ export class HomePage implements OnInit, OnDestroy {
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss();
     switch (result.data?.action) {
-      case ActionsEnum.Add:
-        this.addTransaction(transaction);
-        break
-      case ActionsEnum.AddAs:
-        await this.spendingService.openConfigureSpendingModal({
-          type: ActionsEnum.Edit,
-          categories: this.categories,
-          item: { ...transaction, status: SpendingStatusEnum.Accepted }
-        });
-        break
-      case ActionsEnum.Delete:
-        await this.confirmTransactionRemove([transaction.id]);
-        break
+      case ActionsEnum.Add: this.addTransaction(transaction); break
+      case ActionsEnum.AddAs: await this.spendingService.openConfigureSpendingModal({
+        type: ActionsEnum.Edit,
+        categories: this.categories,
+        item: { ...transaction, status: SpendingStatusEnum.Accepted }
+      }); break
+      case ActionsEnum.Delete: await this.confirmTransactionRemove([transaction.id]); break
     }
   }
 
@@ -229,22 +220,6 @@ export class HomePage implements OnInit, OnDestroy {
       : this.selectedSpending.push(id);
   }
 
-  selectAllNewSpendings(pendingSpendingList: SpendingModel[]) {
-    if (this.allNewSpendingsSelected) {
-      pendingSpendingList.forEach(item => {
-        this.selectedSpending = this.selectedSpending.filter(i => i !== item.id)
-      })
-    } else {
-      pendingSpendingList.forEach(item => {
-        if (!this.selectedSpending.includes(item.id)) {
-          this.selectedSpending.push(item.id)
-        }
-      })
-    }
-    this.allNewSpendingsSelected = !this.allNewSpendingsSelected
-
-  }
-
   multiDeleteTransactions(ids: string[]) {
     this.store.dispatch(SpendingActions.deleteSpendingByIds({ payload: ids }));
     this.selectedSpending = [];
@@ -261,7 +236,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   loadMoreData(event: any) {
-    this.countOfAdditionalMonths++;
+    this.countOfAdditionalMonths ++;
     this.store.dispatch(SpendingActions.homeSpendingList({
       payload: getMonthPeriodCurrentMonthMinusValueUNIX(this.countOfAdditionalMonths)
     }));

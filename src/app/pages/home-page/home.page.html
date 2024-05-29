@@ -3,6 +3,9 @@
     <ion-row class="data-btn-container">
       <span class="date-time">{{ currentTime }}</span>
       <ion-row  class="btn-container">
+        <ion-button (click)="monoAccSettingsOpen()">
+          <ion-icon slot="icon-only" name="card-outline"></ion-icon>
+        </ion-button>
         <ion-button (click)="openSpendingBasketModal()">
           <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
