@@ -8,7 +8,7 @@
 
 <ion-content [fullscreen]="true" [formGroup]="formGroup" scroll-y="false">
   <ion-list class="ion-margin-vertical">
-    <ion-item>
+    <ion-item class="input-item">
       <ion-label position="floating">{{ 'auth.email' | translate }}</ion-label>
       <ion-input
         formControlName="email"
@@ -17,25 +17,27 @@
       ></ion-input>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="input-item">
       <ion-label position="floating">{{ 'auth.password' | translate }}</ion-label>
       <ion-input
         formControlName="password"
-        [type]="showPassword ? 'text' : 'password'"
-      ></ion-input>
-      <ion-icon *ngIf="!showPassword" name="eye-outline" slot="end" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
-      <ion-icon *ngIf="showPassword" name="eye-off-outline" slot="end" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
+        [type]="showPassword ? 'text' : 'password'">
+      </ion-input>
+      <ion-icon *ngIf="!showPassword" name="eye-outline" slot="end" size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
+      <ion-icon *ngIf="showPassword" name="eye-off-outline" slot="end" size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="input-item">
       <ion-label position="floating">{{ 'auth.confirmPassword' | translate }}</ion-label>
-      <ion-input formControlName="confirmPassword" [type]="showPassword ? 'text' : 'password'"></ion-input>
-
-      <ion-icon *ngIf="!showPassword" name="eye-outline" slot="end" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
-      <ion-icon *ngIf="showPassword" name="eye-off-outline" slot="end" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
+      <ion-input 
+        formControlName="confirmPassword" 
+        [type]="showPassword ? 'text' : 'password'">
+      </ion-input>
+      <ion-icon *ngIf="!showPassword" name="eye-outline" slot="end" size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
+      <ion-icon *ngIf="showPassword" name="eye-off-outline" slot="end" size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
     </ion-item>
 
-    <ion-item>
+    <ion-item class="input-item">
       <ion-label>{{ 'pages.selectLanguage' | translate }}</ion-label>
       <ion-select
         interface="popover"

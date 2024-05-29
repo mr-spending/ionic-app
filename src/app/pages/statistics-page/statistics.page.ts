@@ -27,6 +27,7 @@ import { ViewPeriod } from '../../core/enums/time.enum';
 import { DateFormatEnum } from '../../core/enums/date-format.enums';
 
 
+
 @Component({
   selector: 'app-statistics-page',
   templateUrl: './statistics.page.html',
@@ -64,12 +65,12 @@ export class StatisticsPage implements OnInit, OnDestroy {
   chartOptions: ChartConfiguration<'doughnut'>['options'] = {
     cutout: '80%',
     animation: false,
-    onClick: (event) => this.onChartClick(event),
-    events: ['click', 'touchstart'],
-    interaction: {
+    onClick: (event) => this.onChartClick(event), 
+    events: ['click'],
+    interaction:{
       mode: 'nearest',
       intersect: true,
-      includeInvisible: false
+      includeInvisible: true
     },
     plugins: {
       tooltip: {
@@ -90,127 +91,53 @@ export class StatisticsPage implements OnInit, OnDestroy {
   ) {
     this.formGroup = this.fb.group({
       periodRange: this.fb.control(null),
-      monthControl: this.fb.control(this.availableMonthsInCurrentYear.slice(-1)[0]),
+      monthControl: this.fb.control(
+        this.availableMonthsInCurrentYear.slice(-1)[0]
+      ),
       yearControl: this.fb.control(this.availableYears.slice(-1)[0]),
     });
   }
 
   ngOnInit() {
-    this.setupFormGroup()
-    this.formGroup.get('periodRange')?.setValue(ViewPeriod.Month);
-  }
-
-  ionViewWillEnter() {
-    this.updateList();
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  generateDoughnutChartData(
-    spendingList: SpendingByCategoriesItem[]
-  ): ChartData<'doughnut'> {
-    return {
-      datasets: [
-        {
-          data: spendingList.length ? spendingList.map((item) => item?.totalAmount / 100) : [0.001],
-          backgroundColor: spendingList.length ? spendingList.map((item) => item.icon.background) : '#8a8a8a',
-          borderColor: spendingList.length ? spendingList.map((item, index) => {
-            if (
-              (this.selectedCategory && this.selectedCategory.id === item.id) ||
-              index === this.selectedCategoryIndex
-            ) {
-              return item.icon.background;
-            }
-            return 'rgba(35, 40, 40, 0.5)';
-          }) : 'rgba(35, 40, 40, 0.5)',
-          borderWidth: spendingList.length ? spendingList.map((item, index) => {
-            if (
-              (this.selectedCategory && this.selectedCategory.id === item.id) ||
-              index === this.selectedCategoryIndex
-            ) {
-              return 6;
-            }
-            return -1;
-          }) : -1,
-          spacing: 5,
-          borderRadius: 2,
-        },
-      ],
-    };
-  }
-
-  onChartClick(event: ChartEvent) {
-    if (event) {
-      const chartInstance = this.chart!.chart;
-      this.selectedCategory = null
-      const activePoints = chartInstance!.getElementsAtEventForMode(
-        event.native!,
-        'nearest',
-        { intersect: true },
-        false
-      );
-      if (activePoints.length) {
-        const firstPoint = activePoints[0];
-        const index = firstPoint.index;
-        if (this.selectedCategoryIndex != null || this.selectedCategoryIndex == index) {
-          this.selectedCategoryIndex = null
-          this.categoryAmount$ = null;
-        } else {
-          this.selectedCategoryIndex = index
-          this.subscription.add(this.spendingByCategoriesList$.subscribe(categories => {
-            this.categoryAmount$ = of(categories[index]?.totalAmount / 100)
-          }))
-        }
-      } else {
-        this.selectedCategoryIndex = null
-        this.categoryAmount$ = null;
-      }
-    }
-  }
-
-  onCategorySelect(category: CategoryModel, index: number) {
-    if (this.selectedCategory?.id == category.id || this.selectedCategoryIndex == index) {
-      this.selectedCategory = null;
-      this.categoryAmount$ = null;
-      this.selectedCategoryIndex = null;
-    } else {
-      this.selectedCategory = category;
-      this.selectedCategoryIndex = index
-      this.categoryAmount$ = this.store.select(
-        SpendingSelectors.selectStatCategoryAmount(category.id)
-      );
-    }
-  }
-
-  updateList() {
-    this.store.dispatch(SpendingActions.statSpendingList());
-  }
-
-  setupFormGroup() {
     this.subscription.add(
       this.formGroup.valueChanges.subscribe(
         ({ periodRange, monthControl, yearControl }) => {
           this.selectedPeriod = periodRange;
           let startDate = 0;
           let endDate = 0;
+
           if (periodRange === ViewPeriod.Month) {
-            const currentMonth = this.translateService.instant('general.months.' + monthControl);
+            const currentMonth = this.translateService.instant(
+              'general.months.' + monthControl
+            );
             if (currentMonth.includes('.')) {
-              startDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM)
-                .startOf(ViewPeriod.Month)
-                .unix();
-              endDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM)
-                .endOf(ViewPeriod.Month)
-                .unix();
-            } else {
-              startDate = moment(getCurrentYear() + this.translateService.instant('general.months.' + monthControl),
+              startDate = moment(
+                getCurrentYear() + monthControl,
                 DateFormatEnum.YYYYMMMM
               )
                 .startOf(ViewPeriod.Month)
                 .unix();
-              endDate = moment(getCurrentYear() + this.translateService.instant('general.months.' + monthControl),
+              endDate = moment(
+                getCurrentYear() + monthControl,
+                DateFormatEnum.YYYYMMMM
+              )
+                .endOf(ViewPeriod.Month)
+                .unix();
+            } else {
+              startDate = moment(
+                getCurrentYear() +
+                  this.translateService.instant(
+                    'general.months.' + monthControl
+                  ),
+                DateFormatEnum.YYYYMMMM
+              )
+                .startOf(ViewPeriod.Month)
+                .unix();
+              endDate = moment(
+                getCurrentYear() +
+                  this.translateService.instant(
+                    'general.months.' + monthControl
+                  ),
                 DateFormatEnum.YYYYMMMM
               )
                 .endOf(ViewPeriod.Month)
@@ -228,7 +155,8 @@ export class StatisticsPage implements OnInit, OnDestroy {
             endDate = moment().endOf(periodRange).unix();
           }
 
-          this.store.dispatch(SpendingActions.updateStatTimePeriod({
+          this.store.dispatch(
+            SpendingActions.updateStatTimePeriod({
               payload: { startDate, endDate },
             })
           );
@@ -236,5 +164,94 @@ export class StatisticsPage implements OnInit, OnDestroy {
         }
       )
     );
+    this.formGroup.get('periodRange')?.setValue(ViewPeriod.Month);
+  }
+
+  ionViewWillEnter() {
+    this.updateList();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  generateDoughnutChartData(
+    spendingList: SpendingByCategoriesItem[]
+  ): ChartData<'doughnut'> {
+    return {
+      datasets: [
+        {
+          data: spendingList.length ? spendingList.map((item) => item.totalAmount / 100) : [0.001],
+          backgroundColor: spendingList.length ? spendingList.map((item) => item.icon.background) : '#8a8a8a',
+          borderColor: spendingList.length ? spendingList.map((item, index) => {
+                if (
+                  (this.selectedCategory && this.selectedCategory.id === item.id) || 
+                  (index === this.selectedCategoryIndex)
+                ) {
+                  return item.icon.background;
+                }
+                return 'rgba(35, 40, 40, 0.5)';
+              }) : 'rgba(35, 40, 40, 0.5)',
+          borderWidth: spendingList.length ? spendingList.map((item, index) => {
+                if (
+                  (this.selectedCategory && this.selectedCategory.id === item.id) || 
+                  (index === this.selectedCategoryIndex)
+                ) {
+                  return 6;
+                }
+                return -1;
+              }) : -1,
+          spacing: 5,
+          borderRadius: 2,
+        },
+      ],
+    };
+  }
+
+  onChartClick(event: ChartEvent ) {
+    if (event) {
+      const chartInstance = this.chart!.chart;
+      this.selectedCategory = null
+      const activePoints = chartInstance!.getElementsAtEventForMode(
+        event.native!,
+        'nearest',
+        { intersect: true },
+        true
+      );
+      if (activePoints.length) {
+        const firstPoint = activePoints[0];
+        const index = firstPoint.index;
+        if(this.selectedCategoryIndex != null || this.selectedCategoryIndex == index){
+          this.selectedCategoryIndex = null
+          this.categoryAmount$ = null;
+        }else{
+          this.selectedCategoryIndex = index
+          this.subscription.add(this.spendingByCategoriesList$.subscribe(categories=>{
+            this.categoryAmount$ = of(categories[index].totalAmount / 100)
+          })) 
+        }
+      }else{
+        this.selectedCategoryIndex = null
+        this.categoryAmount$ = null;
+      }
+    }
+  }
+
+  updateList() {
+    this.store.dispatch(SpendingActions.statSpendingList());
+  }
+
+  onCategorySelect(category: CategoryModel, index: number) {
+    if (this.selectedCategory?.id == category.id || this.selectedCategoryIndex == index) {
+      this.selectedCategory = null;
+      this.categoryAmount$ = null;
+      this.selectedCategoryIndex = null;
+    } else {
+      this.selectedCategory = category;
+      this.selectedCategoryIndex = index
+      this.categoryAmount$ = this.store.select(
+        SpendingSelectors.selectStatCategoryAmount(category.id)
+      );
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
@@ -18,6 +18,8 @@ import { EditCategoryModalComponent } from '../../../pages/settings-page/edit-ca
   styleUrls: ['./configure-spending-modal.component.scss'],
 })
 export class ConfigureSpendingModalComponent implements OnInit {
+  @ViewChild('inputElement') inputElement!: ElementRef;
+  
   @Input() amount!: number | undefined;
   @Input() spendingItem!: SpendingModel | undefined;
   @Input() categories!: CategoryModel[];
@@ -44,6 +46,12 @@ export class ConfigureSpendingModalComponent implements OnInit {
     this.selectedCategory = this.spendingItem?.category || null
   }
 
+  ionViewDidEnter() {
+    setTimeout(() => {
+      this.inputElement.nativeElement.focus();
+    }, 200); 
+  }
+
   async addCategory() {
     const modal = await this.modalCtrl.create({
       component: EditCategoryModalComponent,
@@ -65,7 +73,6 @@ export class ConfigureSpendingModalComponent implements OnInit {
 
   confirm() {
     const { amount, category, description } = this.formGroup?.value;
-
     switch (this.type) {
       case ActionsEnum.Add: {
         const newItem = {
