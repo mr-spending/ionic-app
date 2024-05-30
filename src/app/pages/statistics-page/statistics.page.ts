@@ -66,11 +66,11 @@ export class StatisticsPage implements OnInit, OnDestroy {
     cutout: '80%',
     animation: false,
     onClick: (event) => this.onChartClick(event), 
-    events: ['click'],
+    events: ['click', 'touchstart'],
     interaction:{
       mode: 'nearest',
       intersect: true,
-      includeInvisible: true
+      includeInvisible: false
     },
     plugins: {
       tooltip: {
@@ -225,10 +225,6 @@ export class StatisticsPage implements OnInit, OnDestroy {
     }
   }
 
-  updateList() {
-    this.store.dispatch(SpendingActions.statSpendingList());
-  }
-
   onCategorySelect(category: CategoryModel, index: number) {
     if (this.selectedCategory?.id == category.id || this.selectedCategoryIndex == index) {
       this.selectedCategory = null;
@@ -241,5 +237,9 @@ export class StatisticsPage implements OnInit, OnDestroy {
         SpendingSelectors.selectStatCategoryAmount(category.id)
       );
     }
+  }
+
+  updateList() {
+    this.store.dispatch(SpendingActions.statSpendingList());
   }
 }
