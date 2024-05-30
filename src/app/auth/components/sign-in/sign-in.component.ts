@@ -31,6 +31,10 @@ export class SignInComponent {
     this.authService.signIn(formValue.email, formValue.password).then();
   }
 
+  signInWithGoogle(): void {
+    this.authService.signInWithGoogle();
+  }
+
   goToSignUp() {
     this.router.navigate([`${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignUp}`]).then();
   }

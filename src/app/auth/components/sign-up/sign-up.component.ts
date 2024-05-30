@@ -46,6 +46,10 @@ export class SignUpComponent {
     this.authService.signUp(formValue.email, formValue.password, formValue.language, true).then();
   }
 
+  signInWithGoogle(): void {
+    this.authService.signInWithGoogle();
+  }
+
   goToSignIn(): void {
     this.translateService.use(this.languageList[0]);
     this.router.navigate([`${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignIn}`]).then();

@@ -17,6 +17,7 @@ import { UserState } from '../../core/state/reducers/user.reducer';
 import { AlertService } from '../../core/services/alert/alert.service';
 import { LanguageEnum } from '../../core/constants/languages.constants';
 import { AlertEnum } from '../../core/enums/alert.enums';
+import { error } from 'console';
 
 @Injectable()
 export class AuthService {
@@ -53,6 +54,22 @@ export class AuthService {
       .catch((error) => {
         this.alertService.showAlert(error.message);
       });
+  }
+
+  /** Sign in with google */
+  async signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result)=>{
+        if (result.user) {
+          this.store.dispatch(UserActions.setUserData({ userId: result.user.uid }));
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then()
+        }
+      })
+      .catch((error)=>{
+        this.alertService.showAlert(error.message);
+      })  
   }
 
   /** Sign up with email/password */
