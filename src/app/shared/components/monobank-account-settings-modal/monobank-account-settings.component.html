@@ -13,31 +13,21 @@
   <ion-list class="account-management">
     <div *ngIf="!isMonoAccSettingOpened" >
 
-      <ion-item class="add-token" *ngIf="!monoToken" (click)="openMonoTokenPage()" [button]="true">
+      <ion-item detail="false" class="add-token" *ngIf="!monoToken" (click)="openMonoTokenPage()" [button]="true">
         <ion-icon name="add-outline"></ion-icon>
         <ion-label>&nbsp;{{ 'settings.setAcc' | translate }}</ion-label>
       </ion-item>
 
       <div class="buttons-inline">
-        <ion-item class="add-token" [button]="true" *ngIf="monoToken" (click)="openMonoTokenPage()">
+        <ion-item detail="false" class="add-token" [button]="true" *ngIf="monoToken" (click)="openMonoTokenPage()">
           <ion-icon name="arrow-redo-outline"></ion-icon>
           <ion-label>&nbsp;{{ 'settings.changeAcc' | translate }}</ion-label>
         </ion-item>
-        <ion-item class="add-token" [button]="true" *ngIf="monoToken" (click)="forgetMonoToken()">
+        <ion-item detail="false" class="add-token" [button]="true" *ngIf="monoToken" (click)="forgetMonoToken()">
           <ion-icon name="trash-outline" color="danger"></ion-icon>
           <ion-label>&nbsp;{{ 'settings.forgetAcc' | translate }}</ion-label>
         </ion-item>
       </div>
-
-      <!-- <ion-button *ngIf="monoToken" (click)="openMonoTokenPage()" slot="start">
-        <ion-icon name="arrow-redo-outline"></ion-icon>
-        <ion-label>&nbsp;{{ 'settings.changeAcc' | translate }}</ion-label>
-      </ion-button>
-
-      <ion-button *ngIf="monoToken" (click)="forgetMonoToken()" slot="end">
-        <ion-icon name="trash-outline" color="danger"></ion-icon>
-        <ion-label color="danger">&nbsp;{{ 'settings.forgetAcc' | translate }}</ion-label>
-      </ion-button> -->
     </div>
     <div *ngIf="isMonoAccSettingOpened">
       <ion-item class="add-token">
@@ -45,11 +35,11 @@
         <ion-input [formControl]="tokenInput" [placeholder]="'settings.inputToken' | translate"></ion-input>
       </ion-item>
       <div class="buttons-inline">
-        <ion-item class="add-token" [button]="true" [disabled]="!this.tokenInput.value" (click)="setMonoToken()">
+        <ion-item detail="false" class="add-token" [button]="true" [disabled]="!this.tokenInput.value" (click)="setMonoToken()">
           <ion-icon name="add-outline"></ion-icon>
           <ion-label> &nbsp;{{ 'general.actions.add' | translate }}</ion-label>
         </ion-item>
-        <ion-item class="add-token" [button]="true" (click)="resetSettingToken()">
+        <ion-item detail="false" class="add-token" [button]="true" (click)="resetSettingToken()">
           <ion-icon name="close-outline" color="danger"></ion-icon>
           <ion-label>&nbsp;{{ 'general.actions.cancel' | translate }}</ion-label>
         </ion-item>
@@ -68,7 +58,6 @@
 
   <ion-list *ngIf="availableCards$ | async as availableCards" class="card-management">
     <p *ngIf="availableCards.length">{{ 'settings.cardsForTracking' | translate }}</p>
-    <!-- <div class="page-delimiter"></div> -->
     <div class="card-list">
       <div
         class="card"
