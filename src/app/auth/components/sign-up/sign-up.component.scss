@@ -6,12 +6,12 @@ ion-input {
   background-color: transparent !important;
 }
 
-.btns {
+.btns{
   width: 100%;
   display: flex;
   justify-content: space-between;
 
-  .google {
+  .google{
     width: 100% !important;
     color: white;
     --background-activated: none;
@@ -29,43 +29,22 @@ ion-input {
     border: 2px solid var(--button-content-color-1);
   }
 
-  .btn {
+  .btn{
     width: 40%;
-    border-radius: 64px;
+    border-radius: 64px;  
     background-color: var(--background-color-1);
   }
 }
 
 
-.input-item {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  .eye {
-    padding-top: 15px;
-    color: white;
-  }
-}
-
-.btns{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  .btn{
-    width: 40%;
-  }
-}
-
-.eye{
-  padding-top: 15px;
-  color: white;
-}
 .input-item{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-
+  
+  .eye{
+    padding-top: 15px;
+    color: white;
+  }
 }

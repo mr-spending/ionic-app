@@ -91,9 +91,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
   ) {
     this.formGroup = this.fb.group({
       periodRange: this.fb.control(null),
-      monthControl: this.fb.control(
-        this.availableMonthsInCurrentYear.slice(-1)[0]
-      ),
+      monthControl: this.fb.control(this.availableMonthsInCurrentYear.slice(-1)[0]),
       yearControl: this.fb.control(this.availableYears.slice(-1)[0]),
     });
   }
@@ -155,6 +153,14 @@ export class StatisticsPage implements OnInit, OnDestroy {
     this.formGroup.get('periodRange')?.setValue(ViewPeriod.Month);
   }
 
+  setupPeriodYear(){//to do
+
+  }
+
+  setupPeriodMonth(){//to do
+
+  }
+
   ionViewWillEnter() {
     this.updateList();
   }
@@ -209,16 +215,16 @@ export class StatisticsPage implements OnInit, OnDestroy {
       if (activePoints.length) {
         const firstPoint = activePoints[0];
         const index = firstPoint.index;
-        if(this.selectedCategoryIndex != null || this.selectedCategoryIndex == index){
+        if (this.selectedCategoryIndex != null || this.selectedCategoryIndex == index){
           this.selectedCategoryIndex = null
           this.categoryAmount$ = null;
-        }else{
+        } else {
           this.selectedCategoryIndex = index
           this.subscription.add(this.spendingByCategoriesList$.subscribe(categories=>{
             this.categoryAmount$ = of(categories[index].totalAmount / 100)
           })) 
         }
-      }else{
+      } else {
         this.selectedCategoryIndex = null
         this.categoryAmount$ = null;
       }
