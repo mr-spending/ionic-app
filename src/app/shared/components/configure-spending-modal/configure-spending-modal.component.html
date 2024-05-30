@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title *ngIf="type!==actionsEnum.Add;else add">{{ 'editSpendingModal.titleEdit' | translate }}</ion-title>
+    <ion-title *ngIf="type !== actionsEnum.Add; else add">{{ 'editSpendingModal.titleEdit' | translate }}</ion-title>
     <ng-template #add>
       <ion-title >{{ 'editSpendingModal.titleAdd' | translate }}</ion-title>
     </ng-template>
@@ -24,7 +24,7 @@
         min="0"
         [placeholder]="(currency$ | async) + '0'"
         #inputElement
-      />
+      >
       
     </ion-item>
 

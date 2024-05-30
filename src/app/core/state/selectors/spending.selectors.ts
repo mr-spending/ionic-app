@@ -78,6 +78,6 @@ export namespace SpendingSelectors {
     selectStatSpendingList,
     (list: SpendingModel[]) => {
       return list.filter(el => el.categoryId === categoryId).reduce((total, item) => total + item.amount, 0) / 100;
-    }
+    } 
   )
 }

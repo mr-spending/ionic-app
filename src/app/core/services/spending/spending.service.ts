@@ -104,11 +104,7 @@ export class SpendingService {
     this.store.dispatch(SpendingActions.deleteSpendingItem({ payload: id }));
   }
 
-  updateHomePage(): void {
-    this.store.dispatch(SpendingActions.updateHomePage({ payload: getCurrentMonthPeriodUNIX() }));
-  }
-
-  updateHomePagePull(event: any): void {
+  updateHomePage(event: any): void {
     this.store.dispatch(SpendingActions.updateHomePage({ payload: getCurrentMonthPeriodUNIX() }));
     event.target.complete()
   }

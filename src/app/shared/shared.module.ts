@@ -15,6 +15,7 @@ import { ColorpickerComponent } from './components/colorpicker/colorpicker.compo
 import { SettingsItemComponent } from './components/settings-item/settings-item.component';
 import { MonobankAccountSettingsComponent } from './components/monobank-account-settings-modal/monobank-account-settings.component';
 
+
 const declarations = [
   MrCurrencyMaskDirective,
   MrSpendingListDateFormatPipe,

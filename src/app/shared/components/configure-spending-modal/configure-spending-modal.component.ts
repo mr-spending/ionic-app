@@ -47,9 +47,7 @@ export class ConfigureSpendingModalComponent implements OnInit {
   }
 
   ionViewDidEnter() {
-    setTimeout(() => {
-      this.inputElement.nativeElement.focus();
-    }, 200); 
+    this.inputElement.nativeElement.focus();
   }
 
   async addCategory() {
@@ -73,10 +71,11 @@ export class ConfigureSpendingModalComponent implements OnInit {
 
   confirm() {
     const { amount, category, description } = this.formGroup?.value;
+    let newAmount = amount * 100;
     switch (this.type) {
       case ActionsEnum.Add: {
         const newItem = {
-          amount: amountStringToNumber(amount),
+          amount: amountStringToNumber(newAmount),
           description: description,
           categoryId: category.id,
           time: Math.floor(new Date().getTime() / 1000)
@@ -87,7 +86,7 @@ export class ConfigureSpendingModalComponent implements OnInit {
       case ActionsEnum.Edit: {
         const newItem = {
           ...this.spendingItem,
-          amount: (typeof amount !== "number") ? amountStringToNumber(amount) : amount,
+          amount: (typeof newAmount !== "number") ? amountStringToNumber(newAmount) : newAmount,
           categoryId: category.id,
           description
         };
