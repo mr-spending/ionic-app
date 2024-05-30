@@ -52,8 +52,8 @@
       shape="round" 
       class="btn google"  
       (click)="signInWithGoogle()">
-      <ion-icon name="logo-google"></ion-icon>
-      Sign in with Google
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      {{ 'auth.signInGoogle' | translate }}
     </ion-button>
   </ion-row>
 </ion-content>
