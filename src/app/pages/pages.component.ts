@@ -28,8 +28,7 @@ import { TabModel } from '../core/interfaces/models';
   styleUrls: ['./pages.component.scss'],
 })
 export class PagesComponent implements OnDestroy {
-  @ViewChild('tabsRef', { static: false, read: ElementRef })
-  tabsRef!: ElementRef;
+  @ViewChild('tabsRef', { static: false, read: ElementRef }) tabsRef!: ElementRef;
 
   subscription: Subscription = new Subscription();
   tabs = [
@@ -74,11 +73,9 @@ export class PagesComponent implements OnDestroy {
     this.subscription.add(
       this.store
         .select(UserSelectors.selectUser)
-        .pipe(take(2))
         .subscribe(
-          (value) =>
-            value?.monoBankAccounts?.length &&
-            this.store.dispatch(BankAccountsActions.checkWebHook())
+          (value) => 
+            value?.monoBankAccounts?.length && this.store.dispatch(BankAccountsActions.checkWebHook())
         )
     );
   }

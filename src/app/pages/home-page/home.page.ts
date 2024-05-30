@@ -33,9 +33,6 @@ import { MonobankAccountSettingsComponent } from 'src/app/shared/components/mono
   styleUrls: ['home.page.scss']
 })
 export class HomePage implements OnInit, OnDestroy {
-
-  @ViewChild('content', { static: false, read: ElementRef }) contentEl!: ElementRef;
-
   formGroup: FormGroup;
   categories!: CategoryModel[];
   currentTime!: string;

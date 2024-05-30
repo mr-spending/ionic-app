@@ -32,7 +32,6 @@
   <ion-row class="ion-padding btns">
     <ion-button
       shape="round"
-      fill="outline"
       (click)="goToSignUp()"
       class="btn"
     >
@@ -45,6 +44,16 @@
       (click)="signIn()"
     >
       {{ 'auth.signIn' | translate }}
+    </ion-button>
+  </ion-row>
+
+  <ion-row class="ion-padding btns">
+    <ion-button 
+      shape="round" 
+      class="btn google"  
+      (click)="signInWithGoogle()">
+      <ion-icon name="logo-google"></ion-icon>
+      Sign in with Google
     </ion-button>
   </ion-row>
 </ion-content>
