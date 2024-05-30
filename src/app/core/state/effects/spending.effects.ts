@@ -120,6 +120,17 @@ export class SpendingEffects {
     )),
   ));
 
+  updateHomePage$ = createEffect(() => this.actions$.pipe(
+    ofType(SpendingActions.updateHomePage),
+    switchMap(({ payload }) => {
+      return [
+        SpendingActions.homeSpendingList({ payload }),
+        SpendingActions.pendingSpendingList(),
+        SpendingActions.deletedSpendingList()
+      ];
+    }),
+  ));
+
   reloadSpendingAndTransactionLists$ = createEffect(() => this.actions$.pipe(
     ofType(SpendingActions.reloadSpendingAndTransactionLists),
     switchMap(({ payload }) => {

@@ -14,7 +14,6 @@ import { AuthRoutesEnum, MainRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserState } from '../../core/state/reducers/user.reducer';
-import { defaultCategoriesList } from '../../core/constants/categories.constants';
 import { AlertService } from '../../core/services/alert/alert.service';
 import { LanguageEnum } from '../../core/constants/languages.constants';
 import { AlertEnum } from '../../core/enums/alert.enums';
@@ -57,13 +56,13 @@ export class AuthService {
   }
 
   /** Sign up with email/password */
-  signUp(email: string, password: string, isPolicyAgreed: boolean) {
+  signUp(email: string, password: string, language: string, isPolicyAgreed: boolean) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result: UserCredential) => {
         this.sendVerificationMail().then();
         if (result.user) {
-          this.addUser(result.user, isPolicyAgreed);
+          this.addUser(result.user, language, isPolicyAgreed);
           this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
         }
       })
@@ -78,15 +77,15 @@ export class AuthService {
   }
 
   /** Adding new user data when sign up with username/password */
-  addUser(user: User, isPolicyAgreed: boolean) {
+  addUser(user: User, language: string, isPolicyAgreed: boolean) {
     const payload: UserModel = {
       id: user.uid,
       email: user.email ?? '',
       displayName: user.displayName ?? '',
       photoURL: user.photoURL ?? '',
       emailVerified: user.emailVerified,
-      displayLanguage: LanguageEnum.EN,
-      categories: defaultCategoriesList,
+      displayLanguage: language,
+      categories: [],
       isPolicyAgreed
     }
     this.store.dispatch(UserActions.addUser({ payload }));

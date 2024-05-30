@@ -3,13 +3,14 @@ import { ModalController } from '@ionic/angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 
 import { CategoryModel, SpendingModel } from '../../../core/interfaces/models';
 import { UserSelectors } from '../../../core/state/selectors/user.selectors';
 import { amountStringToNumber } from '../../../core/utils/helper.functions';
 import { ActionsEnum } from '../../../core/enums/action-sheet.enums';
 import { SpendingActions } from '../../../core/state/actions/spending.actions';
+import { EditCategoryModalComponent } from '../../../pages/settings-page/edit-category-modal/edit-category-modal.component';
 
 @Component({
   selector: 'app-configure-spending-modal',
@@ -21,6 +22,7 @@ export class ConfigureSpendingModalComponent implements OnInit {
   @Input() spendingItem!: SpendingModel | undefined;
   @Input() categories!: CategoryModel[];
   @Input() type!: ActionsEnum.Add | ActionsEnum.Edit;
+  @Input() isAmountChangeable = false;
 
   currency$: Observable<string> = this.store.select(UserSelectors.selectCurrency);
   actionsEnum = ActionsEnum;
@@ -38,6 +40,21 @@ export class ConfigureSpendingModalComponent implements OnInit {
       category: this.fb.control(this.spendingItem?.category || null, Validators.required),
       description: this.fb.control(this.spendingItem?.description || null),
     });
+  }
+
+  async addCategory() {
+    const modal = await this.modalCtrl.create({
+      component: EditCategoryModalComponent,
+      componentProps: { type: ActionsEnum.Add },
+      cssClass: 'fullscreen'
+    });
+    await modal.present();
+    await modal.onWillDismiss();
+    this.store.select(UserSelectors.selectUserCategories)
+      .pipe(take(2))
+      .subscribe((categories: CategoryModel[] | undefined) => {
+        if (categories) this.categories = categories;
+      });
   }
 
   cancel() {

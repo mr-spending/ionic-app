@@ -59,7 +59,8 @@ export class SpendingService {
     type: ActionsEnum.Add | ActionsEnum.Edit,
     categories: CategoryModel[],
     item?: SpendingModel,
-    amount?: number
+    amount?: number,
+    isAmountChangeable?: boolean
   }): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: ConfigureSpendingModalComponent,
@@ -67,8 +68,10 @@ export class SpendingService {
         amount: payload.amount,
         categories: payload.categories,
         spendingItem: payload.item,
-        type: payload.type
-      }
+        type: payload.type,
+        isAmountChangeable: payload.isAmountChangeable
+      },
+      cssClass: 'fullscreen'
     });
     modal.present();
     await modal.onWillDismiss();
@@ -97,6 +100,10 @@ export class SpendingService {
 
   removeSpendingItem(id: string): void {
     this.store.dispatch(SpendingActions.deleteSpendingItem({ payload: id }));
+  }
+
+  updateHomePage(): void {
+    this.store.dispatch(SpendingActions.updateHomePage({ payload: getCurrentMonthPeriodUNIX() }));
   }
 
   updateSpendingList(): void {

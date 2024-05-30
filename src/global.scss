@@ -123,3 +123,10 @@ input:-webkit-autofill:focus input:-webkit-autofill {
 ion-button ion-label {
   text-transform: none !important;
 }
+
+.fullscreen {
+  --width:100% !important;
+  --height:100% !important;
+  width:100% !important;
+  height:100% !important;
+}

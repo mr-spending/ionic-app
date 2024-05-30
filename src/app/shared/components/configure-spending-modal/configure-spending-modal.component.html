@@ -12,7 +12,7 @@
 
 <ion-content *ngIf="formGroup" class="ion-padding">
   <ion-list [formGroup]="formGroup">
-    <ion-item *ngIf="type === actionsEnum.Edit">
+    <ion-item *ngIf="type === actionsEnum.Edit || isAmountChangeable">
       <ion-label>{{ 'editSpendingModal.amount' | translate }}</ion-label>
       <ion-input
         class="ion-text-right"
@@ -36,6 +36,9 @@
       >
         <ion-select-option *ngFor="let category of categories" [value]="category">{{ category.name }}</ion-select-option>
       </ion-select>
+      <div (click)="addCategory()" class="category-add">
+        <ion-icon name="add"></ion-icon>
+      </div>
     </ion-item>
 
     <ion-item>

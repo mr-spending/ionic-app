@@ -2,6 +2,7 @@ import * as moment from 'moment';
 
 import { TimePeriodModel } from '../interfaces/models';
 import { MONTHS_LIST } from '../constants/time.constants';
+import { DateFormatEnum } from '../enums/date-format.enums';
 
 export function getCurrentMonthPeriodUNIX(): TimePeriodModel {
   return {
@@ -18,7 +19,7 @@ export function getMonthPeriodCurrentMonthMinusValueUNIX(numMonths: number): Tim
 }
 
 export function getAvailableMonthsInCurrentYear(): string[] {
-  const numberOfCurrentMonth = Number(moment().format('MM'));
+  const numberOfCurrentMonth = Number(moment().format(DateFormatEnum.MM));
   return MONTHS_LIST.filter((_, idx) => idx < numberOfCurrentMonth);
 }
 
@@ -29,5 +30,9 @@ export function getYearsFromToCurrent(from: number): number[] {
 }
 
 export function getCurrentYear(): number {
-  return Number(moment().format('YYYY'));
+  return Number(moment().format(DateFormatEnum.YYYY));
+}
+
+export function getCurrentMonth(): string {
+  return moment().format(DateFormatEnum.MMMM);
 }

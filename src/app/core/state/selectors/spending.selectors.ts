@@ -6,6 +6,7 @@ import { sortArrayByProperty } from '../../utils/helper.functions';
 import { DirectionEnum } from '../../enums/spending.enums';
 import { groupingSpendingByDate } from '../../utils/spending.utils';
 import { UserState, userStateKey } from '../reducers/user.reducer';
+import * as moment from 'moment';
 
 const spendingSelector = createFeatureSelector<SpendingState>(spendingStateKey);
 const categoriesSelector = createFeatureSelector<UserState>(userStateKey);
@@ -49,7 +50,13 @@ export namespace SpendingSelectors {
   export const selectHomeTotalAmount = createSelector(
     selectHomeSpendingList,
     (list: SpendingModel[]) => {
-      return list.reduce((total, item) => total + item.amount, 0) / 100;
+      return list.reduce((total, item) => {
+        if (moment(item.date).isSame(moment(), 'month')) {
+          return total + item.amount;
+        } else {
+          return total;
+        }
+      }, 0) / 100;
     }
   );
 
