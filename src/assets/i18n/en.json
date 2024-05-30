@@ -7,7 +7,8 @@
     "confirmPassword": "Confirm password:",
     "goToSignUp": "Go to sign up",
     "goToSignIn": "Go to sign in",
-    "signUp": "Sign up"
+    "signUp": "Sign up",
+    "signInGoogle": "Sign in with google"
   },
   "language": {
     "en": "English",
