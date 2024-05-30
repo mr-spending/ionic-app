@@ -97,68 +97,8 @@ export class StatisticsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription.add(
-      this.formGroup.valueChanges.subscribe(
-        ({ periodRange, monthControl, yearControl }) => {
-          this.selectedPeriod = periodRange;
-          let startDate = 0;
-          let endDate = 0;
-          if (periodRange === ViewPeriod.Month) {
-            const currentMonth = this.translateService.instant(
-              'general.months.' + monthControl
-            );
-            if (currentMonth.includes('.')) {
-              startDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM)
-                .startOf(ViewPeriod.Month)
-                .unix();
-              endDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM)
-                .endOf(ViewPeriod.Month)
-                .unix();
-            } else {
-              startDate = moment(
-                getCurrentYear() + 
-                this.translateService.instant('general.months.' + monthControl),
-                DateFormatEnum.YYYYMMMM
-              )
-                .startOf(ViewPeriod.Month)
-                .unix();
-              endDate = moment(
-                getCurrentYear() +
-                this.translateService.instant('general.months.' + monthControl),
-                DateFormatEnum.YYYYMMMM
-              )
-                .endOf(ViewPeriod.Month)
-                .unix();
-            }
-          } else if (periodRange === ViewPeriod.Year) {
-            startDate = moment(String(yearControl), DateFormatEnum.YYYY)
-              .startOf(ViewPeriod.Year)
-              .unix();
-            endDate = moment(String(yearControl), DateFormatEnum.YYYY)
-              .endOf(ViewPeriod.Year)
-              .unix();
-          } else {
-            startDate = moment().startOf(periodRange).unix();
-            endDate = moment().endOf(periodRange).unix();
-          }
-
-          this.store.dispatch(SpendingActions.updateStatTimePeriod({
-              payload: { startDate, endDate },
-            })
-          );
-          this.updateList();
-        }
-      )
-    );
+    this.setupFormGroup()
     this.formGroup.get('periodRange')?.setValue(ViewPeriod.Month);
-  }
-
-  setupPeriodYear(){//to do
-
-  }
-
-  setupPeriodMonth(){//to do
-
   }
 
   ionViewWillEnter() {
@@ -247,5 +187,55 @@ export class StatisticsPage implements OnInit, OnDestroy {
 
   updateList() {
     this.store.dispatch(SpendingActions.statSpendingList());
+  }
+
+  setupFormGroup(){
+    this.subscription.add(
+      this.formGroup.valueChanges.subscribe(
+        ({ periodRange, monthControl, yearControl }) => {
+          this.selectedPeriod = periodRange;
+          let startDate = 0;
+          let endDate = 0;
+          if (periodRange === ViewPeriod.Month) {
+            const currentMonth = this.translateService.instant('general.months.' + monthControl);
+            if (currentMonth.includes('.')) {
+              startDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM)
+                .startOf(ViewPeriod.Month)
+                .unix();
+              endDate = moment(getCurrentYear() + monthControl, DateFormatEnum.YYYYMMMM)
+                .endOf(ViewPeriod.Month)
+                .unix();
+            } else {
+              startDate = moment(getCurrentYear() + this.translateService.instant('general.months.' + monthControl),
+                DateFormatEnum.YYYYMMMM
+              )
+                .startOf(ViewPeriod.Month)
+                .unix();
+              endDate = moment(getCurrentYear() + this.translateService.instant('general.months.' + monthControl),
+                DateFormatEnum.YYYYMMMM
+              )
+                .endOf(ViewPeriod.Month)
+                .unix();
+            }
+          } else if (periodRange === ViewPeriod.Year) {
+            startDate = moment(String(yearControl), DateFormatEnum.YYYY)
+              .startOf(ViewPeriod.Year)
+              .unix();
+            endDate = moment(String(yearControl), DateFormatEnum.YYYY)
+              .endOf(ViewPeriod.Year)
+              .unix();
+          } else {
+            startDate = moment().startOf(periodRange).unix();
+            endDate = moment().endOf(periodRange).unix();
+          }
+
+          this.store.dispatch(SpendingActions.updateStatTimePeriod({
+              payload: { startDate, endDate },
+            })
+          );
+          this.updateList();
+        }
+      )
+    );
   }
 }
