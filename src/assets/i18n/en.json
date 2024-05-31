@@ -8,7 +8,8 @@
     "goToSignUp": "Go to sign up",
     "goToSignIn": "Go to sign in",
     "signUp": "Sign up",
-    "signInGoogle": "Sign in with google"
+    "signInGoogle": "Sign in with google",
+    "confirmPolicy": "Please read the privacy policy"
   },
   "language": {
     "en": "English",
