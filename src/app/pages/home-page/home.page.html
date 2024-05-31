@@ -38,7 +38,10 @@
           {{ 'general.actions.select' | translate }}
         </p>
 
-        <p *ngIf="isSelectionActive" (click)="isSelectionActive = false; selectedSpending = []" class="selection-action active">
+        <p 
+          *ngIf="isSelectionActive" 
+          (click)="isSelectionActive = false; selectedSpending = []" 
+          class="selection-action active">
           {{ 'general.actions.cancel' | translate }}
         </p>
 
@@ -47,7 +50,11 @@
           (click)="mergeTransactions(selectedSpending)"
           [disabled]="selectedSpending.length < 2"
         >
-          <ion-icon slot="icon-only" name="git-network-outline" [class.active]="selectedSpending.length > 1"></ion-icon>
+          <ion-icon 
+            slot="icon-only" 
+            name="git-network-outline" 
+            [class.active]="selectedSpending.length > 1">
+          </ion-icon>
         </ion-button>
 
         <ion-button

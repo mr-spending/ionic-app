@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" [formGroup]="formGroup" scroll-y="false">
+<ion-content class="ion-padding" [fullscreen]="true" [formGroup]="formGroup" scroll-y="false">
   <ion-list class="ion-margin-vertical">
     <ion-item class="input-item">
       <ion-label position="floating">{{ 'auth.email' | translate }}</ion-label>
@@ -18,8 +18,22 @@
     </ion-item>
 
     <ion-item class="input-item">
-      <ion-icon *ngIf="!showPassword" name="eye-outline" slot="end"  size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
-      <ion-icon *ngIf="showPassword" name="eye-off-outline" slot="end"  size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
+      <ion-icon 
+        *ngIf="!showPassword" 
+        name="eye-outline" 
+        slot="end"  
+        size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
+      <ion-icon 
+        *ngIf="showPassword" 
+        name="eye-off-outline" 
+        slot="end"  
+        size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
       <ion-label position="floating">{{ 'auth.password' | translate }}</ion-label>
       <ion-input
         formControlName="password"
