@@ -47,7 +47,7 @@
     </ion-button>
   </ion-row>
 
-  <ion-row class="ion-padding btns">
+  <ion-row *ngIf="!platform.is('mobile')" class="ion-padding btns">
     <ion-button 
       shape="round" 
       class="btn google"  
