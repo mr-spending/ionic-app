@@ -15,11 +15,16 @@ import { MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { SpendingSelectors } from '../../core/state/selectors/spending.selectors';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { ActionsEnum, ActionsRoleEnum } from '../../core/enums/action-sheet.enums';
-import { getCurrentMonthPeriodUNIX, getMonthPeriodCurrentMonthMinusValueUNIX } from '../../core/utils/time.utils';
+import {
+  getCurrentMonth,
+  getCurrentMonthPeriodUNIX,
+  getMonthPeriodCurrentMonthMinusValueUNIX
+} from '../../core/utils/time.utils';
 import { ListItemTypeEnum } from '../../core/enums/list-item.enum';
 import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
 import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
+import { DateFormatEnum } from '../../core/enums/date-format.enums';
 
 @Component({
   selector: 'app-home-page',
@@ -33,10 +38,14 @@ export class HomePage implements OnInit, OnDestroy {
 
   listItemTypeEnum = ListItemTypeEnum;
   actionsEnum = ActionsEnum;
+  fullHomepageSpendingList: SpendingModel[] = [];
+  fullPendingSpendingList: SpendingModel[] = [];
   subscription: Subscription = new Subscription();
   selectedSpending: string[] = [];
+  deleteTask: string[] = [];
   isSelectionActive = false;
   countOfAdditionalMonths = 0;
+  getCurrentMonth = getCurrentMonth;
 
   groupedSpendingList$: Observable<GroupedSpendingModel[]> = this.store.select(SpendingSelectors.selectGroupedSpendingItemList);
   pendingSpendingList$: Observable<SpendingModel[]> = this.store.select(SpendingSelectors.selectSortedPendingSpendingList);
@@ -59,10 +68,24 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscription.add(this.store.select(UserSelectors.selectUserCategories)
       .subscribe((categories: CategoryModel[] | undefined) => {
         if (categories) this.categories = categories;
-      }),
+      })
+    );
+    this.subscription.add(
+      this.store.select(SpendingSelectors.selectHomeSpendingList).subscribe((spendingList: SpendingModel[]) => {
+        this.fullHomepageSpendingList = spendingList;
+        if (this.deleteTask.length) {
+          this.multiDeleteTransactions(this.deleteTask);
+          this.deleteTask = [];
+        }
+      })
+    );
+    this.subscription.add(
+      this.store.select(SpendingSelectors.selectPendingSpendingList).subscribe((spendingList: SpendingModel[]) => {
+        this.fullPendingSpendingList = spendingList;
+      })
     );
     this.subscription.add(timer(0, 1000)
-      .pipe(map(() => moment().format('DD MMMM')))
+      .pipe(map(() => moment().format(DateFormatEnum.DD__MMMM)))
       .subscribe(time => this.currentTime = time)
     );
     this.store.dispatch(SpendingActions.homeSpendingList({ payload: getCurrentMonthPeriodUNIX() }));
@@ -78,7 +101,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   async openSpendingBasketModal(): Promise<void> {
-    const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent });
+    const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent, cssClass: 'fullscreen' });
     await modal.present();
     await modal.onWillDismiss();
   }
@@ -150,6 +173,24 @@ export class HomePage implements OnInit, OnDestroy {
           : this.deleteTransaction(ids[0]);
         break;
     }
+  }
+
+  async mergeTransactions(ids: string[]): Promise<void> {
+    const selectedSpending = this.fullHomepageSpendingList.filter(spending => ids.includes(spending.id));
+    const selectedPendingSpending = this.fullPendingSpendingList.filter(spending => ids.includes(spending.id));
+    if (selectedPendingSpending?.length) selectedSpending.push(...selectedPendingSpending);
+    this.deleteTask = this.selectedSpending;
+    await this.spendingService.openConfigureSpendingModal({
+      type: ActionsEnum.Add,
+      categories: this.categories,
+      amount: selectedSpending.reduce((acc: number, spending: SpendingModel) => {
+        console.log(acc + spending.amount, spending.amount)
+        return acc + spending.amount
+      }, 0),
+      isAmountChangeable: true
+    });
+    this.isSelectionActive = false;
+    this.selectedSpending = [];
   }
 
   addTransaction(transaction: SpendingModel): void {

@@ -48,9 +48,22 @@ ion-content {
   .fixed {
 
     h1 {
+      position: relative;
       font-size: 36px;
       font-weight: 600;
       margin: 0 0 25px;
+
+      span {
+        position: absolute;
+        bottom: -16px;
+        left: calc(50% - 40px);
+        width: 80px;
+        text-align: center;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 18px;
+        color: var(--ion-color-medium-shade);
+      }
     }
 
     .add-spending {
@@ -114,7 +127,7 @@ ion-content {
         display: flex;
         flex-direction: row;
         align-items: center;
-        gap: 10px;
+        gap: 25px;
 
         .selection-action {
           border: 1px solid var(--button-content-color-1);

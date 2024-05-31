@@ -64,6 +64,7 @@ export interface CategoryModel {
   id: string;
   name: string;
   icon: IconModel;
+  isBase?: boolean;
 }
 
 export interface SpendingByCategoriesItem extends CategoryModel {
