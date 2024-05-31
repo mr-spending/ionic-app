@@ -120,7 +120,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
           borderColor: spendingList.length ? spendingList.map((item, index) => {
                 if (
                   (this.selectedCategory && this.selectedCategory.id === item.id) || 
-                  (index === this.selectedCategoryIndex)
+                  index === this.selectedCategoryIndex
                 ) {
                   return item.icon.background;
                 }
@@ -129,7 +129,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
           borderWidth: spendingList.length ? spendingList.map((item, index) => {
                 if (
                   (this.selectedCategory && this.selectedCategory.id === item.id) || 
-                  (index === this.selectedCategoryIndex)
+                  index === this.selectedCategoryIndex
                 ) {
                   return 6;
                 }
@@ -150,7 +150,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
         event.native!,
         'nearest',
         { intersect: true },
-        true
+        false
       );
       if (activePoints.length) {
         const firstPoint = activePoints[0];

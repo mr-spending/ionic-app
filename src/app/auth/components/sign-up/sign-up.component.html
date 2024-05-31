@@ -23,8 +23,21 @@
         formControlName="password"
         [type]="showPassword ? 'text' : 'password'">
       </ion-input>
-      <ion-icon *ngIf="!showPassword" name="eye-outline" slot="end" size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
-      <ion-icon *ngIf="showPassword" name="eye-off-outline" slot="end" size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
+      <ion-icon 
+        *ngIf="!showPassword" 
+        name="eye-outline" 
+        slot="end" size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
+      <ion-icon 
+        *ngIf="showPassword" 
+        name="eye-off-outline" 
+        slot="end" 
+        size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
     </ion-item>
 
     <ion-item class="input-item">
@@ -33,8 +46,22 @@
         formControlName="confirmPassword" 
         [type]="showPassword ? 'text' : 'password'">
       </ion-input>
-      <ion-icon *ngIf="!showPassword" name="eye-outline" slot="end" size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
-      <ion-icon *ngIf="showPassword" name="eye-off-outline" slot="end" size="small" class="ion-margin-end eye" (click)="toggleShowPassword()"></ion-icon>
+      <ion-icon 
+        *ngIf="!showPassword" 
+        name="eye-outline" 
+        slot="end" 
+        size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
+      <ion-icon 
+        *ngIf="showPassword" 
+        name="eye-off-outline" 
+        slot="end" 
+        size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
     </ion-item>
 
     <ion-item class="input-item">
@@ -43,8 +70,7 @@
         interface="popover"
         formControlName="language"
         [placeholder]="'pages.selectLanguagePlaceholder' | translate"
-        (ngModelChange)="languageChange($event)"
-      >
+        (ngModelChange)="languageChange($event)">
         <ion-select-option *ngFor="let item of languageList" [value]="item">
           {{ 'language.' + item | translate }}
         </ion-select-option>
