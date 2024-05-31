@@ -43,6 +43,9 @@ export class ConfigureSpendingModalComponent implements OnInit {
       category: this.fb.control(this.spendingItem?.category || null, Validators.required),
       description: this.fb.control(this.spendingItem?.description || null),
     });
+    if(this.formGroup.getRawValue().amount){
+      this.formGroup.get('amount')?.setValue(this.formGroup.getRawValue().amount / 100);
+    }
     this.selectedCategory = this.spendingItem?.category || null
   }
 
