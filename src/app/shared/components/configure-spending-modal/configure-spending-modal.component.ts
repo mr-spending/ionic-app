@@ -39,7 +39,7 @@ export class ConfigureSpendingModalComponent implements OnInit {
 
   ngOnInit() {
     this.formGroup = this.fb.group({
-      amount: this.fb.control(this.spendingItem?.amount || this.amount, Validators.required),
+      amount: this.fb.control(this.spendingItem?.amount || this.amount, [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]),
       category: this.fb.control(this.spendingItem?.category || null, Validators.required),
       description: this.fb.control(this.spendingItem?.description || null),
     });
