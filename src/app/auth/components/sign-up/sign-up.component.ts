@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ModalController, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { AuthService } from '../../services/auth.service';
@@ -24,7 +24,8 @@ export class SignUpComponent {
     private authService: AuthService,
     private router: Router,
     private modalCtrl: ModalController,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    public platform: Platform
   ) {
     this.languageList = this.translateService.getLangs();
     this.formGroup = this.fb.group(
