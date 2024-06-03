@@ -132,6 +132,13 @@
   "user":{
     "title":"Користувач"
   },
+  "spendingDetailsModal":{
+    "title":"Деталі",
+    "amount": "Сумма:",
+    "category": "Категорія:",
+    "description": "Опис:",
+    "date": "Дата:" 
+  },
   "editSpendingModal": {
     "titleEdit": "Редагувати",
     "titleAdd": "Додати",

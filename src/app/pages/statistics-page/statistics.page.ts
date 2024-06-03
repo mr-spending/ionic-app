@@ -109,13 +109,20 @@ export class StatisticsPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  clearResult(){
+    console.log('hi')
+    this.selectedCategory = null;
+    this.selectedCategoryIndex = null;
+    this.categoryAmount$ = null;
+  }
+
   generateDoughnutChartData(
     spendingList: SpendingByCategoriesItem[]
   ): ChartData<'doughnut'> {
     return {
       datasets: [
         {
-          data: spendingList.length ? spendingList.map((item) => item.totalAmount / 100) : [0.001],
+          data: spendingList.length ? spendingList.map((item) => item?.totalAmount / 100) : [0.001],
           backgroundColor: spendingList.length ? spendingList.map((item) => item.icon.background) : '#8a8a8a',
           borderColor: spendingList.length ? spendingList.map((item, index) => {
                 if (
@@ -161,7 +168,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
         } else {
           this.selectedCategoryIndex = index
           this.subscription.add(this.spendingByCategoriesList$.subscribe(categories=>{
-            this.categoryAmount$ = of(categories[index].totalAmount / 100)
+            this.categoryAmount$ = of(categories[index]?.totalAmount / 100)
           })) 
         }
       } else {
