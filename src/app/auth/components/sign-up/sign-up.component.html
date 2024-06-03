@@ -96,14 +96,5 @@
     </ion-button>
   </ion-row>
 
-  <ion-row *ngIf="!platform.is('mobile')" class="ion-padding btns">
-    <ion-button 
-      shape="round" 
-      class="btn google"  
-      (click)="signInWithGoogle()">
-      <ion-icon slot="start" name="logo-google"></ion-icon>
-      {{ 'auth.signInGoogle' | translate }}
-  </ion-button>
-  </ion-row>
 </ion-content>
 
