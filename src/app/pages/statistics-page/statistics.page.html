@@ -70,7 +70,7 @@
             <ion-label>{{ category.name }}</ion-label>
           </div>
 
-          <ion-label>{{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
+          <ion-label *ngIf="category.totalAmount">{{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
         </ion-row>
       </ion-item>
 
