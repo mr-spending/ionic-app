@@ -11,7 +11,7 @@
       <ion-row class="row-radio">
         <ion-item *ngFor="let period of periods" lines="none" class="item-radio">
           <ion-label class="title-radio">{{ 'general.dates.' + period | translate }}</ion-label>
-          <ion-radio (click)="clearResult()" slot="end" [value]="period" class="icon-radio"></ion-radio>
+          <ion-radio slot="end" [value]="period" class="icon-radio"></ion-radio>
         </ion-item>
       </ion-row>
     </ion-radio-group>
