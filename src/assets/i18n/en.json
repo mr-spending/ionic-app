@@ -132,6 +132,13 @@
   "user":{
     "title":"User"
   },
+  "spendingDetailsModal":{
+    "title":"Details",
+    "amount": "Amount:",
+    "category": "Category:",
+    "description": "Description:",
+    "date": "Date:" 
+  },
   "editSpendingModal": {
     "titleEdit": "Edit spending",
     "titleAdd": "Add spending",
