@@ -61,7 +61,7 @@
     </ion-button>
   </ion-row>
 
-  <ion-row *ngIf="platform.is('desktop')" class="ion-padding btns">
+  <ion-row *ngIf="!platform.is('cordova')" class="ion-padding btns">
     <ion-button 
       shape="round" 
       class="btn google"  
@@ -71,7 +71,7 @@
     </ion-button>
   </ion-row>
 
-  <ion-row *ngIf="platform.is('android')" class="ion-padding btns">
+  <ion-row *ngIf="platform.is('cordova')" class="ion-padding btns">
     <ion-button 
       shape="round" 
       class="btn google"  
