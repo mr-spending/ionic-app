@@ -6,17 +6,17 @@ ion-header {
 
   ion-title {
     width: max-content;
-    padding-left: calc(50% - 85px);
+    padding-left: calc( 50% - 85px);
   }
 
   ion-title.md {
-    padding-left: calc(50% - 140px);
+    padding-left: calc( 50% - 140px);
   }
 }
 
 ion-content {
 
-  .add-category {
+  .add-category{
     --background: var(--background-color-1);
     --border-radius: 10px;
     margin-bottom: 10px;
@@ -55,7 +55,7 @@ ion-content {
   }
 
   .category-list {
-    height: calc(100% - 48px);
+    height: calc( 100% - 48px );
     overflow-y: scroll;
     padding: 10px 0 0;
 
