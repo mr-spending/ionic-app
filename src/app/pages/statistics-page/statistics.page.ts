@@ -109,13 +109,6 @@ export class StatisticsPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  clearResult(){
-    console.log('hi')
-    this.selectedCategory = null;
-    this.selectedCategoryIndex = null;
-    this.categoryAmount$ = null;
-  }
-
   generateDoughnutChartData(
     spendingList: SpendingByCategoriesItem[]
   ): ChartData<'doughnut'> {
