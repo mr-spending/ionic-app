@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="danger" (click)="cancel()">{{ 'general.actions.back' | translate }}</ion-button>
+    </ion-buttons>
+    <ion-title >{{ 'spendingDetailsModal.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content  class="ion-padding">
+  <ion-list>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'spendingDetailsModal.amount' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ amount | mrMoneyFormat }}
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'spendingDetailsModal.category' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="category-div">
+          <ion-label>{{ category.name }}</ion-label>
+          <app-icon 
+            [iconName]="category.icon.iconType" 
+            [backgroundColor]="category.icon.background">
+          </app-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card *ngIf="description">
+      <ion-card-header>
+        <ion-card-title>{{ 'spendingDetailsModal.description' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ description }}
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'spendingDetailsModal.date' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        {{ date }}
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
