@@ -59,6 +59,12 @@ ion-icon{
     border: none !important;
     padding-left: 16px !important;
 
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
     &::placeholder{
       font-size: 2rem;
       color: white;

@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   /** Sign in with google */
-  async signInWithGoogle() {
+  signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.afAuth
       .signInWithPopup(provider)
