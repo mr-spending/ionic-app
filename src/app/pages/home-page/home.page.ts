@@ -43,6 +43,7 @@ export class HomePage implements OnInit, OnDestroy {
   fullPendingSpendingList: SpendingModel[] = [];
   subscription: Subscription = new Subscription();
   selectedSpending: string[] = [];
+  allNewSpendingsSelected: boolean = false;
   deleteTask: string[] = [];
   isSelectionActive = false;
   countOfAdditionalMonths = 0;
@@ -215,6 +216,22 @@ export class HomePage implements OnInit, OnDestroy {
     this.selectedSpending.includes(id)
       ? this.selectedSpending = this.selectedSpending.filter(item => item !== id)
       : this.selectedSpending.push(id);
+  }
+
+  selectAllNewSpendings(pendingSpendingList: SpendingModel[]){
+    if(this.allNewSpendingsSelected){
+      pendingSpendingList.forEach(item=>{
+        this.selectedSpending = this.selectedSpending.filter(i => i !== item.id)
+      })
+    }else{
+      pendingSpendingList.forEach(item=>{
+        if(!this.selectedSpending.includes(item.id)){
+          this.selectedSpending.push(item.id)
+        }
+      })
+    }
+    this.allNewSpendingsSelected = !this.allNewSpendingsSelected
+   
   }
 
   multiDeleteTransactions(ids: string[]) {

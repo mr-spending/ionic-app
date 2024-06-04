@@ -7,7 +7,7 @@ ion-input {
   --placeholder-color: white;
   --placeholder-font-size: 2rem;
 
-  &::placeholder{
+  &::placeholder {
     color: white;
   }
 }
@@ -30,18 +30,18 @@ ion-input {
   }
 }
 
-ion-icon{
+ion-icon {
   color: var(--button-content-color-1);
 }
 
-.categories{
+.categories {
 
-  ion-item{
+  ion-item {
     --border-style:none;
   }
 }
 
-.amount-item{
+.amount-item {
   display: flex !important;
   flex-wrap: wrap !important;
   justify-content: space-around !important;
@@ -49,7 +49,7 @@ ion-icon{
   padding: 0 !important;
   margin-right: 16px !important;
 
-  .amount-input{
+  .amount-input {
     width: 100% !important;
     padding: 0 !important;
     display: flex !important;
@@ -65,14 +65,14 @@ ion-icon{
         margin: 0;
     }
 
-    &::placeholder{
+    &::placeholder {
       font-size: 2rem;
       color: white;
     }
 
     &:active,
     &:focus,
-    &:hover{
+    &:hover {
       border: none !important;
       outline: none !important;
     }
