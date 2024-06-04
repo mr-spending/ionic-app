@@ -6,6 +6,7 @@ import { AuthComponent } from './auth.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { AuthRoutesEnum } from '../core/enums/routing.enums';
 
+
 const routes: Routes = [
   {
     path: '',
@@ -23,7 +24,7 @@ const routes: Routes = [
       {
         path: AuthRoutesEnum.SignUp,
         component: SignUpComponent,
-      },
+      }
     ]
   },
 ];

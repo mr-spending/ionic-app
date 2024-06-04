@@ -114,6 +114,43 @@ export class AuthService {
       });
   }
 
+  /** Sign up with Google */
+  signUpWithGoogle(language: string, isPolicyAgreed: boolean) {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.sendVerificationMail().then();
+        if (result.user) {
+          this.addUser(result.user, language, isPolicyAgreed);
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        }
+      })
+      .catch((error) => {
+        this.alertService.showAlert(error.message);
+      });
+  }
+
+  /* Sign up with google for mobile devices */ 
+  signUpWithGoogleMobile(language: string, isPolicyAgreed: boolean) {
+    this.googlePlus
+      .login({})
+      .then((user) => {
+        const credential = firebase.auth.GoogleAuthProvider.credential(null, user.accessToken);
+        return this.afAuth.signInWithCredential(credential);
+      })
+      .then((result) => {
+        this.sendVerificationMail().then();
+        if (result.user) {
+          this.addUser(result.user, language, isPolicyAgreed);
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        }
+      })
+      .catch((err) => {
+          this.alertService.showAlert(err);
+      });
+  }
+
   /** Send email verification when new user sign up */
   sendVerificationMail() {
     return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification());
@@ -135,7 +172,6 @@ export class AuthService {
   }
 
   /** Change Email with current password **/
-
   changeEmail(currentEmail: string, newEmail: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(currentEmail, password)
@@ -158,7 +194,6 @@ export class AuthService {
   }
 
   /** Change Password with current password **/
-
   changePassword(email: string, newPassword: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
