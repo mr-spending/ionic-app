@@ -31,23 +31,12 @@ export class SignUpComponent {
     this.formGroup = this.fb.group(
       {
         email: this.fb.control(null, [Validators.required, Validators.email]),
-        password: this.fb.control(null, [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(15),
-        ]),
-        confirmPassword: this.fb.control(null, [
-          Validators.required,
-          Validators.minLength(6),
-          Validators.maxLength(15),
-        ]),
-        language: this.fb.control(this.languageList[0], Validators.required),
+        password: this.fb.control(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+        confirmPassword: this.fb.control(null, [Validators.required, Validators.minLength(6), Validators.maxLength(15)]),
+        language: this.fb.control(this.languageList[0], Validators.required)
       },
       {
-        validators: CustomValidators.matchControls(
-          'password',
-          'confirmPassword'
-        ),
+        validators: CustomValidators.matchControls('password', 'confirmPassword')
       }
     );
     this.translateService.use(this.languageList[0]);
@@ -55,47 +44,16 @@ export class SignUpComponent {
 
   signUp(): void {
     const formValue = this.formGroup.value;
-    this.authService
-      .signUp(formValue.email, formValue.password, formValue.language, true)
-      .then();
+    this.authService.signUp(formValue.email, formValue.password, formValue.language, true).then();
   }
 
-  async signUpWithGoogle() {
-    const modal = await this.modalCtrl.create({
-      component: PrivacyNoticeModalComponent,
-      componentProps: { confirmation: true },
-      cssClass: 'fullscreen',
-    });
-    modal.present();
-    modal.onDidDismiss().then((data) => {
-      if (data['data']) {
-        const formValue = this.formGroup.value;
-        this.authService.signUpWithGoogle(formValue.language, true);
-      }
-    });
+  signInWithGoogle(): void {
+    this.authService.signInWithGoogle();
   }
-
-  async signUpWithGoogleMobile() {
-    const modal = await this.modalCtrl.create({
-      component: PrivacyNoticeModalComponent,
-      componentProps: { confirmation: true },
-      cssClass: 'fullscreen',
-    });
-    modal.present();
-    modal.onDidDismiss().then((data) => {
-      if (data['data']) {
-        const formValue = this.formGroup.value;
-        this.authService.signUpWithGoogleMobile(formValue.language, true);
-      }
-    });
-  }
-
 
   goToSignIn(): void {
     this.translateService.use(this.languageList[0]);
-    this.router
-      .navigate([`${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignIn}`])
-      .then();
+    this.router.navigate([`${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignIn}`]).then();
   }
 
   toggleShowPassword(): void {
@@ -110,11 +68,12 @@ export class SignUpComponent {
     const modal = await this.modalCtrl.create({
       component: PrivacyNoticeModalComponent,
       componentProps: { confirmation: true },
-      cssClass: 'fullscreen',
+      cssClass: 'fullscreen'
     });
     modal.present();
-    modal.onDidDismiss().then((data) => {
-      if (data['data']) this.signUp();
+    modal.onDidDismiss()
+    .then((data) => {
+      if(data['data']) this.signUp();
     });
   }
 }

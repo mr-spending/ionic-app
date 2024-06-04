@@ -38,7 +38,7 @@ export class SignInComponent {
     this.authService.signInWithGoogle();
   }
 
-  signInWithGoogleMobile(){
+  signInWithGoogleMobile() {
     this.authService.signInWithGoogleMobile()
   }
 

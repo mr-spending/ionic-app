@@ -71,12 +71,9 @@ export class PagesComponent implements OnDestroy {
       })
     );
     this.subscription.add(
-      this.store
-        .select(UserSelectors.selectUser)
-        .subscribe(
-          (value) => 
-            value?.monoBankAccounts?.length && this.store.dispatch(BankAccountsActions.checkWebHook())
-        )
+      this.store.select(UserSelectors.selectUser).subscribe(
+        (value) => value?.monoBankAccounts?.length && this.store.dispatch(BankAccountsActions.checkWebHook())
+      )
     );
   }
 
@@ -124,9 +121,9 @@ export class PagesComponent implements OnDestroy {
 
   selectTab(tab: TabModel) {
     this.selectedTab = tab.route;
-    
+
     this.router.navigateByUrl('pages/' + this.selectedTab);
-    
+
   }
 
 }

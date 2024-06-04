@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" [fullscreen]="true" [formGroup]="formGroup" scroll-y="false">
+<ion-content [fullscreen]="true" [formGroup]="formGroup" scroll-y="false">
   <ion-list class="ion-margin-vertical">
     <ion-item class="input-item">
       <ion-label position="floating">{{ 'auth.email' | translate }}</ion-label>
@@ -24,8 +24,16 @@
         [type]="showPassword ? 'text' : 'password'">
       </ion-input>
       <ion-icon 
-        [name]="showPassword? 'eye-off-outline' : 'eye-outline'" 
-        slot="end"  
+        *ngIf="!showPassword" 
+        name="eye-outline" 
+        slot="end" size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
+      <ion-icon 
+        *ngIf="showPassword" 
+        name="eye-off-outline" 
+        slot="end" 
         size="small" 
         class="ion-margin-end eye" 
         (click)="toggleShowPassword()">
@@ -39,15 +47,24 @@
         [type]="showPassword ? 'text' : 'password'">
       </ion-input>
       <ion-icon 
-        [name]="showPassword? 'eye-off-outline' : 'eye-outline'" 
-        slot="end"  
+        *ngIf="!showPassword" 
+        name="eye-outline" 
+        slot="end" 
+        size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
+      <ion-icon 
+        *ngIf="showPassword" 
+        name="eye-off-outline" 
+        slot="end" 
         size="small" 
         class="ion-margin-end eye" 
         (click)="toggleShowPassword()">
       </ion-icon>
     </ion-item>
 
-    <ion-item >
+    <ion-item class="input-item">
       <ion-label>{{ 'pages.selectLanguage' | translate }}</ion-label>
       <ion-select
         interface="popover"
@@ -76,26 +93,6 @@
       (click)="privacyNoticeModal()"
     >
       {{ 'auth.signUp' | translate }}
-    </ion-button>
-  </ion-row>
-
-  <ion-row *ngIf="!platform.is('cordova')" class="ion-padding btns">
-    <ion-button 
-      shape="round" 
-      class="btn google"  
-      (click)="signUpWithGoogle()">
-      <ion-icon slot="start" name="logo-google"></ion-icon>
-      {{ 'auth.signUpGoogle' | translate }}
-    </ion-button>
-  </ion-row>
-
-  <ion-row *ngIf="platform.is('cordova')" class="ion-padding btns">
-    <ion-button 
-      shape="round" 
-      class="btn google"  
-      (click)="signUpWithGoogleMobile()">
-      <ion-icon slot="start" name="logo-google"></ion-icon>
-      {{ 'auth.signUpGoogle' | translate }}
     </ion-button>
   </ion-row>
 

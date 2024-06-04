@@ -9,7 +9,6 @@
     "goToSignIn": "Вхід",
     "signUp": "Реєстрація",
     "signInGoogle": "Увійти з Google",
-    "signUpGoogle": "Реєстрація з Google",
     "confirmPolicy": "Будь ласка ознайомтеся з політикою конфіденційності"
   },
   "language": {
@@ -49,8 +48,7 @@
       "agree": "Я згоден/згідна",
       "removeToBasket": "Прибрати в кошик",
       "selectedToBasket": "Обране в кошик",
-      "agreeWithPolicyCheckBox": "Погоджуюсь з політикою конфіденційності",
-      "pullUpdate": "Потягніть для оновлення"
+      "agreeWithPolicyCheckBox": "Погоджуюсь з політикою конфіденційності"
     },
     "dates": {
       "today": "Сьогодні",
@@ -89,8 +87,7 @@
     "addSpending": "Додати витрату",
     "update": "Оновити список",
     "newTransactions": "Нові Транзакції",
-    "mySpending": "Мої витрати",
-    "selectAllNew": "Вибрати усі нові"
+    "mySpending": "Мої витрати"
   },
   "statistics": {
     "title": "Статистика",
