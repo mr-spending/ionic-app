@@ -14,4 +14,5 @@ export enum PageRoutesEnum {
 export enum AuthRoutesEnum {
   SignIn = 'sign-in',
   SignUp = 'sign-up',
+  SignUpGoogle = 'sign-up-google'
 }

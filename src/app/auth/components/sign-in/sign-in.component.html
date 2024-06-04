@@ -19,16 +19,7 @@
 
     <ion-item class="input-item">
       <ion-icon 
-        *ngIf="!showPassword" 
-        name="eye-outline" 
-        slot="end"  
-        size="small" 
-        class="ion-margin-end eye" 
-        (click)="toggleShowPassword()">
-      </ion-icon>
-      <ion-icon 
-        *ngIf="showPassword" 
-        name="eye-off-outline" 
+        [name]="showPassword? 'eye-off-outline' : 'eye-outline'" 
         slot="end"  
         size="small" 
         class="ion-margin-end eye" 
