@@ -25,13 +25,13 @@ ion-content {
   }
 
   .account-management {
-    .buttons-inline{
+    .buttons-inline {
       display: flex;
       justify-content: space-between;
       width: 100%;
       margin-top: 20px;
 
-      .add-token{
+      .add-token {
         --background: var(--background-color-1);
         --border-radius: 10px;
         width: 40%;
@@ -39,7 +39,7 @@ ion-content {
       }
 
     }
-    .add-token{
+    .add-token {
       --background: var(--background-color-1);
       --border-radius: 10px;
     }
