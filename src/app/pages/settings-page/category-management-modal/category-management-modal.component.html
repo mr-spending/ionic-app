@@ -20,8 +20,6 @@
     <ion-icon name="add"></ion-icon>
   </ion-item>
 
-  <!-- <div class="page-delimiter"></div> -->
-
   <ion-list *ngIf="categoryList$ | async as categoryList" class="category-list">
     <div *ngFor="let category of categoryList" class="category-item">
       <div class="category-desc">
