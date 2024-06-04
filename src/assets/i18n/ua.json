@@ -87,7 +87,8 @@
     "addSpending": "Додати витрату",
     "update": "Оновити список",
     "newTransactions": "Нові Транзакції",
-    "mySpending": "Мої витрати"
+    "mySpending": "Мої витрати",
+    "selectAllNew": "Вибрати усі нові"
   },
   "statistics": {
     "title": "Статистика",
