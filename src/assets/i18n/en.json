@@ -87,7 +87,8 @@
     "addSpending": "Add spending",
     "update": "Update list",
     "newTransactions": "New Transactions",
-    "mySpending": "My spending"
+    "mySpending": "My spending",
+    "selectAllNew": "Select all new"
   },
   "statistics": {
     "title": "Statistics",
