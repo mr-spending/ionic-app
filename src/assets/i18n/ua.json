@@ -8,6 +8,7 @@
     "goToSignUp": "Реєстрація",
     "goToSignIn": "Вхід",
     "signUp": "Реєстрація",
+    "signInGoogle": "Увійти з Google",
     "confirmPolicy": "Будь ласка ознайомтеся з політикою конфіденційності"
   },
   "language": {
@@ -29,14 +30,15 @@
     "selectLanguagePlaceholder": "Обрати"
   },
   "general": {
+    "more":"Більше",
     "actions": {
       "add": "Додати",
       "addAs": "Додати як",
       "edit": "Змінити",
       "delete": "Видалити",
       "deleteSelected": "Видалити обране",
-      "cancel": "Відміна",
-      "confirm": "Так",
+      "cancel": "Скасувати",
+      "confirm": "Підтвердити",
       "set": "Встановити",
       "select": "Обрати",
       "save": "Зберегти",
@@ -101,8 +103,8 @@
     "categoryManagement": "Керування категоріями",
     "monoAccSettings": "Параметри Monobank акаунту",
     "privacyNotice": "Політика конфіденційності",
-    "inputToken": "Введення токену...",
-    "setAcc": "Встановити (змінити) акаунт",
+    "inputToken": "Вставте сюди токен...",
+    "setAcc": "Прив'язати акаунт",
     "changeAcc": "Змінити акаунт",
     "forgetAcc": "Видалити акаунт",
     "selectCards": "Обрати картки",
@@ -127,14 +129,26 @@
     "supportService": "Служба підтримки",
     "accDeletion": "Видалити акаунт"
   },
+  "user":{
+    "title":"Користувач"
+  },
+  "spendingDetailsModal":{
+    "title":"Деталі",
+    "amount": "Сумма:",
+    "category": "Категорія:",
+    "description": "Опис:",
+    "date": "Дата:" 
+  },
   "editSpendingModal": {
-    "title": "Редагувати",
+    "titleEdit": "Редагувати",
+    "titleAdd": "Додати",
     "amount": "Сума:",
     "description": "Опис:",
     "amountPlaceholder": "Введіть сумму",
     "descriptionPlaceholder": "Введіть опис витрати. Необовʼязково",
     "category": "Категорія:",
-    "selectCategoryPlaceholder": "Обрати категорію"
+    "selectCategoryPlaceholder": "Обрати категорію",
+    "createCategory": "Додати категорію"
   },
   "selectMonthYearModal": {
     "selectDate": "Вибір дати"

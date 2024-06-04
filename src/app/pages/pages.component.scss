@@ -9,6 +9,8 @@ ion-tab-bar {
   border: 0;
 
   ion-tab-button {
+    --ripple-color: var(--accent-color-1);
+
 
     ion-icon {
       width: 25px;

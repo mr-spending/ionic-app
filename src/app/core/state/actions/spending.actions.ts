@@ -51,7 +51,6 @@ export namespace SpendingActions {
   export const deletedSpendingListFailure = createAction(`[${stateType}] Deleted Spending List Failure`);
 
   /** Reload */
-
   export const updateHomePage = createAction(`[${stateType}] Update Home Page`, props<{ payload: TimePeriodModel }>());
   export const updateHomePageSuccess = createAction(`[${stateType}] Update Home Page Success`);
   export const updateHomePageFailure = createAction(`[${stateType}] Update Home Page Failure`);
@@ -61,6 +60,5 @@ export namespace SpendingActions {
   export const reloadSpendingAndTransactionListsFailure = createAction(`[${stateType}] Reload Spending And Transaction Lists Failure`);
 
   /** Time Period */
-
   export const updateStatTimePeriod = createAction(`[${stateType}] Update Stat Time Period`, props<{ payload: TimePeriodModel }>());
 }

@@ -39,6 +39,13 @@ ion-content {
     }
   }
 
+  .delete-item {
+    --border-color: var(--ion-color-danger);
+    --background: var(--background-color-1);
+    --border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
   .page-delimiter {
     display: block;
     top: -4px;

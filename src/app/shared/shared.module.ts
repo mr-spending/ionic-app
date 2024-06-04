@@ -12,6 +12,10 @@ import { MrSpendingListDateFormatPipe } from './pipes/spending-list-date-format.
 import { BankCardFormatPipe } from './pipes/bank-card-format.pipe';
 import { IconComponent } from './components/icon/icon.component';
 import { ColorpickerComponent } from './components/colorpicker/colorpicker.component';
+import { SettingsItemComponent } from './components/settings-item/settings-item.component';
+import { MonobankAccountSettingsComponent } from './components/monobank-account-settings-modal/monobank-account-settings.component';
+import { SpendingDetailsModalComponent } from './components/spending-details-modal/spending-details-modal.component';
+
 
 const declarations = [
   MrCurrencyMaskDirective,
@@ -20,8 +24,11 @@ const declarations = [
   BankCardFormatPipe,
   SpendingListItemComponent,
   ConfigureSpendingModalComponent,
+  SpendingDetailsModalComponent,
   IconComponent,
   ColorpickerComponent,
+  SettingsItemComponent,
+  MonobankAccountSettingsComponent
 ];
 
 const sharedModules = [

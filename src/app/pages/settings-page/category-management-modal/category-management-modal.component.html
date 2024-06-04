@@ -10,12 +10,15 @@
 </ion-header>
 
 <ion-content class="ion-padding" scroll-y="false">
-  <div (click)="editCategory(actionsEnum.Add)" class="category-add">
+  <ion-item
+    [button]="true"
+    detail="false"
+    mode="ios"
+    (click)="editCategory(actionsEnum.Add)"
+    class="add-category">
     <ion-label>{{ 'categoryManagementModal.addCategory' | translate }}</ion-label>
     <ion-icon name="add"></ion-icon>
-  </div>
-
-  <div class="page-delimiter"></div>
+  </ion-item>
 
   <ion-list *ngIf="categoryList$ | async as categoryList" class="category-list">
     <div *ngFor="let category of categoryList" class="category-item">

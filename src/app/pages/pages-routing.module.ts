@@ -26,6 +26,10 @@ const routes: Routes = [
         path: PageRoutesEnum.Setting,
         loadChildren: () => import('./settings-page/settings-page.module').then(m => m.SettingsPageModule),
       },
+      {
+        path: PageRoutesEnum.User,
+        loadChildren: () => import('./user-page/user-page.module').then(m => m.UserPageModule)
+      }
     ]
   },
 ];

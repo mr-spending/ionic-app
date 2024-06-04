@@ -27,6 +27,8 @@
 
 body {
   background: var(--page-background);
+  background-position: top right, 0 0;
+  background-repeat: no-repeat, repeat;
 }
 
 * {

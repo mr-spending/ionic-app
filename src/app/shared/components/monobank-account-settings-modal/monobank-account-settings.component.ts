@@ -81,6 +81,7 @@ export class MonobankAccountSettingsComponent implements OnInit, OnDestroy {
   setMonoToken(): void {
     this.store.dispatch(UserActions.setMonoToken({ payload: this.tokenInput.value }));
     this.resetSettingToken();
+    this.isUpdateCardsForbidden = false;
   }
 
   forgetMonoToken(): void {
