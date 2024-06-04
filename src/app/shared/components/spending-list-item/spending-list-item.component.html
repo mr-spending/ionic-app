@@ -4,6 +4,7 @@
       <app-icon *ngIf="showIcon" [iconName]="icon" [backgroundColor]="background"></app-icon>
       <ion-label>
         <p *ngIf="type === listItemTypeEnum.bankTransaction">{{ moment.utc(spending.date).local().format(DateFormatEnum.MMM__D__HH_mm) }}</p>
+        <p *ngIf="type !== listItemTypeEnum.bankTransaction">{{ moment.utc(spending.date).local().format(DateFormatEnum.MMM__D__HH_mm) }}</p>
         <p *ngIf="(type === listItemTypeEnum.spending)" class="category-description">{{ spending.description}}</p>
       </ion-label>
     </div>
