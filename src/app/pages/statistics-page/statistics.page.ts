@@ -27,7 +27,6 @@ import { ViewPeriod } from '../../core/enums/time.enum';
 import { DateFormatEnum } from '../../core/enums/date-format.enums';
 
 
-
 @Component({
   selector: 'app-statistics-page',
   templateUrl: './statistics.page.html',
@@ -65,9 +64,9 @@ export class StatisticsPage implements OnInit, OnDestroy {
   chartOptions: ChartConfiguration<'doughnut'>['options'] = {
     cutout: '80%',
     animation: false,
-    onClick: (event) => this.onChartClick(event), 
+    onClick: (event) => this.onChartClick(event),
     events: ['click', 'touchstart'],
-    interaction:{
+    interaction: {
       mode: 'nearest',
       intersect: true,
       includeInvisible: false
@@ -118,23 +117,23 @@ export class StatisticsPage implements OnInit, OnDestroy {
           data: spendingList.length ? spendingList.map((item) => item?.totalAmount / 100) : [0.001],
           backgroundColor: spendingList.length ? spendingList.map((item) => item.icon.background) : '#8a8a8a',
           borderColor: spendingList.length ? spendingList.map((item, index) => {
-                if (
-                  (this.selectedCategory && this.selectedCategory.id === item.id) || 
-                  index === this.selectedCategoryIndex
-                ) {
-                  return item.icon.background;
-                }
-                return 'rgba(35, 40, 40, 0.5)';
-              }) : 'rgba(35, 40, 40, 0.5)',
+            if (
+              (this.selectedCategory && this.selectedCategory.id === item.id) ||
+              index === this.selectedCategoryIndex
+            ) {
+              return item.icon.background;
+            }
+            return 'rgba(35, 40, 40, 0.5)';
+          }) : 'rgba(35, 40, 40, 0.5)',
           borderWidth: spendingList.length ? spendingList.map((item, index) => {
-                if (
-                  (this.selectedCategory && this.selectedCategory.id === item.id) || 
-                  index === this.selectedCategoryIndex
-                ) {
-                  return 6;
-                }
-                return -1;
-              }) : -1,
+            if (
+              (this.selectedCategory && this.selectedCategory.id === item.id) ||
+              index === this.selectedCategoryIndex
+            ) {
+              return 6;
+            }
+            return -1;
+          }) : -1,
           spacing: 5,
           borderRadius: 2,
         },
@@ -142,7 +141,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
     };
   }
 
-  onChartClick(event: ChartEvent ) {
+  onChartClick(event: ChartEvent) {
     if (event) {
       const chartInstance = this.chart!.chart;
       this.selectedCategory = null
@@ -155,14 +154,14 @@ export class StatisticsPage implements OnInit, OnDestroy {
       if (activePoints.length) {
         const firstPoint = activePoints[0];
         const index = firstPoint.index;
-        if (this.selectedCategoryIndex != null || this.selectedCategoryIndex == index){
+        if (this.selectedCategoryIndex != null || this.selectedCategoryIndex == index) {
           this.selectedCategoryIndex = null
           this.categoryAmount$ = null;
         } else {
           this.selectedCategoryIndex = index
-          this.subscription.add(this.spendingByCategoriesList$.subscribe(categories=>{
+          this.subscription.add(this.spendingByCategoriesList$.subscribe(categories => {
             this.categoryAmount$ = of(categories[index]?.totalAmount / 100)
-          })) 
+          }))
         }
       } else {
         this.selectedCategoryIndex = null
@@ -189,7 +188,7 @@ export class StatisticsPage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.statSpendingList());
   }
 
-  setupFormGroup(){
+  setupFormGroup() {
     this.subscription.add(
       this.formGroup.valueChanges.subscribe(
         ({ periodRange, monthControl, yearControl }) => {
