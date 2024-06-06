@@ -34,7 +34,7 @@
      
       <div class="action-block" [ngClass]="{'action-full-width': isSelectionActive}">
         <div *ngIf="pendingSpendingList$ | async as pendingSpendingList" class="action">
-          <p *ngIf="isSelectionActive && pendingSpendingList.length" (click)="selectAllNewSpendings(pendingSpendingList)" class="selection-action">
+          <p *ngIf="isSelectionActive && pendingSpendingList.length" [ngClass]="{'active': allNewSpendingsSelected }" (click)="selectAllNewSpendings(pendingSpendingList)" class="selection-action">
             {{ 'home.selectAllNew' | translate }}
           </p>
         </div>
