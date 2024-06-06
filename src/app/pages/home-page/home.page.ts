@@ -216,6 +216,9 @@ export class HomePage implements OnInit, OnDestroy {
     this.selectedSpending.includes(id)
       ? this.selectedSpending = this.selectedSpending.filter(item => item !== id)
       : this.selectedSpending.push(id);
+    if(!this.selectedSpending.length){
+      this.allNewSpendingsSelected = false
+    }
   }
 
   selectAllNewSpendings(pendingSpendingList: SpendingModel[]){
