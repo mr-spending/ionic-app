@@ -9,16 +9,15 @@ import 'firebase/compat/firestore';
 import UserCredential = firebase.auth.UserCredential;
 import User = firebase.User;
 import { TranslateService } from '@ngx-translate/core';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 import { AuthRoutesEnum, MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserState } from '../../core/state/reducers/user.reducer';
 import { AlertService } from '../../core/services/alert/alert.service';
-import { LanguageEnum } from '../../core/constants/languages.constants';
 import { AlertEnum } from '../../core/enums/alert.enums';
-import { error } from 'console';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 
 @Injectable()
 export class AuthService {
@@ -76,7 +75,7 @@ export class AuthService {
       });
   }
 
-  /* Sign in with google for mobile devices */ 
+  /* Sign in with google for mobile devices */
   signInWithGoogleMobile() {
     this.googlePlus
       .login({})
@@ -131,7 +130,7 @@ export class AuthService {
       });
   }
 
-  /* Sign up with google for mobile devices */ 
+  /* Sign up with google for mobile devices */
   signUpWithGoogleMobile(language: string, isPolicyAgreed: boolean) {
     this.googlePlus
       .login({})
