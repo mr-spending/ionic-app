@@ -92,7 +92,7 @@ export class SpendingService {
   }): Promise<void> {
     const modal = await this.modalCtrl.create({
       component: SpendingDetailsModalComponent,
-      componentProps:{
+      componentProps: {
         amount: payload.item.amount,
         description: payload.item.description,
         category: payload.item.category,
@@ -122,9 +122,8 @@ export class SpendingService {
     });
     actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
-    switch (role) {
-      case ActionsRoleEnum.Confirm: this.removeSpendingItem(id); break
-    }
+    if (role === ActionsRoleEnum.Confirm) this.removeSpendingItem(id)
+
   }
 
   removeSpendingItem(id: string): void {
