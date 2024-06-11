@@ -29,8 +29,9 @@
     <div class="sum-select">
       <div class="sum">
         <span *ngIf="categoryAmount$ | async">{{ currency$ | async }} {{ categoryAmount$ | async | number: '.2' }} /&nbsp;</span>
-        <span [ngClass]="{ 'small-digits': categoryAmount$ }">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</span>
-        
+        <span
+          [ngClass]="{ 'small-digits': categoryAmount$ }">{{ currency$ | async }} {{ (totalAmount$ | async) | number: '.2' }}</span>
+
       </div>
 
       <div class="select" [formGroup]="formGroup">
@@ -60,7 +61,7 @@
   <ion-accordion-group [value]="selectedCategoryIndex">
     <p *ngIf="!categories.length" class="no-data-message">{{ 'general.messages.noData' | translate }}</p>
 
-    <ion-accordion *ngFor="let category of categories; index as i" [value]=i >
+    <ion-accordion *ngFor="let category of categories; index as i" [value]=i>
 
       <ion-item (click)="onCategorySelect(category, i)" slot="header" color="light">
         <ion-row>
@@ -70,7 +71,8 @@
             <ion-label>{{ category.name }}</ion-label>
           </div>
 
-          <ion-label *ngIf="category.totalAmount">{{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}</ion-label>
+          <ion-label *ngIf="category.totalAmount">{{ currency$ | async }} {{ category.totalAmount | mrMoneyFormat }}
+          </ion-label>
         </ion-row>
       </ion-item>
 
