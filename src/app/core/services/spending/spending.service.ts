@@ -1,19 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '@capacitor/app';
-import { ActionSheetController, ModalController } from '@ionic/angular';
+import { ActionSheetController,  ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 
 import { SpendingActions } from '../../state/actions/spending.actions';
 import { getCurrentMonthPeriodUNIX } from '../../utils/time.utils';
 import { CategoryModel, SpendingModel } from '../../interfaces/models';
 import { ActionsEnum, ActionsRoleEnum } from '../../enums/action-sheet.enums';
-import {
-  ConfigureSpendingModalComponent
-} from '../../../shared/components/configure-spending-modal/configure-spending-modal.component';
-import {
-  SpendingDetailsModalComponent
-} from 'src/app/shared/components/spending-details-modal/spending-details-modal.component';
+import { ConfigureSpendingModalComponent } from '../../../shared/components/configure-spending-modal/configure-spending-modal.component';
+import { SpendingDetailsModalComponent } from 'src/app/shared/components/spending-details-modal/spending-details-modal.component';
 
 @Injectable()
 export class SpendingService {
@@ -23,8 +19,7 @@ export class SpendingService {
     private actionSheetController: ActionSheetController,
     private modalCtrl: ModalController,
     private translateService: TranslateService,
-  ) {
-  }
+  ) { }
 
   async spendingClickActionsModal(item: SpendingModel, categories: CategoryModel[]): Promise<void> {
     const actionSheet = await this.actionSheetController.create({
@@ -62,14 +57,9 @@ export class SpendingService {
     const result = await actionSheet.onDidDismiss();
 
     switch (result.data?.action) {
-      case ActionsEnum.Delete:
-        await this.confirmRemove(item.id);
-        break
-      case ActionsEnum.Edit:
-        await this.openConfigureSpendingModal({ type: ActionsEnum.Edit, categories, item });
-        break
-      case ActionsEnum.Details:
-        await this.openDetailsSpendingModel({ item })
+      case ActionsEnum.Delete: await this.confirmRemove(item.id); break
+      case ActionsEnum.Edit: await this.openConfigureSpendingModal({ type: ActionsEnum.Edit, categories, item }); break
+      case ActionsEnum.Details: await this.openDetailsSpendingModel({ item })
     }
   }
 
@@ -132,11 +122,8 @@ export class SpendingService {
     });
     actionSheet.present();
     const { role } = await actionSheet.onWillDismiss();
-    switch (role) {
-      case ActionsRoleEnum.Confirm:
-        this.removeSpendingItem(id);
-        break
-    }
+    if (role === ActionsRoleEnum.Confirm) this.removeSpendingItem(id)
+
   }
 
   removeSpendingItem(id: string): void {
@@ -148,4 +135,7 @@ export class SpendingService {
     event.target.complete()
   }
 
+  updateSpendingList(): void {
+    this.store.dispatch(SpendingActions.reloadSpendingAndTransactionLists({ payload: getCurrentMonthPeriodUNIX() }));
+  }
 }

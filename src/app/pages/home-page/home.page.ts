@@ -25,9 +25,7 @@ import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
 import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 import { DateFormatEnum } from '../../core/enums/date-format.enums';
-import {
-  MonobankAccountSettingsComponent
-} from 'src/app/shared/components/monobank-account-settings-modal/monobank-account-settings.component';
+import { MonobankAccountSettingsComponent } from 'src/app/shared/components/monobank-account-settings-modal/monobank-account-settings.component';
 
 @Component({
   selector: 'app-home-page',
@@ -101,11 +99,6 @@ export class HomePage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-
-  navigateToStatisticsPage(): void {
-    this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.Statistics}`]).then();
-  }
-
   async openSpendingBasketModal(): Promise<void> {
     const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent, cssClass: 'fullscreen' });
     await modal.present();
@@ -152,19 +145,13 @@ export class HomePage implements OnInit, OnDestroy {
     await actionSheet.present();
     const result = await actionSheet.onDidDismiss();
     switch (result.data?.action) {
-      case ActionsEnum.Add:
-        this.addTransaction(transaction);
-        break
-      case ActionsEnum.AddAs:
-        await this.spendingService.openConfigureSpendingModal({
-          type: ActionsEnum.Edit,
-          categories: this.categories,
-          item: { ...transaction, status: SpendingStatusEnum.Accepted }
-        });
-        break
-      case ActionsEnum.Delete:
-        await this.confirmTransactionRemove([transaction.id]);
-        break
+      case ActionsEnum.Add: this.addTransaction(transaction); break
+      case ActionsEnum.AddAs: await this.spendingService.openConfigureSpendingModal({
+        type: ActionsEnum.Edit,
+        categories: this.categories,
+        item: { ...transaction, status: SpendingStatusEnum.Accepted }
+      }); break
+      case ActionsEnum.Delete: await this.confirmTransactionRemove([transaction.id]); break
     }
   }
 
@@ -224,9 +211,12 @@ export class HomePage implements OnInit, OnDestroy {
     this.selectedSpending.includes(id)
       ? this.selectedSpending = this.selectedSpending.filter(item => item !== id)
       : this.selectedSpending.push(id);
+    if (!this.selectedSpending.length) {
+      this.allNewSpendingsSelected = false
+    }
   }
 
-  selectAllNewSpendings(pendingSpendingList: SpendingModel[]) {
+  selectAllNewSpendings(pendingSpendingList: SpendingModel[]){
     if (this.allNewSpendingsSelected) {
       pendingSpendingList.forEach(item => {
         this.selectedSpending = this.selectedSpending.filter(i => i !== item.id)

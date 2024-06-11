@@ -34,8 +34,8 @@
      
       <div class="action-block" [ngClass]="{'action-full-width': isSelectionActive}">
         <div *ngIf="pendingSpendingList$ | async as pendingSpendingList" class="action">
-          <p *ngIf="isSelectionActive && pendingSpendingList.length" (click)="selectAllNewSpendings(pendingSpendingList)" class="selection-action">
-            SELECT ALL NEW
+          <p *ngIf="isSelectionActive && pendingSpendingList.length" [ngClass]="{'active': allNewSpendingsSelected }" (click)="selectAllNewSpendings(pendingSpendingList)" class="selection-action">
+            {{ 'home.selectAllNew' | translate }}
           </p>
         </div>
         <div class="action-right action">
@@ -81,7 +81,7 @@
 
     <ion-refresher slot="fixed" class="refresh" (ionRefresh)="spendingService.updateHomePage($event)">
       <ion-refresher-content class="refresh"
-        pullingText="Pull down to refresh"
+        [pullingText]="'general.actions.pullUpdate' | translate"
         pullingIcon="chevron-down">
       </ion-refresher-content>
     </ion-refresher>

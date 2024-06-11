@@ -22,22 +22,22 @@
 
   <ion-list *ngIf="categoryList$ | async as categoryList" class="category-list">
     <div *ngFor="let category of categoryList" class="category-item">
-        <div class="category-desc">
-          <app-icon [iconName]="category.icon.iconType" [backgroundColor]="category.icon.background"></app-icon>
-          <ion-label>{{ category.name }}</ion-label>
+      <div class="category-desc">
+        <app-icon [iconName]="category.icon.iconType" [backgroundColor]="category.icon.background"></app-icon>
+        <ion-label>{{ category.name }}</ion-label>
+      </div>
+      <div class="category-commands">
+        <div (click)="editCategory(actionsEnum.Edit, category)" class="category-commands-edit">
+          <ion-icon name="build"></ion-icon>
         </div>
-        <div class="category-commands">
-          <div (click)="editCategory(actionsEnum.Edit, category)" class="category-commands-edit">
-            <ion-icon name="build"></ion-icon>
-          </div>
-          <div
-            *ngIf="!category.isBase"
-            (click)="deleteCategory(category.id)"
-            class="category-commands-delete"
-          >
-            <ion-icon color="danger" name="trash"></ion-icon>
-          </div>
+        <div
+          *ngIf="!category.isBase"
+          (click)="deleteCategory(category.id)"
+          class="category-commands-delete"
+        >
+          <ion-icon color="danger" name="trash"></ion-icon>
         </div>
+      </div>
     </div>
   </ion-list>
 </ion-content>

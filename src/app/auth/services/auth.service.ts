@@ -9,16 +9,15 @@ import 'firebase/compat/firestore';
 import UserCredential = firebase.auth.UserCredential;
 import User = firebase.User;
 import { TranslateService } from '@ngx-translate/core';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
 import { AuthRoutesEnum, MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserState } from '../../core/state/reducers/user.reducer';
 import { AlertService } from '../../core/services/alert/alert.service';
-import { LanguageEnum } from '../../core/constants/languages.constants';
 import { AlertEnum } from '../../core/enums/alert.enums';
-import { error } from 'console';
-import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 
 @Injectable()
 export class AuthService {
@@ -76,7 +75,7 @@ export class AuthService {
       });
   }
 
-  /* Sign in with google for mobile devices */ 
+  /* Sign in with google for mobile devices */
   signInWithGoogleMobile() {
     this.googlePlus
       .login({})
@@ -114,6 +113,43 @@ export class AuthService {
       });
   }
 
+  /** Sign up with Google */
+  signUpWithGoogle(language: string, isPolicyAgreed: boolean) {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.sendVerificationMail().then();
+        if (result.user) {
+          this.addUser(result.user, language, isPolicyAgreed);
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        }
+      })
+      .catch((error) => {
+        this.alertService.showAlert(error.message);
+      });
+  }
+
+  /* Sign up with google for mobile devices */
+  signUpWithGoogleMobile(language: string, isPolicyAgreed: boolean) {
+    this.googlePlus
+      .login({})
+      .then((user) => {
+        const credential = firebase.auth.GoogleAuthProvider.credential(null, user.accessToken);
+        return this.afAuth.signInWithCredential(credential);
+      })
+      .then((result) => {
+        this.sendVerificationMail().then();
+        if (result.user) {
+          this.addUser(result.user, language, isPolicyAgreed);
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        }
+      })
+      .catch((err) => {
+          this.alertService.showAlert(err);
+      });
+  }
+
   /** Send email verification when new user sign up */
   sendVerificationMail() {
     return this.afAuth.currentUser.then((u: any) => u.sendEmailVerification());
@@ -135,7 +171,6 @@ export class AuthService {
   }
 
   /** Change Email with current password **/
-
   changeEmail(currentEmail: string, newEmail: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(currentEmail, password)
@@ -158,7 +193,6 @@ export class AuthService {
   }
 
   /** Change Password with current password **/
-
   changePassword(email: string, newPassword: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)

@@ -9,6 +9,7 @@
     "goToSignIn": "Go to sign in",
     "signUp": "Sign up",
     "signInGoogle": "Sign in with google",
+    "signUpGoogle": "Sign up with google",
     "confirmPolicy": "Please read the privacy policy"
   },
   "language": {
@@ -48,7 +49,8 @@
       "agree": "I agree",
       "removeToBasket": "Remove to basket",
       "selectedToBasket": "Selected to basket",
-      "agreeWithPolicyCheckBox": "I agree to the policy"
+      "agreeWithPolicyCheckBox": "I agree to the policy",
+      "pullUpdate": "Pull down to refresh"
     },
     "dates" : {
       "today": "Today",
@@ -87,7 +89,8 @@
     "addSpending": "Add spending",
     "update": "Update list",
     "newTransactions": "New Transactions",
-    "mySpending": "My spending"
+    "mySpending": "My spending",
+    "selectAllNew": "Select all new"
   },
   "statistics": {
     "title": "Statistics",
