@@ -6,10 +6,10 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" [formGroup]="formGroup" scroll-y="false">
+<ion-content class="ion-padding" [fullscreen]="true" [formGroup]="formGroup" scroll-y="false">
   <ion-list class="ion-margin-vertical">
-    <ion-item>
-      <ion-label>{{ 'auth.email' | translate }}</ion-label>
+    <ion-item class="input-item">
+      <ion-label position="floating">{{ 'auth.email' | translate }}</ion-label>
       <ion-input
         formControlName="email"
         [placeholder]="'auth.emailPlaceholder' | translate"
@@ -17,32 +17,43 @@
       ></ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label>{{ 'auth.password' | translate }}</ion-label>
+    <ion-item class="input-item">
+      <ion-label position="floating">{{ 'auth.password' | translate }}</ion-label>
       <ion-input
         formControlName="password"
-        [type]="showPassword ? 'text' : 'password'"
-      ></ion-input>
-      <ion-icon *ngIf="!showPassword" name="eye-outline" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
-      <ion-icon *ngIf="showPassword" name="eye-off-outline" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
+        [type]="showPassword ? 'text' : 'password'">
+      </ion-input>
+      <ion-icon 
+        [name]="showPassword? 'eye-off-outline' : 'eye-outline'" 
+        slot="end"  
+        size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
     </ion-item>
 
-    <ion-item>
-      <ion-label>{{ 'auth.confirmPassword' | translate }}</ion-label>
-      <ion-input formControlName="confirmPassword" [type]="showPassword ? 'text' : 'password'"></ion-input>
-
-      <ion-icon *ngIf="!showPassword" name="eye-outline" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
-      <ion-icon *ngIf="showPassword" name="eye-off-outline" size="small" class="ion-margin-end" (click)="toggleShowPassword()"></ion-icon>
+    <ion-item class="input-item">
+      <ion-label position="floating">{{ 'auth.confirmPassword' | translate }}</ion-label>
+      <ion-input 
+        formControlName="confirmPassword" 
+        [type]="showPassword ? 'text' : 'password'">
+      </ion-input>
+      <ion-icon 
+        [name]="showPassword? 'eye-off-outline' : 'eye-outline'" 
+        slot="end"  
+        size="small" 
+        class="ion-margin-end eye" 
+        (click)="toggleShowPassword()">
+      </ion-icon>
     </ion-item>
 
-    <ion-item>
+    <ion-item >
       <ion-label>{{ 'pages.selectLanguage' | translate }}</ion-label>
       <ion-select
         interface="popover"
         formControlName="language"
         [placeholder]="'pages.selectLanguagePlaceholder' | translate"
-        (ngModelChange)="languageChange($event)"
-      >
+        (ngModelChange)="languageChange($event)">
         <ion-select-option *ngFor="let item of languageList" [value]="item">
           {{ 'language.' + item | translate }}
         </ion-select-option>
@@ -50,22 +61,43 @@
     </ion-item>
   </ion-list>
 
-  <ion-row class="ion-padding">
+  <ion-row class="ion-padding btns">
     <ion-button
       shape="round"
-      fill="outline"
       (click)="goToSignIn()"
+      class="btn"
     >
       {{ 'auth.goToSignIn' | translate }}
     </ion-button>
     <ion-button
       shape="round"
-      class="ion-margin-start sign-up-btn"
+      class="ion-margin-start sign-up-btn btn"
       [disabled]="formGroup.invalid"
       (click)="privacyNoticeModal()"
     >
       {{ 'auth.signUp' | translate }}
     </ion-button>
   </ion-row>
+
+  <ion-row *ngIf="!platform.is('cordova')" class="ion-padding btns">
+    <ion-button 
+      shape="round" 
+      class="btn google"  
+      (click)="signUpWithGoogle()">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      {{ 'auth.signUpGoogle' | translate }}
+    </ion-button>
+  </ion-row>
+
+  <ion-row *ngIf="platform.is('cordova')" class="ion-padding btns">
+    <ion-button 
+      shape="round" 
+      class="btn google"  
+      (click)="signUpWithGoogleMobile()">
+      <ion-icon slot="start" name="logo-google"></ion-icon>
+      {{ 'auth.signUpGoogle' | translate }}
+    </ion-button>
+  </ion-row>
+
 </ion-content>
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
@@ -25,6 +25,7 @@ import { SpendingService } from '../../core/services/spending/spending.service';
 import { SpendingStatusEnum } from '../../core/enums/spending-status.enum';
 import { SpendingBasketModalComponent } from './spending-basket-modal/spending-basket-modal.component';
 import { DateFormatEnum } from '../../core/enums/date-format.enums';
+import { MonobankAccountSettingsComponent } from 'src/app/shared/components/monobank-account-settings-modal/monobank-account-settings.component';
 
 @Component({
   selector: 'app-home-page',
@@ -42,6 +43,7 @@ export class HomePage implements OnInit, OnDestroy {
   fullPendingSpendingList: SpendingModel[] = [];
   subscription: Subscription = new Subscription();
   selectedSpending: string[] = [];
+  allNewSpendingsSelected: boolean = false;
   deleteTask: string[] = [];
   isSelectionActive = false;
   countOfAdditionalMonths = 0;
@@ -59,7 +61,7 @@ export class HomePage implements OnInit, OnDestroy {
     private actionSheetController: ActionSheetController,
     private modalCtrl: ModalController,
     private translateService: TranslateService,
-    public spendingService : SpendingService,
+    public spendingService: SpendingService,
   ) {
     this.formGroup = this.fb.group({ amount: this.fb.control(null) });
   }
@@ -92,16 +94,19 @@ export class HomePage implements OnInit, OnDestroy {
     this.store.dispatch(SpendingActions.pendingSpendingList());
   }
 
+
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
-  navigateToStatisticsPage(): void {
-    this.router.navigate([`${MainRoutesEnum.Pages}/${PageRoutesEnum.Statistics}`]).then();
-  }
-
   async openSpendingBasketModal(): Promise<void> {
     const modal = await this.modalCtrl.create({ component: SpendingBasketModalComponent, cssClass: 'fullscreen' });
+    await modal.present();
+    await modal.onWillDismiss();
+  }
+
+  async monoAccSettingsOpen(): Promise<void> {
+    const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent, cssClass: 'fullscreen' });
     await modal.present();
     await modal.onWillDismiss();
   }
@@ -206,6 +211,25 @@ export class HomePage implements OnInit, OnDestroy {
     this.selectedSpending.includes(id)
       ? this.selectedSpending = this.selectedSpending.filter(item => item !== id)
       : this.selectedSpending.push(id);
+    if (!this.selectedSpending.length) {
+      this.allNewSpendingsSelected = false
+    }
+  }
+
+  selectAllNewSpendings(pendingSpendingList: SpendingModel[]){
+    if (this.allNewSpendingsSelected) {
+      pendingSpendingList.forEach(item => {
+        this.selectedSpending = this.selectedSpending.filter(i => i !== item.id)
+      })
+    } else {
+      pendingSpendingList.forEach(item => {
+        if (!this.selectedSpending.includes(item.id)) {
+          this.selectedSpending.push(item.id)
+        }
+      })
+    }
+    this.allNewSpendingsSelected = !this.allNewSpendingsSelected
+
   }
 
   multiDeleteTransactions(ids: string[]) {
@@ -224,7 +248,7 @@ export class HomePage implements OnInit, OnDestroy {
   }
 
   loadMoreData(event: any) {
-    this.countOfAdditionalMonths ++;
+    this.countOfAdditionalMonths++;
     this.store.dispatch(SpendingActions.homeSpendingList({
       payload: getMonthPeriodCurrentMonthMinusValueUNIX(this.countOfAdditionalMonths)
     }));

@@ -3,15 +3,50 @@
 }
 
 ion-input {
-  --background: var(--page-background);
+  background-color: transparent !important;
 }
 
-.sign-up-btn {
-  color: var(--button-content-color-1);
-  border: 1px solid var(--button-content-color-1);
-  border-radius: 64px;
-  --background-activated: none;
-  --background-focused: none;
-  --background-hover: none;
-  --ripple-color: transparent;
+.btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .google {
+    width: 100% !important;
+    color: white;
+    --background-activated: none;
+    --background-focused: none;
+    --background-hover: none;
+    --ripple-color: transparent;
+  }
+
+  .sign-up-btn {
+    color: var(--button-content-color-1);
+    --background-activated: none;
+    --background-focused: none;
+    --background-hover: none;
+    --ripple-color: transparent;
+    border: 2px solid var(--button-content-color-1);
+  }
+
+  .btn {
+    width: 40%;
+    border-radius: 64px;  
+    background-color: var(--background-color-1);
+  }
+}
+
+
+.input-item {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid white;
+  margin-bottom: 10px;
+  
+  .eye {
+    padding-top: 15px;
+    color: white;
+  }
 }

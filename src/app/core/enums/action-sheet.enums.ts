@@ -8,6 +8,7 @@ export enum ActionsEnum {
   Confirm = 'Confirm',
   Yes = 'Yes',
   No = 'No',
+  Details = 'Details'
 }
 
 export enum ActionsRoleEnum {

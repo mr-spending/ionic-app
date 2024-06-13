@@ -12,7 +12,7 @@ import { SpendingBasketModalComponent } from './spending-basket-modal/spending-b
   ],
   declarations: [
     HomePage,
-    SpendingBasketModalComponent,
+    SpendingBasketModalComponent
   ]
 })
 export class HomePageModule {}

@@ -7,7 +7,10 @@
     "confirmPassword": "Confirm password:",
     "goToSignUp": "Go to sign up",
     "goToSignIn": "Go to sign in",
-    "signUp": "Sign up"
+    "signUp": "Sign up",
+    "signInGoogle": "Sign in with google",
+    "signUpGoogle": "Sign up with google",
+    "confirmPolicy": "Please read the privacy policy"
   },
   "language": {
     "en": "English",
@@ -28,6 +31,7 @@
     "selectLanguagePlaceholder": "Select"
   },
   "general": {
+    "more": "More",
     "actions" : {
       "add": "Add",
       "addAs": "Add As",
@@ -45,7 +49,8 @@
       "agree": "I agree",
       "removeToBasket": "Remove to basket",
       "selectedToBasket": "Selected to basket",
-      "agreeWithPolicyCheckBox": "I agree to the policy"
+      "agreeWithPolicyCheckBox": "I agree to the policy",
+      "pullUpdate": "Pull down to refresh"
     },
     "dates" : {
       "today": "Today",
@@ -84,7 +89,8 @@
     "addSpending": "Add spending",
     "update": "Update list",
     "newTransactions": "New Transactions",
-    "mySpending": "My spending"
+    "mySpending": "My spending",
+    "selectAllNew": "Select all new"
   },
   "statistics": {
     "title": "Statistics",
@@ -100,8 +106,8 @@
     "categoryManagement": "Category management",
     "monoAccSettings": "Monobank account settings",
     "privacyNotice": "Privacy notice",
-    "inputToken": "Input token...",
-    "setAcc": "Set account",
+    "inputToken": "Paste token here...",
+    "setAcc": "Link account",
     "changeAcc": "Change account",
     "forgetAcc": "Forget account",
     "selectCards": "Select cards",
@@ -126,14 +132,26 @@
     "supportService": "Support service",
     "accDeletion": "Delete account"
   },
+  "user":{
+    "title":"User"
+  },
+  "spendingDetailsModal":{
+    "title":"Details",
+    "amount": "Amount:",
+    "category": "Category:",
+    "description": "Description:",
+    "date": "Date:" 
+  },
   "editSpendingModal": {
-    "title": "Edit spending",
+    "titleEdit": "Edit spending",
+    "titleAdd": "Add spending",
     "amount": "Amount:",
     "description": "Description:",
     "amountPlaceholder": "Type your amount",
     "descriptionPlaceholder": "Type your description. Optional.",
     "category": "Category:",
-    "selectCategoryPlaceholder": "Select category"
+    "selectCategoryPlaceholder": "Select category",
+    "createCategory": "Create category"
   },
   "selectMonthYearModal": {
     "selectDate": "Select date"

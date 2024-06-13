@@ -1,0 +1,24 @@
+:host {
+    background: var(--background-color-1);
+}
+
+ion-card {
+    background-color: var(--background-color-main);
+    border-radius: 15px;
+    margin-bottom: 10px;
+    color: whitesmoke;
+
+    ion-card-header {
+        ion-card-title {
+            font-size: 1.3rem;
+        }
+    }
+
+    ion-card-content {
+        .category-div {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    }
+}

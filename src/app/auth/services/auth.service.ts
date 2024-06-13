@@ -9,18 +9,18 @@ import 'firebase/compat/firestore';
 import UserCredential = firebase.auth.UserCredential;
 import User = firebase.User;
 import { TranslateService } from '@ngx-translate/core';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
 
-import { AuthRoutesEnum, MainRoutesEnum } from '../../core/enums/routing.enums';
+import { AuthRoutesEnum, MainRoutesEnum, PageRoutesEnum } from '../../core/enums/routing.enums';
 import { UserModel } from '../../core/interfaces/models';
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserState } from '../../core/state/reducers/user.reducer';
 import { AlertService } from '../../core/services/alert/alert.service';
-import { LanguageEnum } from '../../core/constants/languages.constants';
 import { AlertEnum } from '../../core/enums/alert.enums';
+
 
 @Injectable()
 export class AuthService {
-
   private authState$: Observable<any> = this.afAuth.authState;
 
   constructor(
@@ -29,11 +29,11 @@ export class AuthService {
     private alertService: AlertService,
     private store: Store<UserState>,
     private translate: TranslateService,
-  ) {
-  }
+    public googlePlus: GooglePlus
+  ) {}
 
   isLoggedIn(): Observable<boolean> {
-    return this.authState$.pipe(map(res => !!res));
+    return this.authState$.pipe(map((res) => !!res));
   }
 
   get token(): Observable<string | null> {
@@ -46,8 +46,10 @@ export class AuthService {
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
         if (result.user) {
-          this.store.dispatch(UserActions.setUserData({ userId: result.user.uid }));
-          this.router.navigate([`${MainRoutesEnum.Pages}`]).then()
+          this.store.dispatch(
+            UserActions.setUserData({ userId: result.user.uid })
+          );
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
         }
       })
       .catch((error) => {
@@ -55,8 +57,48 @@ export class AuthService {
       });
   }
 
+  /** Sign in with google */
+  signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        if (result.user) {
+          this.store.dispatch(
+            UserActions.setUserData({ userId: result.user.uid })
+          );
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        }
+      })
+      .catch((error) => {
+        this.alertService.showAlert(error.message);
+      });
+  }
+
+  /* Sign in with google for mobile devices */
+  signInWithGoogleMobile() {
+    this.googlePlus
+      .login({})
+      .then((user) => {
+        const credential = firebase.auth.GoogleAuthProvider.credential(null, user.accessToken);
+        return this.afAuth.signInWithCredential(credential);
+      })
+      .then((result) => {
+        this.store.dispatch(UserActions.setUserData({ userId: result.user?.uid || '' }));
+        this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+      })
+      .catch((err) => {
+          this.alertService.showAlert(err);
+      });
+  }
+
   /** Sign up with email/password */
-  signUp(email: string, password: string, language: string, isPolicyAgreed: boolean) {
+  signUp(
+    email: string,
+    password: string,
+    language: string,
+    isPolicyAgreed: boolean
+  ) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result: UserCredential) => {
@@ -68,6 +110,43 @@ export class AuthService {
       })
       .catch((error) => {
         this.alertService.showAlert(error.message);
+      });
+  }
+
+  /** Sign up with Google */
+  signUpWithGoogle(language: string, isPolicyAgreed: boolean) {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    return this.afAuth
+      .signInWithPopup(provider)
+      .then((result) => {
+        this.sendVerificationMail().then();
+        if (result.user) {
+          this.addUser(result.user, language, isPolicyAgreed);
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        }
+      })
+      .catch((error) => {
+        this.alertService.showAlert(error.message);
+      });
+  }
+
+  /* Sign up with google for mobile devices */
+  signUpWithGoogleMobile(language: string, isPolicyAgreed: boolean) {
+    this.googlePlus
+      .login({})
+      .then((user) => {
+        const credential = firebase.auth.GoogleAuthProvider.credential(null, user.accessToken);
+        return this.afAuth.signInWithCredential(credential);
+      })
+      .then((result) => {
+        this.sendVerificationMail().then();
+        if (result.user) {
+          this.addUser(result.user, language, isPolicyAgreed);
+          this.router.navigate([`${MainRoutesEnum.Pages}`]).then();
+        }
+      })
+      .catch((err) => {
+          this.alertService.showAlert(err);
       });
   }
 
@@ -86,22 +165,24 @@ export class AuthService {
       emailVerified: user.emailVerified,
       displayLanguage: language,
       categories: [],
-      isPolicyAgreed
-    }
+      isPolicyAgreed,
+    };
     this.store.dispatch(UserActions.addUser({ payload }));
   }
 
   /** Change Email with current password **/
-
   changeEmail(currentEmail: string, newEmail: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(currentEmail, password)
       .then(() => {
         const user = firebase.auth().currentUser;
         if (!user) return;
-        return user.updateEmail(newEmail)
+        return user
+          .updateEmail(newEmail)
           .then(() => {
-            this.store.dispatch(UserActions.setUserEmail({ payload: newEmail }));
+            this.store.dispatch(
+              UserActions.setUserEmail({ payload: newEmail })
+            );
             return;
           })
           .catch((err) => this.alertService.showAlert(err.message));
@@ -112,18 +193,18 @@ export class AuthService {
   }
 
   /** Change Password with current password **/
-
   changePassword(email: string, newPassword: string, password: string) {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         const user = firebase.auth().currentUser;
         if (!user) return;
-        return user.updatePassword(newPassword)
+        return user
+          .updatePassword(newPassword)
           .then(() => {
             this.alertService.showAlert(
               this.translate.instant(AlertEnum.PasswordHasBeenUpdatedText),
-              this.translate.instant(AlertEnum.PasswordHasBeenUpdatedHeader),
+              this.translate.instant(AlertEnum.PasswordHasBeenUpdatedHeader)
             );
             return true;
           })
@@ -136,6 +217,12 @@ export class AuthService {
 
   /** Sign out */
   signOut() {
-    return this.afAuth.signOut().then(() => this.router.navigate([`${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignIn}`]));
+    return this.afAuth
+      .signOut()
+      .then(() =>
+        this.router.navigate([
+          `${MainRoutesEnum.Auth}/${AuthRoutesEnum.SignIn}`,
+        ])
+      );
   }
 }

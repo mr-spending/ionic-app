@@ -2,19 +2,6 @@
     background: var(--page-background);
 }
 
-ion-header {
-    ion-title {
-      padding-left: 6px;
-      width: max-content;
-      padding-right: 0;
-    }
-
-    .main-title {
-      text-overflow: inherit;
-      white-space: normal;
-    }
-}
-
 ion-content {
     p {
         white-space: break-spaces;

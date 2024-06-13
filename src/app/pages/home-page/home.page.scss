@@ -68,6 +68,7 @@ ion-content {
 
     .add-spending {
       display: flex;
+      justify-content: center;
       gap: 15px;
 
       ion-input {
@@ -80,10 +81,10 @@ ion-content {
       }
 
       ion-button {
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
         margin: 0;
-        --border-radius: 20px;
+        --border-radius: 30px;
         --background: var(--background-color-1);
         --padding-start: 5px;
         --padding-end: 5px;
@@ -114,77 +115,84 @@ ion-content {
 
     .title-block {
       display: flex;
-      flex-direction: row;
+      flex-direction: row-reverse;
       justify-content: space-between;
       align-items: center;
+      width: 100%;
 
       .spending-title {
         font-size: 24px;
         margin: 15px 0;
       }
 
+      .action-full-width {
+        width: 100%;
+      }
+
       .action-block {
         display: flex;
-        flex-direction: row;
+        justify-content: space-between !important;
         align-items: center;
-        gap: 25px;
 
-        .selection-action {
-          border: 1px solid var(--button-content-color-1);
-          border-radius: 15px;
-          color: var(--button-content-color-1);
-          margin: 16px 0 12px;
-          padding: 6px 10px 4px;
-        }
 
-        .selection-action.active {
-          color: var(--text-color-special-dark);
-          background-color: var(--button-content-color-1);
-        }
+        .action {
+          width: fit-content;
+          display: flex;
+          align-items: center;
 
-        ion-button {
-          width: 25px;
-          height: 25px;
-          margin: 0;
-          --border-radius: 0;
-          --padding-start: 0;
-          --padding-end: 0;
-          --background-activated: none;
-          --background-focused: none;
-          --background-hover: none;
-          --ripple-color: transparent;
+          .selection-action {
+            border: 1px solid var(--button-content-color-1);
+            border-radius: 15px;
+            color: var(--button-content-color-1);
+            margin: 16px 0 12px;
+            padding: 6px 10px 4px;
+          }
 
-          ion-icon {
+          .selection-action.active {
+            color: var(--text-color-special-dark);
+            background-color: var(--button-content-color-1);
+          }
+
+          ion-button {
             width: 25px;
             height: 25px;
+            margin: 0;
+            margin-left: 10px;
+            --border-radius: 0;
+            --padding-start: 0;
+            --padding-end: 0;
+            --background-activated: none;
+            --background-focused: none;
+            --background-hover: none;
+            --ripple-color: transparent;
+
+            ion-icon {
+              width: 25px;
+              height: 25px;
+            }
+
+            ion-icon:disabled {
+              color: var(--color-gray-2);
+            }
+
+            ion-icon.active {
+              color: var(--button-content-color-1);
+            }
           }
 
-          ion-icon:disabled {
-            color: var(--color-gray-2);
-          }
-
-          ion-icon.active {
-            color: var(--button-content-color-1);
+          .action-right {
+            display: flex;
+            width: fit-content;
           }
         }
       }
     }
   }
 
-  .fixed:after {
-    content: '';
-    display: block;
-    top: -4px;
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background-color: var(--background-color-3);
-  }
-
   .scroll {
     width: calc(100% + 35px);
     height: calc(100% - 221px);
-    overflow: scroll;
+    overflow-y: scroll;
 
     &::part(scroll) {
       padding: 0 35px 0 0;
@@ -197,7 +205,7 @@ ion-content {
       padding: 0;
 
       .bank-transactions-title {
-        font-size: 14px;;
+        font-size: 14px;
         color: var(--ion-color-danger-tint);
         align-self: center;
         margin: 10px 0;
@@ -230,6 +238,11 @@ ion-content {
     ion-infinite-scroll {
       max-height: 1px;
       overflow: hidden;
+    }
+
+    .refresh {
+      width: calc(100% - 17px);
+      display: flex;
     }
   }
 }

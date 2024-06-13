@@ -7,14 +7,14 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from '../../auth/services/auth.service';
-import { MonobankAccountSettingsComponent } from './monobank-account-settings-modal/monobank-account-settings.component';
+
 import { UserActions } from '../../core/state/actions/user.actions';
 import { UserSelectors } from '../../core/state/selectors/user.selectors';
 import { CategoryManagementModalComponent } from './category-management-modal/category-management-modal.component';
-import { ChangeEmailPasswordModalComponent } from './change-email-password-modal/change-email-password-modal.component';
 import { UserEditEnum } from '../../core/enums/user-edit.enums';
 import { PrivacyNoticeModalComponent } from './privacy-notice-modal/privacy-notice-modal.component';
 import { environment } from '../../../environments/environment';
+import { MonobankAccountSettingsComponent } from 'src/app/shared/components/monobank-account-settings-modal/monobank-account-settings.component';
 
 @Component({
   selector: 'app-settings-page',
@@ -63,16 +63,6 @@ export class SettingsPage implements OnDestroy {
     const modal = await this.modalCtrl.create({ component: MonobankAccountSettingsComponent, cssClass: 'fullscreen' });
     await modal.present();
     await modal.onWillDismiss();
-  }
-
-  async changeEmailPasswordModal(type: UserEditEnum) {
-    const modal = await this.modalCtrl.create({
-      component: ChangeEmailPasswordModalComponent,
-      componentProps: { type },
-      cssClass: 'fullscreen'
-    });
-    await modal.present();
-    await modal.onWillDismiss()
   }
 
   async privacyNoticeModal() {

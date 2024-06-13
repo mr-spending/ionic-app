@@ -3,7 +3,10 @@
     <ion-buttons slot="start">
       <ion-button color="danger" (click)="cancel()">{{ 'general.actions.cancel' | translate }}</ion-button>
     </ion-buttons>
-    <ion-title>{{ 'editSpendingModal.title' | translate }}</ion-title>
+    <ion-title *ngIf="type !== actionsEnum.Add; else add">{{ 'editSpendingModal.titleEdit' | translate }}</ion-title>
+    <ng-template #add>
+      <ion-title >{{ 'editSpendingModal.titleAdd' | translate }}</ion-title>
+    </ng-template>
     <ion-buttons slot="end">
       <ion-button (click)="confirm()" [disabled]="!formGroup?.valid">{{ 'general.actions.confirm' | translate }}</ion-button>
     </ion-buttons>
@@ -12,33 +15,17 @@
 
 <ion-content *ngIf="formGroup" class="ion-padding">
   <ion-list [formGroup]="formGroup">
-    <ion-item *ngIf="type === actionsEnum.Edit || isAmountChangeable">
-      <ion-label>{{ 'editSpendingModal.amount' | translate }}</ion-label>
-      <ion-input
-        class="ion-text-right"
+    <ion-item class="amount-item ion-padding" lines="none">
+      <input
+        class="amount-input"
         formControlName="amount"
         maxlength="15"
-        type="tel"
-        mrCurrencyMask
-        [placeholder]="(currency$ | async) + '0.00'"
-      ></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label class="select-label">{{ 'editSpendingModal.category' | translate }}</ion-label>
-      <ion-select
-        class="select-selector"
-        interface="popover"
-        [placeholder]="'editSpendingModal.selectCategoryPlaceholder' | translate"
-        name="category"
-        formControlName="category"
-        [selectedText]="formGroup.value.category?.name"
+        type="number"
+        min="0"
+        [placeholder]="(currency$ | async) + '0'"
+        #inputElement
       >
-        <ion-select-option *ngFor="let category of categories" [value]="category">{{ category.name }}</ion-select-option>
-      </ion-select>
-      <div (click)="addCategory()" class="category-add">
-        <ion-icon name="add"></ion-icon>
-      </div>
+      
     </ion-item>
 
     <ion-item>
@@ -48,5 +35,29 @@
         [placeholder]="'editSpendingModal.descriptionPlaceholder' | translate"
       ></ion-input>
     </ion-item>
+
+    <ion-item detail="false" [button]="true" (click)="addCategory()">
+      <ion-label >
+        {{ 'editSpendingModal.createCategory' | translate }}
+      </ion-label>
+        <ion-icon name="add"></ion-icon>
+    </ion-item>
+
+    <ion-radio-group class="categories" value="strawberries" formControlName="category">
+      <ion-item  
+        *ngFor="let category of categories" 
+        [button]="true" 
+        (click)="selectCategory(category)" 
+        detail="false">
+        <app-icon 
+          slot="start" 
+          [iconName]="category.icon.iconType" 
+          [backgroundColor]="category.icon.background">
+        </app-icon>
+        <ion-label>{{category.name}}</ion-label>
+        <ion-icon *ngIf="selectedCategory && selectedCategory.id == category.id" name="checkmark-outline"></ion-icon>
+      </ion-item>
+    </ion-radio-group>
+
   </ion-list>
 </ion-content>

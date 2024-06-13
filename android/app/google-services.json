@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "642008186725",
+    "firebase_url": "https://mrspending-e9b8b-default-rtdb.firebaseio.com",
+    "project_id": "mrspending-e9b8b",
+    "storage_bucket": "mrspending-e9b8b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:642008186725:android:ad2c09122126daf3a0ab8c",
+        "android_client_info": {
+          "package_name": "mr.spending"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "642008186725-lkqgl2php9acle18uk0rb4tngbfjkfct.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "mr.spending",
+            "certificate_hash": "788f750f5b7b27c320d94b7415111f888ccb36ba"
+          }
+        },
+        {
+          "client_id": "642008186725-ejkbgg8mija68782j5jkrllctqcuit7s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdIq04lbAN97rqdmQrwuj4IcNDdjciJXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "642008186725-ejkbgg8mija68782j5jkrllctqcuit7s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "642008186725-33sbaqdtdk3ft570e7suagkfp2oesn8t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "mr.studio"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

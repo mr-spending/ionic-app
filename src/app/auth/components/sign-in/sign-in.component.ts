@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Platform } from '@ionic/angular';
 
 import { AuthService } from '../../services/auth.service';
 import { AuthRoutesEnum, MainRoutesEnum } from '../../../core/enums/routing.enums';
@@ -18,6 +19,7 @@ export class SignInComponent {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
+    public platform: Platform,
   ) {
     this.formGroup = this.fb.group({
       email: this.fb.control(null, [Validators.required, Validators.email]),
@@ -27,8 +29,15 @@ export class SignInComponent {
 
   signIn(): void {
     const formValue = this.formGroup.value;
-
     this.authService.signIn(formValue.email, formValue.password).then();
+  }
+
+  signInWithGoogle(): void {
+    this.authService.signInWithGoogle();
+  }
+
+  signInWithGoogleMobile() {
+    this.authService.signInWithGoogleMobile()
   }
 
   goToSignUp() {

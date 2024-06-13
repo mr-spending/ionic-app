@@ -4,3 +4,12 @@ ion-header {
     padding-left: 40px;
   }
 }
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: fit-content;
+  height: 100%;
+  padding: 0;
+}

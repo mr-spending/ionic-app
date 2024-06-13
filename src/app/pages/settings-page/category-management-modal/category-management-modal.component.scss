@@ -16,6 +16,12 @@ ion-header {
 
 ion-content {
 
+  .add-category{
+    --background: var(--background-color-1);
+    --border-radius: 10px;
+    margin-bottom: 10px;
+  }
+
   .category-add {
     display: flex;
     align-items: center;
